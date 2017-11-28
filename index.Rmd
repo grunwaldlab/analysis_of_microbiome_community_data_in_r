@@ -1,0 +1,12 @@
+---
+title: "Analysis of Microbiome Community Data in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, child="_sessioninfo.Rmd"}
+```

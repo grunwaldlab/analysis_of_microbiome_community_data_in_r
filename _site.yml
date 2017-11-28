@@ -1,0 +1,19 @@
+name: my-website
+navbar:
+  title: Home
+  left:
+  - text: About
+    href: about.html
+  right:
+  - icon: fa-github
+    href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r
+output:
+  html_document:
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
+output_dir: _site
+

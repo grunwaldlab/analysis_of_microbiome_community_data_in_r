@@ -1,0 +1,5 @@
+## Session information:
+
+```{r results = "hold", message = FALSE, echo = FALSE}
+devtools::session_info()
+```
