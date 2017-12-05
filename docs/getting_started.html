@@ -11,7 +11,7 @@
 
 
 
-<title>Getting started</title>
+<title>Getting ready to use R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,6 +23,49 @@
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -188,7 +231,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Getting started</h1>
+<h1 class="title toc-ignore">Getting ready to use R</h1>
 <h3 class="subtitle"><em><em>ZSL Foster and NJ Grünwald</em></em></h3>
 
 </div>
@@ -196,9 +239,133 @@ $(document).ready(function () {
 
 <pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d %H:%M:%OS&quot;, tz = tz): unknown
 ## timezone &#39;zone/tz/2017c.1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
+<p>R provides a unique environment for performing population genetic analyses. You will particularly enjoy not having to switch data formats and operating systems to execute a series of analyses, as was the case until now. Furthermore, R provides graphing capabilities that are ready for use in publications, with only a little bit of extra effort. But first, let’s install R, install an integrated development environment, open R, and load R packages.</p>
+<div id="installing-r" class="section level2">
+<h2>Installing R</h2>
+<ol style="list-style-type: decimal">
+<li><p>Download and install the <a href="http://www.r-project.org">R</a> statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.</p></li>
+<li><p>Download and install the free, open source edition of the <a href="http://www.rstudio.com/ide/">RStudio Desktop</a> integrated development environment (IDE) that we recommend.</p></li>
+</ol>
+</div>
+<div id="installing-the-required-packages" class="section level2">
+<h2>Installing the required packages</h2>
+<p>The following packages are utilized in this primer:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://cran.r-project.org/web/packages/vegan/index.html">vegan</a></li>
+<li><a href="https://cran.r-project.org/web/packages/metacoder/index.html">metacoder</a></li>
+<li><a href="https://joey711.github.io/phyloseq/install.html">phyloseq</a></li>
+<li><a href="http://cran.r-project.org/web/packages/ggplot2/index.html">ggplot2</a></li>
+</ol>
+<p>More R resources can be found here: <a href="https://microsud.github.io/Tools-Microbiome-Anlaysis/" class="uri">https://microsud.github.io/Tools-Microbiome-Anlaysis/</a>.</p>
+<p>Use the following script to install these packages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>), <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>We wrote and actively maintain <em>metacoder</em> <span class="citation">(Foster, Sharpton &amp; Grünwald, 2017)</span> and it is heavily relied upon in this primer. You can think of an R package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
+<p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</code></pre></div>
+<pre><code>## Loading required package: adegenet</code></pre>
+<pre><code>## Loading required package: ade4</code></pre>
+<pre><code>## 
+##    /// adegenet 2.1.0 is loaded ////////////
+## 
+##    &gt; overview: &#39;?adegenet&#39;
+##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
+##    &gt; bug reports/feature requests: adegenetIssues()</code></pre>
+<pre><code>## This is poppr version 2.5.0. To get started, type package?poppr
+## OMP parallel support: available</code></pre>
+<p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
+<p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
+</div>
+<div id="a-quick-introduction-to-r-using-rstudio" class="section level2">
+<h2>A quick introduction to R using RStudio</h2>
+<p>Next, let’s review some of the basic features and functions of R. To start R, open the RStudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the RStudio application.</p>
+<blockquote>
+<p>Note that R is a case sensitive language!</p>
+</blockquote>
+<p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left RStudio window pane) that will retrieve the current working directory on your machine:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></code></pre></div>
+<blockquote>
+<p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
+</blockquote>
+<p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentation of the function mlg()</span></code></pre></div>
+<p>To quit R you can either use the <kbd>RStudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
+</div>
+<div id="using-magrittr" class="section level2">
+<h2>Using <em>magrittr</em></h2>
+<p>Various chapters throughout this primer will have the symbol <code>%&gt;%</code> in the code. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. Here’s a <a href="http://rforcats.net/#pipes">short description of these “pipes” with cats</a>. When reading code, it can be thought of as equivalent to saying “and then”. For example, if you have three consecutive steps to a process, you would write this in English as:</p>
+<blockquote>
+<p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
+</blockquote>
+<p>In R code with <em>magrittr</em>, assuming that each step is a function, it might be written as:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_one</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_two</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_three</span>()</code></pre></div>
+<p>Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
+<div id="consider-a-fake-example" class="section level4">
+<h4>Consider a fake Example:</h4>
+<p>Adapted from <a href="https://twitter.com/_inundata/status/557980236130689024">Hadley Wickham</a>. Based on the children’s song, <a href="http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">Little bunny foo foo</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()
+
+<span class="kw">bop_on</span>(<span class="kw">scoop_up</span>(<span class="kw">hop_through</span>(foo_foo, forest), field_mouse), head)
+
+<span class="co"># VS</span>
+
+foo_foo <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">hop_through</span>(forest) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bop_on</span>(head)</code></pre></div>
+</div>
+<div id="now-for-a-real-example" class="section level4">
+<h4>Now for a real Example:</h4>
+<p>We will use the <em>Phytophthora infestans</em> microsatellite data from North and South America [@]. Let’s calculate allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Strata.html">Population strata and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
+<span class="kw">data</span>(Pinf)
+
+<span class="co"># Compare the traditional R script</span>
+
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country)),
+                            <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># versus the magrittr piping:</span>
+
+allelic_diversity &lt;-<span class="st"> </span>Pinf <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># clone censor by continent and country.</span>
+<span class="st">  </span><span class="kw">seppop</span>() <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
+<span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre></div>
+<blockquote>
+<p>To observe the results type <code>allelic_diversity</code> into the console after each statement.</p>
+</blockquote>
+<p>The <code>%&gt;%</code> operator is thus good if you have to do a lot of small steps in your analysis. It allows your code to be more readable and reproducible.</p>
+</div>
+</div>
+<div id="packages-and-getting-help" class="section level2">
+<h2>Packages and getting help</h2>
+<p>One way that R shines above other languages for analysis is the fact that R packages in CRAN are all documented. Help files are written in HTML and give the user a brief overview of:</p>
+<ul>
+<li>the purpose of a function,</li>
+<li>the parameters it takes,</li>
+<li>the output it yields,</li>
+<li>and some examples demonstrating its usage.</li>
+</ul>
+<p>To see all of the help topics in a package, you can simply type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span>
+<span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span>
+?amova                  <span class="co"># same as above.</span>
+??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></code></pre></div>
+<p>Some packages include vignettes that can have different formats such as being introductions, tutorials, or reference cards in PDF format. You can look at a list of vignettes in all packages by typing:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span>
+<span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></code></pre></div>
+<p>and to look at a specific vignette you can type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre></div>
+<p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and RStudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
+</div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!--- ref --->
+<div id="refs" class="references">
+<div id="ref-foster2017metacoder">
+<p>Foster ZS., Sharpton TJ., Grünwald NJ. 2017. Metacoder: An r package for visualization and manipulation of community taxonomic diversity data. <em>PLoS Computational Biology</em> 13:e1005404. Available at: <a href="https://doi.org/10.1371/journal.pcbi.1005404" class="uri">https://doi.org/10.1371/journal.pcbi.1005404</a></p>
+</div>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
