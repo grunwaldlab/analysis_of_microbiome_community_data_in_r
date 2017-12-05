@@ -42,9 +42,8 @@ updated) as appropriate.
 Microbiome data
 ----
 
-
-Before data can be analysed using this primer, a series of steps are typically required:
-
+Before data can be analysed using this primer, a series of steps are typically required `r citep(bib[c("comeau2017microbiome")])`:
+comeau2017microbiome
 1. Sample environments, extract DNA.
 2. Barcode, pool libraries and sequence using HTS.
 3. Demultiplex.

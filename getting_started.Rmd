@@ -6,10 +6,206 @@
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
 ```
 ---
-title: "Getting started"
+title: "Getting ready to use R"
 subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 ---
 
+R provides a unique environment for performing population genetic analyses. You
+will particularly enjoy not having to switch data formats and operating systems
+to execute a series of analyses, as was the case until now. Furthermore, R
+provides graphing capabilities that are ready for use in publications, with only
+a little bit of extra effort. But first, let's install R, install an integrated
+development environment, open R, and load R packages.
+
+Installing R
+-----
+
+1. Download and install the [R](http://www.r-project.org) statistical computing
+   and graphing environment. This works cross-platform on Windows, OS X and
+   Linux operating systems.
+
+2. Download and install the free, open source edition of the [RStudio Desktop](http://www.rstudio.com/ide/) integrated development environment (IDE) that we recommend.
+
+Installing the required packages
+----
+
+The following packages are utilized in this primer:
+
+1. [vegan](https://cran.r-project.org/web/packages/vegan/index.html)
+2. [metacoder](https://cran.r-project.org/web/packages/metacoder/index.html)
+3. [phyloseq](https://joey711.github.io/phyloseq/install.html)
+4. [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html)
+
+Use the following script to install these packages:
+
+```{r, eval = FALSE}
+install.packages(c("vegan", "metacoder", "ggplot2"), repos = "http://cran.rstudio.com", dependencies = TRUE)
+```
+
+We wrote and actively maintain *metacoder* `r citep(bib["foster2017metacoder"])` and it
+is heavily relied upon in this primer. You can think of an R package as a library of 
+functions written and curated by someone in the R user
+community, which you can be loaded into R for use.
+
+Once you've installed *poppr*, you can invoke (i.e., load) it by typing or
+cutting and pasting:
+
+```{r, message=TRUE, warning=TRUE, cache=FALSE}
+library("poppr")
+```
+
+This will load *poppr* and all dependent packages, such as *adegenet* and
+*ade4*. You will recognize loading by the prompts written to your screen.
+
+Congratulations. You should now be all set for using R. Loading data and
+conducting your first analysis will be the topic of the next chapter. But before
+we go there lets provide a few useful resources.
+
+A quick introduction to R using RStudio
+----
+
+Next, let's review some of the basic features and functions of R. To start R,
+open the RStudio application from your programs folder or start menu. This will
+initialize your R session. To exit R, simply close the RStudio application.
+
+> Note that R is a case sensitive language!
+
+Let's get comfortable with R by submitting the following command on the command
+line (where R prompts you with a `>` in the lower left RStudio window pane) that
+will retrieve the current working directory on your machine:
+
+```{r, eval=FALSE}
+getwd() # this command will print the current working directory
+```
+
+> Note that the symbol '#' is used to add comments to your code and you just
+> type `getwd()` after the ">".
+
+Our primer is heavily based on the *poppr* and *adegenet* packages. To get help
+on any of their functions type a question mark before the empty function call as
+in:
+
+```{r, eval=FALSE}
+?mlg # open the R documentation of the function mlg()
+```
+
+To quit R you can either use the <kbd>RStudio > Quit</kbd> pull-down menu
+command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).
+
+Using *magrittr*
+----
+
+Various chapters throughout this primer will have the symbol `%>%` in the code.
+This is called a "pipe" operator and it allows code to be more readable by
+stringing together commands from right to left. Here's a [short description of
+these "pipes" with cats](http://rforcats.net/#pipes). When reading code, it can
+be thought of as equivalent to saying "and then". For example, if you have three
+consecutive steps to a process, you would write this in English as:
+
+> Take your data **and then** do step one, **and then** do step two, **and
+> then** do step three.
+
+In R code with *magrittr*, assuming that each step is a function, it might be
+written as:
+
+```{r, eval = FALSE}
+result <- data %>% step_one() %>% step_two() %>% step_three()
+```
+
+
+Below, are two examples of how code can be improved with *magrittr*. [More
+details about magrittr can be found in this
+link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+
+#### Consider a fake Example:
+Adapted from
+[Hadley Wickham](https://twitter.com/_inundata/status/557980236130689024).
+Based on the children's song,
+[Little bunny foo foo](http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo).
+
+```{r, eval = FALSE}
+foo_foo <- little_bunny()
+
+bop_on(scoop_up(hop_through(foo_foo, forest), field_mouse), head)
+
+# VS
+
+foo_foo %>%
+  hop_through(forest) %>%
+  scoop_up(field_mouse) %>%
+  bop_on(head)
+```
+
+#### Now for a real Example:
+
+We will use the *Phytophthora infestans* microsatellite data from North and South America
+`r citep(bib['goss2014irish'])`. Let's calculate allelic diversity per population
+after clone-correction. This information can be found in our chapters on
+[Population strata and clone correction](Population_Strata.html) and
+[Locus based statistics](Locus_Stats.html).
+
+```{r, eval = FALSE}
+library("poppr")
+library("magrittr")
+data(Pinf)
+
+# Compare the traditional R script
+
+allelic_diversity <- lapply(seppop(clonecorrect(Pinf, strata = ~Continent/Country)),
+                            FUN = locus_table, info = FALSE)
+
+# versus the magrittr piping:
+
+allelic_diversity <- Pinf %>%
+  clonecorrect(strata= ~Continent/Country) %>% # clone censor by continent and country.
+  seppop() %>%                                # Separate populations (by continent)
+  lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations
+```
+
+> To observe the results type `allelic_diversity` into the console after each statement.
+
+The `%>%` operator is thus good if you have to do a lot of small steps in your
+analysis. It allows your code to be more readable and reproducible.
+
+
+Packages and getting help
+----
+
+One way that R shines above other languages for analysis is the fact that
+R packages in CRAN are all documented. Help files are written in HTML and give
+the user a brief overview of:
+
+ - the purpose of a function,
+ - the parameters it takes,
+ - the output it yields,
+ - and some examples demonstrating its usage.
+
+To see all of the help topics in a package, you can simply type:
+
+```{r, eval = FALSE}
+help(package = "poppr") # Get help for a package.
+help(amova)             # Get help for the amova function.
+?amova                  # same as above.
+??multilocus            # Search for functions that have the keyword multilocus.
+```
+Some packages include vignettes that can have different formats such as being
+introductions, tutorials, or reference cards in PDF format. You can look at a
+list of vignettes in all packages by typing:
+
+```{r, eval=FALSE}
+browseVignettes()                     # see vignettes from all packages
+browseVignettes(package = 'poppr')    # see vignettes from a specific package.
+```
+
+and to look at a specific vignette you can type:
+
+```{r, eval=FALSE}
+vignette('poppr_manual')
+```
+
+Next, consider browsing  Appendix 3 on "Introduction to R" if you are not yet
+familiar with R and RStudio. Otherwise, you are now ready to think about
+formatting and loading population genetic data into R.
 
 References
 ----------
