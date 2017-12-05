@@ -11,7 +11,7 @@
 
 
 
-<title>Analysis of Microbiome Community Data in R</title>
+<title>Introduction</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -182,49 +182,41 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Analysis of Microbiome Community Data in R</h1>
+<h1 class="title toc-ignore">Introduction</h1>
+<h3 class="subtitle"><em><em>NJ Grünwald and ZSL Foster</em></em></h3>
 
 </div>
 
 
-<div id="session-information" class="section level2">
-<h2>Session information:</h2>
-<pre><code>## Warning in as.POSIXlt.POSIXct(Sys.time()): unknown timezone &#39;zone/tz/2017c.
-## 1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.2 (2017-09-28)
-##  system   x86_64, darwin15.6.0        
-##  ui       X11                         
-##  language (EN)                        
-##  collate  en_US.UTF-8                 
-##  tz       &lt;NA&gt;                        
-##  date     2017-12-05                  
-## 
-##  package   * version date       source        
-##  backports   1.1.1   2017-09-25 CRAN (R 3.4.2)
-##  base      * 3.4.2   2017-10-04 local         
-##  compiler    3.4.2   2017-10-04 local         
-##  datasets  * 3.4.2   2017-10-04 local         
-##  devtools    1.13.4  2017-11-09 CRAN (R 3.4.2)
-##  digest      0.6.12  2017-01-27 CRAN (R 3.4.0)
-##  evaluate    0.10.1  2017-06-24 CRAN (R 3.4.0)
-##  graphics  * 3.4.2   2017-10-04 local         
-##  grDevices * 3.4.2   2017-10-04 local         
-##  htmltools   0.3.6   2017-04-28 CRAN (R 3.4.0)
-##  knitr       1.17    2017-08-10 CRAN (R 3.4.1)
-##  magrittr    1.5     2014-11-22 CRAN (R 3.4.0)
-##  memoise     1.1.0   2017-04-21 CRAN (R 3.4.0)
-##  methods   * 3.4.2   2017-10-04 local         
-##  Rcpp        0.12.14 2017-11-23 CRAN (R 3.4.3)
-##  rmarkdown   1.8     2017-11-17 CRAN (R 3.4.2)
-##  rprojroot   1.2     2017-01-16 CRAN (R 3.4.0)
-##  stats     * 3.4.2   2017-10-04 local         
-##  stringi     1.1.6   2017-11-17 CRAN (R 3.4.2)
-##  stringr     1.2.0   2017-02-18 CRAN (R 3.4.0)
-##  tools       3.4.2   2017-10-04 local         
-##  utils     * 3.4.2   2017-10-04 local         
-##  withr       2.1.0   2017-11-01 CRAN (R 3.4.2)
-##  yaml        2.1.15  2017-12-01 CRAN (R 3.4.3)</code></pre>
+<pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d %H:%M:%OS&quot;, tz = tz): unknown
+## timezone &#39;zone/tz/2017c.1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
+<p>This primer provides a concise introduction to conducting applied analyses of microbiome data in R. It is not meant to be a textbook on statistical analysis and visualization of microbiome data. Quite to the contrary, we refer the reader to several textbooks on analysis of microbiome and ecological community data <span class="citation">(Schloss et al., 2009; Caporaso et al., 2010)</span>. Likewise, this book will not replace books on ecological theory and statistics for ecological community analysis <span class="citation">(Dixon, 2003)</span>. The reader is thus expected to have a basic understanding of ecological diversity theory and applications. The analysis presented here starts after OTU calling has occured using tools such as QIIME or mothur `r citep(bib[c(“schloss2009introducing”, “caporaso2010qiime”)]).</p>
+<p>This primer is geared towards biologists interested in analyzing their microbiomes This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this primer.</p>
+<div id="why-use-r" class="section level2">
+<h2>Why use R?</h2>
+<p>Until recently, one of the more tedious aspects of conducting a population genetic analysis was the need for repeated reformatting data to conduct different, complimentary analyses in different programs. Often, these programs only ran on one platform. Now, R provides a toolbox with its packages that allows analysis of most data conveniently without tedious reformatting on all major computing platforms including Microsoft Windows, Linux, and Apple’s OS X. R is an open source statistical programming and graphing language that includes tools for analysis of statistical, ecological diversity and community data. This primer is for those of us that want to conduct applied analyses of microbiomes and make full use of the palette of tools available in R including for example the R markdown code for this primer.</p>
+<p>Note that the R user community is very active and that both R and its packages are regularly updated, critically modified, and noted as deprecated (no longer updated) as appropriate.</p>
+<blockquote>
+<p>Any R user needs to make sure all components are up-to-date and that versions are compatible.</p>
+</blockquote>
+</div>
+<div id="microbiome-data" class="section level2">
+<h2>Microbiome data</h2>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<!--- ref --->
+<div id="refs" class="references">
+<div id="ref-caporaso2010qiime">
+<p>Caporaso JG., Kuczynski J., Stombaugh J., Bittinger K., Bushman FD., Costello EK., Fierer N., Peña AG., Goodrich JK., Gordon JI. et al. 2010. QIIME allows analysis of high-throughput community sequencing data. <em>Nature Methods</em> 7:335–336. Available at: <a href="https://www.nature.com/articles/nmeth.f.303" class="uri">https://www.nature.com/articles/nmeth.f.303</a></p>
+</div>
+<div id="ref-dixon2003vegan">
+<p>Dixon P. 2003. VEGAN, a package of r functions for community ecology. <em>Journal of Vegetation Science</em> 14:927–930.</p>
+</div>
+<div id="ref-schloss2009introducing">
+<p>Schloss PD., Westcott SL., Ryabin T., Hall JR., Hartmann M., Hollister EB., Lesniewski RA., Oakley BB., Parks DH., Robinson CJ. et al. 2009. Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. <em>Applied and Environmental Microbiology</em> 75:7537–7541. Available at: <a href="http://aem.asm.org/cgi/pmidlookup?view=long&amp;pmid=19801464" class="uri">http://aem.asm.org/cgi/pmidlookup?view=long&amp;pmid=19801464</a></p>
+</div>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.

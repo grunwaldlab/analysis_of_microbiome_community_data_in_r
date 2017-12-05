@@ -1,0 +1,57 @@
+```{r,message=FALSE,echo=FALSE}
+  library("knitcitations")
+  bib <- read.bibtex("bibtexlib.bib")
+  library("knitr")
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
+```
+---
+title: "Introduction"
+subtitle: "*NJ Gr&uuml;nwald and ZSL Foster*"
+---
+
+This primer provides a concise introduction to conducting applied analyses of microbiome data in R. 
+It is not meant to be a textbook on statistical analysis and visualization of microbiome data. 
+Quite to the contrary, we refer the reader to several
+textbooks on analysis of microbiome and ecological community data `r citep(bib[c("caporaso2010qiime", "schloss2009introducing")])`. 
+Likewise, this book will not replace books on ecological theory and statistics for ecological community analysis `r citep(bib[c("dixon2003vegan")])`. 
+The reader is thus expected to have a basic understanding of ecological diversity theory and
+applications. 
+The analysis presented here starts after OTU calling has occured using tools such as QIIME or mothur `r citep(bib[c("schloss2009introducing", "caporaso2010qiime")]).
+
+This primer is geared towards biologists interested in analyzing their
+microbiomes This primer does not require extensive knowledge of programming in
+R, but the user is expected to install R and all packages required for this
+primer.
+
+Why use R?
+-----
+
+Until recently, one of the more tedious aspects of conducting a population
+genetic analysis was the need for repeated reformatting data to conduct
+different, complimentary analyses in different programs. Often, these programs
+only ran on one platform. 
+Now, R provides a toolbox with its packages that
+allows analysis of most data conveniently without tedious reformatting on all
+major computing platforms including Microsoft Windows, Linux, and Apple's OS X.
+R is an open source statistical programming and graphing language that includes
+tools for analysis of statistical, ecological diversity and community data.
+This primer is for those of us that want to conduct applied analyses of microbiomes and make full use of the palette of
+tools available in R including for example the R markdown code for this primer.
+
+Note that the R user community is very active and that both R and its packages
+are regularly updated, critically modified, and noted as deprecated (no longer
+updated) as appropriate.
+
+> Any R user needs to make sure all components are up-to-date and that versions
+> are compatible.
+
+Microbiome data
+----
+
+
+
+References
+----------
+
+<!--- ref --->

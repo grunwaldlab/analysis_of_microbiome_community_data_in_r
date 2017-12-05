@@ -9,11 +9,19 @@ navbar:
     href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r
 output:
   html_document:
-    highlight: textmate
+    theme: sandstone
+    highlight: tango
+    
     include:
       after_body: footer.html
     css: styles.css
     lib_dir: site_libs
     self_contained: no
+
+    pandoc_args: [
+    "--biblio", "bibtexlib.bib",
+    "--csl", "styles/peerj-mod.csl"
+    ]
+
 output_dir: docs
 
