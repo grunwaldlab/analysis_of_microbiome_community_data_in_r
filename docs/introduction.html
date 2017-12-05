@@ -190,7 +190,7 @@ $(document).ready(function () {
 
 <pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d %H:%M:%OS&quot;, tz = tz): unknown
 ## timezone &#39;zone/tz/2017c.1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
-<p>This primer provides a concise introduction to conducting applied analyses of microbiome data in R based on barcodes and high throughput sequwencing (HTS). This primer does not cover metagenomic analysis that are very different in nature It is also not meant to be a textbook on statistical analysis and visualization of microbiome data. Quite to the contrary, we refer the reader to several textbooks on analysis of microbiome and ecological community data <span class="citation">(Schloss et al., 2009; Caporaso et al., 2010)</span>. Likewise, this book will not replace books on ecological theory and statistics for ecological community analysis <span class="citation">(Dixon, 2003)</span>. The reader is thus expected to have a basic understanding of ecological diversity theory and applications. The analysis presented here starts after OTU calling has occured using tools such as QIIME or mothur `r citep(bib[c(“schloss2009introducing”, “caporaso2010qiime”)]).</p>
+<p>This primer provides a concise introduction to conducting applied analyses of microbiome data in R based on barcodes and high throughput sequwencing (HTS). This primer does not cover metagenomic analysis that are very different in nature It is also not meant to be a textbook on statistical analysis and visualization of microbiome data. Quite to the contrary, we refer the reader to several textbooks on analysis of microbiome and ecological community data <span class="citation">(Schloss et al., 2009; Caporaso et al., 2010)</span>. Likewise, this book will not replace books on ecological theory and statistics for ecological community analysis <span class="citation">(Dixon, 2003)</span>. The reader is thus expected to have a basic understanding of ecological diversity theory and applications. The analysis presented here starts after OTU calling has occured using tools such as QIIME or mothur <span class="citation">(Schloss et al., 2009; Caporaso et al., 2010)</span>.</p>
 <p>This primer is geared towards biologists interested in analyzing their microbiomes. This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this primer.</p>
 <div id="why-use-r" class="section level2">
 <h2>Why use R?</h2>
@@ -212,8 +212,8 @@ $(document).ready(function () {
 <p>Here we focus on ths staitstical analysis and visulaizations following OTU calling:</p>
 <ul>
 <li>alpha and beta diversity</li>
-<li>heat trees, stacked bar charts and related visualizations</li>
-<li>ordination</li>
+<li>heat trees <span class="citation">(Foster, Sharpton &amp; Grünwald, 2017)</span>, stacked bar charts and related visualizations</li>
+<li>and various ordination methods.</li>
 </ul>
 </div>
 <div id="references" class="section level2">
@@ -225,6 +225,9 @@ $(document).ready(function () {
 </div>
 <div id="ref-dixon2003vegan">
 <p>Dixon P. 2003. VEGAN, a package of r functions for community ecology. <em>Journal of Vegetation Science</em> 14:927–930.</p>
+</div>
+<div id="ref-foster2017metacoder">
+<p>Foster ZS., Sharpton TJ., Grünwald NJ. 2017. Metacoder: An r package for visualization and manipulation of community taxonomic diversity data. <em>PLoS Computational Biology</em> 13:e1005404. Available at: <a href="https://doi.org/10.1371/journal.pcbi.1005404" class="uri">https://doi.org/10.1371/journal.pcbi.1005404</a></p>
 </div>
 <div id="ref-schloss2009introducing">
 <p>Schloss PD., Westcott SL., Ryabin T., Hall JR., Hartmann M., Hollister EB., Lesniewski RA., Oakley BB., Parks DH., Robinson CJ. et al. 2009. Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. <em>Applied and Environmental Microbiology</em> 75:7537–7541. Available at: <a href="http://aem.asm.org/cgi/pmidlookup?view=long&amp;pmid=19801464" class="uri">http://aem.asm.org/cgi/pmidlookup?view=long&amp;pmid=19801464</a></p>
