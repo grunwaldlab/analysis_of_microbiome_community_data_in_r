@@ -55,7 +55,7 @@ Before data can be anlaysed using this primer, a series of steps are typcially r
 1. Sample envoiirnments, extract DNA.
 2. Barcode, pool libaries and sequence using HTS.
 3. Demultiplex.
-4. Call OTUs `r citep(bib[c("edgar2013uparse")])`
+4. Call OTUs
 
 Here we focus on ths staitstical analysis and visulaizations following OTU calling:
 
