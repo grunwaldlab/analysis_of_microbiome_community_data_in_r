@@ -10,8 +10,9 @@ title: "Introduction"
 subtitle: "*NJ Gr&uuml;nwald and ZSL Foster*"
 ---
 
-This primer provides a concise introduction to conducting applied analyses of microbiome data in R. 
-It is not meant to be a textbook on statistical analysis and visualization of microbiome data. 
+This primer provides a concise introduction to conducting applied analyses of microbiome data in R based on barcodes and high throughput sequwencing (HTS). 
+This primer does not cover metagenomic analysis that are very different in nature 
+It is also not meant to be a textbook on statistical analysis and visualization of microbiome data. 
 Quite to the contrary, we refer the reader to several
 textbooks on analysis of microbiome and ecological community data `r citep(bib[c("caporaso2010qiime", "schloss2009introducing")])`. 
 Likewise, this book will not replace books on ecological theory and statistics for ecological community analysis `r citep(bib[c("dixon2003vegan")])`. 
@@ -19,9 +20,8 @@ The reader is thus expected to have a basic understanding of ecological diversit
 applications. 
 The analysis presented here starts after OTU calling has occured using tools such as QIIME or mothur `r citep(bib[c("schloss2009introducing", "caporaso2010qiime")]).
 
-This primer is geared towards biologists interested in analyzing their
-microbiomes This primer does not require extensive knowledge of programming in
-R, but the user is expected to install R and all packages required for this
+This primer is geared towards biologists interested in analyzing their microbiomes. 
+This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this
 primer.
 
 Why use R?
@@ -49,6 +49,19 @@ updated) as appropriate.
 Microbiome data
 ----
 
+
+Before data can be anlaysed using this primer, a series of steps are typcially required:
+
+1. Sample envoiirnments, extract DNA.
+2. Barcode, pool libaries and sequence using HTS.
+3. Demultiplex.
+4. Call OTUs `r citep(bib[c("edgar2013uparse")])`
+
+Here we focus on ths staitstical analysis and visulaizations following OTU calling:
+
+- alpha and beta diversity
+- heat trees, stacked bar charts and related visualizations
+- ordination
 
 
 References
