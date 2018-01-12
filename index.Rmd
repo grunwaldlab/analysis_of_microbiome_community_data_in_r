@@ -11,17 +11,3 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, child="_sessioninfo.Rmd"}
 ```
 
-
-### Sections: 
-
-1. Introduction to R
-2. Parsing and structuring data
-3. Quick example analysis (Human microbiome data included in metacoder)
-4. Manipulating taxonomic data
-4. Data quality control
-5. Diversity statistics (e.g. vegan)
-    - alpha statistics
-    - beta  statistics
-    - ordination
-6. Plotting 
-
