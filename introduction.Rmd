@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: "Introduction to R"
 output: html_document
@@ -10,3 +11,66 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
+=======
+```{r,message=FALSE,echo=FALSE}
+  library("knitcitations")
+  bib <- read.bibtex("bibtexlib.bib")
+  library("knitr")
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
+```
+---
+title: "Introduction"
+subtitle: "*NJ Gr&uuml;nwald and ZSL Foster*"
+---
+
+This primer provides a concise introduction to conducting the statistical analyses and visualize microbiome data in R based on metabarcoding and high throughput sequencing (HTS). 
+This primer does not cover metagenomic analysis that are very different in nature.
+The reader is thus expected to have a basic understanding of ecological diversity theory and applications. 
+The analysis presented here start after OTU calling has occurred using tools such as QIIME or mothur `r citep(bib[c("schloss2009introducing", "caporaso2010qiime")])`.
+This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this
+primer.
+
+Why use R?
+-----
+
+Until recently, one of the more tedious aspects of conducting a population
+genetic analysis was the need for repeated reformatting data to conduct
+different, complimentary analyses in different programs. Often, these programs
+only ran on one platform. 
+Now, R provides a toolbox with its packages that
+allows analysis of most data conveniently without tedious reformatting on all
+major computing platforms including Microsoft Windows, Linux, and Apple's OS X.
+R is an open source statistical programming and graphing language that includes
+tools for analysis of statistical, ecological diversity and community data.
+This primer is for those of us that want to conduct applied analyses of microbiomes and make full use of the palette of
+tools available in R including for example the R markdown code for this primer.
+
+Note that the R user community is very active and that both R and its packages
+are regularly updated, critically modified, and noted as deprecated (no longer
+updated) as appropriate.
+
+> Any R user needs to make sure all components are up-to-date and that versions
+> are compatible.
+
+Microbiome data
+----
+
+Before data can be analysed using this primer, a series of steps are typically required `r citep(bib[c("comeau2017microbiome")])`:
+comeau2017microbiome
+1. Sample environments, extract DNA.
+2. Barcode, pool libraries and sequence using HTS.
+3. Demultiplex.
+4. Call OTUs.
+
+Here we focus on the statistical analysis and visualizations following OTU calling:
+
+- alpha and beta diversity
+- heat trees `r citep(bib[c("foster2017metacoder")])`, stacked bar charts and related visualizations
+- and various ordination methods.
+
+References
+----------
+
+<!--- ref --->
+>>>>>>> 265a2e40c527dbabc56e648d5fa98e34a11bdc2e

@@ -15,30 +15,13 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -101,34 +84,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 61px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 </style>
 
@@ -272,32 +255,98 @@ $(document).ready(function () {
 ##  tz       US/Pacific                  
 ##  date     2018-01-12                  
 ## 
-##  package    * version date       source        
-##  backports    1.1.2   2017-12-13 CRAN (R 3.4.1)
-##  base       * 3.4.3   2017-12-01 local         
-##  compiler     3.4.3   2017-12-01 local         
-##  datasets   * 3.4.3   2017-12-01 local         
-##  devtools     1.13.4  2017-11-09 CRAN (R 3.4.1)
-##  digest       0.6.13  2017-12-14 cran (@0.6.13)
-##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.1)
-##  graphics   * 3.4.3   2017-12-01 local         
-##  grDevices  * 3.4.3   2017-12-01 local         
-##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.1)
-##  knitr        1.18    2017-12-27 cran (@1.18)  
-##  magrittr     1.5     2014-11-22 CRAN (R 3.4.1)
-##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.1)
-##  methods    * 3.4.3   2017-12-01 local         
-##  Rcpp         0.12.14 2017-11-23 CRAN (R 3.4.1)
-##  rmarkdown    1.8     2017-11-17 CRAN (R 3.4.1)
-##  rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.1)
-##  rstudioapi   0.7     2017-09-07 CRAN (R 3.4.1)
-##  stats      * 3.4.3   2017-12-01 local         
-##  stringi      1.1.6   2017-11-17 CRAN (R 3.4.1)
-##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.1)
-##  tools        3.4.3   2017-12-01 local         
-##  utils      * 3.4.3   2017-12-01 local         
-##  withr        2.1.1   2017-12-19 CRAN (R 3.4.1)
-##  yaml         2.1.16  2017-12-12 CRAN (R 3.4.1)</code></pre>
+##  package       * version    date      
+##  assertthat      0.2.0      2017-04-11
+##  backports       1.1.2      2017-12-13
+##  base          * 3.4.3      2017-12-01
+##  bibtex          0.4.2      2017-06-30
+##  bindr           0.1        2016-11-13
+##  bindrcpp        0.2        2017-06-17
+##  compiler        3.4.3      2017-12-01
+##  datasets      * 3.4.3      2017-12-01
+##  devtools        1.13.4     2017-11-09
+##  digest          0.6.13     2017-12-14
+##  dplyr           0.7.4      2017-09-28
+##  evaluate        0.10.1     2017-06-24
+##  glue            1.2.0      2017-10-29
+##  graphics      * 3.4.3      2017-12-01
+##  grDevices     * 3.4.3      2017-12-01
+##  htmltools       0.3.6      2017-04-28
+##  httr            1.3.1      2017-08-20
+##  jsonlite        1.5        2017-06-01
+##  knitcitations * 1.0.8      2017-07-04
+##  knitr         * 1.18       2017-12-27
+##  lubridate       1.7.1      2017-11-03
+##  magrittr        1.5        2014-11-22
+##  memoise         1.1.0      2017-04-21
+##  metacoder     * 0.2.0.9001 2018-01-10
+##  methods       * 3.4.3      2017-12-01
+##  pillar          1.0.1      2017-11-27
+##  pkgconfig       2.0.1      2017-03-21
+##  plyr            1.8.4      2016-06-08
+##  R6              2.2.2      2017-06-17
+##  Rcpp            0.12.14    2017-11-23
+##  RefManageR      0.14.20    2017-08-17
+##  rlang           0.1.6      2017-12-21
+##  rmarkdown       1.8        2017-11-17
+##  rprojroot       1.3-2      2018-01-03
+##  rstudioapi      0.7        2017-09-07
+##  stats         * 3.4.3      2017-12-01
+##  stringi         1.1.6      2017-11-17
+##  stringr         1.2.0      2017-02-18
+##  taxa          * 0.2.0.9104 2018-01-12
+##  tibble          1.4.1      2017-12-25
+##  tools           3.4.3      2017-12-01
+##  utils         * 3.4.3      2017-12-01
+##  withr           2.1.1      2017-12-19
+##  xml2            1.1.1      2017-01-24
+##  yaml            2.1.16     2017-12-12
+##  source                                
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  local                                 
+##  CRAN (R 3.4.3)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  local                                 
+##  local                                 
+##  CRAN (R 3.4.1)                        
+##  cran (@0.6.13)                        
+##  cran (@0.7.4)                         
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  local                                 
+##  local                                 
+##  CRAN (R 3.4.1)                        
+##  cran (@1.3.1)                         
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.3)                        
+##  cran (@1.18)                          
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  Github (grunwaldlab/metacoder@47be843)
+##  local                                 
+##  cran (@1.0.1)                         
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.3)                        
+##  cran (@0.1.6)                         
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  local                                 
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  local                                 
+##  cran (@1.4.1)                         
+##  local                                 
+##  local                                 
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)                        
+##  CRAN (R 3.4.1)</code></pre>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.

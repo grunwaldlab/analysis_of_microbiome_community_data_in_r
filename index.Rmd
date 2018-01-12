@@ -3,11 +3,17 @@ title: "Analysis of Microbiome Community Data in R"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Welcome! This primer provides a concise introduction to conducting applied analyses of microbiome data in R. 
+While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer. 
 
+Please provide us feedback on any errors you might find or suggestions for improvement. 
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
 
+> Please cite this primer if you find it useful for your research as: XXX.
+
+*Niklaus J. Gr&uuml;nwald*  <a href="https://orcid.org/0000-0003-1656-7602" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1656-7602</a> and *Zach S. L. Foster*
+
+
+&copy; 2018, Corvallis, Oregon, USA
