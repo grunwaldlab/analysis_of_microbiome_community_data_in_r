@@ -1,9 +1,35 @@
 name: my-website
 navbar:
-  title: Home
+  title: "Analysis of Microbiome Data in R"
   left:
-  - text: About
+  - text: "Home"
+    icon: fa-home
+    href: index.html
+  - text: "About"
+    icon: fa-info
     href: about.html
+  - text: "Workshop"
+    icon: fa-laptop
+    menu:
+      - text: "Introduction"
+        href: introduction.html
+      - text: "Example analysis"
+        href: quick_example.html
+      - text: "Getting data into R"
+        href: parsing.html
+      - text: "Manipulating taxonomic data"
+        href: manipulating.html
+      - text: "Data quality control"
+        href: quality_control.html
+      - text: "Diversity statistics"
+        href: diversity_stats.html
+      - text: "Plotting taxonomic data"
+        href: plotting.html
+  - text: "Appendices"
+    icon: fa-book
+    menu:
+      - text: "Introduction to R"
+        href: introduction_to_r.html
   right:
   - icon: fa-github
     href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r

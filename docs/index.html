@@ -175,12 +175,69 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="index.html">Analysis of Microbiome Data in R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="about.html">About</a>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-laptop"></span>
+     
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="quick_example.html">Example analysis</a>
+    </li>
+    <li>
+      <a href="parsing.html">Getting data into R</a>
+    </li>
+    <li>
+      <a href="manipulating.html">Manipulating taxonomic data</a>
+    </li>
+    <li>
+      <a href="quality_control.html">Data quality control</a>
+    </li>
+    <li>
+      <a href="diversity_stats.html">Diversity statistics</a>
+    </li>
+    <li>
+      <a href="plotting.html">Plotting taxonomic data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="introduction_to_r.html">Introduction to R</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -207,40 +264,57 @@ $(document).ready(function () {
 <div id="session-information" class="section level2">
 <h2>Session information:</h2>
 <pre><code>##  setting  value                       
-##  version  R version 3.4.1 (2017-06-30)
+##  version  R version 3.4.3 (2017-11-30)
 ##  system   x86_64, linux-gnu           
-##  ui       RStudio (1.1.383)           
+##  ui       X11                         
 ##  language en_US                       
 ##  collate  en_US.UTF-8                 
 ##  tz       US/Pacific                  
-##  date     2017-11-28                  
+##  date     2018-01-12                  
 ## 
-##  package    * version date       source         
-##  backports    1.1.1   2017-09-25 CRAN (R 3.4.1) 
-##  base       * 3.4.1   2017-07-08 local          
-##  compiler     3.4.1   2017-07-08 local          
-##  datasets   * 3.4.1   2017-07-08 local          
-##  devtools     1.13.4  2017-11-09 CRAN (R 3.4.1) 
-##  digest       0.6.12  2017-01-27 CRAN (R 3.4.1) 
-##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.1) 
-##  graphics   * 3.4.1   2017-07-08 local          
-##  grDevices  * 3.4.1   2017-07-08 local          
-##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.1) 
-##  knitr        1.17    2017-08-10 CRAN (R 3.4.1) 
-##  magrittr     1.5     2014-11-22 CRAN (R 3.4.1) 
-##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.1) 
-##  methods    * 3.4.1   2017-07-08 local          
-##  Rcpp         0.12.13 2017-09-28 cran (@0.12.13)
-##  rmarkdown    1.8     2017-11-17 CRAN (R 3.4.1) 
-##  rprojroot    1.2     2017-01-16 CRAN (R 3.4.1) 
-##  rstudioapi   0.7     2017-09-07 CRAN (R 3.4.1) 
-##  stats      * 3.4.1   2017-07-08 local          
-##  stringi      1.1.5   2017-04-07 CRAN (R 3.4.1) 
-##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.1) 
-##  tools        3.4.1   2017-07-08 local          
-##  utils      * 3.4.1   2017-07-08 local          
-##  withr        2.1.0   2017-11-01 CRAN (R 3.4.1) 
-##  yaml         2.1.14  2016-11-12 CRAN (R 3.4.1)</code></pre>
+##  package    * version date       source        
+##  backports    1.1.2   2017-12-13 CRAN (R 3.4.1)
+##  base       * 3.4.3   2017-12-01 local         
+##  compiler     3.4.3   2017-12-01 local         
+##  datasets   * 3.4.3   2017-12-01 local         
+##  devtools     1.13.4  2017-11-09 CRAN (R 3.4.1)
+##  digest       0.6.13  2017-12-14 cran (@0.6.13)
+##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.1)
+##  graphics   * 3.4.3   2017-12-01 local         
+##  grDevices  * 3.4.3   2017-12-01 local         
+##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.1)
+##  knitr        1.18    2017-12-27 cran (@1.18)  
+##  magrittr     1.5     2014-11-22 CRAN (R 3.4.1)
+##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.1)
+##  methods    * 3.4.3   2017-12-01 local         
+##  Rcpp         0.12.14 2017-11-23 CRAN (R 3.4.1)
+##  rmarkdown    1.8     2017-11-17 CRAN (R 3.4.1)
+##  rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.1)
+##  rstudioapi   0.7     2017-09-07 CRAN (R 3.4.1)
+##  stats      * 3.4.3   2017-12-01 local         
+##  stringi      1.1.6   2017-11-17 CRAN (R 3.4.1)
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.1)
+##  tools        3.4.3   2017-12-01 local         
+##  utils      * 3.4.3   2017-12-01 local         
+##  withr        2.1.1   2017-12-19 CRAN (R 3.4.1)
+##  yaml         2.1.16  2017-12-12 CRAN (R 3.4.1)</code></pre>
+<div id="sections" class="section level3">
+<h3>Sections:</h3>
+<ol style="list-style-type: decimal">
+<li>Introduction to R</li>
+<li>Parsing and structuring data</li>
+<li>Quick example analysis (Human microbiome data included in metacoder)</li>
+<li>Manipulating taxonomic data</li>
+<li>Data quality control</li>
+<li>Diversity statistics (e.g. vegan)
+<ul>
+<li>alpha statistics</li>
+<li>beta statistics</li>
+<li>ordination</li>
+</ul></li>
+<li>Plotting</li>
+</ol>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
