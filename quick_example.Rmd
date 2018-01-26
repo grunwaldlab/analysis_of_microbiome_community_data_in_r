@@ -159,6 +159,74 @@ heat_tree(obj,
 
 This is known as non-standard evaluation in programmer jargon and will be used in many functions throughout this workshop.
 
+### Alpha diversity
+
+Alpha diversity is a measure of the diversity **within** each sample or group of samples.
+It can be calculated at any rank of the taxonomy, but it is usually calulated at the species or OTU "rank".
+There are multiple methods used to calculate a value to represent alpha diversity. 
+The simplest is just the number of species, but the ones used most often factor in how common each species is as well.
+Below, we calculate the alpha diversity of OTUs using the Inverse Simpson Index using the package `vegan`. 
+
+```{r}
+hmp_samples$inv_simp <- vegan::diversity(obj$data$tax_data[, hmp_samples$sample_id],
+                                         index = "invsimpson",
+                                         MARGIN = 2)
+```
+
+Adding this on to the sample data makes it easy to use the sample information in graphing. 
+Lets compare the alpha diversity of samples from males and females using `ggplot2`, a popular R package for plotting. 
+
+```{r fig.height=5, fig.width=5}
+library(ggplot2)
+ggplot(hmp_samples, aes(x = sex, y = inv_simp)) +
+  geom_boxplot()
+```
+
+Not much difference there, as you might expect. 
+We can also compare body sites:
+
+```{r fig.height=5, fig.width=5}
+ggplot(hmp_samples, aes(x = body_site, y = inv_simp)) +
+  geom_boxplot()
+```
+
+Thats more interesting; skin has much lower diversity than are of the wetter areas, which makes sense.
+Lets see if thats a significant difference using an ANOVA.
+
+```{r}
+anova_result <- aov(inv_simp ~ body_site, hmp_samples)
+summary(anova_result)
+```
+
+That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess).
+A Tukey's HSD test can compare each site to every other and tell us which are significantly different.
+Although base R has a Tukey's HSD function called `TukeyHSD`, we will use one from the package `agricolae` since it supplies grouping codes that are useful for graphing.
+
+```{r}
+library(agricolae)
+tukey_result <- HSD.test(anova_result, "body_site", group = TRUE)
+print(tukey_result)
+```
+
+We are interested in the `$groups` table that says which sites are different.
+With a little tweeking, we can add this data to the graph we made.
+Lets add some nicer text as well.
+
+```{r fig.height=5, fig.width=5}
+group_data <- tukey_result$groups[order(rownames(tukey_result$groups)),]
+ggplot(hmp_samples, aes(x = body_site, y = inv_simp)) +
+  geom_text(data = data.frame(),
+            aes(x = rownames(group_data), y = max(hmp_samples$inv_simp) + 1, label = group_data$groups),
+            col = 'black',
+            size = 10) +
+  geom_boxplot() +
+  ggtitle("Alpha diversity of human body sites") +
+  xlab("Body site") +
+  ylab("Inverse Simpson Index")
+```
+
+This tells us that samples from the nose, stool, and throat have no significant differences in alpha diversity of OTUs, but samples from siliva and skin are signifcantly different from the rest. 
+
 ### Comparing two treatments/groups
 
 Usually we are interested in how groups of samples compare.
