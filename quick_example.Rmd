@@ -3,8 +3,236 @@ title: "Example analysis"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r home_setup, echo=FALSE, warning=FALSE, message=FALSE}
+options(width = 90)
+set.seed(1)
+# Knitr
+library(knitr)
+library(grid)
+opts_chunk$set(dev = 'png', fig.width = 10, fig.height = 10, warning = TRUE,
+               message = TRUE)
+```
+
+This is a short example analysis to give you a feel for the rest of the workshop.
+If something does not make sense now, dont worry!
+We will cover everything shown here in greater detail later.
+
+## Parsing
+
+The first step in any analysis is getting your data into R.
+This can be difficult for taxonomic data since it has a hierarchical component (i.e. the taxonomic tree).
+`Metacoder` has functions for parsing specific file formats used in metagenomics research.
+However, for this demonstration, we will be using a more all-purpose parser from the `taxa` package meant for tabular data.
+
+Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
+This dataset has two parts: 
+
+* An abundance matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
+* A sample information table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g. gender).
+
+This is the preferred way to encode this type of abundance information in `metacoder` and `taxa`.
+Lets take a look at this data:
+
+```{r}
+library(metacoder)
+print(hmp_otus)
+print(hmp_samples)
+```
+
+We can parse the taxonomic information in the abundance matrix using a parser from `taxa`:
+
+```{r}
+obj <- parse_tax_data(hmp_otus,
+                      class_cols = "lineage", # the column that contains taxonomic information
+                      class_sep = ";", # The character used to separate taxa in the classification
+                      class_regex = "^(.+)__(.+)$", # Regex identifying where the data for each taxon is
+                      class_key = c(tax_rank = "info", # A key describing each regex capture group
+                                    tax_name = "taxon_name"))
+
+```
+
+This returns a `taxmap` object.
+The `taxmap` class is designed to store any number of tables, lists, or vectors associated with taxonomic information and facilitate manipulating the data in a cohesive way.
+Here is what that object looks like:
+
+```{r}
+print(obj)
+```
+
+## Abundance matrix manipulations
+
+### Removing low-abundance counts
+
+Low-abundance sequences might be the result of sequencing error, so typically we remove any counts/OTUs with less than some number of reads.
+Lets set all counts with less than 5 reads to zero:
+
+```{r}
+obj$data$tax_data <- zero_low_counts(obj, "tax_data", min_count = 5)
+```
+
+There might now be some OTUs with no "real" reads. Lets check:
+
+```{r}
+no_reads <- rowSums(obj$data$tax_data[, hmp_samples$sample_id]) == 0
+sum(no_reads)
+```
+
+It appears that `r sum(no_reads)`  of `r nrow(obj$data$tax_data)` OTUs now have no reads.
+We can remove those OTUs and their associated taxa with `filter_obs`:
+
+```{r}
+obj <- filter_obs(obj, "tax_data", ! no_reads, drop_taxa = TRUE)
+print(obj)
+```
+
+Note how there are fewer taxa now, as well as fewer OTUs.
+This coordinated manipulation of taxonomic and abundance data is one of the main benefits of using the `taxmap` class.
+
+
+### Accounting for un-even sampling
+
+These are raw counts, but people typically work with rarefied counts or proportions to avoid sampling depth biasing the results.
+The function `rarefy_obs` will return the rarefied counts for a table in a taxmap object, but lets use proportions for this demonstration:
+
+```{r}
+obj$data$tax_data <- calc_obs_props(obj, "tax_data")
+print(obj)
+```
+
+
+### Getting per-taxon information
+
+Currently, we have values for the abundance of each OTU, not each taxon.
+To get information on the taxa, we can sum the abundance per-taxon like so:
+
+```{r}
+obj$data$tax_abund <- calc_taxon_abund(obj, "tax_data",
+                                       cols = hmp_samples$sample_id)
+```
+
+Note that there is now an additional table with one row per taxon.
+
+```{r}
+print(obj)
+```
+
+We can also easily calculate the number of samples have reads for each taxon:
+
+```{r}
+obj$data$tax_occ <- calc_n_samples(obj, "tax_abund", groups = hmp_samples$body_site)
+print(obj)
+```
+
+
+### Plotting taxonomic data
+
+Now that we have per-taxon information, we can plot the information using **heat trees**.
+Heat trees are what we call taxonomic trees in which the size and color of tree parts correspond to some statistic of interest.
+The code below plots the number of "Nose" samples that have reads for each taxon as the size of each taxon.
+It also plots the number of OTUs assigned to each taxon in the overall dataset as color.
+
+```{r}
+heat_tree(obj, 
+          node_label = taxon_names,
+          node_size = n_obs,
+          node_color = Nose, 
+          node_size_axis_label = "OTU count",
+          node_color_axis_label = "Samples with reads",
+          layout = "davidson-harel", # The primary layout algorithm
+          initial_layout = "reingold-tilford") # The layout algorithm that initializes node locations
+```
+
+Note how we did not have to specify the full path to the variable "Nose", but just its name.
+This is a shorthand for convenience.
+We could have made the same plot using this command:
+
+```{r, eval = FALSE}
+heat_tree(obj, 
+          node_label = obj$taxon_names(),
+          node_size = obj$n_obs(),
+          node_color = obj$data$tax_occ$Nose, 
+          node_size_axis_label = "OTU count",
+          node_color_axis_label = "Samples with reads",
+          layout = "davidson-harel", # The primary layout algorithm
+          initial_layout = "reingold-tilford") # The layout algorithm that initializes node locations
+```
+
+This is known as non-standard evaluation in programmer jargon and will be used in many functions throughout this workshop.
+
+### Comparing two treatments/groups
+
+Usually we are interested in how groups of samples compare.
+For example, we might want to know which taxa differ between the nose and throat, or between men and women.
+The function `compare_groups` facilitates these comparisons:
+
+```{r, warning = FALSE}
+obj$data$diff_table <- compare_groups(obj,
+                                      dataset = "tax_abund",
+                                      cols = hmp_samples$sample_id, # What columns of sample data to use
+                                      groups = hmp_samples$sex) # What category each sample is assigned to
+print(obj$data$diff_table)
+```
+
+We can use this information to create what we call a **differential heat tree**, which indicates which taxa are more abundant in each treatment: 
+
+```{r}
+heat_tree(obj, 
+          node_label = taxon_names,
+          node_size = n_obs, # n_obs is a function that calculates, in this case, the number of OTUs per taxon
+          node_color = log2_median_ratio, # A column from `obj$data$diff_table`
+          node_color_interval = c(-2, 2), # The range of `log2_median_ratio` to display
+          node_color_range = c("cyan", "gray", "tan"), # The color palette used
+          node_size_axis_label = "OTU count",
+          node_color_axis_label = "Log 2 ratio of median proportions",
+          layout = "davidson-harel", # The primary layout algorithm
+          initial_layout = "reingold-tilford") # The layout algorithm that initializes node locations
+```
+
+In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men.
+Note that we have not taken into account statistics significance when showing this, so lets do that.
+First, we need to correct for multiple comparisons: 
+
+```{r}
+obj$data$diff_table$wilcox_p_value <- p.adjust(obj$data$diff_table$wilcox_p_value,
+                                               method = "fdr")
+```
+
+If we then look at the distribution of p-values, we can see that none are even close to significant:
+
+```{r}
+range(obj$data$diff_table$wilcox_p_value , finite = TRUE) 
+```
+
+There is no need to graph this, but if there still were some significant differences, we could set any difference that is not significant to zero and repeat the last `heat_tree` command.
+
+### Comparing any number of treatments/groups
+
+A single differential heat tree can compare two treatments, but what if you have more?
+Then we can make a matrix of heat trees, one for each pairwise comparison of treatments like so: 
+
+```{r, warning = FALSE}
+obj$data$diff_table <- compare_groups(obj, dataset = "tax_abund",
+                                      cols = hmp_samples$sample_id,
+                                      groups = hmp_samples$body_site)
+print(obj$data$diff_table)
+```
+
+There is a special function to plot this type of data called `heat_tree_matrix`:
+
+```{r}
+heat_tree_matrix(obj,
+                 dataset = "diff_table",
+                 node_size = n_obs, # n_obs is a function that calculates, in this case, the number of OTUs per taxon
+                 node_label = taxon_names,
+                 node_color = log2_median_ratio, # A column from `obj$data$diff_table`
+                 node_color_range = diverging_palette(), # The built-in palette for diverging data
+                 node_color_trans = "linear", # The default is scaled by circle area
+                 node_color_interval = c(-3, 3), # The range of `log2_median_ratio` to display
+                 edge_color_interval = c(-3, 3), # The range of `log2_median_ratio` to display
+                 node_size_axis_label = "Number of OTUs",
+                 node_color_axis_label = "Log2 ratio median proportions",
+                 layout = "davidson-harel", # The primary layout algorithm
+                 initial_layout = "reingold-tilford")  # The layout algorithm that initializes node locations
 ```
 
 
