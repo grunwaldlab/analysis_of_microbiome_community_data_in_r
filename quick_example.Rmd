@@ -14,7 +14,7 @@ opts_chunk$set(dev = 'png', fig.width = 10, fig.height = 10, warning = TRUE,
 ```
 
 This is a short example analysis to give you a feel for the rest of the workshop.
-If something does not make sense now, dont worry!
+If something does not make sense now, don't worry!
 We will cover everything shown here in greater detail later.
 
 ## Parsing
@@ -162,7 +162,7 @@ This is known as non-standard evaluation in programmer jargon and will be used i
 ### Alpha diversity
 
 Alpha diversity is a measure of the diversity **within** each sample or group of samples.
-It can be calculated at any rank of the taxonomy, but it is usually calulated at the species or OTU "rank".
+It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU "rank".
 There are multiple methods used to calculate a value to represent alpha diversity. 
 The simplest is just the number of species, but the ones used most often factor in how common each species is as well.
 Below, we calculate the alpha diversity of OTUs using the Inverse Simpson Index using the package `vegan`. 
@@ -190,7 +190,7 @@ ggplot(hmp_samples, aes(x = body_site, y = inv_simp)) +
   geom_boxplot()
 ```
 
-Thats more interesting; skin has much lower diversity than are of the wetter areas, which makes sense.
+Thats more interesting; skin has much lower diversity than any of the wetter areas, which makes sense.
 Lets see if thats a significant difference using an ANOVA.
 
 ```{r}
@@ -209,7 +209,7 @@ print(tukey_result)
 ```
 
 We are interested in the `$groups` table that says which sites are different.
-With a little tweeking, we can add this data to the graph we made.
+With a little tweaking, we can add this data to the graph we made.
 Lets add some nicer text as well.
 
 ```{r fig.height=5, fig.width=5}
@@ -225,7 +225,7 @@ ggplot(hmp_samples, aes(x = body_site, y = inv_simp)) +
   ylab("Inverse Simpson Index")
 ```
 
-This tells us that samples from the nose, stool, and throat have no significant differences in alpha diversity of OTUs, but samples from siliva and skin are signifcantly different from the rest. 
+This tells us that samples from the siliva and skin are significantly different from each other, but not significantly different from anything else.
 
 ### Comparing two treatments/groups
 
