@@ -1,12 +1,44 @@
 ---
 title: "Diversity statistics"
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+## Measures of diversity
+
+Diversity in the ecological sense is intuitivly understood as the complexity of a community of organisms.
+There are many ways to quantify this complexity so that we can compare communities objectivly.
+The two main categories of methods are known as **alpha diversity** and **beta diversity** [@whittaker1960vegetation].
+Alpha diversity measures the diversity within a single sample and is generally based on the number of realtive abundance of species.
+Beta diversity also uses the number of realtive abundance of species, but measures variation between samples.
+
+```{r eval = FALSE}
+library(magrittr)
+library(AHMbook)
+# Simulate true community
+comm_stats <- simComm(type = "counts", nsite = 2, nspec = 100, nrep = 5, show.plot = FALSE)
+comm_counts <- as.data.frame(t(comm_stats$N)) + 1
+table(comm_counts$site1)
+
+hist(comm_counts$site1)
+hist(comm_counts$site2)
+
+# Take samples
+rep(rownames(comm_counts), comm_counts$site1)
+```
+
+
+## Alpha (within sample) diversity 
+
+## Beta (between sample) diversity
+
+
+## References
 
 ```{r, child="_sessioninfo.Rmd"}
 ```

@@ -1,35 +1,25 @@
-<<<<<<< HEAD
----
-title: "Introduction to R"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-
-```{r, child="_sessioninfo.Rmd"}
-```
-=======
-```{r,message=FALSE,echo=FALSE}
-  library("knitcitations")
-  bib <- read.bibtex("bibtexlib.bib")
-  library("knitr")
-  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
-```
 ---
 title: "Introduction"
 subtitle: "*NJ Gr&uuml;nwald and ZSL Foster*"
+bibliography: "bibtexlib.bib"
 ---
+
+```{r,message=FALSE,echo=FALSE}
+library("knitcitations")
+cleanbib()
+bib <- read.bibtex("bibtexlib.bib")
+library("knitr")
+cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
+```
 
 This primer provides a concise introduction to conducting the statistical analyses and visualize microbiome data in R based on metabarcoding and high throughput sequencing (HTS). 
 This primer does not cover metagenomic analysis that are very different in nature.
 The reader is thus expected to have a basic understanding of ecological diversity theory and applications. 
-The analysis presented here start after OTU calling has occurred using tools such as QIIME or mothur `r citep(bib[c("schloss2009introducing", "caporaso2010qiime")])`.
+The analysis presented here start after OTU calling has occurred using tools such as QIIME or mothur `r citep(bib[c("schloss2009introducing", "caporaso2010qiime")])`. 
 This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this
 primer.
+
 
 Why use R?
 -----
@@ -72,5 +62,7 @@ Here we focus on the statistical analysis and visualizations following OTU calli
 References
 ----------
 
-<!--- ref --->
->>>>>>> 265a2e40c527dbabc56e648d5fa98e34a11bdc2e
+```{r}
+# write.bibtex(file="references.bib")
+```
+

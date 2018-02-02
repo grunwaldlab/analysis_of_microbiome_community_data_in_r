@@ -1,11 +1,17 @@
 ---
 title: "Plotting taxonomic data"
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+## Heat trees
+
+
+
 
 
 ```{r, child="_sessioninfo.Rmd"}
