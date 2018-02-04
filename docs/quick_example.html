@@ -297,49 +297,50 @@ $(document).ready(function () {
 <li>A sample information table called <code>hmp_samples</code>, with <strong>samples as rows</strong> and columns of information describing the samples (e.g. gender).</li>
 </ul>
 <p>This is the preferred way to encode this type of abundance information in <code>metacoder</code> and <code>taxa</code>. Lets take a look at this data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)</code></pre></div>
-<pre><code>## Loading required package: taxa</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(hmp_otus)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
+<span class="kw">print</span>(hmp_otus)</code></pre></div>
 <pre><code>## # A tibble: 1,000 x 52
-##    otu_id lineage `700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
-##    &lt;chr&gt;  &lt;chr&gt;         &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
-##  1 OTU_9… r__Roo…           0           2           1           0           0           0
-##  2 OTU_9… r__Roo…           0           0           0           0           0           0
-##  3 OTU_9… r__Roo…           0           1           0           0           0           0
-##  4 OTU_9… r__Roo…           8          36          10           5          66          38
-##  5 OTU_9… r__Roo…           3          25           0           0           0           1
-##  6 OTU_9… r__Roo…          42         277          16          22          85         211
-##  7 OTU_9… r__Roo…           4          17          21           1          74          12
-##  8 OTU_9… r__Roo…           0           0           0           0           0           0
-##  9 OTU_9… r__Roo…           0           0           0           0           0           0
-## 10 OTU_9… r__Roo…           0           0           0           0           1           0
-## # ... with 990 more rows, and 44 more variables: `700111044` &lt;int&gt;, `700101365` &lt;int&gt;,
-## #   `700100431` &lt;int&gt;, `700016050` &lt;int&gt;, `700032425` &lt;int&gt;, `700024855` &lt;int&gt;,
-## #   `700103488` &lt;int&gt;, `700096869` &lt;int&gt;, `700107379` &lt;int&gt;, `700096422` &lt;int&gt;,
-## #   `700102417` &lt;int&gt;, `700114168` &lt;int&gt;, `700037540` &lt;int&gt;, `700106397` &lt;int&gt;,
-## #   `700113498` &lt;int&gt;, `700033743` &lt;int&gt;, `700105205` &lt;int&gt;, `700024238` &lt;int&gt;,
-## #   `700034183` &lt;int&gt;, `700038390` &lt;int&gt;, `700015973` &lt;int&gt;, `700038124` &lt;int&gt;,
-## #   `700107206` &lt;int&gt;, `700037403` &lt;int&gt;, `700098429` &lt;int&gt;, `700101224` &lt;int&gt;,
-## #   `700114615` &lt;int&gt;, `700024234` &lt;int&gt;, `700108596` &lt;int&gt;, `700101076` &lt;int&gt;,
-## #   `700105882` &lt;int&gt;, `700016902` &lt;int&gt;, `700102242` &lt;int&gt;, `700038231` &lt;int&gt;,
-## #   `700109394` &lt;int&gt;, `700102530` &lt;int&gt;, `700108229` &lt;int&gt;, `700099013` &lt;int&gt;,
-## #   `700098680` &lt;int&gt;, `700106938` &lt;int&gt;, `700014916` &lt;int&gt;, `700095535` &lt;int&gt;,
-## #   `700102367` &lt;int&gt;, `700101358` &lt;int&gt;</code></pre>
+##          otu_id
+##           &lt;chr&gt;
+##  1 OTU_97.44820
+##  2  OTU_97.4527
+##  3 OTU_97.43162
+##  4 OTU_97.43112
+##  5 OTU_97.43346
+##  6 OTU_97.44222
+##  7 OTU_97.44176
+##  8 OTU_97.37553
+##  9 OTU_97.30800
+## 10 OTU_97.15266
+## # ... with 990 more rows, and 51 more variables: lineage &lt;chr&gt;, `700035949` &lt;int&gt;,
+## #   `700097855` &lt;int&gt;, `700100489` &lt;int&gt;, `700111314` &lt;int&gt;, `700033744` &lt;int&gt;,
+## #   `700109581` &lt;int&gt;, `700111044` &lt;int&gt;, `700101365` &lt;int&gt;, `700100431` &lt;int&gt;,
+## #   `700016050` &lt;int&gt;, `700032425` &lt;int&gt;, `700024855` &lt;int&gt;, `700103488` &lt;int&gt;,
+## #   `700096869` &lt;int&gt;, `700107379` &lt;int&gt;, `700096422` &lt;int&gt;, `700102417` &lt;int&gt;,
+## #   `700114168` &lt;int&gt;, `700037540` &lt;int&gt;, `700106397` &lt;int&gt;, `700113498` &lt;int&gt;,
+## #   `700033743` &lt;int&gt;, `700105205` &lt;int&gt;, `700024238` &lt;int&gt;, `700034183` &lt;int&gt;,
+## #   `700038390` &lt;int&gt;, `700015973` &lt;int&gt;, `700038124` &lt;int&gt;, `700107206` &lt;int&gt;,
+## #   `700037403` &lt;int&gt;, `700098429` &lt;int&gt;, `700101224` &lt;int&gt;, `700114615` &lt;int&gt;,
+## #   `700024234` &lt;int&gt;, `700108596` &lt;int&gt;, `700101076` &lt;int&gt;, `700105882` &lt;int&gt;,
+## #   `700016902` &lt;int&gt;, `700102242` &lt;int&gt;, `700038231` &lt;int&gt;, `700109394` &lt;int&gt;,
+## #   `700102530` &lt;int&gt;, `700108229` &lt;int&gt;, `700099013` &lt;int&gt;, `700098680` &lt;int&gt;,
+## #   `700106938` &lt;int&gt;, `700014916` &lt;int&gt;, `700095535` &lt;int&gt;, `700102367` &lt;int&gt;,
+## #   `700101358` &lt;int&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(hmp_samples)</code></pre></div>
 <pre><code>## # A tibble: 50 x 3
 ## # Groups:   body_site, sex [10]
-##    sample_id sex    body_site
-##    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    
-##  1 700035949 female Nose     
-##  2 700097855 female Nose     
-##  3 700100489 female Nose     
-##  4 700111314 female Nose     
-##  5 700033744 female Nose     
-##  6 700109581 male   Nose     
-##  7 700111044 male   Nose     
-##  8 700101365 male   Nose     
-##  9 700100431 male   Nose     
-## 10 700016050 male   Nose     
+##    sample_id    sex body_site
+##        &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
+##  1 700035949 female      Nose
+##  2 700097855 female      Nose
+##  3 700100489 female      Nose
+##  4 700111314 female      Nose
+##  5 700033744 female      Nose
+##  6 700109581   male      Nose
+##  7 700111044   male      Nose
+##  8 700101365   male      Nose
+##  9 700100431   male      Nose
+## 10 700016050   male      Nose
 ## # ... with 40 more rows</code></pre>
 <p>We can parse the taxonomic information in the abundance matrix using a parser from <code>taxa</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(hmp_otus,
@@ -356,31 +357,32 @@ $(document).ready(function () {
 ##   2 data sets:
 ##     tax_data:
 ##       # A tibble: 1,000 x 53
-##         taxon_id otu_id  lineage      `700035949` `700097855` `700100489` `700111314`
-##         &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;              &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
-##       1 dm       OTU_97… r__Root;p__…           0           2           1           0
-##       2 dn       OTU_97… r__Root;p__…           0           0           0           0
-##       3 do       OTU_97… r__Root;p__…           0           1           0           0
-##       # ... with 997 more rows, and 46 more variables: `700033744` &lt;int&gt;,
-##       #   `700109581` &lt;int&gt;, `700111044` &lt;int&gt;, `700101365` &lt;int&gt;, `700100431` &lt;int&gt;,
-##       #   `700016050` &lt;int&gt;, `700032425` &lt;int&gt;, `700024855` &lt;int&gt;, `700103488` &lt;int&gt;,
-##       #   `700096869` &lt;int&gt;, `700107379` &lt;int&gt;, `700096422` &lt;int&gt;, `700102417` &lt;int&gt;,
-##       #   `700114168` &lt;int&gt;, `700037540` &lt;int&gt;, `700106397` &lt;int&gt;, `700113498` &lt;int&gt;,
-##       #   `700033743` &lt;int&gt;, `700105205` &lt;int&gt;, `700024238` &lt;int&gt;, `700034183` &lt;int&gt;,
-##       #   `700038390` &lt;int&gt;, `700015973` &lt;int&gt;, `700038124` &lt;int&gt;, `700107206` &lt;int&gt;,
-##       #   `700037403` &lt;int&gt;, `700098429` &lt;int&gt;, `700101224` &lt;int&gt;, `700114615` &lt;int&gt;,
-##       #   `700024234` &lt;int&gt;, `700108596` &lt;int&gt;, `700101076` &lt;int&gt;, `700105882` &lt;int&gt;,
-##       #   `700016902` &lt;int&gt;, `700102242` &lt;int&gt;, `700038231` &lt;int&gt;, `700109394` &lt;int&gt;,
-##       #   `700102530` &lt;int&gt;, `700108229` &lt;int&gt;, `700099013` &lt;int&gt;, `700098680` &lt;int&gt;,
-##       #   `700106938` &lt;int&gt;, `700014916` &lt;int&gt;, `700095535` &lt;int&gt;, `700102367` &lt;int&gt;,
-##       #   `700101358` &lt;int&gt;
+##         taxon_id       otu_id
+##            &lt;chr&gt;        &lt;chr&gt;
+##       1       dm OTU_97.44820
+##       2       dn  OTU_97.4527
+##       3       do OTU_97.43162
+##       # ... with 997 more rows, and 51 more variables: lineage &lt;chr&gt;,
+##       #   `700035949` &lt;int&gt;, `700097855` &lt;int&gt;, `700100489` &lt;int&gt;, `700111314` &lt;int&gt;,
+##       #   `700033744` &lt;int&gt;, `700109581` &lt;int&gt;, `700111044` &lt;int&gt;, `700101365` &lt;int&gt;,
+##       #   `700100431` &lt;int&gt;, `700016050` &lt;int&gt;, `700032425` &lt;int&gt;, `700024855` &lt;int&gt;,
+##       #   `700103488` &lt;int&gt;, `700096869` &lt;int&gt;, `700107379` &lt;int&gt;, `700096422` &lt;int&gt;,
+##       #   `700102417` &lt;int&gt;, `700114168` &lt;int&gt;, `700037540` &lt;int&gt;, `700106397` &lt;int&gt;,
+##       #   `700113498` &lt;int&gt;, `700033743` &lt;int&gt;, `700105205` &lt;int&gt;, `700024238` &lt;int&gt;,
+##       #   `700034183` &lt;int&gt;, `700038390` &lt;int&gt;, `700015973` &lt;int&gt;, `700038124` &lt;int&gt;,
+##       #   `700107206` &lt;int&gt;, `700037403` &lt;int&gt;, `700098429` &lt;int&gt;, `700101224` &lt;int&gt;,
+##       #   `700114615` &lt;int&gt;, `700024234` &lt;int&gt;, `700108596` &lt;int&gt;, `700101076` &lt;int&gt;,
+##       #   `700105882` &lt;int&gt;, `700016902` &lt;int&gt;, `700102242` &lt;int&gt;, `700038231` &lt;int&gt;,
+##       #   `700109394` &lt;int&gt;, `700102530` &lt;int&gt;, `700108229` &lt;int&gt;, `700099013` &lt;int&gt;,
+##       #   `700098680` &lt;int&gt;, `700106938` &lt;int&gt;, `700014916` &lt;int&gt;, `700095535` &lt;int&gt;,
+##       #   `700102367` &lt;int&gt;, `700101358` &lt;int&gt;
 ##     class_data:
 ##       # A tibble: 5,922 x 5
-##         taxon_id input_index tax_rank tax_name            regex_match           
-##       * &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
-##       1 ab                 1 r        Root                r__Root               
-##       2 ac                 1 p        Proteobacteria      p__Proteobacteria     
-##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacteria
+##         taxon_id input_index tax_rank            tax_name            regex_match
+##       *    &lt;chr&gt;       &lt;int&gt;    &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;
+##       1       ab           1        r                Root                r__Root
+##       2       ac           1        p      Proteobacteria      p__Proteobacteria
+##       3       aj           1        c Gammaproteobacteria c__Gammaproteobacteria
 ##       # ... with 5,919 more rows
 ##   0 functions:</code></pre>
 </div>
@@ -408,10 +410,10 @@ $(document).ready(function () {
 ##     tax_data:
 ##       # A tibble: 789 x 51
 ##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
-##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##       1 dm                 0           0           0           0           0
-##       2 dn                 0           0           0           0           0
-##       3 do                 0           0           0           0           0
+##            &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1       dm           0           0           0           0           0
+##       2       dn           0           0           0           0           0
+##       3       do           0           0           0           0           0
 ##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
 ##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;,
 ##       #   `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;,
@@ -426,11 +428,11 @@ $(document).ready(function () {
 ##       #   `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;, `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
 ##     class_data:
 ##       # A tibble: 5,922 x 5
-##         taxon_id input_index tax_rank tax_name            regex_match           
-##       * &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
-##       1 ab                 1 r        Root                r__Root               
-##       2 ac                 1 p        Proteobacteria      p__Proteobacteria     
-##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacteria
+##         taxon_id input_index tax_rank            tax_name            regex_match
+##       *    &lt;chr&gt;       &lt;int&gt;    &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;
+##       1       ab           1        r                Root                r__Root
+##       2       ac           1        p      Proteobacteria      p__Proteobacteria
+##       3       aj           1        c Gammaproteobacteria c__Gammaproteobacteria
 ##       # ... with 5,919 more rows
 ##   0 functions:</code></pre>
 <p>Note how there are fewer taxa now, as well as fewer OTUs. This coordinated manipulation of taxonomic and abundance data is one of the main benefits of using the <code>taxmap</code> class.</p>
@@ -449,10 +451,10 @@ $(document).ready(function () {
 ##     tax_data:
 ##       # A tibble: 789 x 51
 ##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
-##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##       1 dm                 0           0           0           0           0
-##       2 dn                 0           0           0           0           0
-##       3 do                 0           0           0           0           0
+##            &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1       dm           0           0           0           0           0
+##       2       dn           0           0           0           0           0
+##       3       do           0           0           0           0           0
 ##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
 ##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;,
 ##       #   `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;,
@@ -467,11 +469,11 @@ $(document).ready(function () {
 ##       #   `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;, `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
 ##     class_data:
 ##       # A tibble: 5,922 x 5
-##         taxon_id input_index tax_rank tax_name            regex_match           
-##       * &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
-##       1 ab                 1 r        Root                r__Root               
-##       2 ac                 1 p        Proteobacteria      p__Proteobacteria     
-##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacteria
+##         taxon_id input_index tax_rank            tax_name            regex_match
+##       *    &lt;chr&gt;       &lt;int&gt;    &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;
+##       1       ab           1        r                Root                r__Root
+##       2       ac           1        p      Proteobacteria      p__Proteobacteria
+##       3       aj           1        c Gammaproteobacteria c__Gammaproteobacteria
 ##       # ... with 5,919 more rows
 ##   0 functions:</code></pre>
 </div>
@@ -490,10 +492,10 @@ $(document).ready(function () {
 ##     tax_data:
 ##       # A tibble: 789 x 51
 ##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
-##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##       1 dm                 0           0           0           0           0
-##       2 dn                 0           0           0           0           0
-##       3 do                 0           0           0           0           0
+##            &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1       dm           0           0           0           0           0
+##       2       dn           0           0           0           0           0
+##       3       do           0           0           0           0           0
 ##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
 ##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;,
 ##       #   `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;,
@@ -508,19 +510,19 @@ $(document).ready(function () {
 ##       #   `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;, `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
 ##     class_data:
 ##       # A tibble: 5,922 x 5
-##         taxon_id input_index tax_rank tax_name            regex_match           
-##       * &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
-##       1 ab                 1 r        Root                r__Root               
-##       2 ac                 1 p        Proteobacteria      p__Proteobacteria     
-##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacteria
+##         taxon_id input_index tax_rank            tax_name            regex_match
+##       *    &lt;chr&gt;       &lt;int&gt;    &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;
+##       1       ab           1        r                Root                r__Root
+##       2       ac           1        p      Proteobacteria      p__Proteobacteria
+##       3       aj           1        c Gammaproteobacteria c__Gammaproteobacteria
 ##       # ... with 5,919 more rows
 ##     tax_abund:
 ##       # A tibble: 155 x 51
 ##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
-##       * &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##       1 ab             1.00      1.00           1.00      1.00         1.00 
-##       2 ac             0.206     0.0262         0         0.252        0.225
-##       3 ad             0         0.00269        0         0.0417       0    
+##       *    &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1       ab    1.000000 1.000000000           1  1.00000000   1.0000000
+##       2       ac    0.206089 0.026180573           0  0.25198413   0.2245972
+##       3       ad    0.000000 0.002691461           0  0.04166667   0.0000000
 ##       # ... with 152 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
 ##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;,
 ##       #   `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;,
@@ -546,10 +548,10 @@ $(document).ready(function () {
 ##     tax_data:
 ##       # A tibble: 789 x 51
 ##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
-##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##       1 dm                 0           0           0           0           0
-##       2 dn                 0           0           0           0           0
-##       3 do                 0           0           0           0           0
+##            &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1       dm           0           0           0           0           0
+##       2       dn           0           0           0           0           0
+##       3       do           0           0           0           0           0
 ##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
 ##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;,
 ##       #   `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;,
@@ -564,19 +566,19 @@ $(document).ready(function () {
 ##       #   `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;, `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
 ##     class_data:
 ##       # A tibble: 5,922 x 5
-##         taxon_id input_index tax_rank tax_name            regex_match           
-##       * &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
-##       1 ab                 1 r        Root                r__Root               
-##       2 ac                 1 p        Proteobacteria      p__Proteobacteria     
-##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacteria
+##         taxon_id input_index tax_rank            tax_name            regex_match
+##       *    &lt;chr&gt;       &lt;int&gt;    &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;
+##       1       ab           1        r                Root                r__Root
+##       2       ac           1        p      Proteobacteria      p__Proteobacteria
+##       3       aj           1        c Gammaproteobacteria c__Gammaproteobacteria
 ##       # ... with 5,919 more rows
 ##     tax_abund:
 ##       # A tibble: 155 x 51
 ##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
-##       * &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##       1 ab             1.00      1.00           1.00      1.00         1.00 
-##       2 ac             0.206     0.0262         0         0.252        0.225
-##       3 ad             0         0.00269        0         0.0417       0    
+##       *    &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1       ab    1.000000 1.000000000           1  1.00000000   1.0000000
+##       2       ac    0.206089 0.026180573           0  0.25198413   0.2245972
+##       3       ad    0.000000 0.002691461           0  0.04166667   0.0000000
 ##       # ... with 152 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
 ##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;,
 ##       #   `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;,
@@ -592,10 +594,10 @@ $(document).ready(function () {
 ##     tax_occ:
 ##       # A tibble: 155 x 6
 ##         taxon_id  Nose Saliva  Skin Stool Throat
-##         &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
-##       1 ab          10     10    10    10     10
-##       2 ac           8     10     9     2     10
-##       3 ad           5     10     8    10     10
+##            &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##       1       ab    10     10    10    10     10
+##       2       ac     8     10     9     2     10
+##       3       ad     5     10     8    10     10
 ##       # ... with 152 more rows
 ##   0 functions:</code></pre>
 </div>
@@ -630,6 +632,7 @@ $(document).ready(function () {
                                          <span class="dt">MARGIN =</span> <span class="dv">2</span>)</code></pre></div>
 <p>Adding this on to the sample data makes it easy to use the sample information in graphing. Lets compare the alpha diversity of samples from males and females using <code>ggplot2</code>, a popular R package for plotting.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.3.2</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;ggplot2&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:taxa&#39;:
@@ -651,8 +654,9 @@ $(document).ready(function () {
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess). A Tukey’s HSD test can compare each site to every other and tell us which are significantly different. Although base R has a Tukey’s HSD function called <code>TukeyHSD</code>, we will use one from the package <code>agricolae</code> since it supplies grouping codes that are useful for graphing.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
-tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;body_site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)</code></pre></div>
+<pre><code>## Warning: package &#39;agricolae&#39; was built under R version 3.3.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;body_site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
 <span class="kw">print</span>(tukey_result)</code></pre></div>
 <pre><code>## $statistics
 ##    MSerror Df     Mean       CV      MSD
@@ -706,19 +710,19 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
                                       <span class="dt">groups =</span> hmp_samples<span class="op">$</span>sex) <span class="co"># What category each sample is assigned to</span>
 <span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table)</code></pre></div>
 <pre><code>## # A tibble: 155 x 7
-##    taxon_id treatment_1 treatment_2 log2_median_rat… median_diff mean_diff wilcox_p_value
-##  * &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;                  &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;
-##  1 ab       female      male                   0          0        0              NaN    
-##  2 ac       female      male                   0.380      0.0229   0.0379           0.470
-##  3 ad       female      male                  -0.434     -0.0449  -0.0199           0.907
-##  4 ae       female      male                  -1.68      -0.0475  -0.0753           0.335
-##  5 af       female      male                   0.649      0.116    0.0614           0.386
-##  6 ag       female      male                   0          0       -0.00275          0.732
-##  7 ah       female      male                   0          0       -0.00140          0.602
-##  8 aj       female      male                   1.24       0.0162  -0.0129           0.680
-##  9 ak       female      male                   0          0        0.00121          0.416
-## 10 al       female      male                  -0.542     -0.0541  -0.0211           0.969
-## # ... with 145 more rows</code></pre>
+##    taxon_id treatment_1 treatment_2 log2_median_ratio median_diff    mean_diff
+##  *    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+##  1       ab      female        male         0.0000000  0.00000000  0.000000000
+##  2       ac      female        male         0.3797759  0.02290828  0.037866058
+##  3       ad      female        male        -0.4341494 -0.04486884 -0.019886673
+##  4       ae      female        male        -1.6833967 -0.04748394 -0.075250940
+##  5       af      female        male         0.6487058  0.11593508  0.061361212
+##  6       ag      female        male         0.0000000  0.00000000 -0.002751537
+##  7       ah      female        male         0.0000000  0.00000000 -0.001404065
+##  8       aj      female        male         1.2392100  0.01622017 -0.012872601
+##  9       ak      female        male         0.0000000  0.00000000  0.001209339
+## 10       al      female        male        -0.5423022 -0.05409843 -0.021096012
+## # ... with 145 more rows, and 1 more variables: wilcox_p_value &lt;dbl&gt;</code></pre>
 <p>We can use this information to create what we call a <strong>differential heat tree</strong>, which indicates which taxa are more abundant in each treatment:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
           <span class="dt">node_label =</span> taxon_names,
@@ -747,19 +751,19 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
                                       <span class="dt">groups =</span> hmp_samples<span class="op">$</span>body_site)
 <span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table)</code></pre></div>
 <pre><code>## # A tibble: 1,550 x 7
-##    taxon_id treatment_1 treatment_2 log2_median_rat… median_diff mean_diff wilcox_p_value
-##  * &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;                  &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;
-##  1 ab       Nose        Saliva                  0         0         0         NaN        
-##  2 ac       Nose        Saliva               -  2.62     -0.167    -0.128       0.0172   
-##  3 ad       Nose        Saliva               -  7.68     -0.274    -0.265       0.000163 
-##  4 ae       Nose        Saliva                  5.36      0.616     0.595       0.0000108
-##  5 af       Nose        Saliva               -  1.23     -0.260    -0.159       0.0433   
-##  6 ag       Nose        Saliva               -Inf        -0.0228   -0.0436      0.0000874
-##  7 ah       Nose        Saliva                  0         0         0         NaN        
-##  8 aj       Nose        Saliva               -  3.83     -0.103    -0.0803      0.00707  
-##  9 ak       Nose        Saliva               -Inf        -0.0174   -0.0174      0.00156  
-## 10 al       Nose        Saliva               -Inf        -0.258    -0.248       0.000149 
-## # ... with 1,540 more rows</code></pre>
+##    taxon_id treatment_1 treatment_2 log2_median_ratio median_diff   mean_diff
+##  *    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1       ab        Nose      Saliva          0.000000  0.00000000  0.00000000
+##  2       ac        Nose      Saliva         -2.618019 -0.16722090 -0.12750702
+##  3       ad        Nose      Saliva         -7.676151 -0.27389312 -0.26514780
+##  4       ae        Nose      Saliva          5.364517  0.61566065  0.59543646
+##  5       af        Nose      Saliva         -1.231507 -0.26011619 -0.15915469
+##  6       ag        Nose      Saliva              -Inf -0.02283698 -0.04362694
+##  7       ah        Nose      Saliva          0.000000  0.00000000  0.00000000
+##  8       aj        Nose      Saliva         -3.829347 -0.10290595 -0.08029815
+##  9       ak        Nose      Saliva              -Inf -0.01735820 -0.01744046
+## 10       al        Nose      Saliva              -Inf -0.25840070 -0.24770735
+## # ... with 1,540 more rows, and 1 more variables: wilcox_p_value &lt;dbl&gt;</code></pre>
 <p>There is a special function to plot this type of data called <code>heat_tree_matrix</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree_matrix</span>(obj,
                  <span class="dt">dataset =</span> <span class="st">&quot;diff_table&quot;</span>,
@@ -780,96 +784,98 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <div id="session-information" class="section level2">
 <h2>Session information:</h2>
 <pre><code>##  setting  value                       
-##  version  R version 3.3.1 (2016-06-21)
-##  system   x86_64, linux-gnu           
+##  version  R version 3.3.0 (2016-05-03)
+##  system   x86_64, darwin13.4.0        
 ##  ui       X11                         
-##  language en_US                       
+##  language (EN)                        
 ##  collate  en_US.UTF-8                 
 ##  tz       &lt;NA&gt;                        
-##  date     2018-01-26                  
+##  date     2018-02-02                  
 ## 
-##  package    * version    date       source                                
-##  agricolae  * 1.2-8      2017-09-12 CRAN (R 3.3.1)                        
-##  AlgDesign    1.1-7.3    2014-10-15 CRAN (R 3.3.1)                        
-##  assertthat   0.2.0      2017-04-11 cran (@0.2.0)                         
-##  backports    1.0.5      2017-01-18 CRAN (R 3.3.1)                        
-##  base       * 3.3.1      2016-06-24 local                                 
-##  bindr        0.1        2016-11-13 cran (@0.1)                           
-##  bindrcpp     0.2        2017-06-17 cran (@0.2)                           
-##  boot         1.3-18     2016-02-23 CRAN (R 3.2.1)                        
-##  cli          1.0.0      2017-11-05 cran (@1.0.0)                         
-##  cluster      2.0.4      2016-04-18 CRAN (R 3.2.1)                        
-##  coda         0.19-1     2016-12-08 CRAN (R 3.3.1)                        
-##  codetools    0.2-15     2016-10-05 CRAN (R 3.2.1)                        
-##  colorspace   1.2-7      2016-10-11 CRAN (R 3.3.1)                        
-##  combinat     0.0-8      2012-10-29 CRAN (R 3.3.1)                        
-##  cowplot      0.9.2      2017-12-17 cran (@0.9.2)                         
-##  crayon       1.3.4      2017-09-16 cran (@1.3.4)                         
-##  datasets   * 3.3.1      2016-06-24 local                                 
-##  deldir       0.1-14     2017-04-22 CRAN (R 3.3.1)                        
-##  devtools     1.13.2     2017-06-02 CRAN (R 3.3.1)                        
-##  digest       0.6.14     2018-01-14 cran (@0.6.14)                        
-##  dplyr        0.7.4      2017-09-28 cran (@0.7.4)                         
-##  evaluate     0.10.1     2017-06-24 cran (@0.10.1)                        
-##  expm         0.999-2    2017-03-29 CRAN (R 3.3.1)                        
-##  foreach      1.4.4      2017-12-12 cran (@1.4.4)                         
-##  GA           3.0.2      2016-06-07 cran (@3.0.2)                         
-##  gdata        2.18.0     2017-06-06 CRAN (R 3.3.1)                        
-##  ggfittext    0.5.0      2017-11-17 cran (@0.5.0)                         
-##  ggplot2    * 2.2.1      2016-12-30 CRAN (R 3.3.1)                        
-##  glue         1.2.0      2017-10-29 cran (@1.2.0)                         
-##  gmodels      2.16.2     2015-07-22 CRAN (R 3.3.1)                        
-##  graphics   * 3.3.1      2016-06-24 local                                 
-##  grDevices  * 3.3.1      2016-06-24 local                                 
-##  grid       * 3.3.1      2016-06-24 local                                 
-##  gtable       0.2.0      2016-02-26 CRAN (R 3.3.1)                        
-##  gtools       3.5.0      2015-05-29 CRAN (R 3.3.1)                        
-##  htmltools    0.3.5      2016-03-21 CRAN (R 3.3.1)                        
-##  igraph       1.1.2      2017-07-21 cran (@1.1.2)                         
-##  iterators    1.0.9      2017-12-12 cran (@1.0.9)                         
-##  jsonlite     1.5        2017-06-01 cran (@1.5)                           
-##  klaR         0.6-12     2014-08-06 CRAN (R 3.3.1)                        
-##  knitr      * 1.18       2017-12-27 cran (@1.18)                          
-##  labeling     0.3        2014-08-23 CRAN (R 3.3.1)                        
-##  lattice      0.20-34    2016-09-06 CRAN (R 3.2.1)                        
-##  lazyeval     0.2.1      2017-10-29 cran (@0.2.1)                         
-##  LearnBayes   2.15       2014-05-29 CRAN (R 3.3.1)                        
-##  magrittr     1.5        2014-11-22 CRAN (R 3.3.1)                        
-##  MASS         7.3-45     2015-11-10 CRAN (R 3.2.1)                        
-##  Matrix       1.2-7.1    2016-09-01 CRAN (R 3.2.1)                        
-##  memoise      1.0.0      2016-01-29 CRAN (R 3.3.1)                        
-##  metacoder  * 0.2.0.9006 2018-01-26 Github (grunwaldlab/metacoder@e8bec4b)
-##  methods    * 3.3.1      2016-06-24 local                                 
-##  mgcv         1.8-15     2016-09-14 CRAN (R 3.2.1)                        
-##  munsell      0.4.3      2016-02-13 CRAN (R 3.3.1)                        
-##  nlme         3.1-128    2016-05-10 CRAN (R 3.2.1)                        
-##  parallel     3.3.1      2016-06-24 local                                 
-##  permute      0.9-4      2016-09-09 CRAN (R 3.3.1)                        
-##  pillar       1.1.0      2018-01-14 cran (@1.1.0)                         
-##  pkgconfig    2.0.1      2017-03-21 cran (@2.0.1)                         
-##  plyr         1.8.4      2016-06-08 CRAN (R 3.3.1)                        
-##  R6           2.2.2      2017-06-17 cran (@2.2.2)                         
-##  Rcpp         0.12.15    2018-01-20 cran (@0.12.15)                       
-##  reshape2     1.4.3      2017-12-11 cran (@1.4.3)                         
-##  rlang        0.1.6      2017-12-21 cran (@0.1.6)                         
-##  rmarkdown    1.8        2017-11-17 CRAN (R 3.3.1)                        
-##  rprojroot    1.2        2017-01-16 CRAN (R 3.3.1)                        
-##  scales       0.5.0      2017-08-24 cran (@0.5.0)                         
-##  sp           1.2-7      2018-01-19 CRAN (R 3.3.1)                        
-##  spData       0.2.6.9    2018-01-03 CRAN (R 3.3.1)                        
-##  spdep        0.7-4      2017-11-22 CRAN (R 3.3.1)                        
-##  splines      3.3.1      2016-06-24 local                                 
-##  stats      * 3.3.1      2016-06-24 local                                 
-##  stringi      1.1.6      2017-11-17 cran (@1.1.6)                         
-##  stringr      1.2.0      2017-02-18 cran (@1.2.0)                         
-##  taxa       * 0.2.0      2017-12-19 cran (@0.2.0)                         
-##  tibble       1.4.2      2018-01-22 cran (@1.4.2)                         
-##  tools        3.3.1      2016-06-24 local                                 
-##  utf8         1.1.3      2018-01-03 cran (@1.1.3)                         
-##  utils      * 3.3.1      2016-06-24 local                                 
-##  vegan        2.4-6      2018-01-24 cran (@2.4-6)                         
-##  withr        1.0.2      2016-06-20 CRAN (R 3.3.1)                        
-##  yaml         2.1.16     2017-12-12 cran (@2.1.16)</code></pre>
+##  package       * version date       source        
+##  agricolae     * 1.2-8   2017-09-12 CRAN (R 3.3.2)
+##  AlgDesign       1.1-7.3 2014-10-15 CRAN (R 3.3.0)
+##  assertthat      0.2.0   2017-04-11 CRAN (R 3.3.2)
+##  backports       1.1.0   2017-05-22 CRAN (R 3.3.2)
+##  base          * 3.3.0   2016-05-03 local         
+##  bibtex          0.4.2   2017-06-30 CRAN (R 3.3.2)
+##  bindr           0.1     2016-11-13 CRAN (R 3.3.2)
+##  bindrcpp        0.2     2017-06-17 CRAN (R 3.3.2)
+##  boot            1.3-19  2017-04-21 CRAN (R 3.3.2)
+##  cluster         2.0.6   2017-03-16 CRAN (R 3.3.2)
+##  coda            0.19-1  2016-12-08 CRAN (R 3.3.2)
+##  codetools       0.2-15  2016-10-05 CRAN (R 3.3.0)
+##  colorspace      1.3-2   2016-12-14 CRAN (R 3.3.2)
+##  combinat        0.0-8   2012-10-29 CRAN (R 3.3.0)
+##  cowplot         0.9.2   2017-12-17 CRAN (R 3.3.2)
+##  datasets      * 3.3.0   2016-05-03 local         
+##  deldir          0.1-14  2017-04-22 CRAN (R 3.3.2)
+##  devtools        1.13.2  2017-06-02 CRAN (R 3.3.2)
+##  digest          0.6.12  2017-01-27 CRAN (R 3.3.2)
+##  dplyr           0.7.1   2017-06-22 CRAN (R 3.3.2)
+##  evaluate        0.10.1  2017-06-24 CRAN (R 3.3.2)
+##  expm            0.999-2 2017-03-29 CRAN (R 3.3.2)
+##  foreach         1.4.3   2015-10-13 CRAN (R 3.3.0)
+##  GA              3.0.2   2016-06-07 CRAN (R 3.3.0)
+##  gdata           2.18.0  2017-06-06 CRAN (R 3.3.2)
+##  ggfittext       0.5.0   2017-11-17 CRAN (R 3.3.2)
+##  ggplot2       * 2.2.1   2016-12-30 CRAN (R 3.3.2)
+##  glue            1.1.1   2017-06-21 CRAN (R 3.3.2)
+##  gmodels         2.16.2  2015-07-22 CRAN (R 3.3.0)
+##  graphics      * 3.3.0   2016-05-03 local         
+##  grDevices     * 3.3.0   2016-05-03 local         
+##  grid          * 3.3.0   2016-05-03 local         
+##  gtable          0.2.0   2016-02-26 CRAN (R 3.3.0)
+##  gtools          3.5.0   2015-05-29 CRAN (R 3.3.0)
+##  htmltools       0.3.6   2017-04-28 CRAN (R 3.3.2)
+##  httr            1.2.1   2016-07-03 CRAN (R 3.3.0)
+##  igraph          1.0.1   2015-06-26 CRAN (R 3.3.0)
+##  iterators       1.0.8   2015-10-13 CRAN (R 3.3.0)
+##  jsonlite        1.5     2017-06-01 CRAN (R 3.3.2)
+##  klaR            0.6-12  2014-08-06 CRAN (R 3.3.0)
+##  knitcitations * 1.0.8   2017-07-04 CRAN (R 3.3.2)
+##  knitr         * 1.16    2017-05-18 CRAN (R 3.3.2)
+##  labeling        0.3     2014-08-23 CRAN (R 3.3.0)
+##  lattice         0.20-35 2017-03-25 CRAN (R 3.3.2)
+##  lazyeval        0.2.0   2016-06-12 CRAN (R 3.3.0)
+##  LearnBayes      2.15    2014-05-29 CRAN (R 3.3.0)
+##  lubridate       1.6.0   2016-09-13 CRAN (R 3.3.0)
+##  magrittr        1.5     2014-11-22 CRAN (R 3.3.0)
+##  MASS            7.3-47  2017-04-21 CRAN (R 3.3.2)
+##  Matrix          1.2-10  2017-04-28 CRAN (R 3.3.2)
+##  memoise         1.1.0   2017-04-21 CRAN (R 3.3.2)
+##  metacoder     * 0.2.0   2018-01-05 CRAN (R 3.3.2)
+##  methods       * 3.3.0   2016-05-03 local         
+##  mgcv            1.8-17  2017-02-08 CRAN (R 3.3.2)
+##  munsell         0.4.3   2016-02-13 CRAN (R 3.3.0)
+##  nlme            3.1-131 2017-02-06 CRAN (R 3.3.2)
+##  parallel        3.3.0   2016-05-03 local         
+##  permute         0.9-4   2016-09-09 CRAN (R 3.3.0)
+##  pkgconfig       2.0.1   2017-03-21 CRAN (R 3.3.2)
+##  plyr            1.8.4   2016-06-08 CRAN (R 3.3.0)
+##  R6              2.2.2   2017-06-17 CRAN (R 3.3.2)
+##  Rcpp            0.12.11 2017-05-22 CRAN (R 3.3.2)
+##  RefManageR      0.14.12 2017-07-04 CRAN (R 3.3.2)
+##  reshape2        1.4.2   2016-10-22 CRAN (R 3.3.0)
+##  rlang           0.1.1   2017-05-18 CRAN (R 3.3.2)
+##  rmarkdown       1.6     2017-06-15 CRAN (R 3.3.2)
+##  rprojroot       1.2     2017-01-16 CRAN (R 3.3.2)
+##  rstudioapi      0.6     2016-06-27 CRAN (R 3.3.0)
+##  scales          0.4.1   2016-11-09 CRAN (R 3.3.2)
+##  sp              1.2-5   2017-06-29 CRAN (R 3.3.2)
+##  spdep           0.6-13  2017-04-25 CRAN (R 3.3.2)
+##  splines         3.3.0   2016-05-03 local         
+##  stats         * 3.3.0   2016-05-03 local         
+##  stringi         1.1.5   2017-04-07 CRAN (R 3.3.2)
+##  stringr         1.2.0   2017-02-18 CRAN (R 3.3.2)
+##  taxa          * 0.2.0   2017-12-19 CRAN (R 3.3.2)
+##  tibble          1.3.3   2017-05-28 CRAN (R 3.3.2)
+##  tools           3.3.0   2016-05-03 local         
+##  utils         * 3.3.0   2016-05-03 local         
+##  vegan           2.4-3   2017-04-07 CRAN (R 3.3.2)
+##  withr           1.0.2   2016-06-20 CRAN (R 3.3.0)
+##  xml2            1.1.1   2017-01-24 CRAN (R 3.3.2)
+##  yaml            2.1.14  2016-11-12 CRAN (R 3.3.2)</code></pre>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
