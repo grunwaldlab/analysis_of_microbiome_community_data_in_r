@@ -7,6 +7,43 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Most piplines for processing high-throuput amplicon data, such as mothur, QIIME, and dada2, result in a matrix of read counts.
+One dimension of this matrix is consists of OTUs, phylotypes, or unique sequences (all ways to "bin" similar read sequences).
+The other dimension consisits of samples.
+Different tools will expect/output different orientations of the matrix, but, in general, columns are samples and rows are OTUs/phylotypes:
+
+```{r echo=FALSE}
+make_ex_mat <- function(n_otu = 6, n_sample = 6,
+                        otu_names = paste0("otu_", seq_len(n_otu)),
+                        sam_names = paste0("sample_", seq_len(n_sample))) {
+  set.seed(1)
+  my_mat <- matrix(nrow = n_sample, ncol = n_otu, dimnames = list(otu_names, sam_names))
+  my_mat[] <- sample(c(rep(0, 100), 1:100), n_otu * n_sample)
+  return(my_mat)
+}
+print(make_ex_mat())
+```
+
+Each sample and OTU will have an unique ID.
+Sometimes people will construct the sample ID so that it contains the treatment and replicate number:
+
+```{r, echo=FALSE}
+print(make_ex_mat(n_otu = 6, n_sample = 6,
+                  otu_names = paste0("otu_", seq_len(6)),
+                  sam_names = c(paste0("treated_", seq_len(3)), paste0("control_", seq_len(3)))))
+```
+
+
+This helps quicky identifying samples during an analysis, but it is usually better to store sample information in another table, with sample IDs in rows and sample characteristics in columns:
+
+```{r, echo=FALSE}
+print(data.frame(sample_id = paste0("sample_", seq_len(6)),
+                 treated = c(rep(TRUE, 3), rep(FALSE, 3))))
+```
+
+This makes it easy to add lots of additional sample data columns that can be used to subset the data. 
+
+
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
