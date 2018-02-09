@@ -150,6 +150,26 @@ print(obj$data)
 It also now has a "taxon_id" column, which maps to a particular taxon on the tree.
 This column is essential for the manipulation functions of `taxa` we will cover later.
 
+## Subsetting the data
+
+Since this is such a large data set, we will subset it to make this workshop go faster and work on less powerful computers.
+
+First, lets subset the samples to jsut those in main experiment described in @wagner2016host:
+
+```{r}
+sample_data <- subset(sample_data, Experiment == "ecotypes")
+print(sample_data)
+```
+
+
+```{r}
+obj %>% 
+  filter_taxa(taxon_names == "Bacteria", subtaxa = TRUE) %>%
+  filter_taxa(taxon_names != "NA")
+```
+
+
+
 ## References
 
 ```{r, child="_sessioninfo.Rmd"}
