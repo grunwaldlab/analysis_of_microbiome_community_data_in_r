@@ -246,67 +246,11 @@ $(document).ready(function () {
 
 <p>Welcome! This primer provides a concise introduction to conducting applied analyses of microbiome data in R. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer.</p>
 <p>Please provide us feedback on any errors you might find or suggestions for improvement.</p>
-<div id="session-information" class="section level2">
-<h2>Session information:</h2>
-<pre><code>##  setting  value                       
-##  version  R version 3.3.0 (2016-05-03)
-##  system   x86_64, darwin13.4.0        
-##  ui       X11                         
-##  language (EN)                        
-##  collate  en_US.UTF-8                 
-##  tz       &lt;NA&gt;                        
-##  date     2018-02-02                  
-## 
-##  package       * version date       source        
-##  assertthat      0.2.0   2017-04-11 CRAN (R 3.3.2)
-##  backports       1.1.0   2017-05-22 CRAN (R 3.3.2)
-##  base          * 3.3.0   2016-05-03 local         
-##  bibtex          0.4.2   2017-06-30 CRAN (R 3.3.2)
-##  bindr           0.1     2016-11-13 CRAN (R 3.3.2)
-##  bindrcpp        0.2     2017-06-17 CRAN (R 3.3.2)
-##  datasets      * 3.3.0   2016-05-03 local         
-##  devtools        1.13.2  2017-06-02 CRAN (R 3.3.2)
-##  digest          0.6.12  2017-01-27 CRAN (R 3.3.2)
-##  dplyr           0.7.1   2017-06-22 CRAN (R 3.3.2)
-##  evaluate        0.10.1  2017-06-24 CRAN (R 3.3.2)
-##  glue            1.1.1   2017-06-21 CRAN (R 3.3.2)
-##  graphics      * 3.3.0   2016-05-03 local         
-##  grDevices     * 3.3.0   2016-05-03 local         
-##  htmltools       0.3.6   2017-04-28 CRAN (R 3.3.2)
-##  httr            1.2.1   2016-07-03 CRAN (R 3.3.0)
-##  jsonlite        1.5     2017-06-01 CRAN (R 3.3.2)
-##  knitcitations * 1.0.8   2017-07-04 CRAN (R 3.3.2)
-##  knitr         * 1.16    2017-05-18 CRAN (R 3.3.2)
-##  lubridate       1.6.0   2016-09-13 CRAN (R 3.3.0)
-##  magrittr        1.5     2014-11-22 CRAN (R 3.3.0)
-##  memoise         1.1.0   2017-04-21 CRAN (R 3.3.2)
-##  metacoder     * 0.2.0   2018-01-05 CRAN (R 3.3.2)
-##  methods       * 3.3.0   2016-05-03 local         
-##  pkgconfig       2.0.1   2017-03-21 CRAN (R 3.3.2)
-##  plyr            1.8.4   2016-06-08 CRAN (R 3.3.0)
-##  R6              2.2.2   2017-06-17 CRAN (R 3.3.2)
-##  Rcpp            0.12.11 2017-05-22 CRAN (R 3.3.2)
-##  RefManageR      0.14.12 2017-07-04 CRAN (R 3.3.2)
-##  rlang           0.1.1   2017-05-18 CRAN (R 3.3.2)
-##  rmarkdown       1.6     2017-06-15 CRAN (R 3.3.2)
-##  rprojroot       1.2     2017-01-16 CRAN (R 3.3.2)
-##  rstudioapi      0.6     2016-06-27 CRAN (R 3.3.0)
-##  stats         * 3.3.0   2016-05-03 local         
-##  stringi         1.1.5   2017-04-07 CRAN (R 3.3.2)
-##  stringr         1.2.0   2017-02-18 CRAN (R 3.3.2)
-##  taxa          * 0.2.0   2017-12-19 CRAN (R 3.3.2)
-##  tibble          1.3.3   2017-05-28 CRAN (R 3.3.2)
-##  tools           3.3.0   2016-05-03 local         
-##  utils         * 3.3.0   2016-05-03 local         
-##  withr           1.0.2   2016-06-20 CRAN (R 3.3.0)
-##  xml2            1.1.1   2017-01-24 CRAN (R 3.3.2)
-##  yaml            2.1.14  2016-11-12 CRAN (R 3.3.2)</code></pre>
 <blockquote>
-<p>Please cite this primer if you find it useful for your research as: XXX.</p>
+<p>Please cite this primer if you find it useful for your research as: ZSL Foster and NJ Grünwald. 2018. Analysis of Microbiome Community Data in R. DOI: XXX.</p>
 </blockquote>
 <p><em>Niklaus J. Grünwald</em> <a href="https://orcid.org/0000-0003-1656-7602" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1656-7602</a> and <em>Zach S. L. Foster</em></p>
 <p>© 2018, Corvallis, Oregon, USA</p>
-</div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
 
