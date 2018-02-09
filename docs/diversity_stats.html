@@ -23,6 +23,49 @@
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -244,42 +287,72 @@ $(document).ready(function () {
 </div>
 
 
+<div id="measures-of-diversity" class="section level2">
+<h2>Measures of diversity</h2>
+<p>Diversity in the ecological sense is intuitivly understood as the complexity of a community of organisms. There are many ways to quantify this complexity so that we can compare communities objectivly. The two main categories of methods are known as <strong>alpha diversity</strong> and <strong>beta diversity</strong> <span class="citation">(Whittaker 1960)</span>. Alpha diversity measures the diversity within a single sample and is generally based on the number of realtive abundance of species. Beta diversity also uses the number of realtive abundance of species, but measures variation between samples.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<span class="kw">library</span>(AHMbook)
+<span class="co"># Simulate true community</span>
+comm_stats &lt;-<span class="st"> </span><span class="kw">simComm</span>(<span class="dt">type =</span> <span class="st">&quot;counts&quot;</span>, <span class="dt">nsite =</span> <span class="dv">2</span>, <span class="dt">nspec =</span> <span class="dv">100</span>, <span class="dt">nrep =</span> <span class="dv">5</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>)
+comm_counts &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(comm_stats<span class="op">$</span>N)) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+<span class="kw">table</span>(comm_counts<span class="op">$</span>site1)
+
+<span class="kw">hist</span>(comm_counts<span class="op">$</span>site1)
+<span class="kw">hist</span>(comm_counts<span class="op">$</span>site2)
+
+<span class="co"># Take samples</span>
+<span class="kw">rep</span>(<span class="kw">rownames</span>(comm_counts), comm_counts<span class="op">$</span>site1)</code></pre></div>
+</div>
+<div id="alpha-within-sample-diversity" class="section level2">
+<h2>Alpha (within sample) diversity</h2>
+</div>
+<div id="beta-between-sample-diversity" class="section level2">
+<h2>Beta (between sample) diversity</h2>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+</div>
 <div id="session-information" class="section level2">
 <h2>Session information:</h2>
 <pre><code>##  setting  value                       
-##  version  R version 3.3.1 (2016-06-21)
-##  system   x86_64, linux-gnu           
+##  version  R version 3.3.0 (2016-05-03)
+##  system   x86_64, darwin13.4.0        
 ##  ui       X11                         
-##  language en_US                       
+##  language (EN)                        
 ##  collate  en_US.UTF-8                 
 ##  tz       &lt;NA&gt;                        
-##  date     2018-01-26                  
+##  date     2018-02-02                  
 ## 
-##  package    * version date       source         
-##  backports    1.0.5   2017-01-18 CRAN (R 3.3.1) 
-##  base       * 3.3.1   2016-06-24 local          
-##  datasets   * 3.3.1   2016-06-24 local          
-##  devtools     1.13.2  2017-06-02 CRAN (R 3.3.1) 
-##  digest       0.6.12  2017-01-27 cran (@0.6.12) 
-##  evaluate     0.10    2016-10-11 CRAN (R 3.3.1) 
-##  graphics   * 3.3.1   2016-06-24 local          
-##  grDevices  * 3.3.1   2016-06-24 local          
-##  htmltools    0.3.5   2016-03-21 CRAN (R 3.3.1) 
-##  knitr        1.15.1  2016-11-22 cran (@1.15.1) 
-##  magrittr     1.5     2014-11-22 CRAN (R 3.3.1) 
-##  memoise      1.0.0   2016-01-29 CRAN (R 3.3.1) 
-##  methods    * 3.3.1   2016-06-24 local          
-##  Rcpp         0.12.10 2017-03-19 cran (@0.12.10)
-##  rmarkdown    1.8     2017-11-17 CRAN (R 3.3.1) 
-##  rprojroot    1.2     2017-01-16 CRAN (R 3.3.1) 
-##  rstudioapi   0.6     2016-06-27 CRAN (R 3.3.1) 
-##  stats      * 3.3.1   2016-06-24 local          
-##  stringi      1.1.3   2017-03-21 cran (@1.1.3)  
-##  stringr      1.2.0   2017-02-18 cran (@1.2.0)  
-##  tools        3.3.1   2016-06-24 local          
-##  utils      * 3.3.1   2016-06-24 local          
-##  withr        1.0.2   2016-06-20 CRAN (R 3.3.1) 
-##  yaml         2.1.14  2016-11-12 cran (@2.1.14)</code></pre>
+##  package    * version date       source        
+##  backports    1.1.0   2017-05-22 CRAN (R 3.3.2)
+##  base       * 3.3.0   2016-05-03 local         
+##  datasets   * 3.3.0   2016-05-03 local         
+##  devtools     1.13.2  2017-06-02 CRAN (R 3.3.2)
+##  digest       0.6.12  2017-01-27 CRAN (R 3.3.2)
+##  evaluate     0.10.1  2017-06-24 CRAN (R 3.3.2)
+##  graphics   * 3.3.0   2016-05-03 local         
+##  grDevices  * 3.3.0   2016-05-03 local         
+##  htmltools    0.3.6   2017-04-28 CRAN (R 3.3.2)
+##  knitr        1.16    2017-05-18 CRAN (R 3.3.2)
+##  magrittr     1.5     2014-11-22 CRAN (R 3.3.0)
+##  memoise      1.1.0   2017-04-21 CRAN (R 3.3.2)
+##  methods    * 3.3.0   2016-05-03 local         
+##  Rcpp         0.12.11 2017-05-22 CRAN (R 3.3.2)
+##  rmarkdown    1.6     2017-06-15 CRAN (R 3.3.2)
+##  rprojroot    1.2     2017-01-16 CRAN (R 3.3.2)
+##  rstudioapi   0.6     2016-06-27 CRAN (R 3.3.0)
+##  stats      * 3.3.0   2016-05-03 local         
+##  stringi      1.1.5   2017-04-07 CRAN (R 3.3.2)
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.3.2)
+##  tools        3.3.0   2016-05-03 local         
+##  utils      * 3.3.0   2016-05-03 local         
+##  withr        1.0.2   2016-06-20 CRAN (R 3.3.0)
+##  yaml         2.1.14  2016-11-12 CRAN (R 3.3.2)</code></pre>
+<div id="refs" class="references">
+<div id="ref-whittaker1960vegetation">
+<p>Whittaker, Robert Harding. 1960. “Vegetation of the Siskiyou Mountains, Oregon and California.” <em>Ecological Monographs</em> 30 (3). Wiley Online Library: 279–338.</p>
+</div>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
