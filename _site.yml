@@ -26,7 +26,7 @@ navbar:
     icon: fa-book
     menu:
       - text: "Introduction to R"
-        href: introduction_to_r.html
+        href: introduction_to_R.html
   - text: "About"
     icon: fa-info
     href: about.html

@@ -62,7 +62,4 @@ Here we focus on the statistical analysis and visualizations following OTU calli
 References
 ----------
 
-```{r}
-# write.bibtex(file="references.bib")
-```
-
+<!---- Reference list ---->
