@@ -11,7 +11,7 @@
 
 
 
-<title>Introduction to R</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,6 +23,49 @@
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -169,13 +212,6 @@ $(document).ready(function () {
     Home
   </a>
 </li>
-<li>
-  <a href="about.html">
-    <span class="fa fa-info"></span>
-     
-    About
-  </a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
@@ -222,6 +258,13 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -239,66 +282,129 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Introduction to R</h1>
 
 </div>
 
 
-<div id="session-information" class="section level2">
-<h2>Session information:</h2>
-<pre><code>##  setting  value                       
-##  version  R version 3.3.0 (2016-05-03)
-##  system   x86_64, darwin13.4.0        
-##  ui       X11                         
-##  language (EN)                        
-##  collate  en_US.UTF-8                 
-##  tz       &lt;NA&gt;                        
-##  date     2018-02-02                  
-## 
-##  package       * version date       source        
-##  assertthat      0.2.0   2017-04-11 CRAN (R 3.3.2)
-##  backports       1.1.0   2017-05-22 CRAN (R 3.3.2)
-##  base          * 3.3.0   2016-05-03 local         
-##  bibtex          0.4.2   2017-06-30 CRAN (R 3.3.2)
-##  bindr           0.1     2016-11-13 CRAN (R 3.3.2)
-##  bindrcpp        0.2     2017-06-17 CRAN (R 3.3.2)
-##  datasets      * 3.3.0   2016-05-03 local         
-##  devtools        1.13.2  2017-06-02 CRAN (R 3.3.2)
-##  digest          0.6.12  2017-01-27 CRAN (R 3.3.2)
-##  dplyr           0.7.1   2017-06-22 CRAN (R 3.3.2)
-##  evaluate        0.10.1  2017-06-24 CRAN (R 3.3.2)
-##  glue            1.1.1   2017-06-21 CRAN (R 3.3.2)
-##  graphics      * 3.3.0   2016-05-03 local         
-##  grDevices     * 3.3.0   2016-05-03 local         
-##  htmltools       0.3.6   2017-04-28 CRAN (R 3.3.2)
-##  httr            1.2.1   2016-07-03 CRAN (R 3.3.0)
-##  jsonlite        1.5     2017-06-01 CRAN (R 3.3.2)
-##  knitcitations * 1.0.8   2017-07-04 CRAN (R 3.3.2)
-##  knitr         * 1.16    2017-05-18 CRAN (R 3.3.2)
-##  lubridate       1.6.0   2016-09-13 CRAN (R 3.3.0)
-##  magrittr        1.5     2014-11-22 CRAN (R 3.3.0)
-##  memoise         1.1.0   2017-04-21 CRAN (R 3.3.2)
-##  metacoder     * 0.2.0   2018-01-05 CRAN (R 3.3.2)
-##  methods       * 3.3.0   2016-05-03 local         
-##  pkgconfig       2.0.1   2017-03-21 CRAN (R 3.3.2)
-##  plyr            1.8.4   2016-06-08 CRAN (R 3.3.0)
-##  R6              2.2.2   2017-06-17 CRAN (R 3.3.2)
-##  Rcpp            0.12.11 2017-05-22 CRAN (R 3.3.2)
-##  RefManageR      0.14.12 2017-07-04 CRAN (R 3.3.2)
-##  rlang           0.1.1   2017-05-18 CRAN (R 3.3.2)
-##  rmarkdown       1.6     2017-06-15 CRAN (R 3.3.2)
-##  rprojroot       1.2     2017-01-16 CRAN (R 3.3.2)
-##  rstudioapi      0.6     2016-06-27 CRAN (R 3.3.0)
-##  stats         * 3.3.0   2016-05-03 local         
-##  stringi         1.1.5   2017-04-07 CRAN (R 3.3.2)
-##  stringr         1.2.0   2017-02-18 CRAN (R 3.3.2)
-##  taxa          * 0.2.0   2017-12-19 CRAN (R 3.3.2)
-##  tibble          1.3.3   2017-05-28 CRAN (R 3.3.2)
-##  tools           3.3.0   2016-05-03 local         
-##  utils         * 3.3.0   2016-05-03 local         
-##  withr           1.0.2   2016-06-20 CRAN (R 3.3.0)
-##  xml2            1.1.1   2017-01-24 CRAN (R 3.3.2)
-##  yaml            2.1.14  2016-11-12 CRAN (R 3.3.2)</code></pre>
+<p>title: “Introduction to R” subtitle: “<em>NJ Grünwald and ZSL Foster</em>” bibliography: “bibtexlib.bib” —</p>
+<pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d %H:%M:%OS&quot;, tz = tz): unknown
+## timezone &#39;zone/tz/2017c.1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.4.3</code></pre>
+<p>This appendix introduces basic use of the <a href="http://www.r-project.org">R</a> statistical and computer language and the <a href="http://www.rstudio.com/ide/">RStudio Desktop</a> integrated development environment (IDE). We assume you installed the needed resources mentioned in chapter 2 on getting ready to use R.</p>
+<p><strong>Warning:</strong> To install R and RStudio you might need administrator privileges. Contact your IT manager and ask for an R installation or administrator privileges.</p>
+<p>After installing both R and RStudio, please proceed to open RStudio. RStudio should look something like:</p>
+<div class="figure">
+<img src="images/Rstudio.png" alt="RStudio" />
+<p class="caption">RStudio</p>
+</div>
+<p>The top left panel is a text-box where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in <code>x &lt;- 1</code> hit return and then type <code>x</code> and hit return again and watch the console:</p>
+<blockquote>
+<p>Note: the “&gt;” symbol is R’s prompt for you to type something in the console.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="op">&gt;</span><span class="st"> </span>x</code></pre></div>
+<pre><code>[1] 1</code></pre>
+<p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <code>&lt;-</code>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
+<div id="assignment-data-types-and-operations" class="section level2">
+<h2>Assignment, data types and operations</h2>
+<p>Let’s learn a few simple facts about R:</p>
+<p>R uses # to add comments to code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="co"># Add 1 + 1 and write to console</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<pre><code>[1] 2</code></pre>
+<p>This is very useful when developing reusable code or when you want to remember a few months later what you actually did.</p>
+<p>R is case sensitive so that <code>x &lt;- 5</code> is not the same as <code>X &lt;- x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">5</span>
+<span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+<span class="op">&gt;</span><span class="st"> </span>x</code></pre></div>
+<pre><code>[1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>X</code></pre></div>
+<pre><code>[1] 6</code></pre>
+<p>Next, let’s assign numbers to a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
+<span class="op">&gt;</span><span class="st"> </span>x</code></pre></div>
+<pre><code>[1] 1 2 3 4 5</code></pre>
+<p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another data type (e.g., a single number becomes a vector). To compound things further you can even change the data type to strings overwriting the previous content:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot;Seattle&quot;</span>)
+<span class="op">&gt;</span><span class="st"> </span>a</code></pre></div>
+<pre><code>[1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
+<p>Note that we use quotes to denote the string data type containing text.</p>
+<p>To access individual elements of a vector, in this case the second element, we execute:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a[<span class="dv">2</span>]</code></pre></div>
+<pre><code>[1] &quot;Tokyo&quot;</code></pre>
+</div>
+<div id="creating-rstudio-projects" class="section level2">
+<h2>Creating RStudio projects</h2>
+<p>Coding projects usually results in a vast number of files, datasets, scripts and figures that can be difficult to manage and keep organized. RStudio has created the <strong>RStudio projects</strong> to facilitate and simplify the management a project by associating all of the project files into a working directory of your preference. This means that all script files, datasets and results of a project can be stored in a set location to facilitate access and management.</p>
+<p>To create and RStudio project, we need to go to the upper right corner of RStudio, and click on <strong>New Project</strong>:</p>
+<div class="figure">
+<img src="images/RStudio_Proj1.png" />
+
+</div>
+<p>A pop-up window should appear. We want to create a new directory in our desktop to store our data and keep our files. To create the directory click on <strong>New Directory</strong>:</p>
+<div class="figure">
+<img src="images/RStudio_Proj2.png" />
+
+</div>
+<p>Since we are starting this project from scratch, we will select the <strong>Empty Project</strong> option. This will create a new RStudio project:</p>
+<div class="figure">
+<img src="images/RStudio_Proj3.png" />
+
+</div>
+<p>Then, we will use <em>APS_Workshop</em> as the name for our new directory, and we will create the directory as a subdirectory of your desktop:</p>
+<div class="figure">
+<img src="images/RStudio_Proj4.png" />
+
+</div>
+<p>And there is your new RStudio project withing the <code>APS_Workshop</code> directory! We can start downloading the required files and scripts for the workshop into that folder.</p>
+</div>
+<div id="console-tricks-code-completion-command-history" class="section level2">
+<h2>Console tricks: Code completion &amp; command history</h2>
+<p>RStudio has a very useful feature called code completion using the <kbd>Tab</kbd> key which can complete the full name of an object. For example type <code>hel</code> and hit <kbd>Tab</kbd> and you will see several functions pop up and you can select <code>help()</code>.</p>
+<p>This also works inside a function to find function arguments. Type <code>help(</code> and hit <kbd>Tab</kbd> to select arguments for the help function.</p>
+<p>RStudio records your command history. Thus you can scroll up or down the history of executed commands using the <em>Up</em> or <em>Down</em> arrows. Make sure your cursor is in the console and try to re-execute previous commands.</p>
+<p>To quit R you can either use the <kbd>RStudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
+</div>
+<div id="getting-help" class="section level2">
+<h2>Getting help</h2>
+<p>One way that R shines above other languages for analysis is the fact that R packages in CRAN are all documented. Help files are written in HTML and give the user a brief overview of:</p>
+<ul>
+<li>The purpose of a function</li>
+<li>The parameters it takes</li>
+<li>The output it yields</li>
+<li>Some examples demonstrating its usage.</li>
+</ul>
+<p>To see all of the help topics in a package, you can simply type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span>
+<span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span>
+?amova                  <span class="co"># same as above.</span>
+??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></code></pre></div>
+<p>Some packages include vignettes that can have different formats such as being introductions, tutorials, or reference cards in PDF format. You can look at a list of vignettes in all packages by typing:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>()                  <span class="co"># see vignettes from all packages</span>
+<span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>) <span class="co"># see vignettes from a specific package.</span></code></pre></div>
+<p>and to look at a specific vignette you can type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre></div>
+</div>
+<div id="useful-resources-to-learn-r" class="section level2">
+<h2>Useful resources to learn R</h2>
+<p><em>Introductory</em></p>
+<ul>
+<li><a href="http://swirlstats.com/">Swirl</a> is a very well thought out R package that teaches you interactively.</li>
+<li><a href="https://www.codeschool.com/courses/try-r">Code School Try R</a> is a nice interactive tutorial.</li>
+<li><a href="http://www.statmethods.net/interface/help.html">Quick R</a></li>
+<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">R reference card</a></li>
+<li>A very nice, short <a href="http://ateucher.github.io/rcourse_site/index.html">introduction to R</a></li>
+</ul>
+<p><em>Advanced</em></p>
+<ul>
+<li><a href="http://adv-r.had.co.nz/">Advanced R</a> by Hadley Wickham</li>
+</ul>
+<p><em>Books</em>:</p>
+<ul>
+<li><a href="http://shop.oreilly.com/product/0636920022008.do">R in a Nutshell</a></li>
+<li><a href="http://www.cookbook-r.com/">R cookbook</a> is a nice quick reference and tutorial for general R use.</li>
+<li><a href="http://ggplot2.org/book/">ggplot2 book</a> is a useful reference if you want to customize graphs for publication.</li>
+</ul>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
