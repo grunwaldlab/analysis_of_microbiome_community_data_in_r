@@ -1,9 +1,10 @@
+---
 title: "Introduction to R"
 subtitle: "*NJ Gr&uuml;nwald and ZSL Foster*"
 bibliography: "bibtexlib.bib"
 ---
 
-```{r,message=FALSE,echo=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 library("knitcitations")
 cleanbib()
 bib <- read.bibtex("bibtexlib.bib")
