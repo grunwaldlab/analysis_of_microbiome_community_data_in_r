@@ -5,9 +5,6 @@ navbar:
   - text: "Home"
     icon: fa-home
     href: index.html
-  - text: "About"
-    icon: fa-info
-    href: about.html
   - text: "Workshop"
     icon: fa-laptop
     menu:
@@ -30,6 +27,10 @@ navbar:
     menu:
       - text: "Introduction to R"
         href: introduction_to_r.html
+  - text: "About"
+    icon: fa-info
+    href: about.html
+
   right:
   - icon: fa-github
     href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r
@@ -37,7 +38,7 @@ output:
   html_document:
     theme: sandstone
     highlight: tango
-    
+
     include:
       after_body: footer.html
     css: styles.css
@@ -45,4 +46,3 @@ output:
     self_contained: no
 
 output_dir: docs
-
