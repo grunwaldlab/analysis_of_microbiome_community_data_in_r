@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ## Typical format for microbiome data
 
 Most pipelines for processing high-throughput amplicon data, such as mothur, QIIME, and dada2, result in a matrix of read counts.
-One dimension of this matrix is consists of OTUs, phylotypes, or unique sequences (all ways to "bin" similar read sequences).
+One dimension of this matrix consists of OTUs, phylotypes, or unique sequences (all ways to "bin" similar read sequences).
 The other dimension consists of samples.
 Different tools will expect/output different orientations of the matrix, but, in general, columns are samples and rows are OTUs/phylotypes:
 
@@ -49,12 +49,12 @@ This makes it easy to add lots of additional sample data columns that can be use
 ## Importing data into R
 
 Importing data into R can be quite easy if the data is formatted well, but can be a very frustrating experience otherwise.
-In summary, well formatted tabular data consists of .csv (comma-separated value) or .tsv (tab-separated value) files, each with a single table and no additional comments or formatting.
-Either of these formats might also have a .txt extension instead.
+In this case, well formatted data consists of .csv (comma-separated value) or .tsv (tab-separated value) files, each with a single table and no additional comments or formatting.
+Either of these formats might also have a .txt extension (the extension does not really matter; its for humans, not computers).
 For more information on correct data formatting, see the [data formating section](http://grunwaldlab.github.io/Reproducible-science-in-R/03--Data_formatting.html) of our [guide for reporducible research](http://grunwaldlab.github.io/Reproducible-science-in-R/index.html).
-You should always import the raw output data whenever possible and avoid any "manual" (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time.
+You should always import the raw output data whenever possible and avoid any "manual" (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time (@zeeberg2004mistaken).
 
-Throughout this workshop, we will be data from @wagner2016host, a study on the effects of plant age, genotype, and environment on the bacterial microbiome.
+Throughout this workshop, we will be using data from @wagner2016host, a study on the effects of plant age, genotype, and environment on the bacterial microbiome of [*Boechera stricta*](https://en.wikipedia.org/wiki/Boechera_stricta), a perennial herb in the mustard family.
 @wagner2016host released their raw data with the article and it is available [here](http://datadryad.org/resource/doi:10.5061/dryad.g60r3) on [dryad](http://datadryad.org/).
 This is a great example of how to share your raw data.
 
@@ -74,19 +74,18 @@ If your laptop cannot load this file, don't worry, we will provide a subset late
 In this data set, the taxonomic classification for each OTU is in a different file.
 This information could have been included as additional columns in the OTU table and often is in other data sets.
 
-```{r}
+```{r message=FALSE}
 tax_data <- read_tsv("data/taxAssignments97.txt")
 print(tax_data) # You can also simply enter `tax_data` to print it
 ```
 
-Although this data is very well-formatted, it is not perfect.
+Although this data is very well-formatted compared to most  , it is not perfect.
 The "OTU ID" column contains a space in the name (hence the back ticks), which makes it a bit more annoying to work with in R.
 More importantly, the OTU IDs in the taxonomy table are prefixed with "OTU_" and those in the OTU table are not, so we have to remove that prefix to make the two match up:
 
 ```{r}
 tax_data$`OTU ID` <- sub(tax_data$`OTU ID`, # ` are needed because of the space
                          pattern = "OTU_", replacement = "")
-tax_data$`OTU ID` <- as.numeric(tax_data$`OTU ID`) # The OTU ID in the OTU table is numeric
 print(tax_data) 
 ```
 
@@ -96,6 +95,8 @@ We will use the [`dplyr` package](https://cran.r-project.org/web/packages/dplyr/
 
 ```{r message=FALSE}
 library(dplyr) # Loads the dplyr package so we can use `left_join`
+tax_data$`OTU ID` <- as.character(tax_data$`OTU ID`) # Must be same type for join to work
+otu_data$OTU_ID <- as.character(otu_data$OTU_ID) # Must be same type for join to work
 otu_data <- left_join(otu_data, tax_data,
                       by = c("OTU_ID" = "OTU ID")) # identifies cols with shared IDs
 print(otu_data)
@@ -109,19 +110,19 @@ tail(colnames(otu_data), n = 10)
 
 Next, lets load the sample data:
 
-```{r}
+```{r message=FALSE}
 sample_data <- read_tsv("data/sample_data.txt")
 print(sample_data) # You can also simply enter `sample_data` to print it
 ```
 
-Note how the number of columns in `otu_data` (besides the OTU ID column) is equal to the number of rows in `sample_data` and the columns names of `sample_data` appear in the "OTU_ID" column.
+Note how the number of sample columns in `otu_data` is equal to the number of rows in `sample_data` and the columns names of `otu_data` appear in the "SampleID" column.
 
 ## Converting to the `taxmap` format
 
-Although our data is now in R it is not in a format that is specialized for community abundance data; all R knows is that you have a few big tables. 
+Although our data is now in R, it is not in a format that is specialized for community abundance data; all R knows is that you have a few big tables. 
 Different R packages for community (e.g. microbiome) analysis expect data in different formats or **classes**.
-A class, in programming jargon, is a defined way to store data.
-When data is formatted this way, we call the data an **object** or an instance of the class.
+A class, in programming jargon, is a defined way to store data plus some functions designed to interact with that data.
+When you format a specific data set in this way, we call it an **object** or an instance of the class.
 Many packages implement their own classes and functions to convert data to their format, whereas some packages use the classes defined in other packages.
 There are a few options for how to store an abundance matrix classified by a taxonomy in R (e.g. `phyloseq` objects), but we will be using classes defined in the `taxa` package here.
 The goal of the `taxa` package is to provide an all-purpose standard way of manipulation any type of information assigned to a taxonomy.
@@ -147,30 +148,55 @@ Note how our original data are now inside this object:
 print(obj$data)
 ```
 
-It also now has a "taxon_id" column, which maps to a particular taxon on the tree.
-This column is essential for the manipulation functions of `taxa` we will cover later.
+It now has a "taxon_id" column, which maps rows in the table to a taxa in the taxonomy.
+This column is essential for the manipulation functions of `taxa`, like those shown below.
 
 ## Subsetting the data
 
-Since this is such a large data set, we will subset it to make this workshop go faster and work on less powerful computers.
-
-First, lets subset the samples to jsut those in main experiment described in @wagner2016host:
+This is a large data set and not all the data are used in the main publication, so lets subset the data to just the data for Bacteria that were used in the main publication.
+We will cover subsetting in much greater detail later, so dont worry if these commands dont make sense yet.
+First, lets subset the sample data to just those described in main experiment of @wagner2016host:
 
 ```{r}
+other_data <- subset(sample_data, Experiment != "ecotypes")
 sample_data <- subset(sample_data, Experiment == "ecotypes")
 print(sample_data)
 ```
 
+The removed `r nrow(other_data)` of `r sum(c(nrow(other_data), nrow(sample_data)))` samples.
+We still need to remove the same columns from the abundance matrix:
 
 ```{r}
-obj %>% 
-  filter_taxa(taxon_names == "Bacteria", subtaxa = TRUE) %>%
-  filter_taxa(taxon_names != "NA")
+obj$data$tax_data <- obj$data$tax_data[, ! colnames(obj$data$tax_data) %in% other_data$SampleID]
+```
+
+Lets filter out anything not in Bacteria, since the focus of the study was Bacteria:
+
+```{r}
+obj <- filter_taxa(obj, taxon_names == "Bacteria", subtaxa = TRUE)
+```
+
+Some of the input data had `NA` for taxon names.
+We can remove those with no loss of information:
+
+```{r}
+obj <- filter_taxa(obj, taxon_names != "NA")
+```
+
+This leaves us with a data set of `r nrow(obj$data$tax_data)` OTUs in `r nrow(sample_data)` samples, classified by `r length(obj$taxon_ids())` taxa:
+
+```{r}
+print(obj)
 ```
 
 
+```{r include=FALSE}
+save(obj, sample_data, file = "example_dataset.Rdata")
+```
 
-## References
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
+
+## References
+
