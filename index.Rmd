@@ -11,6 +11,6 @@ Please provide us feedback on any errors you might find or suggestions for impro
 
 > Please cite this primer if you find it useful for your research as: ZSL Foster and NJ Grünwald. 2018. Analysis of Microbiome Community Data in R. DOI: XXX.
 
-*Niklaus J. Gr&uuml;nwald*  <a href="https://orcid.org/0000-0003-1656-7602" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1656-7602</a> and *Zach S. L. Foster*
+*Niklaus J. Gr&uuml;nwald*  <a href="https://orcid.org/0000-0003-1656-7602" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1656-7602</a> and *Zach S. L. Foster* <a href="https://orcid.org/0000-0002-5075-0948" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-5075-0948</a>
 
 &copy; 2018, Corvallis, Oregon, USA
