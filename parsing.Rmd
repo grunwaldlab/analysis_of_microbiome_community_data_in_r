@@ -79,7 +79,7 @@ tax_data <- read_tsv("data/taxAssignments97.txt")
 print(tax_data) # You can also simply enter `tax_data` to print it
 ```
 
-Although this data is very well-formatted compared to most  , it is not perfect.
+Although these data are very well-formatted compared to most, it is not perfect.
 The "OTU ID" column contains a space in the name (hence the back ticks), which makes it a bit more annoying to work with in R.
 More importantly, the OTU IDs in the taxonomy table are prefixed with "OTU_" and those in the OTU table are not, so we have to remove that prefix to make the two match up:
 
@@ -130,72 +130,76 @@ The goal of the `taxa` package is to provide an all-purpose standard way of mani
 
 > Add link to taxa parsing guide once it is online
 
-This format turns out to be quite easy to parse:
+The taxonomic data we appended to the abundance matrix has the following form: 
+
+```{r}
+head(otu_data$taxonomy, 10)
+```
+
+Note that there are some odd aspects to the format that could make it challenging to parse:
+
+* Some taxa have ranks (e.g. "k__Bacteria") and some dont (e.g. "Unassigned" and "Root"). 
+* Some taxa have ranks, but no names (e.g. "f__").
+
+If we just consider the ranks to be a part of the taxon name, then its pretty easy to parse:
 
 ```{r}
 library(taxa)
 obj <- parse_tax_data(otu_data,
-                      class_cols = c("Kingdom", "Phylum", "Class", "Order", "Family"))
+                      class_cols = "taxonomy",
+                      class_sep = ";")
 print(obj)
 ```
 
-This tells us that the OTUs are assigned to `r length(obj$taxon_names())` unique taxa.
-This number included "coarse" taxa such as "Bacteria".
-
+This is the print out of a `taxmap` object.
+The first line tells us that the OTUs are assigned to `r length(obj$taxon_names())` unique taxa and lists their IDs and names.
+The second line describes how taxa relate to eachother in the tree.
 Note how our original data are now inside this object: 
 
 ```{r}
-print(obj$data)
+print(obj$data$tax_data)
 ```
 
 It now has a "taxon_id" column, which maps rows in the table to a taxa in the taxonomy.
-This column is essential for the manipulation functions of `taxa`, like those shown below.
+This column is essential for the manipulation functions of `taxa`, like those shown later.
 
-## Subsetting the data
-
-This is a large data set and not all the data are used in the main publication, so lets subset the data to just the data for Bacteria that were used in the main publication.
-We will cover subsetting in much greater detail later, so dont worry if these commands dont make sense yet.
-First, lets subset the sample data to just those described in main experiment of @wagner2016host:
-
-```{r}
-other_data <- subset(sample_data, Experiment != "ecotypes")
-sample_data <- subset(sample_data, Experiment == "ecotypes")
-print(sample_data)
-```
-
-The removed `r nrow(other_data)` of `r sum(c(nrow(other_data), nrow(sample_data)))` samples.
-We still need to remove the same columns from the abundance matrix:
+If we want to split out the rank information, we can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) to specify which part of each taxon is a rank and which part is a name.
+If are not familar with using regular expressions, this might be challenging to understand at first, but it is a very versitile skill to have, so it is worth learning 
+One regular expression (aka "regex") that matches the pattern of taxon names is `^[a-z]{0,1}_{0,2}.*$`.
+The `^` and `$` represent the start and end of the string.
+The contents of the curly braces (e.g. `{0,1}`) indicate the number of time the preceding pattern can match. 
+Likewise, the `*` means 0 or more matches.
+The square brackets (e.g. `[a-z]`) specifiy a range of characters that can be matched. 
+Likewsie the `.` means match any character.
+For example the part of the regex `^[a-z]{0,1}` means "match a character `a` through `z` that occurs at the start of the string either zero or one times". 
+We can add parentheses that specifiy which parts of the pattern go together; these are called "capture groups" in regex jargon.
+For each capture group, the is a value given to the `class_key` option specifing what the group is (e.g. taxon name).
+Putting this all together, we can parse the data like so:
 
 ```{r}
-obj$data$tax_data <- obj$data$tax_data[, ! colnames(obj$data$tax_data) %in% other_data$SampleID]
-```
-
-Lets filter out anything not in Bacteria, since the focus of the study was Bacteria:
-
-```{r}
-obj <- filter_taxa(obj, taxon_names == "Bacteria", subtaxa = TRUE)
-```
-
-Some of the input data had `NA` for taxon names.
-We can remove those with no loss of information:
-
-```{r}
-obj <- filter_taxa(obj, taxon_names != "NA")
-```
-
-This leaves us with a data set of `r nrow(obj$data$tax_data)` OTUs in `r nrow(sample_data)` samples, classified by `r length(obj$taxon_ids())` taxa:
-
-```{r}
+obj <- parse_tax_data(otu_data,
+                      class_cols = "taxonomy",
+                      class_sep = ";",
+                      class_regex = "^([a-z]{0,1})_{0,2}(.*)$",
+                      class_key = c("tax_rank" = "taxon_rank", "name" = "taxon_name"))
 print(obj)
 ```
 
+Note how the taxon names now do not have the rank information.
+Instead, the rank information is in a seperate data set:
 
-```{r include=FALSE}
-save(obj, sample_data, file = "example_dataset.Rdata")
+```{r}
+obj$data$class_data
 ```
+
+We can also see that there are some blank taxon names now.
+These were the taxa that only had rank information (e.g. "f__").
+These do not add any information and can be removed.
+
 
 
 ```{r, child="_sessioninfo.Rmd"}
+save(obj, sample_data, file = "parsed_data.Rdata")
 ```
 
 ## References

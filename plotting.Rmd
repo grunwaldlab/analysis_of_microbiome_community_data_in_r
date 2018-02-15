@@ -8,7 +8,38 @@ bibliography: "bibtexlib.bib"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Throughout this workshop we will be making many familar types of graphs using `ggplot2` and we will explain how they are made then.
+In this section however, we will focus on using the `metacoder` package to plot information on a taxonomic tree using color and size to display data assocaited with taxa.
+Taxonomic data can be difficult to graph since it is hierarchical.
+For example, if you have abundance information for each taxon and want to graph it, what kind of plot do you use? 
+Stacked bar charts and pie graphs are common choices, but these ignore the hierarchical nature of the data; typically only a single rank is graphed.
+Additionally, their reilance on color to differentiate taxa means that the maximum number of taxa that can be effectivly dispalyed is limited by the number of colors that can be distinguished, typically around 10.
+This limitation means many publish graphs of taxon abundance display a coarse rank (e.g. phylum or class), potentially ignoring intereesteing patteren in finer ranks (e.g. genus or species).
+
+## Load example data
+
+If you are starting the workshop at this section, or had problems running code in a previous section, you the following code to load data used in this section.
+If `obj` and `sample_data` are already in your enrionment, you can ignore this.
+
+```{r}
+load("filtered_data.Rdata")
+```
+
+
 ## Heat trees
+
+The `metacoder` package implements what we call "heat trees" to graph taxonomic data.
+
+```{r}
+library(metacoder)
+heat_tree(obj,
+          node_label = taxon_names,
+          node_size = n_obs,
+          node_color = n_obs,
+          # layout = "davidson-harel", initial_layout = "reingold-tilford",
+          output_file = "test.pdf")
+```
+
 
 
 

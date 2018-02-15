@@ -1,5 +1,3 @@
-## Session information:
-
 ```{r results = "hold", eval=FALSE, message = FALSE, echo = FALSE}
 devtools::session_info()
 ```

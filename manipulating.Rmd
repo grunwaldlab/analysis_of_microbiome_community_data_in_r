@@ -4,9 +4,112 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
+
+## Load example data
+
+If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section.
+If `obj` and `sample_data` are already in your envrionment, you can ignore this.
+
+```{r}
+load("parsed_data.Rdata")
+```
+
+## The challenge of hierarchical data
+
+Normal tabular data is pretty straight forward to subset (assuming you know some R already), but taxonomic data is hierarchial, making it much harder to subset.
+It gets even more complicated when there are other data mapped to the taxonomy.
+For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? 
+If so, how do we identify which taxa are in that phylum?
+If data are mapped to taxa within that phylum, do we also remove those?
+After all, even if the phylum and the taxa within it are removed, we still know that all the data that were mapped to them are bacteria of some kind, so do we just throw those data out, or reassign them to the Bacteria taxon?
+
+## Subsetting tabular data (background/review) 
+
+
+
+The functions to subset the taxonomy in `taxmap` objects (the format our example data is in) provided by the `taxa` package are based on functions in the `dplyr` package for manipulting tabular data (@wickham2015dplyr).
+These `dplyr` functions are alternatives to the standard R indexing (e.g. `[`, `[[`, and `$`).
+Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these some. 
+Fortunalty, we have a tabular data set in need of some subsetting: our sample data.
+
+First, lets take another look at our sample data: 
+
+```{r}
+print(sample_data)
+```
+
+This is a large data set and not all the `r nrow(sample_data)` samples are used in the main publication.
+Only the samples in the "ecotypes" experiment are part of the main study.
+In standard R indexing we could remove those like so:
+
+```{r eval = FALSE}
+sample_data <- sample_data[sample_data$Experiment == "ecotypes", ]
+```
+
+Using the `dplyr` functions, the same operation would be: 
+
+```{r}
+sample_data <- filter(sample_data, Experiment == "ecotypes")
+print(sample_data)
+```
+
+
+
+## Subsetting taxonomic data
+
+We will cover subsetting in much greater detail later, so dont worry if these commands dont make sense yet.
+
+First, lets remove those blank taxa, since they add no information:
+
+```{r}
+obj <- filter_taxa(obj, taxon_names != "")
+print(obj)
+```
+
+Lets also filter out anything not in Bacteria, since the focus of the study was Bacteria:
+
+```{r}
+obj <- filter_taxa(obj, taxon_names == "Bacteria", subtaxa = TRUE)
+print(obj)
+```
+
+
+First, lets subset the sample data to just those described in main experiment of @wagner2016host:
+
+```{r}
+other_data <- subset(sample_data, Experiment != "ecotypes")
+sample_data <- subset(sample_data, Experiment == "ecotypes")
+print(sample_data)
+```
+
+The removed `r nrow(other_data)` of `r sum(c(nrow(other_data), nrow(sample_data)))` samples.
+We still need to remove the same columns from the abundance matrix:
+
+```{r}
+obj$data$tax_data <- obj$data$tax_data[, ! colnames(obj$data$tax_data) %in% other_data$SampleID]
+```
+
+
+This leaves us with a data set of `r nrow(obj$data$tax_data)` OTUs in `r nrow(sample_data)` samples, classified by `r length(obj$taxon_ids())` taxa:
+
+```{r}
+print(obj)
+```
+
+
+```{r include=FALSE}
+save(obj, sample_data, file = "filtered_data.Rdata")
+```
+
+
+
+
+
 
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
+
+## References
