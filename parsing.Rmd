@@ -138,7 +138,7 @@ head(otu_data$taxonomy, 10)
 
 Note that there are some odd aspects to the format that could make it challenging to parse:
 
-* Some taxa have ranks (e.g. "k__Bacteria") and some dont (e.g. "Unassigned" and "Root"). 
+* Some taxa have ranks (e.g. "k__Bacteria") and some don't (e.g. "Unassigned" and "Root"). 
 * Some taxa have ranks, but no names (e.g. "f__").
 
 If we just consider the ranks to be a part of the taxon name, then its pretty easy to parse:
@@ -153,7 +153,7 @@ print(obj)
 
 This is the print out of a `taxmap` object.
 The first line tells us that the OTUs are assigned to `r length(obj$taxon_names())` unique taxa and lists their IDs and names.
-The second line describes how taxa relate to eachother in the tree.
+The second line describes how taxa relate to each other in the tree.
 Note how our original data are now inside this object: 
 
 ```{r}
@@ -164,16 +164,16 @@ It now has a "taxon_id" column, which maps rows in the table to a taxa in the ta
 This column is essential for the manipulation functions of `taxa`, like those shown later.
 
 If we want to split out the rank information, we can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) to specify which part of each taxon is a rank and which part is a name.
-If are not familar with using regular expressions, this might be challenging to understand at first, but it is a very versitile skill to have, so it is worth learning 
+If are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very versatile skill to have, so it is worth learning 
 One regular expression (aka "regex") that matches the pattern of taxon names is `^[a-z]{0,1}_{0,2}.*$`.
 The `^` and `$` represent the start and end of the string.
 The contents of the curly braces (e.g. `{0,1}`) indicate the number of time the preceding pattern can match. 
 Likewise, the `*` means 0 or more matches.
-The square brackets (e.g. `[a-z]`) specifiy a range of characters that can be matched. 
-Likewsie the `.` means match any character.
+The square brackets (e.g. `[a-z]`) specify a range of characters that can be matched. 
+Likewise the `.` means match any character.
 For example the part of the regex `^[a-z]{0,1}` means "match a character `a` through `z` that occurs at the start of the string either zero or one times". 
-We can add parentheses that specifiy which parts of the pattern go together; these are called "capture groups" in regex jargon.
-For each capture group, the is a value given to the `class_key` option specifing what the group is (e.g. taxon name).
+We can add parentheses that specify which parts of the pattern go together; these are called "capture groups" in regex jargon.
+For each capture group, the is a value given to the `class_key` option specifying what the group is (e.g. taxon name).
 Putting this all together, we can parse the data like so:
 
 ```{r}
@@ -186,7 +186,7 @@ print(obj)
 ```
 
 Note how the taxon names now do not have the rank information.
-Instead, the rank information is in a seperate data set:
+Instead, the rank information is in a separate data set:
 
 ```{r}
 obj$data$class_data
@@ -196,10 +196,13 @@ We can also see that there are some blank taxon names now.
 These were the taxa that only had rank information (e.g. "f__").
 These do not add any information and can be removed.
 
+```{r}
+save(obj, sample_data, file = "parsed_data.Rdata")
+```
+
 
 
 ```{r, child="_sessioninfo.Rmd"}
-save(obj, sample_data, file = "parsed_data.Rdata")
 ```
 
 ## References

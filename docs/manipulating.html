@@ -23,6 +23,49 @@
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -244,8 +287,328 @@ $(document).ready(function () {
 </div>
 
 
-<div id="session-information" class="section level2">
-<h2>Session information:</h2>
+<div id="load-example-data" class="section level2">
+<h2>Load example data</h2>
+<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;parsed_data.Rdata&quot;</span>)</code></pre></div>
+</div>
+<div id="the-challenge-of-hierarchical-data" class="section level2">
+<h2>The challenge of hierarchical data</h2>
+<p>Normal tabular data is pretty straight forward to manipulate (assuming you know some R already), but taxonomic data is hierarchical, making it much harder to work with. It gets even more complicated when there are other data mapped to the taxonomy. For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? If so, how do we identify which taxa are in that phylum? If data are mapped to taxa within that phylum, do we also remove those? After all, even if the phylum and the taxa within it are removed, we still know that all the data that were mapped to them are bacteria of some kind, so do we just throw those data out, or reassign them to the Bacteria taxon?</p>
+</div>
+<div id="subsetting-tabular-data-backgroundreview" class="section level2">
+<h2>Subsetting tabular data (background/review)</h2>
+<p>The functions to subset taxonomic information in <code>taxmap</code> objects (the format our example data is in) provided by the <code>taxa</code> package are modeled after functions in the <code>dplyr</code> package for manipulating tabular data (<span class="citation">@wickham2015dplyr</span>). These <code>dplyr</code> functions are alternatives to the standard R indexing (e.g. <code>[</code>, <code>[[</code>, and <code>$</code>) designed to be be more intuitive and consistent. Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these some. Fortunately, we have a tabular data set in need of some subsetting: our sample data.</p>
+<p>First, lets take another look at our sample data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(sample_data)</code></pre></div>
+<pre><code>## # A tibble: 1,698 x 16
+##    SampleID  Name   Plant_ID Type  Experiment Cohort Harvested   Age Site  Treatment Line  Genotype
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   
+##  1 M1024P17… R_026… R_026    root  fieldBCMA    2008      2011     3 LTM   field     26    ril     
+##  2 M1024P17… R_073… R_073    root  fieldBCMA    2008      2011     3 LTM   field     73    ril     
+##  3 M1024P17… R_088… R_088    root  fieldBCMA    2009      2011     2 LTM   field     88    ril     
+##  4 M1024P18… R_156… R_156    root  fieldBCMA    2009      2011     2 LTM   field     156   ril     
+##  5 M1955P804 1_A_1… 1_A_1    root  ecoGH          NA      2011    NA Duke  MAHsoil   par1… PAR     
+##  6 M1956P837 1_A_1… 1_A_12   root  ecoGH          NA      2011    NA Duke  MAHsoil   mah3… MAH     
+##  7 M1957P983 1_A_3… 1_A_3    root  ecoGH          NA      2011    NA Duke  MAHsoil   silL… SIL     
+##  8 M1956P845 1_A_4… 1_A_4    root  ecoGH          NA      2011    NA Duke  MAHsoil   par1… PAR     
+##  9 M1957P987 1_A_7… 1_A_7    root  ecoGH          NA      2011    NA Duke  MAHsoil   par9… PAR     
+## 10 M1957P923 1_A_8… 1_A_8    root  ecoGH          NA      2011    NA Duke  MAHsoil   mil5… MIL     
+## # ... with 1,688 more rows, and 4 more variables: Block &lt;chr&gt;, oldPlate &lt;chr&gt;, newPlate &lt;chr&gt;,
+## #   Analysis &lt;chr&gt;</code></pre>
+<p>This is a large data set and not all the 1698 samples are used in the main publication of <span class="citation">@wagner2016host</span>. Only the samples in the “ecotypes” experiment are part of the main study. In standard R indexing we could remove those like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span>sample_data[sample_data<span class="op">$</span>Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>, ]</code></pre></div>
+<p>Using the <code>dplyr</code> functions, the same operation would be:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_data, Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>)</code></pre></div>
+<p>Note how we could use the <code>Experiment</code> column on its own within the <code>filter</code> functions. Most <code>dplyr</code> functions work this way and so do the analogous functions in <code>taxa</code> for manipulating taxonomic data.</p>
+<p>If we have multiple filtering criteria, we can simply add more arguments to the functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(sample_data, Age <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, Site <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mah&quot;</span>, <span class="st">&quot;Jam&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 120 x 16
+##    SampleID  Name   Plant_ID Type  Experiment Cohort Harvested   Age Site  Treatment Line  Genotype
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   
+##  1 M1981P608 9_005… 9_0058   leaf  ecotypes     2009      2011     2 Mah   field     PAR.… PAR     
+##  2 M1982P658 9_005… 9_0058   root  ecotypes     2009      2011     2 Mah   field     PAR.… PAR     
+##  3 M1982P676 9_007… 9_0074   leaf  ecotypes     2009      2011     2 Mah   field     JAM.… JAM     
+##  4 M1982P659 9_007… 9_0074   root  ecotypes     2009      2011     2 Mah   field     JAM.… JAM     
+##  5 M1981P644 9_008… 9_0083   leaf  ecotypes     2009      2011     2 Mah   field     MAH.… MAH     
+##  6 M1980P473 9_008… 9_0083   root  ecotypes     2009      2011     2 Mah   field     MAH.… MAH     
+##  7 M1981P580 9_008… 9_0085   leaf  ecotypes     2009      2011     2 Mah   field     MIL.… MIL     
+##  8 M1982P687 9_008… 9_0085   root  ecotypes     2009      2011     2 Mah   field     MIL.… MIL     
+##  9 M1982P726 9_015… 9_0155   leaf  ecotypes     2009      2011     2 Jam   field     MAH.… MAH     
+## 10 M1551P86  9_015… 9_0155   root  ecotypes     2009      2011     2 Jam   field     MAH.… MAH     
+## # ... with 110 more rows, and 4 more variables: Block &lt;chr&gt;, oldPlate &lt;chr&gt;, newPlate &lt;chr&gt;,
+## #   Analysis &lt;chr&gt;</code></pre>
+</div>
+<div id="subsetting-taxonomic-data" class="section level2">
+<h2>Subsetting taxonomic data</h2>
+<p>The analog to <code>filter</code> for taxonomic data is <code>filter_taxa</code> from the <code>taxa</code> package. This works in a similar way, but has much more options for taxonomic relationships are used and what is done with data mapped to removed taxa. Lets take another look at our data object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   1558 taxa: aab. Unassigned, aac. Root ... chx. Methanospirillaceae, chy. 
+##   1558 edges: NA-&gt;aab, NA-&gt;aac, aac-&gt;aad, aac-&gt;aae ... bel-&gt;chw, ays-&gt;chx, bem-&gt;chy
+##   2 data sets:
+##     tax_data:
+##     # A tibble: 47,806 x 1,707
+##       taxon_id OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85  M1551P28 M1551P29 M1551P38
+##       &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##     1 aab      1             0        0       0           0      0        0           0
+##     2 ben      2            41.0     22.0     4.00      726 112492        2.00      413
+##     3 beo      3            67.0     65.0    12.0     13514      1.00     4.00    13314
+##     # ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##     #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##     #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
+##     #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
+##     #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
+##     #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
+##     #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
+##     #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
+##     #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
+##     #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
+##     #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
+##     #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
+##     #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
+##     #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
+##     #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
+##     #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
+##     #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
+##     #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
+##     #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
+##     #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
+##     #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
+##     #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
+##     #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##     class_data:
+##     # A tibble: 216,417 x 5
+##       taxon_id input_index tax_rank name       regex_match
+##       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      
+##     1 aab                1 &quot;&quot;       Unassigned Unassigned 
+##     2 aac                2 &quot;&quot;       Root       Root       
+##     3 aad                2 k        Bacteria   k__Bacteria
+##     # ... with 2.164e+05 more rows
+##   0 functions:</code></pre>
+<p>If we look at the second line, we can see that some taxa do not have names. These are the ones that only had rank information in the classification we parsed in the last section (e.g. <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>). Since these do not add any information, lets remove them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(taxa)
+obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon_names <span class="op">!=</span><span class="st"> &quot;&quot;</span>)
+<span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   959 taxa: aab. Unassigned, aac. Root ... chs. Alcanivoracaceae, chx. Methanospirillaceae
+##   959 edges: NA-&gt;aab, NA-&gt;aac, aac-&gt;aad, aac-&gt;aae ... anq-&gt;cho, apt-&gt;chs, ays-&gt;chx
+##   2 data sets:
+##     tax_data:
+##     # A tibble: 47,806 x 1,707
+##       taxon_id OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85  M1551P28 M1551P29 M1551P38
+##       &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##     1 aab      1             0        0       0           0      0        0           0
+##     2 ben      2            41.0     22.0     4.00      726 112492        2.00      413
+##     3 beo      3            67.0     65.0    12.0     13514      1.00     4.00    13314
+##     # ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##     #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##     #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
+##     #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
+##     #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
+##     #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
+##     #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
+##     #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
+##     #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
+##     #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
+##     #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
+##     #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
+##     #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
+##     #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
+##     #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
+##     #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
+##     #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
+##     #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
+##     #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
+##     #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
+##     #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
+##     #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
+##     #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##     class_data:
+##     # A tibble: 216,417 x 5
+##       taxon_id input_index tax_rank name       regex_match
+##       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      
+##     1 aab                1 &quot;&quot;       Unassigned Unassigned 
+##     2 aac                2 &quot;&quot;       Root       Root       
+##     3 aad                2 k        Bacteria   k__Bacteria
+##     # ... with 2.164e+05 more rows
+##   0 functions:</code></pre>
+<p>There were OTUs mapped to the nameless taxa, but not OTUs were filtered out, so what happened to them? By default, they are reassigned to the closest supertaxon that passes the filter. For example, for the classification <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>, the OTU would be assigned to the unnamed family, but after the unnamed family and order are filtered out, it would be reassigned to the class “SJA-28”.</p>
+<p>Like <code>filter</code>, <code>filter_taxa</code> can use variables contained in the input objects as if they were independent variables. In this case, <code>taxon_names</code> is actually a function that is called when referenced in this way.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(obj<span class="op">$</span><span class="kw">taxon_names</span>())</code></pre></div>
+<pre><code>##              aab              aac              aad              aae              aaf 
+##     &quot;Unassigned&quot;           &quot;Root&quot;       &quot;Bacteria&quot;        &quot;Archaea&quot; &quot;Proteobacteria&quot; 
+##              aag 
+## &quot;Actinobacteria&quot;</code></pre>
+<p>Other values that can be used this way includes columns in tables and lists/vectors stored in <code>taxmap</code> objects. Since <code>taxmap</code> objects can store any number of lists, vectors, or tables mapped to a taxonomy, there can be many variables that can be referenced by name. The <code>all_names</code> function returns the name and location of variables that can be used this way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(obj<span class="op">$</span><span class="kw">all_names</span>(), <span class="dv">20</span>)</code></pre></div>
+<pre><code>##              taxon_names                taxon_ids            taxon_indexes          classifications 
+##            &quot;taxon_names&quot;              &quot;taxon_ids&quot;          &quot;taxon_indexes&quot;        &quot;classifications&quot; 
+##              n_supertaxa            n_supertaxa_1                n_subtaxa              n_subtaxa_1 
+##            &quot;n_supertaxa&quot;          &quot;n_supertaxa_1&quot;              &quot;n_subtaxa&quot;            &quot;n_subtaxa_1&quot; 
+##              taxon_ranks                  is_root                  is_stem                is_branch 
+##            &quot;taxon_ranks&quot;                &quot;is_root&quot;                &quot;is_stem&quot;              &quot;is_branch&quot; 
+##                  is_leaf             is_internode                    n_obs                  n_obs_1 
+##                &quot;is_leaf&quot;           &quot;is_internode&quot;                  &quot;n_obs&quot;                &quot;n_obs_1&quot; 
+##     data$tax_data$OTU_ID data$tax_data$M1024P1833   data$tax_data$M1551P81   data$tax_data$M1551P57 
+##                 &quot;OTU_ID&quot;             &quot;M1024P1833&quot;               &quot;M1551P81&quot;               &quot;M1551P57&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(obj<span class="op">$</span><span class="kw">all_names</span>())</code></pre></div>
+<pre><code>## [1] 1726</code></pre>
+<p>Next, lets also filter out anything not in Bacteria, since the focus of the study was Bacteria:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon_names <span class="op">==</span><span class="st"> &quot;Bacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>)
+<span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   898 taxa: aad. Bacteria, aaf. Proteobacteria ... amf. OPB14, adc. LD1
+##   898 edges: NA-&gt;aad, aad-&gt;aaf, aaf-&gt;add, add-&gt;amg ... adb-&gt;alx, adb-&gt;amf, aad-&gt;adc
+##   2 data sets:
+##     tax_data:
+##     # A tibble: 33,641 x 1,707
+##       taxon_id OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85  M1551P28 M1551P29 M1551P38
+##       &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##     1 ben      2            41.0     22.0     4.00      726 112492        2.00      413
+##     2 beo      3            67.0     65.0    12.0     13514      1.00     4.00    13314
+##     3 ben      4          3229    13679    1832         951    113     2496         567
+##     # ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##     #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##     #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
+##     #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
+##     #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
+##     #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
+##     #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
+##     #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
+##     #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
+##     #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
+##     #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
+##     #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
+##     #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
+##     #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
+##     #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
+##     #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
+##     #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
+##     #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
+##     #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
+##     #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
+##     #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
+##     #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
+##     #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##     class_data:
+##     # A tibble: 167,581 x 5
+##       taxon_id input_index tax_rank name                regex_match           
+##       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
+##     1 aad                2 k        Bacteria            k__Bacteria           
+##     2 aaf                2 p        Proteobacteria      p__Proteobacteria     
+##     3 add                2 c        Alphaproteobacteria c__Alphaproteobacteria
+##     # ... with 1.676e+05 more rows
+##   0 functions:</code></pre>
+<p>Note the use of the <code>subtaxa = TRUE</code>; this means that all the subtaxa of taxa that pass the filter should also be preserved. If we left this option off, we would would have only a single taxon:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_taxa</span>(obj, taxon_names <span class="op">==</span><span class="st"> &quot;Bacteria&quot;</span>)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   1 taxa: aad. Bacteria
+##   1 edges: NA-&gt;aad
+##   2 data sets:
+##     tax_data:
+##     # A tibble: 33,641 x 1,707
+##       taxon_id OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85  M1551P28 M1551P29 M1551P38
+##       &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##     1 aad      2            41.0     22.0     4.00      726 112492        2.00      413
+##     2 aad      3            67.0     65.0    12.0     13514      1.00     4.00    13314
+##     3 aad      4          3229    13679    1832         951    113     2496         567
+##     # ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##     #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##     #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
+##     #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
+##     #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
+##     #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
+##     #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
+##     #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
+##     #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
+##     #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
+##     #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
+##     #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
+##     #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
+##     #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
+##     #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
+##     #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
+##     #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
+##     #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
+##     #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
+##     #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
+##     #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
+##     #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
+##     #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##     class_data:
+##     # A tibble: 167,581 x 5
+##       taxon_id input_index tax_rank name                regex_match           
+##       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
+##     1 aad                2 k        Bacteria            k__Bacteria           
+##     2 aad                2 p        Proteobacteria      p__Proteobacteria     
+##     3 aad                2 c        Alphaproteobacteria c__Alphaproteobacteria
+##     # ... with 1.676e+05 more rows
+##   0 functions:</code></pre>
+<p>Next, lets remove the columns from the abundance matrix that were removed from the sample data at the start of the section.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_data &lt;-<span class="st"> </span>obj<span class="op">$</span>data<span class="op">$</span>tax_data[<span class="kw">c</span>(<span class="st">&quot;taxon_id&quot;</span>, <span class="st">&quot;OTU_ID&quot;</span>, sample_data<span class="op">$</span>SampleID)]</code></pre></div>
+<p>This leaves us with a data set of 33641 OTUs in 826 samples, classified by 898 taxa:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   898 taxa: aad. Bacteria, aaf. Proteobacteria ... amf. OPB14, adc. LD1
+##   898 edges: NA-&gt;aad, aad-&gt;aaf, aaf-&gt;add, add-&gt;amg ... adb-&gt;alx, adb-&gt;amf, aad-&gt;adc
+##   2 data sets:
+##     tax_data:
+##     # A tibble: 33,641 x 828
+##       taxon_id OTU_ID M1551P35 M1551P77 M1555P268 M1555P195 M1551P40 M1554P153 M1551P8
+##       &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##     1 ben      2          0        7.00      3.00      1.00     1.00      1.00    11.0
+##     2 beo      3          9.00    33.0      88.0     195      143        41.0     21.0
+##     3 ben      4       6801     1175     21330      4084     9244      2152     2821  
+##     # ... with 3.364e+04 more rows, and 819 more variables: M1979P394 &lt;dbl&gt;,
+##     #   M1551P20 &lt;dbl&gt;, M1977P1719 &lt;dbl&gt;, M1555P271 &lt;dbl&gt;, M1554P161 &lt;dbl&gt;,
+##     #   M1977P1696 &lt;dbl&gt;, M1978P353 &lt;dbl&gt;, M1980P531 &lt;dbl&gt;, M1955P750 &lt;dbl&gt;,
+##     #   M1555P273 &lt;dbl&gt;, M1957P969 &lt;dbl&gt;, M1959P1108 &lt;dbl&gt;, M1981P563 &lt;dbl&gt;,
+##     #   M1977P1709 &lt;dbl&gt;, M1554P148 &lt;dbl&gt;, M1980P502 &lt;dbl&gt;, M1981P606 &lt;dbl&gt;,
+##     #   M1978P310 &lt;dbl&gt;, M1956P875 &lt;dbl&gt;, M1959P1144 &lt;dbl&gt;, M1960P1231 &lt;dbl&gt;,
+##     #   M1981P599 &lt;dbl&gt;, M1981P611 &lt;dbl&gt;, M1551P43 &lt;dbl&gt;, M1690P1382 &lt;dbl&gt;,
+##     #   M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;,
+##     #   M1981P643 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;, M1982P724 &lt;dbl&gt;, M1555P254 &lt;dbl&gt;,
+##     #   M1979P454 &lt;dbl&gt;, M1978P308 &lt;dbl&gt;, M1982P662 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;,
+##     #   M1981P589 &lt;dbl&gt;, M1981P564 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
+##     #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
+##     #   M1551P46 &lt;dbl&gt;, M1981P581 &lt;dbl&gt;, M1979P379 &lt;dbl&gt;, M1982P693 &lt;dbl&gt;,
+##     #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;, M1980P549 &lt;dbl&gt;,
+##     #   M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;, M1554P133 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;,
+##     #   M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1555P249 &lt;dbl&gt;,
+##     #   M1957P925 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
+##     #   M1555P214 &lt;dbl&gt;, M1979P388 &lt;dbl&gt;, M1957P985 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;,
+##     #   M1979P426 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1981P607 &lt;dbl&gt;, M1551P38 &lt;dbl&gt;,
+##     #   M1978P280 &lt;dbl&gt;, M1957P993 &lt;dbl&gt;, M1978P286 &lt;dbl&gt;, M1982P698 &lt;dbl&gt;,
+##     #   M1961P1365 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;,
+##     #   M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;,
+##     #   M1554P112 &lt;dbl&gt;, M1961P1333 &lt;dbl&gt;, M1554P151 &lt;dbl&gt;, M1980P467 &lt;dbl&gt;,
+##     #   M1551P73 &lt;dbl&gt;, M1981P615 &lt;dbl&gt;, M1956P883 &lt;dbl&gt;, M1555P248 &lt;dbl&gt;,
+##     #   M1958P1065 &lt;dbl&gt;, M1980P494 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
+##     #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, …
+##     class_data:
+##     # A tibble: 167,581 x 5
+##       taxon_id input_index tax_rank name                regex_match           
+##       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                 
+##     1 aad                2 k        Bacteria            k__Bacteria           
+##     2 aaf                2 p        Proteobacteria      p__Proteobacteria     
+##     3 add                2 c        Alphaproteobacteria c__Alphaproteobacteria
+##     # ... with 1.676e+05 more rows
+##   0 functions:</code></pre>
+<p>Lets save this result for the next section.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">save</span>(obj, sample_data, <span class="dt">file =</span> <span class="st">&quot;filtered_data.Rdata&quot;</span>)</code></pre></div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
