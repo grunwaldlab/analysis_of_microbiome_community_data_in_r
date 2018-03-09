@@ -22,9 +22,10 @@ knitr::include_graphics('images/wagner_barchart.png')
 
 Although this is a well constructed graph, its usefulness is limited by the nature of stacked barcharts.
 The reliance on color to differentiate taxa means that the maximum number of taxa that can be effectively displayed is limited by the number of colors that can be distinguished.
-This is typically around 10 or maybe 13 with careful selection, but definitely not more than 15.
+This is typically around 10, maybe 13 with careful selection (as in the graph above), but definitely not more than 15.
+For those who are color blind (~ 4% of people), there are even fewer colors that can be used. 
 This limitation is likely the reason @wagner2016host chose to show phylum-level abundances and grouped some phyla into a "Low abundance" category, even though there might be interesting pattern in finer ranks (e.g. genus or species).
-Most publications either show only the most coarse ranks (e.g. phylum) or only the ~10 most abundant taxa when using stacked barcharts.
+This is typical of most publications, which either show only the most coarse ranks (e.g. phylum) or only the ~10 most abundant taxa when using stacked barcharts.
 As an alternative/complement to stacked barcharts, we have developed what we call "heat trees" to display statistics associated with taxa (e.g. abundance) in a tree format.
 
 ## Load example data
@@ -57,7 +58,7 @@ obj %>%
 
 This is a type of taxonomic tree where each **node** (the circles) is a taxon and the **edges** (lines) show hierarchical relationships between taxa.
 For example, the large Proteobacteria phylum node contains the Alphaproteobacteria and Gammaproteobacteria classes.
-This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones would be more typical.
+This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones are also possible.
 We are going to go through the process of creating a figure like this one in this section.
 Although this might seem like complicated code to make this figure, code like this is typically the result of iterative small improvements started from a simple base.
 We will imitate this process here for demonstration. 
@@ -73,7 +74,7 @@ heat_tree(obj)
 This is not too useful, but at least its easy!
 Lets plot some data to make things more interesting.
 A good start is to plot the number of OTUs (or other types of taxon observations) with both the color and size of nodes.
-The taxon names are added as well
+The taxon names are added as well.
 
 ```{r}
 heat_tree(obj,
@@ -170,6 +171,44 @@ obj %>%
 
 Now we have replicated our original plot!
 This kind of iterative refinement is the best way to make these complex plots, and complex plots in general.
+
+Up until now, we have set both the color and size to display the number of OTUs, but they can be set to differnt things.
+Lets set the color to the read abundance for one of the samples named "M1981P563".
+
+```{r}
+set.seed(2) # you can choose any number. Each will produce a different layout
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = M1977P1709,
+            initial_layout = "re", layout = "da",
+            output_file = "plot_example_2.pdf")
+```
+
+
+The `heat_tree` function is very complex and we have only used its most basic functionality so far.
+
+
+### Setting edge attributes
+
+Just like the node size/color, the edge size/color can be used to display statistics.
+Edges can also have labels.
+This means you can plot 4 statistics in one graph, although more than 3 is typically overwhelming.
+
+```{r}
+set.seed(2) # you can choose any number. Each will produce a different layout
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = n_obs,
+            initial_layout = "re", layout = "da",
+            output_file = "plot_example_2.pdf")
+```
+
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
