@@ -3,4 +3,80 @@ title: "About"
 output: html_document
 ---
 
-This needs to be written.
+
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+
+
+<!-- 
+
+Note that the following HTML cannot be indented because markdown will attempt to
+render it as a code block otherwise.
+
+-->
+<div class="container">
+<h1>About the authors</h1>
+
+<!-- 
+NIK'S PROFILE
+ -->
+
+<div class="row">
+<div class="col-md-2">
+<div class="imgAbt">
+<img style="margin-bottom:25px;width=220px;height=220px" src="images/IMG_3734.jpg"  />
+</div>
+</div>
+<div class="col-md-6">
+<small>
+**Niklaus J. Gr&uuml;nwald** is a plant pathologist with the USDA Agricultural
+Research Service and a Professor in the Department of Botany and Pant Pathology
+and the Center for Genome Research and Biocomputing at Oregon State University.
+He received his PhD from UC Davis and conducted postdoctoral research at Cornell
+University. His research focuses on understanding the evolutionary patterns and
+processes of emerging pathogens using population genetic and evolutionary
+approaches and development of computational tools for characterizing pathogens and communities. Members of his group have developed several widely used R packages including: [*poppr*](http://github.com/grunwaldlab/poppr), [*vcfr*](https://github.com/grunwaldlab/vcfR), [*taxa*](https://cran.r-project.org/web/packages/taxa/index.html), and [*metacoder*](https://github.com/grunwaldlab/metacoder). 
+<p>
+<p>
+<a href="http://grunwaldlab.cgrb.oregonstate.edu/">Gr&uuml;nwald lab</a> | 
+<a href="https://github.com/grunwaldlab">Github</a> | 
+<a href="https://scholar.google.com/citations?user=t55Dt5sAAAAJ&hl=en">Google scholar</a> | 
+<a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | 
+<a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | 
+<a href="https://twitter.com/PhytophthoraLab" class="twitter-follow-button" data-show-count="false">
+Follow &#64;PhytophthoraLab
+</a> 
+</p>
+</small>
+</div>
+</div>
+
+<!-- 
+ZACH'S PROFILE
+ -->
+
+<div class="row">
+<div class="col-md-2">
+<div class="imgAbt">
+<img style="margin-bottom:25px;width=220px;height=220px" src="images/foster.jpeg"  />
+</div>
+</div>
+<div class="col-md-6">
+<small>
+**Zach S. L. Foster** is a graduate student in the Department of Botany and Plant Pathology at Oregon State University. He is the lead developer of the [*metacoder*](https://cran.r-project.org/web/packages/metacoder/index.html) and  [*taxa*](https://cran.r-project.org/web/packages/taxa/index.html) R packages. He is also a recipient of the ROpenSci fellowship. 
+<p><p>
+
+</p>
+</small>
+</div>
+</div>
+
+
+
+</small>
+</div>
+</div>
+
+</div>
+
