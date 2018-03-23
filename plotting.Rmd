@@ -5,7 +5,7 @@ bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+source("style.R")
 ```
 
 Throughout this workshop we will be making many familiar types of graphs using `ggplot2` and we will explain how they are made as we go.
@@ -34,7 +34,7 @@ If you are starting the workshop at this section, or had problems running code i
 If `obj` and `sample_data` are already in your environment from a previous section, you can ignore the following command.
 
 ```{r}
-load("filtered_data.Rdata")
+load("clean_data.Rdata")
 ```
 
 
@@ -207,6 +207,14 @@ obj %>%
             node_color = n_obs,
             initial_layout = "re", layout = "da",
             output_file = "plot_example_2.pdf")
+```
+
+However, we need some more things to graph, so we will calculate the number of read depth and number of samples for each taxon.
+
+```{r}
+obj$data$tax_abund <- calc_taxon_abund(obj, "otu_counts",
+                                       cols = sample_data$SampleID,
+                                       groups = sample_data$Type)
 ```
 
 

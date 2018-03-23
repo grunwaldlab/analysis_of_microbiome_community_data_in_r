@@ -4,8 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
-options(width = 100)
+source("style.R")
 ```
 
 ## Load example data
@@ -21,16 +20,19 @@ load("parsed_data.Rdata")
 
 Normal tabular data is pretty straight forward to manipulate (assuming you know some R already), but taxonomic data is hierarchical, making it much harder to work with.
 It gets even more complicated when there are other data mapped to the taxonomy.
+
 For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? 
 If so, how do we identify which taxa are in that phylum?
 If data are mapped to taxa within that phylum, do we also remove those?
 After all, even if the phylum and the taxa within it are removed, we still know that all the data that were mapped to them are bacteria of some kind, so do we just throw those data out, or reassign them to the Bacteria taxon?
 
+The answer to these kind of questions will depend of our data and what we want to do with it.
+
 ## Subsetting tabular data (background/review) 
 
 The functions to subset taxonomic information in `taxmap` objects (the format our example data is in) provided by the `taxa` package are modeled after functions in the `dplyr` package for manipulating tabular data (@wickham2015dplyr).
 These `dplyr` functions are alternatives to the standard R indexing (e.g. `[`, `[[`, and `$`) designed to be be more intuitive and consistent.
-Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these some. 
+Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these. 
 Fortunately, we have a tabular data set in need of some subsetting: our sample data.
 
 First, lets take another look at our sample data: 
@@ -55,7 +57,9 @@ sample_data <- filter(sample_data, Experiment == "ecotypes")
 ```
 
 Note how we could use the `Experiment` column on its own within the `filter` functions.
-If we tried that outside of the function, we get an error:
+That is a special property of the `filter` function and many others in `dplyr`.
+If we tried that outside of the function, we would get an error.
+For example:
 
 ```{r error=TRUE}
 is_ecotype <- Experiment == "ecotypes"
@@ -71,14 +75,14 @@ sample_data <- filter(sample_data,
                       Age == 3)
 ```
 
-This is usually equivalent to combining multiple conditions with `&` in normal indexing, but is faster for large datasets. 
+This is usually equivalent to combining multiple conditions with `&` in normal indexing, but is faster for large data sets. 
 It also will not return values for which conditions evaluate to `NA`, unlike base indexing.
 Up until now, everything we have done using `filter` can be easily done with base R indexing as well, but `dplyr` introduces a few more advanced features that can save us time/typing.
 We wont go into these in detail, but its good to know they exist.
 One is the concept of "grouping".
-When rows are "grouped" by the values in one column, the rows corresponding to each unique value in that column are treat as a unit in some functions that can be used in filtering.
+When rows are "grouped" by the values in one column, the rows corresponding to each unique value in that column are treated as a unit in some functions that can be used in filtering.
 `n()` is one such function that counts the number of items in each group.
-We can use this to filter out any plants that dont have both root and leaf samples by counting the number of times each "Plant_ID" shows up:
+We can use this to filter out any plants that don't have both root and leaf samples by counting the number of times each "Plant_ID" shows up:
 
 ```{r}
 sample_data <- sample_data %>%
@@ -87,7 +91,7 @@ sample_data <- sample_data %>%
 ```
 
 This leaves us with `r nrow(sample_data)` samples.
-Next we will subset the abundance data to just these samples to get the dataset down to a manageble size for a standard personal computer.
+Next we will subset the abundance data to just these samples to get the dataset down to a manageable size for a standard personal computer.
 
 ## Subsetting taxonomic data
 
@@ -100,7 +104,7 @@ print(obj)
 ```
 
 If we look at the second line, we can see that some taxa do not have names.
-These are the ones that only had rank information in the classification we parsed in the last section (e.g. `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`).
+These are the ones that only had rank information in the classification we parsed in the last section (e.g. `o__` in  `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`).
 Since these do not add any information, lets remove them.
 
 ```{r}
@@ -109,7 +113,7 @@ obj <- filter_taxa(obj, taxon_names != "")
 print(obj)
 ```
 
-There were OTUs mapped to the nameless taxa, but not OTUs were filtered out, so what happened to them?
+There were OTUs mapped to the nameless taxa, but no OTUs were filtered out, so what happened to them?
 By default, they are reassigned to the closest supertaxon that passes the filter.
 For example, for the classification `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`, the OTU would be assigned to the unnamed family, but after the unnamed family and order are filtered out, it would be reassigned to the class "SJA-28".
 
@@ -137,7 +141,7 @@ print(obj)
 ```
 
 Note the use of the `subtaxa = TRUE`; this means that all the subtaxa of taxa that pass the filter should also be preserved.
-If we left this option off, we would would have only a single taxon:
+If we left this option off, we would would have only a single taxon with all OTUs assigned to it:
 
 ```{r}
 filter_taxa(obj, taxon_names == "Bacteria")
@@ -146,16 +150,19 @@ filter_taxa(obj, taxon_names == "Bacteria")
 Next, lets remove the columns from the abundance matrix that were removed from the sample data at the start of the section.
 
 ```{r}
-obj$data$tax_data <- obj$data$tax_data[c("taxon_id", "OTU_ID", sample_data$SampleID)]
+obj$data$otu_counts <- obj$data$otu_counts[c("taxon_id", "OTU_ID", sample_data$SampleID)]
 ```
 
-This leaves us with a data set of `r nrow(obj$data$tax_data)` OTUs in `r nrow(sample_data)` samples, classified by `r length(obj$taxon_ids())` taxa:
+This leaves us with a data set of `r nrow(obj$data$otu_counts)` OTUs in `r nrow(sample_data)` samples, classified by `r length(obj$taxon_ids())` taxa:
 
 ```{r}
 print(obj)
 ```
 
-Lets save this result for the next section.
+## Saving the data for the next section
+
+In the next section we will do some more filtering  on this data set, but we will focus on standard quality control specific to amplicon sequence data.
+Don't worry about running the following code; it is just there to let us use the same data set on multiple website pages.
 
 ```{r}
 save(obj, sample_data, file = "filtered_data.Rdata")

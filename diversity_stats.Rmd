@@ -8,6 +8,14 @@ bibliography: "bibtexlib.bib"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Load example data
+
+If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section.
+If `obj` and `sample_data` are already in your environment, you can ignore this and proceed.
+
+```{r}
+load("clean_data.Rdata")
+```
 
 ## Measures of diversity
 

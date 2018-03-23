@@ -5,7 +5,7 @@ bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+source("style.R")
 ```
 
 ## Typical format for microbiome data
@@ -151,8 +151,9 @@ obj <- parse_tax_data(otu_data,
 print(obj)
 ```
 
-This is the print out of a `taxmap` object.
+Above is the print out of a `taxmap` object.
 The first line tells us that the OTUs are assigned to `r length(obj$taxon_names())` unique taxa and lists their IDs and names.
+These taxon IDs were generated automatically when converting to the `taxmap` format and were not in the original data set.
 The second line describes how taxa relate to each other in the tree.
 Note how our original data are now inside this object: 
 
@@ -160,20 +161,31 @@ Note how our original data are now inside this object:
 print(obj$data$tax_data)
 ```
 
-It now has a "taxon_id" column, which maps rows in the table to a taxa in the taxonomy.
-This column is essential for the manipulation functions of `taxa`, like those shown later.
+`obj$data` is simply a list of arbitrary, user-defined data sets.
+These data sets can be named anything and can be any R object, such as lists, vectors, or tables. 
+Note that our data set now has a "taxon_id" column, which maps rows in the table to a taxa in the taxonomy.
+This column is essential for the manipulation functions of `taxa` to know how to handle these data sets, as we will demonstrate later.
 
-If we want to split out the rank information, we can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) to specify which part of each taxon is a rank and which part is a name.
-If are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very versatile skill to have, so it is worth learning 
-One regular expression (aka "regex") that matches the pattern of taxon names is `^[a-z]{0,1}_{0,2}.*$`.
-The `^` and `$` represent the start and end of the string.
-The contents of the curly braces (e.g. `{0,1}`) indicate the number of time the preceding pattern can match. 
-Likewise, the `*` means 0 or more matches.
-The square brackets (e.g. `[a-z]`) specify a range of characters that can be matched. 
-Likewise the `.` means match any character.
-For example the part of the regex `^[a-z]{0,1}` means "match a character `a` through `z` that occurs at the start of the string either zero or one times". 
+If we want to split out the rank information, we can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression)  (a.k.a "regex") to specify which part of each taxon is a rank and which part is a name.
+If you are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very versatile skill to have, so it is worth learning.
+Most regular expressions are composed of a series of "what to match" followed by "how many times to match".
+One regular expression that matches the pattern of taxon names is `^[a-z]{0,1}_{0,2}.*$`.
+This might look intimidating, but we can break it down into understandable parts: 
+
+* The `^` and `$` represent the start and end of the string respectively. If these were not there, then the pattern could match just a part of the string.
+* The square brackets (e.g. `[a-z]`) specify a range of characters that can be matched. Likewise the `.` means match any character. 
+* The contents of the curly braces (e.g. `{0,1}`) indicate the number of time the preceding pattern can match. Likewise, the `*` means 0 or more matches. For example the part of the regex `^[a-z]{0,1}` means "match a character `a` through `z` that occurs at the start of the string either zero or one times". 
+
+The whole regex means the following in common English: 
+
+"From the start of the string, (`^`) match any character between "a" and "z" (`[a-z]`) zero or one times (`{0,1}`) followed by an underscore (`_`) that occurring between zero and 2 times, followed by any character (`.`) occurring zero or more times (`*`), followed by the end of the string (`$`)."
+
 We can add parentheses that specify which parts of the pattern go together; these are called "capture groups" in regex jargon.
-For each capture group, the is a value given to the `class_key` option specifying what the group is (e.g. taxon name).
+These do not change what will be matched; they just define different parts of the pattern.
+In this case, we are interested in the taxon rank (matched by `[a-z]{0,1}`) and the taxon name (matched by `(.*)`).
+
+The `parse_tax_data` function from the `taxa` package uses regular expressions with capture groups to isolate the pieces of information we want.
+For each capture group in the regular expression (aka "regex"), a value is given to the `class_key` option specifying what the group is (e.g. taxon name).
 Putting this all together, we can parse the data like so:
 
 ```{r}
@@ -185,21 +197,45 @@ obj <- parse_tax_data(otu_data,
 print(obj)
 ```
 
-Note how the taxon names now do not have the rank information.
-Instead, the rank information is in a separate data set:
+Note how the taxon names do not have the rank information anymore:
+
+```{r}
+head(obj$taxon_names())
+```
+
+Instead, the rank information (and any other capture group content) is in a separate data set:
 
 ```{r}
 obj$data$class_data
 ```
 
-We can also see that there are some blank taxon names now.
-These were the taxa that only had rank information (e.g. "f__").
-These do not add any information and can be removed.
+However, ranks can also be accessed using the `taxon_ranks` function: 
+
+```{r}
+head(obj$taxon_ranks())
+```
+
+So we dont really need the "class_data" table, so lets get rid of it:
+
+```{r}
+obj$data <- obj$data[1] # 1 is index of the "tax_data" table we want
+```
+
+Lets also rename the "tax_data" table to something more informative:
+
+```{r}
+names(obj$data) <- "otu_counts"
+print(obj)
+```
+
+## Saving the data for the next section
+
+In the next section we will work on filtering this data set.
+Don't worry about running the following code; it is just there to let us use the same data set on multiple website pages.
 
 ```{r}
 save(obj, sample_data, file = "parsed_data.Rdata")
 ```
-
 
 
 ```{r, child="_sessioninfo.Rmd"}
