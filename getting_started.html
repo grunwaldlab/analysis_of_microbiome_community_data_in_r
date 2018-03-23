@@ -11,7 +11,7 @@
 
 
 
-<title>Creating heattrees</title>
+<title>Getting ready to use R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -282,7 +282,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Creating heattrees</h1>
+<h1 class="title toc-ignore">Getting ready to use R</h1>
 <h3 class="subtitle"><em><em>ZSL Foster and NJ Grünwald</em></em></h3>
 
 </div>
@@ -292,7 +292,64 @@ $(document).ready(function () {
 <pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d %H:%M:%OS&quot;, tz = tz): unknown
 ## timezone &#39;zone/tz/2018c.1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
 <pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.3.2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;metacoder&quot;</span>)</code></pre></div>
+<p>R provides a unique environment for performing population genetic analyses. You will particularly enjoy not having to switch data formats and operating systems to execute a series of analyses, as was the case until now. Furthermore, R provides graphing capabilities that are ready for use in publications, with only a little bit of extra effort. But first, let’s install R, install an integrated development environment, open R, and load R packages.</p>
+<div id="installing-r" class="section level2">
+<h2>Installing R</h2>
+<ol style="list-style-type: decimal">
+<li><p>Download and install the <a href="http://www.r-project.org">R</a> statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.</p></li>
+<li><p>Download and install the free, open source edition of the <a href="http://www.rstudio.com/ide/">RStudio Desktop</a> integrated development environment (IDE) that we recommend.</p></li>
+</ol>
+</div>
+<div id="installing-the-required-packages" class="section level2">
+<h2>Installing the required packages</h2>
+<p>The following packages are utilized in this primer:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://cran.r-project.org/web/packages/vegan/index.html">vegan</a></li>
+<li><a href="https://cran.r-project.org/web/packages/metacoder/index.html">metacoder</a></li>
+<li><a href="https://joey711.github.io/phyloseq/install.html">phyloseq</a></li>
+<li><a href="https://cran.r-project.org/web/packages/taxa/index.html">taxa</a></li>
+<li><a href="http://cran.r-project.org/web/packages/ggplot2/index.html">ggplot2</a></li>
+</ol>
+<p>More R resources can be found here: <a href="https://microsud.github.io/Tools-Microbiome-Anlaysis/" class="uri">https://microsud.github.io/Tools-Microbiome-Anlaysis/</a>.</p>
+<p>Use the following script to install these packages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;taxa&quot;</span>), <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>We wrote and actively maintain <em>metacoder</em> <span class="citation">[@foster2017metacoder]</span> and it is heavily relied upon in this primer. You can think of an R package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
+<p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
+</div>
+<div id="a-quick-introduction-to-r-using-rstudio" class="section level2">
+<h2>A quick introduction to R using RStudio</h2>
+<p>Next, let’s review some of the basic features and functions of R. To start R, open the RStudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the RStudio application.</p>
+<blockquote>
+<p>Note that R is a case sensitive language!</p>
+</blockquote>
+<p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left RStudio window pane) that will retrieve the current working directory on your machine:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></code></pre></div>
+<blockquote>
+<p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
+</blockquote>
+<p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentation of the function mlg()</span></code></pre></div>
+<p>To quit R you can either use the <kbd>RStudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
+</div>
+<div id="packages-and-getting-help" class="section level2">
+<h2>Packages and getting help</h2>
+<p>One way that R shines above other languages for analysis is the fact that R packages in CRAN are all documented. Help files are written in HTML and give the user a brief overview of:</p>
+<ul>
+<li>the purpose of a function,</li>
+<li>the parameters it takes,</li>
+<li>the output it yields,</li>
+<li>and some examples demonstrating its usage.</li>
+</ul>
+<p>To see all of the help topics in a package, you can simply type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;metacoder&quot;</span>) <span class="co"># Get help for a package.</span>
+<span class="kw">help</span>(extract_taxonomy)      <span class="co"># Get help for the extract_taxonomy function.</span>
+?extract_taxonomy           <span class="co"># same as above.</span>
+??unite                <span class="co"># Search for functions that have the keyword multilocus.</span></code></pre></div>
+<p>Some packages include vignettes that can have different formats such as being introductions, tutorials, or reference cards in PDF format. You can look at a list of vignettes in all packages by typing:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span>
+<span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;metacoder&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></code></pre></div>
+<p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and RStudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
+</div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!--- ref --->
