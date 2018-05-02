@@ -6,4 +6,6 @@ docs/*
 data/*
 *.Rdata
 *.pdf
+*.html
 **/.~*
+site_libs/*
