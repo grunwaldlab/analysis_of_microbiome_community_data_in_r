@@ -11,7 +11,7 @@
 
 
 
-<title>Creating heattrees</title>
+<title>Introduction</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,49 +23,6 @@
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
@@ -282,20 +239,48 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Creating heattrees</h1>
-<h3 class="subtitle"><em><em>ZSL Foster and NJ Grünwald</em></em></h3>
+<h1 class="title toc-ignore">Introduction</h1>
+<h3 class="subtitle"><em><em>NJ Grünwald and ZSL Foster</em></em></h3>
 
 </div>
 
 
-<pre><code>## Warning: package &#39;knitcitations&#39; was built under R version 3.3.2</code></pre>
-<pre><code>## Warning in strptime(xx, f &lt;- &quot;%Y-%m-%d %H:%M:%OS&quot;, tz = tz): unknown
-## timezone &#39;zone/tz/2018c.1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
-<pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.3.2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;metacoder&quot;</span>)</code></pre></div>
+<p>This primer provides a concise introduction to conducting the statistical analyses and visualize microbiome data in R based on metabarcoding and high throughput sequencing (HTS). This primer does not cover metagenomic analysis that are very different in nature. The reader is thus expected to have a basic understanding of ecological diversity theory and applications. The analysis presented here start after OTU calling has occurred using tools such as QIIME or mothur <span class="citation">(Schloss et al. 2009; Caporaso et al. 2010)</span>. This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this primer.</p>
+<div id="why-use-r" class="section level2">
+<h2>Why use R?</h2>
+<p>Until recently, one of the more tedious aspects of conducting a population genetic analysis was the need for repeated reformatting data to conduct different, complimentary analyses in different programs. Often, these programs only ran on one platform. Now, R provides a toolbox with its packages that allows analysis of most data conveniently without tedious reformatting on all major computing platforms including Microsoft Windows, Linux, and Apple’s OS X. R is an open source statistical programming and graphing language that includes tools for analysis of statistical, ecological diversity and community data. This primer is for those of us that want to conduct applied analyses of microbiomes and make full use of the palette of tools available in R including for example the R markdown code for this primer.</p>
+<p>Note that the R user community is very active and that both R and its packages are regularly updated, critically modified, and noted as deprecated (no longer updated) as appropriate.</p>
+<blockquote>
+<p>Any R user needs to make sure all components are up-to-date and that versions are compatible.</p>
+</blockquote>
+</div>
+<div id="microbiome-data" class="section level2">
+<h2>Microbiome data</h2>
+<p>Before data can be analysed using this primer, a series of steps are typically required <span class="citation">(Comeau, Douglas, and Langille 2017)</span>: comeau2017microbiome 1. Sample environments, extract DNA. 2. Barcode, pool libraries and sequence using HTS. 3. Demultiplex. 4. Call OTUs.</p>
+<p>Here we focus on the statistical analysis and visualizations following OTU calling:</p>
+<ul>
+<li>alpha and beta diversity</li>
+<li>heat trees <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span>, stacked bar charts and related visualizations</li>
+<li>and various ordination methods.</li>
+</ul>
+</div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<!--- ref --->
+<!---- Reference list ---->
+<div id="refs" class="references">
+<div id="ref-caporaso2010qiime">
+<p>Caporaso, J Gregory, Justin Kuczynski, Jesse Stombaugh, Kyle Bittinger, Frederic D Bushman, Elizabeth K Costello, Noah Fierer, et al. 2010. “QIIME Allows Analysis of High-Throughput Community Sequencing Data.” <em>Nature Methods</em> 7 (5). Nature Publishing Group: 335–36. <a href="https://www.nature.com/articles/nmeth.f.303" class="uri">https://www.nature.com/articles/nmeth.f.303</a>.</p>
+</div>
+<div id="ref-comeau2017microbiome">
+<p>Comeau, André M, Gavin M Douglas, and Morgan GI Langille. 2017. “Microbiome Helper: A Custom and Streamlined Workflow for Microbiome Research.” <em>mSystems</em> 2 (1). Am Soc Microbiol: e00127–16. <a href="http://msystems.asm.org/content/2/1/e00127-16" class="uri">http://msystems.asm.org/content/2/1/e00127-16</a>.</p>
+</div>
+<div id="ref-foster2017metacoder">
+<p>Foster, Zachary SL, Thomas J Sharpton, and Niklaus J Grünwald. 2017. “Metacoder: An R Package for Visualization and Manipulation of Community Taxonomic Diversity Data.” <em>PLoS Computational Biology</em> 13 (2). Public Library of Science: e1005404. <a href="https://doi.org/10.1371/journal.pcbi.1005404" class="uri">https://doi.org/10.1371/journal.pcbi.1005404</a>.</p>
+</div>
+<div id="ref-schloss2009introducing">
+<p>Schloss, Patrick D, Sarah L Westcott, Thomas Ryabin, Justine R Hall, Martin Hartmann, Emily B Hollister, Ryan A Lesniewski, et al. 2009. “Introducing Mothur: Open-Source, Platform-Independent, Community-Supported Software for Describing and Comparing Microbial Communities.” <em>Applied and Environmental Microbiology</em> 75 (23). Am Soc Microbiol: 7537–41. <a href="http://aem.asm.org/cgi/pmidlookup?view=long&amp;pmid=19801464" class="uri">http://aem.asm.org/cgi/pmidlookup?view=long&amp;pmid=19801464</a>.</p>
+</div>
+</div>
 </div>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
