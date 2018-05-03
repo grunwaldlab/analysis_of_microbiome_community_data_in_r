@@ -10,7 +10,7 @@ source("style.R")
 ## Load example data
 
 If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section.
-If `obj` and `sample_data` are already in your environment, you can ignore this and proceed.
+If you have just done the previous section, you can ignore this and proceed.
 
 ```{r}
 load("parsed_data.Rdata")
@@ -19,12 +19,13 @@ load("parsed_data.Rdata")
 ## The challenge of hierarchical data
 
 Normal tabular data is pretty straight forward to manipulate (assuming you know some R already), but taxonomic data is hierarchical, making it much harder to work with.
-It gets even more complicated when there are other data mapped to the taxonomy.
+It gets even more complicated when there are other data mapped (i.e. associated with) to the taxonomy.
 
 For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? 
 If so, how do we identify which taxa are in that phylum?
-If data are mapped to taxa within that phylum, do we also remove those?
-After all, even if the phylum and the taxa within it are removed, we still know that all the data that were mapped to them are bacteria of some kind, so do we just throw those data out, or reassign them to the Bacteria taxon?
+Depending on the format the data is in, this might be easy or hard.
+If other data  (e.g. OTU counts) are mapped to taxa within that phylum, do we also remove those?
+After all, even if the phylum and the taxa within it are removed, we still know that all the data that were mapped to them are bacteria of some kind, so do we reassign them to the Bacteria taxon, or just throw those data out?
 
 The answer to these kind of questions will depend of our data and what we want to do with it.
 

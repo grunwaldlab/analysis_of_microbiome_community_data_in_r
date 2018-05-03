@@ -27,19 +27,18 @@ However, for this demonstration, we will be using a more all-purpose parser from
 Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
 This dataset has two parts: 
 
-An abundance matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**:
+* An abundance matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
+* A sample information table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g. gender)
 
 ```{r echo=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
 ```
 
-A sample information table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g. gender):
-
 ```{r echo=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 ```
 
-This is the preferred way to encode this type of abundance information in `metacoder` and `taxa`.
+This is a typical way for this kind of data to be formatted and is the preferred way for pacakges like `metacoder` and `taxa`.
 Lets take a look at the dataset we will use in this example: 
 
 ```{r}
