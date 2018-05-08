@@ -18,16 +18,15 @@ load("parsed_data.Rdata")
 
 ## The challenge of hierarchical data
 
-Normal tabular data is pretty straight forward to manipulate (assuming you know some R already), but taxonomic data is hierarchical, making it much harder to work with.
+Normal tabular data is relatively straight forward to manipulate (assuming you know some R already), but taxonomic data is hierarchical, making it much harder to work with.
 It gets even more complicated when there are other data mapped (i.e. associated with) to the taxonomy.
 
 For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? 
 If so, how do we identify which taxa are in that phylum?
-Depending on the format the data is in, this might be easy or hard.
-If other data  (e.g. OTU counts) are mapped to taxa within that phylum, do we also remove those?
-After all, even if the phylum and the taxa within it are removed, we still know that all the data that were mapped to them are bacteria of some kind, so do we reassign them to the Bacteria taxon, or just throw those data out?
-
-The answer to these kind of questions will depend of our data and what we want to do with it.
+Depending on the format the data is in, this might be hard.
+If other data  (e.g. OTU counts) are associated with taxa within that phylum, do we also remove those?
+After all, even if the phylum and the taxa within it are removed, we still know that all the associated data are bacterial, so do we reassign them to the Bacteria taxon, or just throw those data out?
+The answer to these kind of questions will depend on our data and what we want to do with it.
 
 ## Subsetting tabular data (background/review) 
 
@@ -44,7 +43,7 @@ print(sample_data)
 
 This is a large data set and not all the `r nrow(sample_data)` samples are used in the main publication of @wagner2016host.
 Only the samples in the "ecotypes" experiment are part of the main study.
-In standard R indexing we could remove those like so:
+Using standard R indexing we could remove those like so:
 
 ```{r eval = FALSE}
 sample_data <- sample_data[sample_data$Experiment == "ecotypes", ]
@@ -60,7 +59,7 @@ sample_data <- filter(sample_data, Experiment == "ecotypes")
 Note how we could use the `Experiment` column on its own within the `filter` functions.
 That is a special property of the `filter` function and many others in `dplyr`.
 If we tried that outside of the function, we would get an error.
-For example:
+For example, the following will not work:
 
 ```{r error=TRUE}
 is_ecotype <- Experiment == "ecotypes"
@@ -78,6 +77,7 @@ sample_data <- filter(sample_data,
 
 This is usually equivalent to combining multiple conditions with `&` in normal indexing, but is faster for large data sets. 
 It also will not return values for which conditions evaluate to `NA`, unlike base indexing.
+
 Up until now, everything we have done using `filter` can be easily done with base R indexing as well, but `dplyr` introduces a few more advanced features that can save us time/typing.
 We wont go into these in detail, but its good to know they exist.
 One is the concept of "grouping".
@@ -116,7 +116,7 @@ print(obj)
 
 There were OTUs mapped to the nameless taxa, but no OTUs were filtered out, so what happened to them?
 By default, they are reassigned to the closest supertaxon that passes the filter.
-For example, for the classification `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`, the OTU would be assigned to the unnamed family, but after the unnamed family and order are filtered out, it would be reassigned to the class "SJA-28".
+For example, for the classification `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`, the OTU would be reassigned to the class "SJA-28".
 
 Like `filter`, `filter_taxa` can use variables contained in the input objects as if they were independent variables.
 In this case, `taxon_names` is actually a function that is called when referenced in this way.
@@ -125,7 +125,7 @@ In this case, `taxon_names` is actually a function that is called when reference
 head(obj$taxon_names())
 ```
 
-Other values that can be used this way includes columns in tables and lists/vectors stored in `taxmap` objects.
+Other values that can be used this way include columns in tables and lists/vectors stored in the `obj$data` list in `taxmap` objects.
 Since `taxmap` objects can store any number of lists, vectors, or tables mapped to a taxonomy, there can be many variables that can be referenced by name.
 The `all_names` function returns the name and location of variables that can be used this way:
 
@@ -134,7 +134,7 @@ head(obj$all_names(), 20)
 length(obj$all_names())
 ```
 
-Next, lets also filter out anything not in Bacteria, since the focus of the study was Bacteria:
+Next, lets also filter out anything not in Bacteria, since the focus of the study was Bacteria.
 
 ```{r}
 obj <- filter_taxa(obj, taxon_names == "Bacteria", subtaxa = TRUE)
@@ -160,15 +160,102 @@ This leaves us with a data set of `r nrow(obj$data$otu_counts)` OTUs in `r nrow(
 print(obj)
 ```
 
-## Saving the data for the next section
-
-In the next section we will do some more filtering  on this data set, but we will focus on standard quality control specific to amplicon sequence data.
-Don't worry about running the following code; it is just there to let us use the same data set on multiple website pages.
-
-```{r}
+```{r include=FALSE}
 save(obj, sample_data, file = "filtered_data.Rdata")
 ```
 
+## Exercises
+
+### Subsetting tabular data
+
+In these exercises, we will be using the table `sample_data` from the analysis above.
+
+**1)** Try to subset `sample_data` to just "leaf" samples using standard R indexing (e.g. `my_table[rows, columns]`).
+
+```{r hide_button = TRUE}
+sample_data[sample_data$Type == "leaf", ]
+```
+
+**2)** Try to do the same thing using the `filter` function from the `dplyr` package.
+
+```{r hide_button = TRUE}
+filter(sample_data, Type == "leaf")
+```
+
+**3)** Using a single call to the `filter` function, get all leaf samples from site "Jam" that are of genotype "SIL" or "MIL".
+
+```{r hide_button = TRUE}
+filter(sample_data,
+       Type == "leaf",
+       Site == "Jam",
+       Genotype %in% c("SIL", "MIL"))
+```
+
+### Subsetting taxonomic data
+
+In these exercises, we will be using the `taxmap` object `obj` from the analysis above.
+For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't save the result in a variable).
+
+**1)** The function `n_obs` counts the number of items in the first dataset (the OTU table in our case) assigned to each taxon. Try running `n_obs(obj)` to see how many OTUs are within each taxon.
+
+```{r hide_button = TRUE}
+n_obs(obj)
+```
+
+**2)** Like `taxon_names`, `n_obs` can be used within calls to `filter_taxa` as if it were a variable. Try to use `filter_taxa` to remove all taxa that have less than 100 OTUs.
+
+```{r hide_button = TRUE}
+filter_taxa(obj, n_obs >= 100)
+```
+
+**3a)** Subset `obj` to just "Actinobacteria" and *all of its subtaxa*.
+
+```{r hide_button = TRUE}
+filter_taxa(obj, taxon_names == "Actinobacteria", subtaxa = TRUE)
+```
+
+**3b)** Why are there fewer OTUs in the result of the above filtering?
+
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+  'Because the OTUs assinged to taxa besides *Actinobacteria* were removed.'
+)
+```
+
+**3c)** Look at the documentaion for `filter_taxa` by typing `?filter_taxa`. See if you can modify the previous command so that no OTUs are removed from the table, but the taxonomy is still subset to  "Actinobacteria" and all of its subtaxa.
+
+```{r hide_button = TRUE}
+filter_taxa(obj, taxon_names == "Actinobacteria", subtaxa = TRUE, drop_obs = FALSE)
+```
+
+**4)** The function `taxon_ranks` returns the ranks for each taxon and it can be used like `taxon_names` in calls to `filter_taxa`. Look at the result of `taxon_ranks(obj)`. Subset `obj` to phyla ("p" in our data) *and their supertaxa*.
+
+```{r hide_button = TRUE}
+filter_taxa(obj, taxon_ranks == "p", supertaxa = TRUE)
+```
+
+**5a)** Try to remove "Actinobacteria" and all of its subtaxa. You will probably need to look at the documentation for `filter_taxa` to figure out how to do this.
+
+```{r hide_button = TRUE}
+filter_taxa(obj, taxon_names == "Actinobacteria", subtaxa = TRUE, invert = TRUE)
+```
+
+**5b)** Why were no OTUs removed when "Actinobacteria" and all of its subtaxa were removed?
+
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+  'Because the OTUs that were assigned to "Actinobacteria" were reassigned to "Bacteria", its supertaxon.'
+)
+```
+
+**5c)** Try to modify the previous command to remove the OTUs that are assigned to "Actinobacteria".
+
+```{r hide_button = TRUE}
+filter_taxa(obj, taxon_names == "Actinobacteria",
+            subtaxa = TRUE,
+            invert = TRUE,
+            reassign_obs = FALSE)
+```
 
 ```{r, child="_sessioninfo.Rmd"}
 ```

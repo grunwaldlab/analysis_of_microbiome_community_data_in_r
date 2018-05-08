@@ -55,12 +55,12 @@ knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
 knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 ```
 
-Sometimes the OTU data and the abundance matrix are two seperate tables, making the total three tables.
+Sometimes the OTU data and the abundance matrix are two separate tables, making the total three tables.
 
 ## Importing data into R
 
 Importing data into R can be quite easy if the data is formatted well, but can be a very frustrating experience otherwise.
-An example of well-formattted data is .csv (comma-separated value) or .tsv (tab-separated value) files, each with a single table and no additional comments or formatting (e.g. merged cells).
+An example of well-formatted data is .csv (comma-separated value) or .tsv (tab-separated value) files, each with a single table and no additional comments or formatting (e.g. merged cells).
 Either of these formats might also have a .txt extension (the extension does not really matter; its for humans, not computers).
 For more information on correct data formatting, see the [data formating section](http://grunwaldlab.github.io/Reproducible-science-in-R/03--Data_formatting.html) of our [guide for reporducible research](http://grunwaldlab.github.io/Reproducible-science-in-R/index.html).
 You should always import the raw output data whenever possible and avoid any "manual" (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time (@zeeberg2004mistaken).
@@ -196,9 +196,9 @@ This might look intimidating, but we can break it down into understandable parts
 
 The whole regex means the following in common English: 
 
-"From the start of the string, (`^`) match any character between "a" and "z" (`[a-z]`) zero or one times (`{0,1}`) followed by an underscore (`_`) occurring between zero and 2 times, followed by any character (`.`) occurring zero or more times (`*`), followed by the end of the string (`$`)."
+"From the start of the string, (`^`) match any character between "a" and "z" (`[a-z]`) zero or one times (`{0,1}`) followed by an underscore (`_`) occurring between zero and 2 times  (`{0,2}`), followed by any character (`.`) occurring zero or more times (`*`), followed by the end of the text (`$`)."
 
-We can add parentheses that specify which parts of the pattern go together; these are called "capture groups" in regex jargon.
+We can add parentheses that specify which parts of the pattern go together; these are called **capture groups** in regex jargon.
 These do not change what will be matched; they just define different parts of the pattern.
 In this case, we are interested in the taxon rank (matched by `([a-z]{0,1})`) and the taxon name (matched by `(.*)`).
 
@@ -233,7 +233,7 @@ However, ranks can also be accessed using the `taxon_ranks` function:
 head(obj$taxon_ranks())
 ```
 
-So we dont really need the "class_data" table, so lets get rid of it:
+So we don't really need the "class_data" table, so lets get rid of it:
 
 ```{r}
 obj$data <- obj$data[1] # 1 is index of the "tax_data" table we want
@@ -253,21 +253,21 @@ save(obj, sample_data, file = "parsed_data.Rdata")
 
 ## Exercises
 
-### Beginner: reading tabular data
+### Reading tabular data
 
 **1)** Take a look at the file called "parsing_exercise_1_example.tsv".
 
-**2)** Try reading the file using the base R function `read.table`. You might need to change some of the options. Type `?read.table` to see the documentation for this function.
+**2)** Try reading the file using the base R function `read.table`. You might need to change some of the options. Type `?read.table` to see the documentation for this function. Hint: what does the `.tsv` extension mean?
 
 ```{r hide_button = TRUE}
-table_1 <- read.table("data/parsing_exercise_1_example.tsv", header = TRUE)
+table_1 <- read.table("data/example_data_1.tsv", header = TRUE, sep = "\t")
 ```
 
-**3)** Now try reading the same file using the `read_tsv` function from the `readr` pacakage. Type `?read_tsv` to see the documentation for this function.
+**3)** Now try reading the same file using the `read_tsv` function from the `readr` package. Type `?read_tsv` to see the documentation for this function.
 
 ```{r hide_button = TRUE}
 library(readr)
-table_2 <- read_tsv("data/parsing_exercise_1_example.tsv")
+table_2 <- read_tsv("data/example_data_1.tsv")
 ```
 
 **4)** Compare the two results. What is different about them? Try using the `str` function on each result to see the details about how they are formatted.
@@ -280,24 +280,20 @@ str(table_2)
 **5)** Try to change the input parameters of both functions so that all columns are of type `character` ("chr" in the `str` output).
 
 ```{r hide_button = TRUE}
-table_1 <- read.table("data/parsing_exercise_1_example.tsv",
-                      header = TRUE, colClasses = "character")
-table_2 <- read_tsv("data/parsing_exercise_1_example.tsv", col_types = "ccc")
+table_1 <- read.table("data/example_data_1.tsv",
+                      header = TRUE, sep = "\t", colClasses = "character")
+table_2 <- read_tsv("data/example_data_1.tsv", col_types = "cccc")
 str(table_1)
 str(table_2)
 ```
 
-### Intermediate: parsing hierarchical data
+### Reading taxonomic data
 
-Say you have the following table:
+In this exercise we will be converting the table from the previous exercise to a `taxmap` object.
 
 ```{r}
-my_data <- data.frame(common_name = c("Lions", "Tigers", "Bears"),
-                      ncbi_seq_id = c("FJ712037", "KC879292", "HW243304"),
-                      itis_taxon_id = c("183803", "183806", "180544"),
-                      my_taxonomy = c("mammalia, felidae, panthera, leo",
-                                   "mammalia, felidae, panthera, tigris",
-                                   "mammalia, ursidae, ursus, americanus"))
+my_data <- read_tsv("data/example_data_1.tsv")
+print(my_data)
 ```
 
 **1)** Look at the documentation for `parse_tax_data` and `lookup_tax_data`. The examples at the bottom of the documentation should be helpful.
@@ -314,7 +310,7 @@ library(taxa)
 parse_tax_data(my_data, class_cols = "my_taxonomy", class_sep = ", ")
 ```
 
-**3)** Try using `lookup_tax_data` to convert the table to a `taxmap` object, using the `ncbi_seq_id` column to look up the taxonomy assocaited with these Genbank accession numbers. NOTE: This requires an internet connection.
+**3)** Try using `lookup_tax_data` to convert the table to a `taxmap` object, using the `ncbi_seq_id` column to look up the taxonomy associated with these Genbank accession numbers. NOTE: This requires an internet connection.
 
 ```{r hide_button = TRUE, message=FALSE}
 lookup_tax_data(my_data, type = "seq_id", column = "ncbi_seq_id", database = "ncbi")
@@ -328,7 +324,75 @@ lookup_tax_data(my_data, type = "taxon_id", column = "itis_taxon_id", database =
 
 **4)** Compare the results of the three sources of taxonomic information. What is different? What is the same? 
 
-### Advanced
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+"* The number and name of taxa are different since each source has a different taxonomy.
+* The taxon IDs are different. When an online database is queried, the taxon IDs from that database are used.
+* The input data stored in 'tax_data' is the same, except for the taxon ID column."
+)
+```
+
+### Reading taxonomic data from complex formats
+
+Sometimes taxonomic data can be embedded in complex text, like FASTA headers.
+Look at the file "example_data_2.fa" which contains headers with two sources of taxonomic information:
+
+* The Genbank accession number
+* The taxonomic classification
+
+**1)** Read the FASTA file called "example_data_2.fa" using the `read.FASTA` function from the `ape` package and store the result in a variable.
+
+```{r hide_button = TRUE}
+library(ape)
+seqs <- read.FASTA("data/example_data_2.fa")
+print(seqs)
+```
+
+**2)** Use the `names` function to get the headers and stores those in another variable.
+
+```{r hide_button = TRUE}
+headers <- names(seqs)
+print(headers)
+```
+
+**3)** Look at the documentation for `extract_tax_data` from the `taxa` package.
+
+**4)** Use the `extract_tax_data` function to convert the headers to a `taxmap` object, using the NCBI accession number. The classification can be ignored (i.e. not given a capture group and key value) or stored as `"info"`.
+
+```{r hide_button = TRUE, message = FALSE}
+extract_tax_data(headers,
+                 key = c(my_acc_no = "seq_id", my_class = "info"),
+                 regex = "^(.+)::(.+)$")
+```
+
+**5)** Now use the classification instead of the accession numbers. The accession number can be ignored or stored as `"info"`. Consider the rank as part of the taxon name for now.
+
+```{r hide_button = TRUE}
+extract_tax_data(headers,
+                 key = c(my_acc_no = "info", my_class = "class"),
+                 regex = "^(.+)::(.+)$",
+                 class_sep = ";")
+```
+
+**6)** Now try to split out the rank information from the taxon name. You will need to use the `class_key` and `class_regex` options. The ranks can be stored as `"info"` or `"taxon_rank`". Using `"taxon_rank`" allows the ranks to be accessed with the `taxon_ranks` function.
+
+```{r hide_button = TRUE}
+extract_tax_data(headers,
+                 key = c(acc_no = "info", my_class = "class"),
+                 regex = "^(.+)::(.+)$",
+                 class_sep = ";",
+                 class_key = c(tax_rank = "taxon_rank", name = "taxon_name"),
+                 class_regex = "^(.+)_(.+)$")
+```
+
+**7)** Sometimes you will have the option to use more than one source of taxonomic information, like in this exercise. What are the benefits of using the embedded classification information instead of a Genbank accession number or taxon ID?
+
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+  "Using the included classification does not require communicating with online databases, so is much faster and more reliable."
+)
+```
+
 
 
 ```{r, child="_sessioninfo.Rmd"}

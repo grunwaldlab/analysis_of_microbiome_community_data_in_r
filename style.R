@@ -5,12 +5,12 @@ options(crayon.enabled = TRUE)
 # Knitr hooks
 knitr::knit_hooks$set(
   hide_button = function(before, options, envir) {
-    if (is.character(options$hide)) {
-      button_text = options$hide
+    if (is.character(options$hide_button)) {
+      button_text = options$hide_button
     } else {
       button_text = "Show solution"
     }
-    block_label <- paste0("hide", options$label)
+    block_label <- paste0("hide_button", options$label)
     if (before) {
       return(paste0(sep = "\n",
                    '<button class="btn btn-danger" data-toggle="collapse" data-target="#', block_label, '"> ', button_text, ' </button>\n',
