@@ -18,8 +18,8 @@ load("parsed_data.Rdata")
 
 ## The challenge of hierarchical data
 
-Normal tabular data is relatively straight forward to manipulate (assuming you know some R already), but taxonomic data is hierarchical, making it much harder to work with.
-It gets even more complicated when there are other data mapped (i.e. associated with) to the taxonomy.
+Tabular data is relatively straight forward to manipulate if you know some R already, but taxonomic data is hierarchical, making it much harder to work with.
+It gets even more complicated when there are other data mapped to (i.e. associated with) the taxonomy.
 
 For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? 
 If so, how do we identify which taxa are in that phylum?
@@ -28,7 +28,7 @@ If other data  (e.g. OTU counts) are associated with taxa within that phylum, do
 After all, even if the phylum and the taxa within it are removed, we still know that all the associated data are bacterial, so do we reassign them to the Bacteria taxon, or just throw those data out?
 The answer to these kind of questions will depend on our data and what we want to do with it.
 
-## Subsetting tabular data (background/review) 
+## Subsetting tabular data
 
 The functions to subset taxonomic information in `taxmap` objects (the format our example data is in) provided by the `taxa` package are modeled after functions in the `dplyr` package for manipulating tabular data (@wickham2015dplyr).
 These `dplyr` functions are alternatives to the standard R indexing (e.g. `[`, `[[`, and `$`) designed to be be more intuitive and consistent.
@@ -94,7 +94,7 @@ sample_data <- sample_data %>%
 This leaves us with `r nrow(sample_data)` samples.
 Next we will subset the abundance data to just these samples to get the dataset down to a manageable size for a standard personal computer.
 
-## Subsetting taxonomic data
+## Subsetting a taxonomy
 
 The analog to `filter` for taxonomic data is `filter_taxa` from the `taxa` package.
 This works in a similar way, but has much more options for taxonomic relationships are used and what is done with data mapped to removed taxa.
@@ -160,6 +160,50 @@ This leaves us with a data set of `r nrow(obj$data$otu_counts)` OTUs in `r nrow(
 print(obj)
 ```
 
+## Subsetting data classified by a taxonomy
+
+In the previous section we subset the taxonomy in a `taxmap` object using `filter_taxa`.
+By default, when taxa are removed, the OTUs assigned to them were reassigned to a supertaxon or removed as well.
+We can also subset the OTU table directly and remove any taxa that are no longer needed using the funtion `filter_obs`.
+The "obs" in the function name stands for "observations".
+Unlike `filter`, which you used previously to subset tables, `filter_obs` works on a data set in a `taxmap` object, like our OTU table.
+
+In the last section we removed samples (i.e. columns in the OTU table) that did not appear in the @wagner2016host publication.
+This probably means that some of the OTUs only existed in those samples and now have no reads in the remaining samples.
+Lets remove those to make the data set more managable.
+First we need to find which OTUs (i.e. rows) no have no reads.
+We can do that by using the function `rowSums` to get the number of reads in all samples for each OTU.
+
+```{r}
+has_no_reads <- rowSums(obj$data$otu_counts[, sample_data$SampleID]) == 0
+```
+
+Since the table `otu_counts` also has the taxon ID and OTU ID columns we need to subset the columns to just the samples before using `rowSums`.
+The command above results in a `logical` vector, which is a series of `TRUE`/`FALSE` values that can be used to subset things.
+We can use `sum` to count the number of `TRUE` values and hence the number of OTUs without reads.
+
+```{r}
+sum(has_no_reads)
+```
+
+There are `r sum(has_no_reads)` of `r length(has_no_reads)` OTUs that now have no reads.
+Now that we know which they are, we can remove them using `filter_obs`.
+
+```{r}
+filter_obs(obj, "otu_counts", ! has_no_reads)
+```
+
+Note how this removed rows in the "otu_counts" table but did not remove any taxa.
+To remove taxa that are no longer observed in any OTUs, we need to add the `drop_taxa` option:
+
+```{r}
+obj <- filter_obs(obj, "otu_counts", ! has_no_reads, drop_taxa = TRUE)
+```
+
+If there were other tables in `obj$data` the data for those taxa would have been removed as well unless `drop_obs = FALSE` was added.
+Since there is only the one table, we dont need to worry about that.
+
+
 ```{r include=FALSE}
 save(obj, sample_data, file = "filtered_data.Rdata")
 ```
@@ -191,10 +235,10 @@ filter(sample_data,
        Genotype %in% c("SIL", "MIL"))
 ```
 
-### Subsetting taxonomic data
+### Subsetting a taxonomy
 
 In these exercises, we will be using the `taxmap` object `obj` from the analysis above.
-For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't save the result in a variable).
+For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj`).
 
 **1)** The function `n_obs` counts the number of items in the first dataset (the OTU table in our case) assigned to each taxon. Try running `n_obs(obj)` to see how many OTUs are within each taxon.
 
@@ -218,7 +262,7 @@ filter_taxa(obj, taxon_names == "Actinobacteria", subtaxa = TRUE)
 
 ```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
 cat(
-  'Because the OTUs assinged to taxa besides *Actinobacteria* were removed.'
+  'Because the OTUs assinged to taxa besides *Actinobacteria* or one of its subtaxa were removed.'
 )
 ```
 
@@ -256,6 +300,72 @@ filter_taxa(obj, taxon_names == "Actinobacteria",
             invert = TRUE,
             reassign_obs = FALSE)
 ```
+
+### Subsetting data assocaited with a taxonomy
+
+In these exercises, we will be using the `taxmap` object `obj` from the analysis above.
+For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj`).
+
+**1a)** Use `filter_obs` to remove all rows of "otu_counts" that have less than 5 reads in the first sample, "M1981P563" without removing any taxa in the taxonomy.
+
+```{r hide_button = TRUE}
+filter_obs(obj, "otu_counts", M1981P563 > 5)
+# Also works: filter_obs(obj, "otu_counts", obj$data$otu_counts$M1981P563 > 5)
+```
+
+**1b)** Modify the previous command to remove taxa as well as rows in the table.
+
+```{r hide_button = TRUE}
+filter_obs(obj, "otu_counts", M1981P563 > 5, drop_taxa = TRUE)
+```
+
+**2a)** The function `calc_prop_samples` from the `metacoder` package returns the proportion of samples each OTU appears in (i.e. has a non-zero count): 
+
+```{r}
+library(metacoder)
+calc_prop_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
+```
+
+Using the `groups` option, it can do the calculation on columns grouped by treatment: 
+
+```{r}
+calc_prop_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
+```
+
+Run the following code to add this as a table in your `taxmap` object:
+
+```{r}
+obj$data$sample_props <- calc_prop_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
+print(obj)
+```
+
+Since the "sample_props" table is derived from the "otu_counts" table and in the same order, we can use values from it to subset "otu_counts".
+Using `filter_obs`, try to subset "otu_counts" to taxa that do not appear in leaf samples, but appear in at least 90% of root samples.
+Remove any taxa not represented by these OTUs unique to roots.
+
+```{r hide_button = TRUE}
+filter_obs(obj, "otu_counts", leaf == 0, root > 0.9, drop_taxa = TRUE)
+```
+
+**2b)** The function `arrange_obs` sorts tables in `taxmap` object. For example, you can sort the OTU table in `obj` by the number of reads in sample "M1981P563" like so:
+
+```{r}
+arrange_obs(obj, "otu_counts", M1981P563)
+```
+
+To sort in decending order wrap the sorting parameter in `desc()`:
+
+```{r}
+arrange_obs(obj, "otu_counts", desc(M1981P563))
+```
+
+Try to sort the OTU table by the difference between the proportion of leaf samples and OTU was found in and the proportion of root samples and OTU was found in.
+This effectivly sorts by how "characteristic" an OTU is to root samples.
+
+```{r hide_button = TRUE}
+arrange_obs(obj, "sample_props", leaf - root)
+```
+
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
