@@ -16,45 +16,17 @@ The other dimension consists of samples.
 Different tools will expect/output different orientations of the matrix, but, in general, columns are samples and rows are OTUs:
 
 ```{r echo=FALSE}
-make_ex_mat <- function(n_otu = 6, n_sample = 6,
-                        otu_names = paste0("otu_", seq_len(n_otu)),
-                        sam_names = paste0("sample_", seq_len(n_sample))) {
-  set.seed(1)
-  my_mat <- matrix(nrow = n_sample, ncol = n_otu, dimnames = list(otu_names, sam_names))
-  my_mat[] <- sample(c(rep(0, 100), 1:100), n_otu * n_sample)
-  return(my_mat)
-}
-print(make_ex_mat())
-```
-
-Each sample and OTU will have an unique ID.
-Sometimes people will construct the sample ID so that it contains the treatment and replicate number:
-
-```{r, echo=FALSE}
-print(make_ex_mat(n_otu = 6, n_sample = 6,
-                  otu_names = paste0("otu_", seq_len(6)),
-                  sam_names = c(paste0("treated_", seq_len(3)), paste0("control_", seq_len(3)))))
-```
-
-
-This helps quickly identifying samples during an analysis, but it is usually better to store sample information in another table, with sample IDs in rows and sample characteristics in columns:
-
-```{r, echo=FALSE}
-print(data.frame(sample_id = paste0("sample_", seq_len(6)),
-                 treated = c(rep(TRUE, 3), rep(FALSE, 3))))
-```
-
-This makes it easy to add lots of additional sample data columns that can be used to subset the data. 
-In summary, most datasets can be formatted as two tables like so:
-
-```{r echo=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
 ```
+
+There is usually another table with sample information in rows:
 
 ```{r echo=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 ```
 
+This makes it easy to add lots of additional sample data columns that can be used to subset the data. 
+Each sample and OTU will have an unique ID.
 Sometimes the OTU data and the abundance matrix are two separate tables, making the total three tables.
 
 ## Importing data into R
@@ -66,10 +38,11 @@ For more information on correct data formatting, see the [data formating section
 You should always import the raw output data whenever possible and avoid any "manual" (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time (@zeeberg2004mistaken).
 
 Throughout this workshop, we will be using data from @wagner2016host, a study on the effects of plant age, genotype, and environment on the bacterial microbiome of [*Boechera stricta*](https://en.wikipedia.org/wiki/Boechera_stricta), a perennial herb in the mustard family.
+Here is a photo of *Boechera stricta* taken by Mary Ellen Harte:
 
-
-![A photo of Boechera stricta by Mary Ellen Harte](images/boechera_stricta.jpg)
-
+```{r echo=FALSE}
+knitr::include_graphics('images/boechera_stricta.jpg')
+```
 
 @wagner2016host released their raw data with the article and it is available [here](http://datadryad.org/resource/doi:10.5061/dryad.g60r3) on [dryad](http://datadryad.org/).
 This is a great example of how to share your raw data!
@@ -127,7 +100,7 @@ tail(colnames(otu_data), n = 10)
 Next, lets load the sample data:
 
 ```{r message=FALSE}
-sample_data <- read_tsv("data/sample_data.txt",
+sample_data <- read_tsv("data/SMD.txt",
                         col_types = "cccccccccccccccc") # each "c" means a column of "character"
 print(sample_data) # You can also enter `sample_data` to print it
 ```

@@ -75,13 +75,13 @@ sample_data <- filter(sample_data,
                       Age == 3)
 ```
 
-This is usually equivalent to combining multiple conditions with `&` in normal indexing, but is faster for large data sets. 
-It also will not return values for which conditions evaluate to `NA`, unlike base indexing.
+This is usually equivalent to combining multiple conditions with `&` in normal subsetting, but is faster for large data sets. 
+It also will not return values for which conditions evaluate to `NA`, unlike base subsetting.
 
-Up until now, everything we have done using `filter` can be easily done with base R indexing as well, but `dplyr` introduces a few more advanced features that can save us time/typing.
+Up until now, everything we have done using `filter` can be easily done with base R subsetting as well, but `dplyr` introduces a few more advanced features that can save time/typing.
 We wont go into these in detail, but its good to know they exist.
 One is the concept of "grouping".
-When rows are "grouped" by the values in one column, the rows corresponding to each unique value in that column are treated as a unit in some functions that can be used in filtering.
+When rows are "grouped" by the values in one column, the rows corresponding to each unique value in that column are treated as a unit in some functions.
 `n()` is one such function that counts the number of items in each group.
 We can use this to filter out any plants that don't have both root and leaf samples by counting the number of times each "Plant_ID" shows up:
 
@@ -92,6 +92,10 @@ sample_data <- sample_data %>%
 ```
 
 This leaves us with `r nrow(sample_data)` samples.
+Note the use of the `%>%` "piping" operator.
+This takes the result of the function that comes before and uses it as the first argument to function that comes after.
+For example, `seq(1:10) %>% length()` is the same as `length(seq(1:10))`.
+This allows for chaining many commands together in a readable way.
 Next we will subset the abundance data to just these samples to get the dataset down to a manageable size for a standard personal computer.
 
 ## Subsetting a taxonomy
