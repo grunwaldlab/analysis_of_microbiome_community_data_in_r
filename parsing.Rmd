@@ -354,7 +354,7 @@ extract_tax_data(headers,
                  key = c(acc_no = "info", my_class = "class"),
                  regex = "^(.+)::(.+)$",
                  class_sep = ";",
-                 class_key = c(tax_rank = "taxon_rank", name = "taxon_name"),
+                 class_key = c(tax_rank = "info", name = "taxon_name"),
                  class_regex = "^(.+)_(.+)$")
 ```
 
