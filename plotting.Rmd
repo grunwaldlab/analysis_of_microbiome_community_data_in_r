@@ -14,13 +14,13 @@ In this section however, we will focus on using the `metacoder` package to plot 
 Taxonomic data can be difficult to graph since it is hierarchical.
 For example, if you have abundance information for each taxon and want to graph it, what kind of plot do you use? 
 Stacked bar charts and pie graphs are common choices, but these ignore the hierarchical nature of the data; typically only a single rank is graphed.
-For example the graph below is from the publication that described the data set we are working with:
+For example the graph below is from the publication our data set was used in:
 
 ```{r echo=FALSE, out.width='100%'}
 knitr::include_graphics('images/wagner_barchart.png')
 ```
 
-Although this is a well constructed graph, its usefulness is limited by the nature of stacked barcharts.
+Although this is a well-constructed graph, its usefulness is limited by the nature of stacked barcharts.
 The reliance on color to differentiate taxa means that the maximum number of taxa that can be effectively displayed is limited by the number of colors that can be distinguished.
 This is typically around 10, maybe 13 with careful selection (as in the graph above), but definitely not more than 15.
 For those who are color blind (~ 4% of people), there are even fewer colors that can be used. 
@@ -34,17 +34,17 @@ If you are starting the workshop at this section, or had problems running code i
 If `obj` and `sample_data` are already in your environment from a previous section, you can ignore the following command.
 
 ```{r}
-load("clean_data.Rdata")
+load("filtered_data.Rdata")
 ```
 
 
 ## Heat trees
 
 The `metacoder` package implements "heat trees" to graph taxonomic data (@foster2017metacoder).
-This visualization technique uses color and size of parts of a taxonomic tree to display numeric data associated with taxa.
+This visualization technique uses the color and size of parts of a taxonomic tree to display numeric data associated with taxa.
 Below is an example of a heat tree showing the number of OTUs in all taxa down to the class level:
 
-```{r echo = FALSE}
+```{r echo = FALSE, message=FALSE}
 library(metacoder)
 obj %>% 
   filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
@@ -57,15 +57,16 @@ obj %>%
 ```
 
 This is a type of taxonomic tree where each **node** (the circles) is a taxon and the **edges** (lines) show hierarchical relationships between taxa.
-For example, the large Proteobacteria phylum node contains the Alphaproteobacteria and Gammaproteobacteria classes.
+For example, the large *Proteobacteria* phylum node contains the *Alphaproteobacteria* and *Gammaproteobacteria* classes.
 This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones are also possible.
-We are going to go through the process of creating a figure like this one in this section.
+We are going to go through the process of creating figures like this one in this section.
 Although this might seem like complicated code to make this figure, code like this is typically the result of iterative small improvements started from a simple base.
 We will imitate this process here for demonstration. 
 
-## 
+### Getting started
 
-Lets start with simplest possible code.
+The `heat_tree` function takes a `taxmap` object as its first argument. 
+Lets start with the simplest possible code:
 
 ```{r}
 heat_tree(obj)
@@ -73,8 +74,9 @@ heat_tree(obj)
 
 This is not too useful, but at least its easy!
 Lets plot some data to make things more interesting.
-A good start is to plot the number of OTUs (or other types of taxon observations) with both the color and size of nodes.
-The taxon names are added as well.
+A good place to start is to plot the number of OTUs (or other types of taxon observations) with both the color and size of nodes.
+The taxon names are added here as well.
+As with many other functions from `taxa` and `metacoder`, any table column or function assocaited with the `taxmap` object being plotted can be reffered to as if it was an independent variable in the function call.
 
 ```{r}
 heat_tree(obj,
@@ -83,10 +85,21 @@ heat_tree(obj,
           node_color = n_obs)
 ```
 
-The default layout is pretty cluttered with this amount of taxa (`r length(obj$taxa)`), so the labels are not readable with saving the graph as a PDF and zooming in.
-With enough tweaking, we probably could make a tree with all `r length(obj$taxa)` taxa that looks good with a PDF viewer, but for this demonstration, we will try to make a plot that could be used in a publication with minimal zooming.
+As with many other functions from `taxa` and `metacoder`, any table column or function assocaited with the `taxmap` object being plotted can be reffered to as if it was an independent variable in the function call.
+For example, the last plot could also have been made this way:
+
+```{r eval = FALSE}
+heat_tree(obj,
+          node_label = taxon_names(obj),
+          node_size = n_obs(obj),
+          node_color = n_obs(obj))
+```
+
+The default layout is pretty cluttered with this amount of taxa (`r length(obj$taxa)`), so the labels are not readable without saving the graph as a PDF and zooming in.
+With enough tweaking, we probably could make a tree with all `r length(obj$taxa)` taxa that looks good without a PDF viewer, but for this demonstration, we will try to make a plot that could be used in a publication with minimal zooming.
 So, lets remove all taxa below the order rank to cut down the number of taxa displayed. 
 We will also save the output as a PDF so we can take a closer look at the output.
+Since the manipulation functions provided the `taxa` package also operate on `taxmap` objects, we can use functions like `filter_taxa` to modify what is passed to `heat_tree`:
 
 ```{r}
 obj %>%
@@ -94,7 +107,7 @@ obj %>%
   heat_tree(node_label = taxon_names,
             node_size = n_obs,
             node_color = n_obs,
-            output_file = "plot_example_1.pdf")
+            output_file = "plot_example.pdf")
 ```
 
 If we zoom in on the output, we can see a lot of taxa with odd names like "Ellin329" and "BD7−3".
@@ -108,7 +121,7 @@ obj %>%
   heat_tree(node_label = taxon_names,
             node_size = n_obs,
             node_color = n_obs,
-            output_file = "plot_example_2.pdf")
+            output_file = "plot_example.pdf")
 ```
 
 Now we are getting to something more understandable.
@@ -132,17 +145,17 @@ obj %>%
             node_size = n_obs,
             node_color = n_obs,
             layout = "fr",
-            output_file = "plot_example_2.pdf")
+            output_file = "plot_example.pdf")
 ```
 
 These types of layouts have a random component to how they are made, so running the same code twice will produce different layouts.
 Try running the above code again to see this.
-We can force it to be the sample each time by setting the seed for the random number generator used by R, as is done in the next example.
-This layout is not too bad, but does not make good use of space.
+We can force it to be the same each time by setting the seed for the random number generator used by R, as is done in the next example.
+The last layout is not too bad, but does not make good use of space.
 Lets try davidson-harel:
 
 ```{r}
-set.seed(1) # you can choose any number. Each will produce a different layout
+set.seed(1) # Each number will produce a slightly different result for some layouts
 obj %>%
   filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
   filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
@@ -150,7 +163,7 @@ obj %>%
             node_size = n_obs,
             node_color = n_obs,
             layout = "da",
-            output_file = "plot_example_2.pdf")
+            output_file = "plot_example.pdf")
 ```
 
 That's a bit better, but there is one more thing we can try.
@@ -158,7 +171,7 @@ The `heat_tree` functions allows you to set an "initial" layout that is used as 
 We have found the combination of "reingold-tilford" and "davidson-harel" to be space-efficient for large plots.
 
 ```{r}
-set.seed(2) # you can choose any number. Each will produce a different layout
+set.seed(2) # Each number will produce a slightly different result for some layouts
 obj %>%
   filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
   filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
@@ -166,57 +179,277 @@ obj %>%
             node_size = n_obs,
             node_color = n_obs,
             initial_layout = "re", layout = "da",
-            output_file = "plot_example_2.pdf")
+            output_file = "plot_example.pdf")
 ```
 
-Now we have replicated our original plot!
-This kind of iterative refinement is the best way to make these complex plots, and complex plots in general.
-
 Up until now, we have set both the color and size to display the number of OTUs, but they can be set to differnt things.
-Lets set the color to the read abundance for one of the samples named "M1981P563".
+Lets set the color to the number of supertaxa that each taxon is included in.
 
 ```{r}
-set.seed(2) # you can choose any number. Each will produce a different layout
+set.seed(2) # Each number will produce a slightly different result for some layouts
 obj %>%
   filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
   filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
   heat_tree(node_label = taxon_names,
             node_size = n_obs,
-            node_color = M1977P1709,
+            node_color = n_supertaxa,
             initial_layout = "re", layout = "da",
-            output_file = "plot_example_2.pdf")
+            output_file = "plot_example.pdf")
 ```
 
-
-The `heat_tree` function is very complex and we have only used its most basic functionality so far.
-
+Note how both sides of the legned on the bottom right have numbers now.
+The left side is the color legend and the right is the size legend. 
 
 ### Setting edge attributes
 
 Just like the node size/color, the edge size/color can be used to display statistics.
 Edges can also have labels.
 This means you can plot 4 statistics in one graph, although more than 3 is typically overwhelming.
-
-```{r}
-set.seed(2) # you can choose any number. Each will produce a different layout
-obj %>%
-  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
-  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
-  heat_tree(node_label = taxon_names,
-            node_size = n_obs,
-            node_color = n_obs,
-            initial_layout = "re", layout = "da",
-            output_file = "plot_example_2.pdf")
-```
-
 However, we need some more things to graph, so we will calculate the number of read depth and number of samples for each taxon.
 
 ```{r}
 obj$data$tax_abund <- calc_taxon_abund(obj, "otu_counts",
                                        cols = sample_data$SampleID,
                                        groups = sample_data$Type)
+print(obj$data$tax_abund)
 ```
 
+Since the "leaf" and "root" columns have one value per taxon, they can be used from plotting.
+We can set the root read counts to the node color and the leaf read counts to the edge color.
+
+```{r}
+set.seed(2) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = root, 
+            edge_color = leaf,
+            initial_layout = "re", layout = "da",
+            output_file = "plot_example.pdf")
+```
+
+Note how there are two legends now, one for edge color/size and one for node color/size.
+We can also add labels to the edges.
+For example, we can print the number of OTUs assigned to each taxon like so:
+
+```{r}
+set.seed(2) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = root, 
+            edge_label = n_obs,
+            initial_layout = "re", layout = "da",
+            output_file = "plot_example.pdf")
+```
+
+### Setting titles and legend lables
+
+You can add a title to the graph and change the legend labels to make the graph easier to understand.
+
+```{r}
+set.seed(2) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = root,
+            initial_layout = "re", layout = "da",
+            title = "Root sample read depth",
+            node_color_axis_label = "Sum of root reads",
+            node_size_axis_label = "Number of OTUs",
+            output_file = "plot_example.pdf")
+```
+
+There are similar options for the edge color and edge size.
+
+
+```{r}
+set.seed(2) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = root,
+            initial_layout = "re", layout = "da",
+            title = "Root sample read depth",
+            node_color_axis_label = "Sum of root reads",
+            node_size_axis_label = "Number of OTUs",
+            output_file = "plot_example.pdf")
+```
+
+### Changing the colors used
+
+You can change the colors used in the plot using the `node_color_range` and `edge_color_range` options.
+These accept two or more colors, either as common color names (e.g. `c("red", "green")`) or hexadecimal color codes (e.g. `#000000` is black).
+
+
+```{r}
+set.seed(2) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = root,
+            node_color_range = c("red", "yellow", "green", "blue"),
+            initial_layout = "re", layout = "da",
+            title = "Root sample read depth",
+            node_color_axis_label = "Sum of root reads",
+            node_size_axis_label = "Number of OTUs",
+            output_file = "plot_example.pdf")
+```
+
+### Changing the size of elements
+
+By default, the size of nodes, edges, and labels are automatically optimized to avoid overlaps while maximizing apparent size differences.
+You can also force these to be a specific size range.
+For example, `node_size_range = c(0.01, 0.02)` means that the largest node will be 2% of the graph's width and the smallest will be 1% of the graph's width.
+There are analogous options for edges and labels.
+Lets use this to make the smallest nodes smaller and make all edges the same size.
+
+```{r}
+set.seed(2) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_size_range = c(0.01, 0.05),
+            edge_size_range = c(0.005, 0.005),
+            node_color = root,
+            initial_layout = "re", layout = "da",
+            title = "Root sample read depth",
+            node_color_axis_label = "Sum of root reads",
+            node_size_axis_label = "Number of OTUs",
+            output_file = "plot_example.pdf")
+```
+
+### Trees with multiple roots
+
+In all the trees we have made so far have a single "root".
+A "root" is a taxon without a supertaxon. 
+Common examples include "root", "bacteria", or "cellular organisms".
+When a taxonomy has multiple roots, multiple trees are graphed in the same plot.
+We force multiple roots to demonstrate this by selecting some taxa without preserving supertaxa:
+
+```{r}
+set.seed(1) # Each number will produce a slightly different result for some layouts
+obj %>%
+  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
+  filter_taxa(taxon_names %in% c("Proteobacteria", "Actinobacteria", "Firmicutes"),
+              subtaxa = TRUE) %>% 
+  heat_tree(node_label = taxon_names,
+            node_size = n_obs,
+            node_color = root,
+            tree_label = taxon_names,
+            initial_layout = "re", layout = "da",
+            title = "Root sample read depth",
+            node_color_axis_label = "Sum of root reads",
+            node_size_axis_label = "Number of OTUs",
+            output_file = "plot_example.pdf")
+```
+
+Note the use of the `tree_label` option used to add the tree labels based on the name of their root taxa.
+This can be used to make very large taxonomies easier to understand or emphaize the differenced between taxa.
+
+## Exercises
+
+**1a)** Make a plot of *Firmicutes* and subtaxa with the size of nodes proportional to the number of OTUs and label the nodes with taxon names.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Firmicutes", subtaxa = TRUE) %>%
+  heat_tree(node_size = n_obs,
+            node_label = taxon_names)
+```
+
+
+**1b)** Modify the plot you made in part **a** so that the taxon names and OTU counts are combined in the label like "my_taxon (123)". Hint: try `paste0` to combine multiple peices of text.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Firmicutes", subtaxa = TRUE) %>%
+  heat_tree(node_size = n_obs,
+            node_label = paste0(taxon_names, " (", n_obs, ")"))
+```
+
+
+**2a)** The function `n_subtaxa` returns the number of taxa each taxon has within it:
+
+```{r}
+head(n_subtaxa(obj))
+```
+
+Like, the `taxon_names` and `n_obs` functions, this returns one value per taxon, so is useful for plotting heat trees.
+Try to make a tree of only *Proteobacteria* and its subtaxa where the size of nodes is proportional to the number of subtaxa.
+Label the nodes by taxon names. 
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Proteobacteria", subtaxa = TRUE) %>%
+  heat_tree(node_size = n_subtaxa,
+            node_label = taxon_names)
+```
+
+**2b)** `heat_tree` has an option called `node_size_range` to force node sizes to be in a specified range instead of letting the function pick the maximum and minimum size. 
+Remake the graph for **1a**, but use `node_size_range` to make the node sizes vary between 0.5% and 5% of the graph width.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Proteobacteria", subtaxa = TRUE) %>%
+  heat_tree(node_size = n_subtaxa,
+            node_label = taxon_names,
+            node_size_range = c(0.005, 0.05))
+```
+
+**2c)** This made the node labels in the tips too small to read. We can also force the labels to be a specified range of sizes. Use the `node_label_size_range` option to make the tips readable without cluttering the graph too much.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Proteobacteria", subtaxa = TRUE) %>%
+  heat_tree(node_size = n_subtaxa,
+            node_label = taxon_names,
+            node_size_range = c(0.005, 0.05),
+            node_label_size_range = c(0.008, 0.04))
+```
+
+**3a)** Using the "root" and "leaf" columns in the "tax_abund" table created earlier in this section for this example.
+Plot the number of reads in leaf samples in "Proteobacteria" and subtaxa using the size and color of nodes.
+Label the nodes with taxon names.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Proteobacteria", subtaxa = TRUE) %>%
+  heat_tree(node_size = leaf,
+            node_color = leaf,
+            node_label = taxon_names)
+```
+
+**3b)** Which taxon at the tip of the tree had the most reads in leaf samples?
+
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+  "mitochondria"
+)
+```
+
+**3c)** Try to adjust the plot you made in part **a** to remove any taxa with less than 100 reads. Hint: this can be done with `filter_taxa`.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Proteobacteria", subtaxa = TRUE) %>%
+  filter_taxa(leaf >= 100) %>%
+  heat_tree(node_size = leaf,
+            node_color = leaf,
+            node_label = taxon_names)
+```
 
 ```{r, child="_sessioninfo.Rmd"}
 ```

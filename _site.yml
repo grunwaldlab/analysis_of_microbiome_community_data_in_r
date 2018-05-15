@@ -16,12 +16,12 @@ navbar:
       href: parsing.html
     - text: Manipulating taxonomic data
       href: manipulating.html
+    - text: Plotting taxonomic data
+      href: plotting.html
     - text: Data quality control
       href: quality_control.html
     - text: Diversity statistics
       href: diversity_stats.html
-    - text: Plotting taxonomic data
-      href: plotting.html
   - text: Appendices
     icon: fa-book
     menu:
