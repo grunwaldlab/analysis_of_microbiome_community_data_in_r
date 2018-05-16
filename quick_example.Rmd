@@ -1,6 +1,8 @@
 ---
 title: "Example analysis"
 output: html_document
+subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r home_setup, echo=FALSE, warning=FALSE, message=FALSE}
@@ -21,8 +23,8 @@ We will cover everything shown here in greater detail later.
 
 The first step in any analysis is getting your data into R.
 This can be difficult for taxonomic data since it has a hierarchical component (i.e. the taxonomic tree).
-`Metacoder` has functions for parsing (i.e. "reading") specific file formats used in metagenomics research.
-However, for this demonstration, we will be using a more all-purpose parser from the `taxa` package meant for tabular data.
+`Metacoder` [@foster2017metacoder] has functions for parsing (i.e. "reading") specific file formats used in metagenomics research.
+However, for this demonstration, we will be using a more all-purpose parser from the `taxa` package [@foster2018taxa] meant for tabular data.
 
 Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
 This dataset has two parts: 
@@ -38,8 +40,8 @@ knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
 knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 ```
 
-This is a typical way for this kind of data to be formatted and is the preferred way for pacakges like `metacoder` and `taxa`.
-Lets take a look at the dataset we will use in this example: 
+This is a typical example of this kind of data and is the preferred way for R packages like `metacoder` and `taxa`.
+Let us take a look at the dataset we will use in this example (just cut and paste the commands in the grey boxes into your Rstudio console to execute them): 
 
 ```{r}
 library(metacoder)
@@ -47,7 +49,7 @@ print(hmp_otus)
 print(hmp_samples)
 ```
 
-We can read the taxonomic information in the abundance matrix using a parser from `taxa`:
+We can now read the taxonomic information in the abundance matrix using a parser from `taxa`:
 
 ```{r}
 obj <- parse_tax_data(hmp_otus,
@@ -58,8 +60,9 @@ obj <- parse_tax_data(hmp_otus,
                                     tax_name = "taxon_name"))
 ```
 
-This returns a `taxmap` object.
-The `taxmap` class is designed to store any number of tables, lists, or vectors associated with taxonomic information and facilitate manipulating the data in a cohesive way.
+A parser grabs and translates information in alphanumeric format following some specification and breaks it into smaller elements available as a data structure for further analysis 
+This command returns a `taxmap` data object.
+The `taxmap` class is designed to store any number of tables, lists, or vectors associated with taxonomic information and facilitate manipulation of the data in a cohesive way.
 Here is what that object looks like:
 
 ```{r}
@@ -128,7 +131,7 @@ The name of the table is arbitrary; we could have called it anything.
 print(obj)
 ```
 
-We can also easily calculate the number of samples have reads for each taxon:
+We can also easily calculate the number of samples that have reads for each taxon:
 
 ```{r}
 obj$data$tax_occ <- calc_n_samples(obj, "tax_abund", groups = hmp_samples$body_site)
@@ -137,9 +140,9 @@ print(obj)
 
 ### Plotting taxonomic data
 
-Now that we have per-taxon information (The `tax_abund` and `tax_occ` tables), we can plot the information using **heat trees**.
-Heat trees are what we call taxonomic trees in which the size and color of tree parts correspond to some statistic of interest.
-The code below plots the number of "Nose" samples that have reads for each taxon as the size of each taxon.
+Now that we have per-taxon information (the `tax_abund` and `tax_occ` tables), we can plot the information using **heat trees** [@foster2017metacoder].
+Heat trees are what we call taxonomic trees in which the node/branch size and color of a tree  correspond to some statistic of interest in analogy to heatmaps.
+The code below plots the number of "Nose" microbiome samples that have reads for each taxon as the size of each taxon.
 It also plots the number of OTUs assigned to each taxon in the overall dataset as color.
 
 ```{r}
@@ -152,6 +155,8 @@ heat_tree(obj,
           layout = "davidson-harel", # The primary layout algorithm
           initial_layout = "reingold-tilford") # The layout algorithm that initializes node locations
 ```
+
+> Be patient. This visualization takes a little bit of time to compute.
 
 Note how we did not have to specify the full path to the variable "Nose", but just its name.
 This is a shorthand for convenience.
@@ -176,7 +181,7 @@ Alpha diversity is a measure of the diversity **within** each sample or group of
 It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU "rank".
 There are multiple methods used to calculate a value to represent alpha diversity. 
 The simplest is just the number of species, but the ones used most often factor in how common each species is as well.
-Below, we calculate the alpha diversity of OTUs using the Inverse Simpson Index using the package `vegan`. 
+Below, we calculate the alpha diversity of OTUs using the inverse Simpson's index [@hill1973diversity; @simpson1949measurement] using the package `vegan` [@oksanen2007vegan]. 
 
 ```{r}
 hmp_samples$inv_simp <- vegan::diversity(obj$data$tax_data[, hmp_samples$sample_id],
@@ -231,12 +236,12 @@ ggplot(hmp_samples, aes(x = body_site, y = inv_simp)) +
             col = 'black',
             size = 10) +
   geom_boxplot() +
-  ggtitle("Alpha diversity of human body sites") +
+  ggtitle("Alpha diversity of human body microbiomes") +
   xlab("Body site") +
-  ylab("Inverse Simpson Index")
+  ylab("Inverse Simpson's index")
 ```
 
-This tells us that samples from the saliva and skin are significantly different from each other, but not significantly different from anything else.
+This tells us that microbiomes from saliva and skin are significantly different from each other, but not significantly different from any other community.
 
 ### Comparing two treatments/groups
 
@@ -252,7 +257,7 @@ obj$data$diff_table <- compare_groups(obj,
 print(obj$data$diff_table)
 ```
 
-We can use this information to create what we call a **differential heat tree**, which indicates which taxa are more abundant in each treatment: 
+We can use this information to create what we call a **differential heat tree** [@foster2017metacoder], which indicates which taxa are more abundant in each treatment: 
 
 ```{r}
 heat_tree(obj, 
@@ -268,7 +273,7 @@ heat_tree(obj,
 ```
 
 In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men.
-Note that we have not taken into account statistics significance when showing this, so lets do that.
+Note that we have not taken into account statistical significance, so lets include that, too.
 First, we need to correct for multiple comparisons: 
 
 ```{r}
@@ -286,8 +291,8 @@ There is no need to graph this, but if there still were some significant differe
 
 ### Comparing any number of treatments/groups
 
-A single differential heat tree can compare two treatments (e.g. male and female), but what if you have more?
-Then we can make a matrix of heat trees, one for each pairwise comparison of treatments like so: 
+A single differential heat tree can compare two treatments only (e.g., male and female), but what if you have more treatments?
+In that case we can make a matrix of heat trees, one for each pairwise comparison of treatments as follows: 
 
 ```{r, warning = FALSE}
 obj$data$diff_table <- compare_groups(obj, dataset = "tax_abund",
@@ -296,7 +301,7 @@ obj$data$diff_table <- compare_groups(obj, dataset = "tax_abund",
 print(obj$data$diff_table)
 ```
 
-There is a special function to plot this type of data called `heat_tree_matrix`:
+There is a special function to plot this type of data called `heat_tree_matrix` [@foster2017metacoder]:
 
 ```{r}
 heat_tree_matrix(obj,
@@ -318,8 +323,8 @@ heat_tree_matrix(obj,
 The grey tree on the lower left functions as a key for the unlabeled trees.
 Each of the smaller trees represent a comparison between body sites in the columns and rows.
 A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row.
-For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is  due to the greater abundance of two genera: Prevotella and Porphyromonas.
-Look at the PDF file made to explore the details of the plot. 
+For example, *Bacteroidetes* are more abundant (i.e., have more reads) in the throat samples than the nose samples and this is  due to the greater abundance of two genera within this group: *Prevotella* and *Porphyromonas*.
+Download and open the PDF file to explore the details of the plot zooming in on any branches of interest 
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
@@ -328,3 +333,7 @@ Look at the PDF file made to explore the details of the plot.
 file.remove("differential_heat_tree.pdf")
 ```
 
+References
+----------
+
+<!---- Reference list ---->
