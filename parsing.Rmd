@@ -52,7 +52,7 @@ There are many functions commonly used to read tabular data, including the tradi
 Tibbles are a type of `data.frame` with some fancier printing and more consistent behavior.
 Lets read in the raw OTU table first:
 
-```{r message=FALSE}
+```{r message=FALSE, cache=TRUE}
 library(readr) # Loads the readr package so we can use `read_tsv`
 otu_data <- read_tsv("data/otuTable97.txt")
 print(otu_data) # You can also enter `otu_data` to print it

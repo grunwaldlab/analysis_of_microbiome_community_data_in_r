@@ -43,7 +43,7 @@ knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 This is a typical example of this kind of data and is the preferred way for R packages like `metacoder` and `taxa`.
 Let us take a look at the dataset we will use in this example (just cut and paste the commands in the grey boxes into your Rstudio console to execute them): 
 
-```{r}
+```{r message=FALSE}
 library(metacoder)
 print(hmp_otus)
 print(hmp_samples)

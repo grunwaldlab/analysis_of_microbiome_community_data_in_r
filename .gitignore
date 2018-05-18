@@ -10,4 +10,4 @@ data/*
 *.png
 **/.~*
 site_libs/*
-quick_example_files/*
+*_files/*
