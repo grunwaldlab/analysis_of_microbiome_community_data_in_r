@@ -1,6 +1,7 @@
 ---
 title: "Getting data into R"
 output: html_document
+subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 bibliography: "bibtexlib.bib"
 ---
 
