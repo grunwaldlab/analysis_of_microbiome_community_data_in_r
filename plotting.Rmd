@@ -1,6 +1,7 @@
 ---
 title: "Plotting taxonomic data"
 output: html_document
+subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 bibliography: "bibtexlib.bib"
 ---
 
@@ -14,7 +15,7 @@ In this section however, we will focus on using the `metacoder` package to plot 
 Taxonomic data can be difficult to graph since it is hierarchical.
 For example, if you have abundance information for each taxon and want to graph it, what kind of plot do you use? 
 Stacked bar charts and pie graphs are common choices, but these ignore the hierarchical nature of the data; typically only a single rank is graphed.
-For example the graph below is from the publication that described the data set we are working with:
+For example the graph below is from the publication [see @wagner2016host] that described the data set we are working with:
 
 ```{r echo=FALSE, out.width='100%'}
 knitr::include_graphics('images/wagner_barchart.png')
