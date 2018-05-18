@@ -41,7 +41,7 @@ knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 This is a typical way for this kind of data to be formatted and is the preferred way for pacakges like `metacoder` and `taxa`.
 Lets take a look at the dataset we will use in this example: 
 
-```{r}
+```{r message=FALSE}
 library(metacoder)
 print(hmp_otus)
 print(hmp_samples)

@@ -76,7 +76,6 @@ This is not too useful, but at least its easy!
 Lets plot some data to make things more interesting.
 A good place to start is to plot the number of OTUs (or other types of taxon observations) with both the color and size of nodes.
 The taxon names are added here as well.
-As with many other functions from `taxa` and `metacoder`, any table column or function assocaited with the `taxmap` object being plotted can be reffered to as if it was an independent variable in the function call.
 
 ```{r}
 heat_tree(obj,
@@ -85,7 +84,7 @@ heat_tree(obj,
           node_color = n_obs)
 ```
 
-As with many other functions from `taxa` and `metacoder`, any table column or function assocaited with the `taxmap` object being plotted can be reffered to as if it was an independent variable in the function call.
+As with many other functions from `taxa` and `metacoder`, any table column or function associated with the `taxmap` object being plotted can be refereed to as if it was an independent variable in the function call.
 For example, the last plot could also have been made this way:
 
 ```{r eval = FALSE}
@@ -182,7 +181,7 @@ obj %>%
             output_file = "plot_example.pdf")
 ```
 
-Up until now, we have set both the color and size to display the number of OTUs, but they can be set to differnt things.
+Up until now, we have set both the color and size to display the number of OTUs, but they can be set to different things.
 Lets set the color to the number of supertaxa that each taxon is included in.
 
 ```{r}
@@ -197,7 +196,7 @@ obj %>%
             output_file = "plot_example.pdf")
 ```
 
-Note how both sides of the legned on the bottom right have numbers now.
+Note how both sides of the legend on the bottom right have numbers now.
 The left side is the color legend and the right is the size legend. 
 
 ### Setting edge attributes
@@ -205,7 +204,7 @@ The left side is the color legend and the right is the size legend.
 Just like the node size/color, the edge size/color can be used to display statistics.
 Edges can also have labels.
 This means you can plot 4 statistics in one graph, although more than 3 is typically overwhelming.
-However, we need some more things to graph, so we will calculate the number of read depth and number of samples for each taxon.
+However, we need some more things to graph, so we will calculate the number of reads in each taxon, grouping samples by leaf/root samples.
 
 ```{r}
 obj$data$tax_abund <- calc_taxon_abund(obj, "otu_counts",
@@ -214,7 +213,7 @@ obj$data$tax_abund <- calc_taxon_abund(obj, "otu_counts",
 print(obj$data$tax_abund)
 ```
 
-Since the "leaf" and "root" columns have one value per taxon, they can be used from plotting.
+Since the "leaf" and "root" columns have one value per taxon, they can be used for plotting.
 We can set the root read counts to the node color and the leaf read counts to the edge color.
 
 ```{r}
@@ -249,7 +248,7 @@ obj %>%
 
 ### Setting titles and legend lables
 
-You can add a title to the graph and change the legend labels to make the graph easier to understand.
+You can add a title to the graph and change the legend labels to make the graph easier to understand, using the `title` option and options ending in `_axis_label`.
 
 ```{r}
 set.seed(2) # Each number will produce a slightly different result for some layouts
@@ -267,22 +266,6 @@ obj %>%
 ```
 
 There are similar options for the edge color and edge size.
-
-
-```{r}
-set.seed(2) # Each number will produce a slightly different result for some layouts
-obj %>%
-  filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
-  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
-  heat_tree(node_label = taxon_names,
-            node_size = n_obs,
-            node_color = root,
-            initial_layout = "re", layout = "da",
-            title = "Root sample read depth",
-            node_color_axis_label = "Sum of root reads",
-            node_size_axis_label = "Number of OTUs",
-            output_file = "plot_example.pdf")
-```
 
 ### Changing the colors used
 
@@ -335,9 +318,9 @@ obj %>%
 
 In all the trees we have made so far have a single "root".
 A "root" is a taxon without a supertaxon. 
-Common examples include "root", "bacteria", or "cellular organisms".
+Common examples of roots in taxonomy databases include coarse taxa like "fungi", "bacteria", or "cellular organisms".
 When a taxonomy has multiple roots, multiple trees are graphed in the same plot.
-We force multiple roots to demonstrate this by selecting some taxa without preserving supertaxa:
+We can force multiple roots to demonstrate this by selecting some taxa without preserving supertaxa:
 
 ```{r}
 set.seed(1) # Each number will produce a slightly different result for some layouts
@@ -357,7 +340,7 @@ obj %>%
 ```
 
 Note the use of the `tree_label` option used to add the tree labels based on the name of their root taxa.
-This can be used to make very large taxonomies easier to understand or emphaize the differenced between taxa.
+This can be used to make very large taxonomies easier to understand or emphasize the difference between taxa.
 
 ## Exercises
 
@@ -371,7 +354,7 @@ obj %>%
 ```
 
 
-**1b)** Modify the plot you made in part **a** so that the taxon names and OTU counts are combined in the label like "my_taxon (123)". Hint: try `paste0` to combine multiple peices of text.
+**1b)** Modify the plot you made in part **a** so that the taxon names and OTU counts are combined in the label like "my_taxon (123)". Hint: try `paste0` to combine multiple pieces of text.
 
 ```{r hide_button = TRUE}
 obj %>%
@@ -399,7 +382,7 @@ obj %>%
 ```
 
 **2b)** `heat_tree` has an option called `node_size_range` to force node sizes to be in a specified range instead of letting the function pick the maximum and minimum size. 
-Remake the graph for **1a**, but use `node_size_range` to make the node sizes vary between 0.5% and 5% of the graph width.
+Remake the graph for **a**, but use `node_size_range` to make the node sizes vary between 0.5% and 5% of the graph width.
 
 ```{r hide_button = TRUE}
 obj %>%
@@ -420,8 +403,7 @@ obj %>%
             node_label_size_range = c(0.008, 0.04))
 ```
 
-**3a)** Using the "root" and "leaf" columns in the "tax_abund" table created earlier in this section for this example.
-Plot the number of reads in leaf samples in "Proteobacteria" and subtaxa using the size and color of nodes.
+**3a)** Using the "root" and "leaf" columns in the "tax_abund" table created earlier in this section for this example, plot the number of reads in leaf samples in "Proteobacteria" and subtaxa using the size and color of nodes.
 Label the nodes with taxon names.
 
 ```{r hide_button = TRUE}
@@ -450,6 +432,43 @@ obj %>%
             node_color = leaf,
             node_label = taxon_names)
 ```
+
+**4a)** In addition to automatically coloring taxa to represent a number (e.g. OTU count), you can specify the color of each taxon using common color names (e.g. "red" or "blue") or hexadecimal color codes (e.g. "#000000" for black). You can either supply a single color to color everything the same or a vector of colors (e.g. c("red", "blue", ...)) with one value for each taxon.
+
+Try to plot *Actinobacteria* and subtaxa with node size correlating with number of reads in root samples.
+Color all edges a light blue. Enter `colors()` to see the list of named colors that can be used.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Firmicutes", subtaxa = TRUE) %>%
+  heat_tree(node_size = root,
+            edge_color = "skyblue", # Other colors also correct
+            node_label = taxon_names)
+```
+
+**4b)** Modify the command from part **a** so that all taxa on the tips (i.e. "leafs") are colored green and the rest are grey Hint: the `is_leaf` and `ifelse` functions might be useful. See the help page for these functions (e.g. Type `?is_leaf`).
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Firmicutes", subtaxa = TRUE) %>%
+  heat_tree(node_size = leaf,
+            edge_color = "skyblue", # Other colors also correct
+            node_color = ifelse(is_leaf, "green", "grey"),
+            node_label = taxon_names)
+```
+
+**4c)** Modify the command from part **b** to make the background of the plot beige. Look at the help pages for `heat_tree` (Type `?heat_tree`) to figure out what option to use.
+
+```{r hide_button = TRUE}
+obj %>%
+  filter_taxa(taxon_names == "Firmicutes", subtaxa = TRUE) %>%
+  heat_tree(node_size = leaf,
+            edge_color = "skyblue", # Other colors also correct
+            node_color = ifelse(is_leaf, "green", "grey"),
+            node_label = taxon_names,
+            background_color = "beige")
+```
+
 
 ```{r, child="_sessioninfo.Rmd"}
 ```
