@@ -52,9 +52,11 @@ Data that can be analysed using techniques presented here is typically the resul
 
 Here we focus on the statistical analysis and visualizations following OTU calling that include:
 
-- alpha and beta diversity
-- heat trees [@foster2017metacoder], stacked bar charts and related visualizations
-- various ordination methods
+- Reading files into R
+- Manipulating tabular and taxonomic data
+- Heat trees [@foster2017metacoder], stacked bar charts and related visualizations
+- Alpha and beta diversity
+- Ordination methods
 
 ## Help us improve this resource
 

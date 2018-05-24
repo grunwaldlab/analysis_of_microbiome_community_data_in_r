@@ -1,5 +1,6 @@
 # Knitr settings
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, autodep = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, autodep = TRUE,
+                      dev = 'png', fig.width = 10, fig.height = 10)
 options(crayon.enabled = TRUE)
 
 # Knitr hooks

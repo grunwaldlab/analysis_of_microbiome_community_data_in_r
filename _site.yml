@@ -9,19 +9,19 @@ navbar:
     icon: fa-laptop
     menu:
     - text: Introduction
-      href: introduction.html
+      href: 01--introduction.html
     - text: Example analysis
-      href: quick_example.html
+      href: 02--quick_example.html
     - text: Getting data into R
-      href: parsing.html
+      href: 03--parsing.html
     - text: Manipulating taxonomic data
-      href: manipulating.html
+      href: 04--manipulating.html
     - text: Plotting taxonomic data
-      href: plotting.html
+      href: 05--plotting.html
     - text: Data quality control
-      href: quality_control.html
+      href: 06--quality_control.html
     - text: Diversity statistics
-      href: diversity_stats.html
+      href: 07--diversity_stats.html
   - text: Appendices
     icon: fa-book
     menu:
