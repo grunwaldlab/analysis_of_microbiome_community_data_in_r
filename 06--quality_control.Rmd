@@ -37,7 +37,7 @@ load("filtered_data.Rdata")
 
 The easiest way to get rid of some error in your data is to throw out any count information below some threshold.
 The threshold is up to you; removing singletons or doubletons is common, but lets be more conservative and remove any counts less than 10.
-The `zero_low_counts` counts 
+The `zero_low_counts` counts can be used to convert any conts less than some number to zero.
 
 ```{r}
 library(metacoder)
@@ -65,11 +65,11 @@ print(obj)
 
 ## Rarefaction
 
-Rarefaction is used to simulate even sampling depth.
-Even sampling depth is important for at least two reasons:
+Rarefaction is used to simulate even numebrs of samples (i.e. reads).
+Even sampling is important for at least two reasons:
 
-* When comparing diversity of samples, a higher sampling depth can inflate appparent diverstiy since more rare species are likely to be found. The effect of this will depend on the diversity index used.
-* When comparing the similarity of samples, the presence of rare species due to higher sampling depth in one sample but not another can make the two samples appear more differnet than they actually are.
+* When comparing diversity of samples, more samples make it more likely to observe rare species. This will have a larger effect on some diversity indexes than others, depending on how they weight rare species.
+* When comparing the similarity of samples, the presence of rare species due to higher sampling depth in one sample but not another can make the two samples appear more different than they actually are.
 
 Therefore, when comparing the diversity or similarity of samples, it is important to rarefy, or subsample, to a constant depth.
 Typically, the depth chosen is the minimum sample depth.
@@ -90,25 +90,94 @@ obj$data$otu_rarefied <- rarefy_obs(obj, "otu_counts")
 print(obj)
 ```
 
+This probably means that some OTUs now have no reads in the rarefied dataset.
+Lets remove those like we did before.
+However, since there is now two tables, we should not remove any taxa since they still might be used in the unrarefied table, so we will not add the `drop_taxa = TRUE` option this time.
+
+```{r}
+no_reads <- rowSums(obj$data$otu_rarefied[, sample_data$SampleID]) == 0
+obj <- filter_obs(obj, "otu_rarefied", ! no_reads)
+print(obj)
+```
+
 
 ## Rarefaction curves
 
+The relationship between the number of reads and the number of OTUs can be described using "rarefaction curves".
+Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of differnent numbers of reads.
+The `rarecurve` function from the `vegan` package will do the random subsampling and plot the results for an abundance matrix.
+For example, the code below plots the rarefaction curve for a single sample:
 
 ```{r}
 library(vegan)
-rarecurve(t(obj$data$otu_counts[1:10, -1]), step = 20,
-          sample = min(colSums(obj$data$otu_counts[, -1])), col = "blue", cex = 0.6)
+rarecurve(t(obj$data$otu_counts[, "M1981P563"]), step = 20,
+          sample = min(colSums(obj$data$otu_counts[, -1])),
+          col = "blue", cex = 1.5)
 ```
+
+For this sample, few new OTUs are observed after about 20,000 reads.
+Since the number of OTUs found flattens out, it suggests that the sample had sufficient reads to capture most of the diversity.
+Like other functions in `vegan`, `rarecurve` expects samples to in rows instead of columns, so we had to **transpose** (make rows columns) the matrix with the `t` function before passing it to `rarecurve`.
+If you plot all the samples, which takes a few mintues, it looks like this:
+
+```{r echo=FALSE, cache=TRUE}
+rarecurve(t(obj$data$otu_counts[, sample_data$SampleID]), step = 20,
+          sample = min(colSums(obj$data$otu_counts[, -1])),
+          col = "blue", cex = 0.6)
+```
+
 
 ## Converting to presence/absence
 
-## Saving the data for the next section
-
-In the next section we will work on analyzing this data set.
-Don't worry about running the following code; it is just there to let us use the same data set on multiple website pages.
+Many researchers believe that read depth is not informative due to PCR and sequencing biases.
+Therefore, insead of comparing read counts, the counts can be converted to presence or absence of an OTU in a given sample.
+This can be done like so: 
 
 ```{r}
+counts_to_presence(obj, "otu_rarefied")
+```
+
+For this workshop however, we will use the read counts.
+
+```{r include=FALSE}
 save(obj, sample_data, file = "clean_data.Rdata")
+```
+
+
+## Exercises
+
+**1)** Consider the following rarefaction curves:
+
+```{r echo=FALSE}
+ex_subset <- t(obj$data$otu_counts[, 2:4])
+rownames(ex_subset) <- c("A", "B", "C")
+rarecurve(ex_subset, step = 20,
+          sample = min(colSums(obj$data$otu_counts[, -1])),
+          col = "blue", cex = 2)
+```
+
+**1a)** Which sample is more diverse?
+
+```{asis hide_button = "Show Answer"}
+B
+```
+
+**1b)** Which sample needs the most reads to capture all of its diversity?
+
+```{asis hide_button = "Show Answer"}
+B
+```
+
+**1c)** What would be a sufficent read count to capture all of the diverstiy in these three samples?
+
+```{asis hide_button = "Show Answer"}
+Around 40,000 reads.
+```
+
+**2)** Look at the documentation for `rarefy_obs`. Rarefy the sample OTU counts to 1000 reads.
+
+```{r hide_button = TRUE}
+rarefy_obs(obj, "otu_counts", sample_size = 1000)
 ```
 
 
