@@ -21,7 +21,7 @@ There are many programs, such as "trimmomatic", that can use the quality scores 
 * Remove of chimeric sequences. "Chimeras" are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.
 * Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called "singletons". So when you hear things like "singletons were removed" and means all OTUs with only a single sequence were removed.
 * Rarefying read counts. Usually, we try to make each sample in a sequencing run have a the same number of reads sequenced, but that does not always happen. When a sample has many more reads than another sample, its apparent diversity can be artificially inflated since rare taxa are more likely to be found. To avoid this, the reads are subsampled to a fixed number or "rarefied". 
-* Converting counts to presence/absence. Due to PCR biases and the nature of compositional data, many researchers advocate not useing read count information at all. Instead, they reccomend converting counts to simply "present" or "absent". 
+* Converting counts to presence/absence. Due to PCR biases and the nature of compositional data, many researchers advocate not using read count information at all. Instead, they recommend converting counts to simply "present" or "absent". 
 
 Since we are only working with abundance matrices in these tutorials, the first three types of quality control have already been done (ideally), but we can still remove low-abundance OTUs and rarefy the counts of the remaining OTUs.
 
@@ -38,7 +38,7 @@ load("filtered_data.Rdata")
 
 The easiest way to get rid of some error in your data is to throw out any count information below some threshold.
 The threshold is up to you; removing singletons or doubletons is common, but lets be more conservative and remove any counts less than 10.
-The `zero_low_counts` counts can be used to convert any conts less than some number to zero.
+The `zero_low_counts` counts can be used to convert any counts less than some number to zero.
 
 ```{r}
 library(metacoder)
@@ -46,9 +46,9 @@ obj$data$otu_counts <- zero_low_counts(obj, "otu_counts", min_count = 10)
 ```
 
 That set all read counts less than 10 to zero.
-It did not filter out any OTUs or their assocaited taxa however.
-We can do that using `filter_obs`, which is used to filter data assoicated with a taxonomy in a `taxmap` object.
-First lets find which OTUs now have now reads assocaited with them.
+It did not filter out any OTUs or their associated taxa however.
+We can do that using `filter_obs`, which is used to filter data associated with a taxonomy in a `taxmap` object.
+First lets find which OTUs now have now reads associated with them.
 
 ```{r}
 no_reads <- rowSums(obj$data$otu_counts[, sample_data$SampleID]) == 0
@@ -56,7 +56,7 @@ sum(no_reads) # when `sum` is used on a TRUE/FALSE vector it counts TRUEs
 ```
 
 So now `r sum(no_reads)` of `r nrow(obj$data$otu_counts)` have no reads.
-We can remove them and the taxa they are assocaited with like so: 
+We can remove them and the taxa they are associated with like so: 
 
 ```{r}
 obj <- filter_obs(obj, "otu_counts", ! no_reads, drop_taxa = TRUE)
@@ -66,7 +66,7 @@ print(obj)
 
 ## Rarefaction
 
-Rarefaction is used to simulate even numebrs of samples (i.e. reads).
+Rarefaction is used to simulate even numbers of samples (i.e. reads).
 Even sampling is important for at least two reasons:
 
 * When comparing diversity of samples, more samples make it more likely to observe rare species. This will have a larger effect on some diversity indexes than others, depending on how they weight rare species.
@@ -84,7 +84,7 @@ hist(colSums(obj$data$otu_counts[, -1]))
 
 We have a minimum depth of `r min(colSums(obj$data$otu_counts[, -1]))`, a median of `r as.integer(median(colSums(obj$data$otu_counts[, -1])))` and a maximum depth of `r max(colSums(obj$data$otu_counts[, -1]))`.
 We could try to remove one or two of the samples with the smallest depth, since it seems like a waste to throw out so much data, but for this tutorial we will just rarefy to the minimum of `r min(colSums(obj$data$otu_counts[, -1]))` reads.
-The `vegan` package implements many functions to help with rarefying data, but we will use a function from `metacoder` that calls the functions from `vegan` and reformats the input and ouputs to make them easier to use with the way our data is formatted.
+The `vegan` package implements many functions to help with rarefying data, but we will use a function from `metacoder` that calls the functions from `vegan` and reformats the input and outputs to make them easier to use with the way our data is formatted.
 
 ```{r}
 obj$data$otu_rarefied <- rarefy_obs(obj, "otu_counts")
@@ -93,7 +93,7 @@ print(obj)
 
 This probably means that some OTUs now have no reads in the rarefied dataset.
 Lets remove those like we did before.
-However, since there is now two tables, we should not remove any taxa since they still might be used in the unrarefied table, so we will not add the `drop_taxa = TRUE` option this time.
+However, since there is now two tables, we should not remove any taxa since they still might be used in the rarefied table, so we will not add the `drop_taxa = TRUE` option this time.
 
 ```{r}
 no_reads <- rowSums(obj$data$otu_rarefied[, sample_data$SampleID]) == 0
@@ -105,7 +105,7 @@ print(obj)
 ## Rarefaction curves
 
 The relationship between the number of reads and the number of OTUs can be described using "rarefaction curves".
-Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of differnent numbers of reads.
+Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads.
 The `rarecurve` function from the `vegan` package will do the random subsampling and plot the results for an abundance matrix.
 For example, the code below plots the rarefaction curve for a single sample:
 
@@ -119,7 +119,7 @@ rarecurve(t(obj$data$otu_counts[, "M1981P563"]), step = 20,
 For this sample, few new OTUs are observed after about 20,000 reads.
 Since the number of OTUs found flattens out, it suggests that the sample had sufficient reads to capture most of the diversity.
 Like other functions in `vegan`, `rarecurve` expects samples to in rows instead of columns, so we had to **transpose** (make rows columns) the matrix with the `t` function before passing it to `rarecurve`.
-If you plot all the samples, which takes a few mintues, it looks like this:
+If you plot all the samples, which takes a few minutes, it looks like this:
 
 ```{r echo=FALSE, cache=TRUE}
 rarecurve(t(obj$data$otu_counts[, sample_data$SampleID]), step = 20,
@@ -131,7 +131,7 @@ rarecurve(t(obj$data$otu_counts[, sample_data$SampleID]), step = 20,
 ## Converting to presence/absence
 
 Many researchers believe that read depth is not informative due to PCR and sequencing biases.
-Therefore, insead of comparing read counts, the counts can be converted to presence or absence of an OTU in a given sample.
+Therefore, instead of comparing read counts, the counts can be converted to presence or absence of an OTU in a given sample.
 This can be done like so: 
 
 ```{r}
@@ -169,7 +169,7 @@ B
 B
 ```
 
-**1c)** What would be a sufficent read count to capture all of the diverstiy in these three samples?
+**1c)** What would be a sufficient read count to capture all of the diversity in these three samples?
 
 ```{asis hide_button = "Show Answer"}
 Around 40,000 reads.
