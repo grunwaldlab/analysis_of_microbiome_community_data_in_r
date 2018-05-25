@@ -1,5 +1,6 @@
 ---
 title: "Data quality control"
+subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 output: html_document
 ---
 
