@@ -65,6 +65,7 @@ In this data set, the taxonomic classifications for the OTUs are in a different 
 This information could have been included as additional columns in the OTU table and often is in other data sets.
 
 ```{r message=FALSE}
+library(readr) # Loads the readr package so we can use `read_tsv`
 tax_data <- read_tsv("data/taxAssignments97.txt")
 print(tax_data) # You can also enter `tax_data` to print it
 ```
