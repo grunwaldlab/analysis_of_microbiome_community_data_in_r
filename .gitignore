@@ -6,7 +6,7 @@ data/*
 *.Rdata
 *.pdf
 ./*.html
-*.png
+./*.png
 **/.~*
 site_libs/*
 *_files/*
