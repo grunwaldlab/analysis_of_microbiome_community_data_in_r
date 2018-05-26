@@ -2,13 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
-docs/*
 data/*
 *.Rdata
 *.pdf
-*.html
+./*.html
 *.png
 **/.~*
 site_libs/*
 *_files/*
 *_cache/*
+docs/data/*
