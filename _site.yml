@@ -8,8 +8,6 @@ navbar:
   - text: Workshop
     icon: fa-laptop
     menu:
-    - text: Introduction
-      href: 01--introduction.html
     - text: Example analysis
       href: 02--quick_example.html
     - text: Getting data into R
@@ -20,8 +18,6 @@ navbar:
       href: 05--plotting.html
     - text: Data quality control
       href: 06--quality_control.html
-    - text: Diversity statistics
-      href: 07--diversity_stats.html
   - text: Appendices
     icon: fa-book
     menu:

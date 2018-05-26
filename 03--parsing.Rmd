@@ -49,11 +49,15 @@ knitr::include_graphics('images/boechera_stricta.jpg')
 This is a great example of how to share your raw data!
 
 There are many functions commonly used to read tabular data, including the traditional ones like `read.table` and `read.csv`, but we will be using functions from the new [`readr` package](http://readr.tidyverse.org/articles/readr.html), which returns ["tibbles"](http://r4ds.had.co.nz/tibbles.html) instead of `data.frame`s (A "table" in R).
+
+```{r}
+library(readr) # Loads the readr package so we can use `read_tsv`
+```
+
 Tibbles are a type of `data.frame` with some fancier printing and more consistent behavior.
 Lets read in the raw OTU table first:
 
 ```{r message=FALSE, cache=TRUE}
-library(readr) # Loads the readr package so we can use `read_tsv`
 otu_data <- read_tsv("data/otuTable97.txt")
 print(otu_data) # You can also enter `otu_data` to print it
 ```
@@ -64,7 +68,11 @@ If your computer cannot load this file, don't worry, we will provide a subset la
 In this data set, the taxonomic classifications for the OTUs are in a different file.
 This information could have been included as additional columns in the OTU table and often is in other data sets.
 
-```{r message=FALSE}
+```{r}
+library(readr) # Loads the readr package so we can use `read_tsv`
+```
+
+```{r message=FALSE, cache=TRUE}
 tax_data <- read_tsv("data/taxAssignments97.txt")
 print(tax_data) # You can also enter `tax_data` to print it
 ```
