@@ -1,7 +1,7 @@
 # Knitr settings
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, autodep = TRUE,
                       dev = 'png', fig.width = 10, fig.height = 10)
-options(crayon.enabled = TRUE)
+options(crayon.enabled = TRUE, tibble.max_extra_cols = 10)
 
 # Knitr hooks
 knitr::knit_hooks$set(

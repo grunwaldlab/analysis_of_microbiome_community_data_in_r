@@ -2,9 +2,6 @@ name: my-website
 navbar:
   title: Analysis of Microbiome Data in R
   left:
-  - text: Home
-    icon: fa-home
-    href: index.html
   - text: Workshop
     icon: fa-laptop
     menu:
@@ -18,6 +15,8 @@ navbar:
       href: 05--plotting.html
     - text: Data quality control
       href: 06--quality_control.html
+    - text: Diversity and Ordination
+      href: 07--diversity_stats.html
   - text: Appendices
     icon: fa-book
     menu:

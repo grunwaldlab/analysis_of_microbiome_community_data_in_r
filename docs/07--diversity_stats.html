@@ -205,14 +205,7 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-home"></span>
-     
-    Home
-  </a>
-</li>
-<li class="dropdown">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
      
@@ -235,6 +228,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="06--quality_control.html">Data quality control</a>
+    </li>
+    <li>
+      <a href="07--diversity_stats.html">Diversity and Ordination</a>
     </li>
   </ul>
 </li>
@@ -288,25 +284,197 @@ $(document).ready(function () {
 </div>
 <div id="measures-of-diversity" class="section level2">
 <h2>Measures of diversity</h2>
-<p>Diversity in the ecological sense is intuitivly understood as the complexity of a community of organisms. There are many ways to quantify this complexity so that we can compare communities objectivly. The two main categories of methods are known as <strong>alpha diversity</strong> and <strong>beta diversity</strong> <span class="citation">(Whittaker 1960)</span>. Alpha diversity measures the diversity within a single sample and is generally based on the number of realtive abundance of species. Beta diversity also uses the number of realtive abundance of species, but measures variation between samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-<span class="kw">library</span>(AHMbook)
-<span class="co"># Simulate true community</span>
-comm_stats &lt;-<span class="st"> </span><span class="kw">simComm</span>(<span class="dt">type =</span> <span class="st">&quot;counts&quot;</span>, <span class="dt">nsite =</span> <span class="dv">2</span>, <span class="dt">nspec =</span> <span class="dv">100</span>, <span class="dt">nrep =</span> <span class="dv">5</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>)
-comm_counts &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(comm_stats<span class="op">$</span>N)) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-<span class="kw">table</span>(comm_counts<span class="op">$</span>site1)
-
-<span class="kw">hist</span>(comm_counts<span class="op">$</span>site1)
-<span class="kw">hist</span>(comm_counts<span class="op">$</span>site2)
-
-<span class="co"># Take samples</span>
-<span class="kw">rep</span>(<span class="kw">rownames</span>(comm_counts), comm_counts<span class="op">$</span>site1)</code></pre></div>
+<p>Diversity in the ecological sense is intuitively understood as the complexity of a community of organisms. There are many ways to quantify this complexity so that we can compare communities objectively. The two main categories of methods are known as <strong>alpha diversity</strong> and <strong>beta diversity</strong> <span class="citation">(Whittaker 1960)</span>. Alpha diversity measures the diversity within a single sample and is generally based on the number and relative abundance of taxa at some rank (e.g. species or OTUs). Beta diversity also uses the number of relative abundance of taxa at some rank, but measures variation between samples. In other words, an alpha diversity statistic describes a single sample and a beta diversity statistic describes how two samples compare.</p>
+<p>The <code>vegan</code> package is the main tool set used for calculating biological diversity statistics in R.</p>
 </div>
 <div id="alpha-within-sample-diversity" class="section level2">
 <h2>Alpha (within sample) diversity</h2>
+<p>Common alpha diversity statistics include:</p>
+<ul>
+<li><strong>Shannon</strong>: How difficult it is to predict the identity of a randomly chosen individual.</li>
+<li><strong>Simpson</strong>: The probability that two randomly chosen individuals are the same species</li>
+<li><strong>Inverse Simpson</strong>: This is a bit confusing to think about. Assuming a theoretically community where all species were equally abundant, this would be the number of species needed to have the same Simpson index value for the community being analyzed.</li>
+</ul>
+<p>There are also some diversity indexes that take into account the taxonomic similarity of the species called “taxonomic diversity” and “taxonomic distinctness”, but we will not go into those.</p>
+<p>The <code>diversity</code> function from the <code>vegan</code> package can be used to calculate the alpha diversity of a set of samples. Like other vegan functions, it assumes that samples are in rows, but they are in columns in our data, so we need to use the <code>MARGIN = 2</code> option. We also need to exclude the taxon ID column by subsetting the columns to only samples (i.e. all column besides the first one). Since alpha diversity is a per-sample attribute, we can just add this as a column to the sample data table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## This is vegan 2.5-1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
+                                 <span class="dt">MARGIN =</span> <span class="dv">2</span>,
+                                 <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
+<span class="kw">hist</span>(sample_data<span class="op">$</span>alpha)</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Adding this as a column to the sample data table makes it easy to graph using <code>ggplot2</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We can use ANOVA to tell if at least one of the diversity means is different from the rest.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>Site, sample_data)
+<span class="kw">summary</span>(anova_result)</code></pre></div>
+<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Site          2  74227   37113   13.75 1.97e-06 ***
+## Residuals   289 779884    2699                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>That tells us that there is a difference, but does not tell us which means are different. A Tukey’s Honest Significant Difference (HSD) test can do pairwise comparisons of the means to find this out. We will use the <code>HSD.test</code> function from the <code>agricolae</code> package since it provides grouping codes that are useful for graphing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
+tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;Site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
+<span class="kw">print</span>(tukey_result)</code></pre></div>
+<pre><code>## $statistics
+##    MSerror  Df     Mean       CV
+##   2698.562 289 57.40262 90.49705
+## 
+## $parameters
+##    test name.t ntr StudentizedRange alpha
+##   Tukey   Site   3          3.33168  0.05
+## 
+## $means
+##        alpha      std   r      Min       Max       Q25      Q50       Q75
+## Jam 33.40313 31.95903  84 1.239405  99.25022  1.723806 34.77765  61.06099
+## Mah 61.58865 49.33341 104 2.009109 158.30919 13.096566 57.03051 105.52657
+## Sil 72.60079 65.68754 104 3.462677 220.19341 11.858512 34.87926 135.16351
+## 
+## $comparison
+## NULL
+## 
+## $groups
+##        alpha groups
+## Sil 72.60079      a
+## Mah 61.58865      a
+## Jam 33.40313      b
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;group&quot;</code></pre>
+<p>Looking at the <code>tukey_result$groups</code> table it appears that the alpha diversity of sites “Sil” and “Mah” might not be different, but there is evidence that the diversity in site “Jam” is lower. We can add this information to the graph using the <code>tukey_result$groups$groups</code> codes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]
+<span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),
+            <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data), <span class="dt">y =</span> <span class="kw">max</span>(sample_data<span class="op">$</span>alpha) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">label =</span> group_data<span class="op">$</span>groups),
+            <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,
+            <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>So that takes care of comparing the alpha diversity of sites, but there are other interesting grouping we can compare, such as the genotype and the type of the sample (roots vs leaves). We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks. We can generalize what we did above and put it in a function like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compare_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(sample_data, grouping_var) {
+  <span class="co"># Calcuate alpha diversity</span>
+  sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
+                                 <span class="dt">MARGIN =</span> <span class="dv">2</span>,
+                                 <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
+  
+  <span class="co"># Do ANOVA</span>
+  sample_data<span class="op">$</span>grouping &lt;-<span class="st"> </span>sample_data[[grouping_var]] <span class="co"># needed for how `aov` works</span>
+  anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>grouping, sample_data)
+  
+  <span class="co"># Do Tukey&#39;s HSD test</span>
+  tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;grouping&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
+
+  <span class="co"># Plot result</span>
+  group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]
+  my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> grouping, <span class="dt">y =</span> alpha)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),
+              <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data),
+                  <span class="dt">y =</span> <span class="kw">max</span>(sample_data<span class="op">$</span>alpha) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,
+                  <span class="dt">label =</span> group_data<span class="op">$</span>groups),
+              <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,
+              <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(grouping_var) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)
+  
+  <span class="co"># Return plot</span>
+  <span class="kw">return</span>(my_plot)
+}</code></pre></div>
+<p>Using this function, we can compare plot the alpha diversities by type of sample and genotype:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Type&quot;</span>)</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Genotype&quot;</span>)</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<p>Looks like there is no difference in the alpha diversity between genotypes, but a large difference between the diversity of roots and leaves.</p>
 </div>
 <div id="beta-between-sample-diversity" class="section level2">
 <h2>Beta (between sample) diversity</h2>
+<p>Beta diversity is a way to quantify the difference between two communities. There are many metrics that are used for this, but we will only mention a few of the more popular ones. A few also incorporate phylogenetic relatedness and require a phylogentic tree of the organisms in either community to be calculated.</p>
+<div id="examples-of-indexes-used-with-presenceabsence-data" class="section level4">
+<h4>Examples of indexes used with presence/absence data:</h4>
+<ul>
+<li><strong>Sørensen</strong>: two times the number of species common to both communities divided by the sum of the number of species in each community.</li>
+<li><strong>Jaccard</strong>: the number of species common to both communities divided by the number of species in either community.</li>
+<li><strong>Unifrac</strong>: The fraction of the phylogenetic tree branch lengths shared by the two communities.</li>
+</ul>
+</div>
+<div id="examples-of-indexes-used-with-count-data" class="section level4">
+<h4>Examples of indexes used with count data:</h4>
+<ul>
+<li><strong>Bray–Curtis</strong>: The sum of lesser counts for species present in both communities divided by the sum of all counts in both communities. This can be thought of as a quantitative version of the Sørensen index.</li>
+<li><strong>Weighted Unifrac</strong>: The fraction of the phylogenetic tree branch lengths shared by the two communities, weighted by the counts of organisms, so more abundant organisms have a greater influence.</li>
+</ul>
+<p>The <code>vegan</code> function <code>vegdist</code> is used to calculate the pairwise beta diversity indexes for a set of samples. Since this is a pairwise comparison, the output is a triangular matrix. In R, a <code>matrix</code> is like a <code>data.frame</code>, but all of the same type (e.g. all numeric), and has some different behavior.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta_dist &lt;-<span class="st"> </span><span class="kw">vegdist</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]),
+                     <span class="dt">index =</span> <span class="st">&quot;bray&quot;</span>)</code></pre></div>
+<p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to transpose the matrix with the <code>t</code> function.</p>
+</div>
+</div>
+<div id="ordination" class="section level2">
+<h2>Ordination</h2>
+<p>Ordination is a way to display “high dimensional” data in a visable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]), <span class="dt">trymax =</span> <span class="dv">100</span>)</code></pre></div>
+<pre><code>## Square root transformation
+## Wisconsin double standardization
+## Run 0 stress 0.08483364 
+## Run 1 stress 0.100012 
+## Run 2 stress 0.1033156 
+## Run 3 stress 0.09958884 
+## Run 4 stress 0.09114762 
+## Run 5 stress 0.107614 
+## Run 6 stress 0.09727832 
+## Run 7 stress 0.08493236 
+## ... Procrustes: rmse 0.001757893  max resid 0.0282067 
+## Run 8 stress 0.1117682 
+## Run 9 stress 0.1150456 
+## Run 10 stress 0.09523997 
+## Run 11 stress 0.1016089 
+## Run 12 stress 0.1196474 
+## Run 13 stress 0.1155533 
+## Run 14 stress 0.106547 
+## Run 15 stress 0.113608 
+## Run 16 stress 0.09717162 
+## Run 17 stress 0.0922028 
+## Run 18 stress 0.1193787 
+## Run 19 stress 0.1123932 
+## Run 20 stress 0.09537983 
+## Run 21 stress 0.102751 
+## Run 22 stress 0.1322893 
+## Run 23 stress 0.1019763 
+## Run 24 stress 0.1307679 
+## Run 25 stress 0.0848334 
+## ... New best solution
+## ... Procrustes: rmse 6.664403e-05  max resid 0.0009569854 
+## ... Similar to previous best
+## *** Solution reached</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+mds_data &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mds<span class="op">$</span>points)
+mds_data<span class="op">$</span>SampleID &lt;-<span class="st"> </span><span class="kw">rownames</span>(mds_data)
+mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(mds_data, sample_data)</code></pre></div>
+<p>Now that we have the data in a format plotting2 likes, we can plot it. Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>This shows that leaf and root samples are quite distinct, as we would expect. We can also color them by Site:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Site)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>It appears that within the leaf and root clusters, we “sub-clusters” corresponding to site. Finally, lets look at genotype:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Genotype)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>

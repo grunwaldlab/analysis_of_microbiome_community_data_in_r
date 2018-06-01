@@ -9,7 +9,6 @@ source("style.R")
 ```
 
 
-
 Sequencing technologies all have some amount of error.
 Some of this error happens during PCR and some happens during sequencing.
 There are lots of ways to filter out errors including: 
@@ -78,7 +77,7 @@ If the minimum depth is very small, the samples with the smallest depth can be r
 
 Lets take a look at the distribution of read depths of our samples:
 
-```{r}
+```{r fig.width=10, fig.height=5}
 hist(colSums(obj$data$otu_counts[, -1]))
 ```
 
@@ -109,7 +108,7 @@ Each line represents a different sample (i.e. column) and shows how many OTUs ar
 The `rarecurve` function from the `vegan` package will do the random subsampling and plot the results for an abundance matrix.
 For example, the code below plots the rarefaction curve for a single sample:
 
-```{r}
+```{r fig.width=10, fig.height=5}
 library(vegan)
 rarecurve(t(obj$data$otu_counts[, "M1981P563"]), step = 20,
           sample = min(colSums(obj$data$otu_counts[, -1])),
@@ -121,7 +120,7 @@ Since the number of OTUs found flattens out, it suggests that the sample had suf
 Like other functions in `vegan`, `rarecurve` expects samples to in rows instead of columns, so we had to **transpose** (make rows columns) the matrix with the `t` function before passing it to `rarecurve`.
 If you plot all the samples, which takes a few minutes, it looks like this:
 
-```{r echo=FALSE, cache=TRUE}
+```{r fig.width=10, fig.height=5, echo=FALSE, cache=TRUE}
 rarecurve(t(obj$data$otu_counts[, sample_data$SampleID]), step = 20,
           sample = min(colSums(obj$data$otu_counts[, -1])),
           col = "blue", cex = 0.6)
@@ -149,7 +148,7 @@ save(obj, sample_data, file = "clean_data.Rdata")
 
 **1)** Consider the following rarefaction curves:
 
-```{r echo=FALSE}
+```{r fig.width=10, fig.height=5, echo=FALSE}
 ex_subset <- t(obj$data$otu_counts[, 2:4])
 rownames(ex_subset) <- c("A", "B", "C")
 rarecurve(ex_subset, step = 20,

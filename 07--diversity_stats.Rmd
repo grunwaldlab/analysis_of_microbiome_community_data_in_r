@@ -19,31 +19,196 @@ load("clean_data.Rdata")
 
 ## Measures of diversity
 
-Diversity in the ecological sense is intuitivly understood as the complexity of a community of organisms.
-There are many ways to quantify this complexity so that we can compare communities objectivly.
+Diversity in the ecological sense is intuitively understood as the complexity of a community of organisms.
+There are many ways to quantify this complexity so that we can compare communities objectively.
 The two main categories of methods are known as **alpha diversity** and **beta diversity** [@whittaker1960vegetation].
-Alpha diversity measures the diversity within a single sample and is generally based on the number of realtive abundance of species.
-Beta diversity also uses the number of realtive abundance of species, but measures variation between samples.
+Alpha diversity measures the diversity within a single sample and is generally based on the number and relative abundance of taxa at some rank (e.g. species or OTUs).
+Beta diversity also uses the number of relative abundance of taxa at some rank, but measures variation between samples.
+In other words, an alpha diversity statistic describes a single sample and a beta diversity statistic describes how two samples compare.
 
-```{r eval = FALSE}
-library(magrittr)
-library(AHMbook)
-# Simulate true community
-comm_stats <- simComm(type = "counts", nsite = 2, nspec = 100, nrep = 5, show.plot = FALSE)
-comm_counts <- as.data.frame(t(comm_stats$N)) + 1
-table(comm_counts$site1)
-
-hist(comm_counts$site1)
-hist(comm_counts$site2)
-
-# Take samples
-rep(rownames(comm_counts), comm_counts$site1)
-```
-
+The `vegan` package is the main tool set used for calculating biological diversity statistics in R.
 
 ## Alpha (within sample) diversity 
 
+Common alpha diversity statistics include: 
+
+* **Shannon**: How difficult it is to predict the identity of a randomly chosen individual.
+* **Simpson**: The probability that two randomly chosen individuals are the same species
+* **Inverse Simpson**: This is a bit confusing to think about. Assuming a theoretically community where all species were equally abundant, this would be the number of species needed to have the same Simpson index value for the community being analyzed.
+
+There are also some diversity indexes that take into account the taxonomic similarity of the species called "taxonomic diversity" and "taxonomic distinctness", but we will not go into those.
+
+The `diversity` function from the `vegan` package can be used to calculate the alpha diversity of a set of samples.
+Like other vegan functions, it assumes that samples are in rows, but they are in columns in our data, so we need to use the `MARGIN = 2` option.
+We also need to exclude the taxon ID column by subsetting the columns to only samples (i.e. all column besides the first one).
+Since alpha diversity is a per-sample attribute, we can just add this as a column to the sample data table:
+
+```{r}
+library(vegan)
+sample_data$alpha <- diversity(obj$data$otu_rarefied[, sample_data$SampleID],
+                                 MARGIN = 2,
+                                 index = "invsimpson")
+hist(sample_data$alpha)
+
+```
+
+Adding this as a column to the sample data table makes it easy to graph using `ggplot2`.
+
+```{r}
+library(ggplot2)
+ggplot(sample_data, aes(x = Site, y = alpha)) + 
+  geom_boxplot()
+```
+
+We can use ANOVA to tell if at least one of the diversity means is different from the rest.
+
+```{r}
+anova_result <- aov(alpha ~ Site, sample_data)
+summary(anova_result)
+```
+
+That tells us that there is a difference, but does not tell us which means are different.
+A Tukey's Honest Significant Difference (HSD) test can do pairwise comparisons of the means to find this out.
+We will use the `HSD.test` function from the `agricolae` package since it provides grouping codes that are useful for graphing.
+
+```{r}
+library(agricolae)
+tukey_result <- HSD.test(anova_result, "Site", group = TRUE)
+print(tukey_result)
+```
+
+Looking at the `tukey_result$groups` table it appears that the alpha diversity of sites "Sil" and "Mah" might not be different, but there is evidence that the diversity in site "Jam" is lower.
+We can add this information to the graph using the `tukey_result$groups$groups` codes:
+
+```{r}
+group_data <- tukey_result$groups[order(rownames(tukey_result$groups)),]
+ggplot(sample_data, aes(x = Site, y = alpha)) +
+  geom_text(data = data.frame(),
+            aes(x = rownames(group_data), y = max(sample_data$alpha) + 1, label = group_data$groups),
+            col = 'black',
+            size = 10) +
+  geom_boxplot() +
+  ggtitle("Alpha diversity") +
+  xlab("Site") +
+  ylab("Alpha diversity index")
+```
+
+So that takes care of comparing the alpha diversity of sites, but there are other interesting grouping we can compare, such as the genotype and the type of the sample (roots vs leaves).
+We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks.
+We can generalize what we did above and put it in a function like so:
+
+```{r}
+compare_alpha <- function(sample_data, grouping_var) {
+  # Calcuate alpha diversity
+  sample_data$alpha <- diversity(obj$data$otu_rarefied[, sample_data$SampleID],
+                                 MARGIN = 2,
+                                 index = "invsimpson")
+  
+  # Do ANOVA
+  sample_data$grouping <- sample_data[[grouping_var]] # needed for how `aov` works
+  anova_result <- aov(alpha ~ grouping, sample_data)
+  
+  # Do Tukey's HSD test
+  tukey_result <- HSD.test(anova_result, "grouping", group = TRUE)
+
+  # Plot result
+  group_data <- tukey_result$groups[order(rownames(tukey_result$groups)),]
+  my_plot <- ggplot(sample_data, aes(x = grouping, y = alpha)) +
+    geom_text(data = data.frame(),
+              aes(x = rownames(group_data),
+                  y = max(sample_data$alpha) + 1,
+                  label = group_data$groups),
+              col = 'black',
+              size = 10) +
+    geom_boxplot() +
+    ggtitle("Alpha diversity") +
+    xlab(grouping_var) +
+    ylab("Alpha diversity index")
+  
+  # Return plot
+  return(my_plot)
+}
+```
+
+Using this function, we can compare plot the alpha diversities by type of sample and genotype:
+
+```{r}
+compare_alpha(sample_data, "Type")
+compare_alpha(sample_data, "Genotype")
+```
+
+Looks like there is no difference in the alpha diversity between genotypes, but a large difference between the diversity of roots and leaves.
+
 ## Beta (between sample) diversity
+
+Beta diversity is a way to quantify the difference between two communities. 
+There are many metrics that are used for this, but we will only mention a few of the more popular ones.
+A few also incorporate phylogenetic relatedness and require a phylogentic tree of the organisms in either community to be calculated.
+
+#### Examples of indexes used with presence/absence data:
+
+* **Sørensen**: two times the number of species common to both communities divided by the sum of the number of species in each community. 
+* **Jaccard**: the number of species common to both communities divided by the number of species in either community.
+* **Unifrac**: The fraction of the phylogenetic tree branch lengths shared by the two communities.
+
+#### Examples of indexes used with count data:
+
+* **Bray–Curtis**: The sum of lesser counts for species present in both communities divided by the sum of all counts in both communities. This can be thought of as a quantitative version of the Sørensen index.
+* **Weighted Unifrac**: The fraction of the phylogenetic tree branch lengths shared by the two communities, weighted by the counts of organisms, so more abundant organisms have a greater influence.
+
+The `vegan` function `vegdist` is used to calculate the pairwise beta diversity indexes for a set of samples.
+Since this is a pairwise comparison, the output is a triangular matrix.
+In R, a `matrix` is like a `data.frame`, but all of the same type (e.g. all numeric), and has some different behavior.
+
+```{r}
+beta_dist <- vegdist(t(obj$data$otu_rarefied[, sample_data$SampleID]),
+                     index = "bray")
+```
+
+Since `vegdist` does not have a `MARGIN` option like `diversity`, we need to transpose the matrix with the `t` function.
+
+
+## Ordination
+
+Ordination is a way to display "high dimensional" data in a visable number of dimensions (2 to 3).
+Our data is "high dimensional" because we have many samples with many species and species can be considered a "dimension".
+If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ.
+With thousands of species, this is not possible.
+Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.
+
+```{r message=FALSE}
+mds <- metaMDS(t(obj$data$otu_rarefied[, sample_data$SampleID]), trymax = 100)
+library(ggplot2)
+mds_data <- as.data.frame(mds$points)
+mds_data$SampleID <- rownames(mds_data)
+mds_data <- dplyr::left_join(mds_data, sample_data)
+```
+
+Now that we have the data in a format plotting2 likes, we can plot it.
+Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).
+
+```{r}
+ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Type)) +
+  geom_point()
+```
+
+This shows that leaf and root samples are quite distinct, as we would expect.
+We can also color them by Site:
+
+```{r}
+ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Site)) +
+  geom_point()
+```
+
+It appears that within the leaf and root clusters, we "sub-clusters" corresponding to site.
+Finally, lets look at genotype:
+
+```{r}
+ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
+  geom_point()
+```
+
+There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.
 
 
 ## References

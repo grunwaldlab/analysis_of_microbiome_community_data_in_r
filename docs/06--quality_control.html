@@ -205,14 +205,7 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-home"></span>
-     
-    Home
-  </a>
-</li>
-<li class="dropdown">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
      
@@ -235,6 +228,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="06--quality_control.html">Data quality control</a>
+    </li>
+    <li>
+      <a href="07--diversity_stats.html">Diversity and Ordination</a>
     </li>
   </ul>
 </li>
@@ -327,29 +323,7 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ##       # ... with 6,691 more rows, and 285 more variables: M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
 ##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, M1956P899 &lt;dbl&gt;, …
+##       #   M1982P655 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -384,29 +358,7 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ##       # ... with 6,691 more rows, and 285 more variables: M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
 ##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, M1956P899 &lt;dbl&gt;, …
+##       #   M1982P655 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>otu_rarefied</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 293</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611 M1981P587
@@ -417,29 +369,7 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ##       # ... with 6,691 more rows, and 285 more variables: M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
 ##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, M1956P899 &lt;dbl&gt;, …
+##       #   M1982P655 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>This probably means that some OTUs now have no reads in the rarefied dataset. Lets remove those like we did before. However, since there is now two tables, we should not remove any taxa since they still might be used in the rarefied table, so we will not add the <code>drop_taxa = TRUE</code> option this time.</p>
@@ -460,29 +390,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 ##       # ... with 6,691 more rows, and 285 more variables: M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
 ##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, M1956P899 &lt;dbl&gt;, …
+##       #   M1982P655 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>otu_rarefied</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 4,999 x 293</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611 M1981P587
@@ -493,40 +401,15 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 ##       # ... with 4,996 more rows, and 285 more variables: M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
 ##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, M1956P899 &lt;dbl&gt;, …
+##       #   M1982P655 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
 <div id="rarefaction-curves" class="section level2">
 <h2>Rarefaction curves</h2>
 <p>The relationship between the number of reads and the number of OTUs can be described using “rarefaction curves”. Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads. The <code>rarecurve</code> function from the <code>vegan</code> package will do the random subsampling and plot the results for an abundance matrix. For example, the code below plots the rarefaction curve for a single sample:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
-<pre><code>## Loading required package: permute</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## This is vegan 2.5-1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rarecurve</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, <span class="st">&quot;M1981P563&quot;</span>]), <span class="dt">step =</span> <span class="dv">20</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
+<span class="kw">rarecurve</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, <span class="st">&quot;M1981P563&quot;</span>]), <span class="dt">step =</span> <span class="dv">20</span>,
           <span class="dt">sample =</span> <span class="kw">min</span>(<span class="kw">colSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, <span class="op">-</span><span class="dv">1</span>])),
           <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre></div>
 <p><img src="06--quality_control_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
@@ -554,25 +437,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 ## </span><span style='color: #BCBCBC;'>10</span><span> bev      TRUE      TRUE       TRUE      TRUE      FALSE     TRUE      FALSE     TRUE     
 ## </span><span style='color: #949494;'># ... with 4,989 more rows, and 284 more variables: M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
 ## #   M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P623 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P239 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1958P1020 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P205 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1959P1121 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1551P83 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1961P1359 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1551P21 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1690P1399 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P214 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1955P819 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1979P426 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1957P982 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1979P369 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1690P1397 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1978P318 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1956P853 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1979P381 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1960P1219 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P112 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P533 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P138 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1982P711 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1978P307 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P696 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P231 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P520 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1555P190 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1955P739 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P578 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P506 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P631 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1980P461 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P667 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P496 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P707 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P469 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1980P486 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P532 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1977P1714 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P597 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1977P1705 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1955P764 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P588 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P709 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P475 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P539 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1982P645 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P577 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P535 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P609 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P132 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1981P556 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1551P92 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P638 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1551P67 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1979P439 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1551P37 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P586 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P256 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1961P1298 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P124 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1955P814 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P238 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1961P1308 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1979P378 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P705 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1555P212 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P481 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1979P383 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P632 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P240 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1981P561 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P128 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P664 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1978P356 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P538 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1980P499 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P683 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P507 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P501 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1955P745 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1977P1711 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P476 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P646 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P703 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1981P584 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1980P470 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1956P899 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1551P29 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, …</span><span>
+## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, …</span><span>
 </span></code></pre>
 <p>For this workshop however, we will use the read counts.</p>
 </div>
@@ -615,37 +480,19 @@ Show solution
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 6,694 x 293</span><span>
 ##    taxon_id M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611 M1981P587 M1982P729
 ##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> ben             0.         0.        0.        0.        0.        0.        1.        0.
-## </span><span style='color: #BCBCBC;'> 2</span><span> beo           189.         0.      252.        3.       78.        2.      204.        1.
-## </span><span style='color: #BCBCBC;'> 3</span><span> ben            33.        21.       42.       31.       74.       21.       46.       19.
-## </span><span style='color: #BCBCBC;'> 4</span><span> bep             3.         1.        3.        6.        0.        3.        2.        6.
-## </span><span style='color: #BCBCBC;'> 5</span><span> beq             2.        34.        1.       32.        0.       26.        1.       32.
-## </span><span style='color: #BCBCBC;'> 6</span><span> amk            43.         2.       92.       10.      120.        1.       57.        7.
-## </span><span style='color: #BCBCBC;'> 7</span><span> bes             0.        27.        0.       19.        0.       37.        5.       12.
-## </span><span style='color: #BCBCBC;'> 8</span><span> bet             1.         1.        6.        3.       10.        2.        6.        1.
-## </span><span style='color: #BCBCBC;'> 9</span><span> beu            45.         0.       51.        4.        0.        0.       76.        0.
-## </span><span style='color: #BCBCBC;'>10</span><span> bev             0.        19.        0.       18.        0.       20.        0.       30.
+## </span><span style='color: #BCBCBC;'> 1</span><span> ben             0.         0.        0.        0.        0.        0.        0.        0.
+## </span><span style='color: #BCBCBC;'> 2</span><span> beo           198.         0.      197.        2.       70.        1.      177.        0.
+## </span><span style='color: #BCBCBC;'> 3</span><span> ben            23.        19.       35.       39.       67.       25.       42.       16.
+## </span><span style='color: #BCBCBC;'> 4</span><span> bep             0.         1.        4.        5.        0.        2.        4.        7.
+## </span><span style='color: #BCBCBC;'> 5</span><span> beq             2.        26.        1.       21.        0.       36.        1.       24.
+## </span><span style='color: #BCBCBC;'> 6</span><span> amk            50.         8.       97.        8.      118.        2.       71.        5.
+## </span><span style='color: #BCBCBC;'> 7</span><span> bes             1.        28.        0.       15.        0.       26.        3.       20.
+## </span><span style='color: #BCBCBC;'> 8</span><span> bet             0.         2.        0.        0.        9.        1.        8.        1.
+## </span><span style='color: #BCBCBC;'> 9</span><span> beu            66.         2.       82.        1.        0.        1.       57.        0.
+## </span><span style='color: #BCBCBC;'>10</span><span> bev             3.        13.        0.       14.        0.       10.        0.       23.
 ## </span><span style='color: #949494;'># ... with 6,684 more rows, and 284 more variables: M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
 ## #   M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P623 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P239 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1958P1020 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P205 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1959P1121 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P83 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1961P1359 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1551P21 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1690P1399 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P214 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1955P819 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P426 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1957P982 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P369 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1690P1397 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P318 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1956P853 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1979P381 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1960P1219 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P112 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P533 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P138 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1982P711 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P307 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P696 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P231 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P520 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1555P190 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1955P739 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P578 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P506 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P631 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1980P461 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P667 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P496 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P707 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P469 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1980P486 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P532 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1977P1714 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P597 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1977P1705 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1955P764 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P588 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P709 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P475 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P539 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1982P645 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P577 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P535 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P609 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P132 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1981P556 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P92 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P638 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P67 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P439 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1551P37 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P586 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P256 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1961P1298 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P124 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1955P814 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P238 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1961P1308 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P378 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P705 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1555P212 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P481 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P383 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P632 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P240 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1981P561 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P128 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P664 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P356 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P538 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1980P499 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P683 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P507 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P501 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1955P745 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1977P1711 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P476 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P646 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P703 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1981P584 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1980P470 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1956P899 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P29 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
 </span></code></pre>
 </div>
 <p><br /></p>

@@ -49,7 +49,7 @@ Below is an example of a heat tree showing the number of OTUs in all taxa down t
 library(metacoder)
 obj %>% 
   filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
-  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the class rank
+  filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>% # subset to the order rank
   heat_tree(node_label = gsub(pattern = "\\[|\\]", replacement = "", taxon_names),
             node_size = n_obs,
             node_color = n_obs,

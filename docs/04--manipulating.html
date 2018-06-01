@@ -205,14 +205,7 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-home"></span>
-     
-    Home
-  </a>
-</li>
-<li class="dropdown">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
      
@@ -235,6 +228,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="06--quality_control.html">Data quality control</a>
+    </li>
+    <li>
+      <a href="07--diversity_stats.html">Diversity and Ordination</a>
     </li>
   </ul>
 </li>
@@ -349,27 +345,7 @@ sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_
 ##       3 </span><span style='color: #00BB00;'>beo</span><span>      3             67.      65.      12.   13514.       1.       4.   13314.
 ##       # ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
 ##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
-##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
-##       #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
-##       #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
-##       #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
-##       #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
-##       #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
-##       #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
-##       #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
-##       #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
-##       #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
-##       #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
-##       #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
-##       #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
-##       #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
-##       #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
-##       #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
-##       #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
-##       #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
-##       #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>If we look at the second line, we can see that some taxa do not have names. These are the ones that only had rank information in the classification we parsed in the last section (e.g. <code>o__</code> in <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>). Since these do not add any information, lets remove them.</p>
@@ -389,32 +365,18 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##       3 </span><span style='color: #00BB00;'>beo</span><span>      3             67.      65.      12.   13514.       1.       4.   13314.
 ##       # ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
 ##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
-##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
-##       #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
-##       #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
-##       #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
-##       #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
-##       #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
-##       #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
-##       #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
-##       #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
-##       #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
-##       #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
-##       #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
-##       #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
-##       #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
-##       #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
-##       #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
-##       #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
-##       #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
-##       #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>There were OTUs mapped to the nameless taxa, but no OTUs were filtered out, so what happened to them? By default, they are reassigned to the closest supertaxon that passes the filter. For example, for the classification <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>, the OTU would be reassigned to the class “SJA-28”.</p>
 <p>Like <code>filter</code>, <code>filter_taxa</code> can use variables contained in the input objects as if they were independent variables. In this case, <code>taxon_names</code> is actually a function that is called when referenced in this way.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(obj<span class="op">$</span><span class="kw">taxon_names</span>())</code></pre></div>
+<pre class="r-output"><code>##              aab              aac              aad              aae              aaf 
+##     "Unassigned"           "Root"       "Bacteria"        "Archaea" "Proteobacteria" 
+##              aag 
+## "Actinobacteria"
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">taxon_names</span>(obj))</code></pre></div>
 <pre class="r-output"><code>##              aab              aac              aad              aae              aaf 
 ##     "Unassigned"           "Root"       "Bacteria"        "Archaea" "Proteobacteria" 
 ##              aag 
@@ -456,27 +418,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           3229.   13679.    1832.     951.     113.    2496.     567.
 ##       # ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
 ##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
-##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
-##       #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
-##       #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
-##       #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
-##       #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
-##       #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
-##       #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
-##       #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
-##       #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
-##       #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
-##       #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
-##       #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
-##       #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
-##       #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
-##       #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
-##       #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
-##       #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
-##       #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
-##       #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>Note the use of the <code>subtaxa = TRUE</code>; this means that all the subtaxa of taxa that pass the filter should also be preserved. If we left this option off, we would would have only a single taxon with all OTUs assigned to it:</p>
@@ -494,27 +436,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##       3 </span><span style='color: #00BB00;'>aad</span><span>      4           3229.   13679.    1832.     951.     113.    2496.     567.
 ##       # ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
 ##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
-##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, M1551P75 &lt;dbl&gt;,
-##       #   M1551P88 &lt;dbl&gt;, M1551P47 &lt;dbl&gt;, M1551P77 &lt;dbl&gt;, M1551P86 &lt;dbl&gt;, M1551P50 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1551P34 &lt;dbl&gt;, M1551P64 &lt;dbl&gt;, M1551P91 &lt;dbl&gt;, M1551P41 &lt;dbl&gt;,
-##       #   M1551P78 &lt;dbl&gt;, M1551P46 &lt;dbl&gt;, M1551P40 &lt;dbl&gt;, M1551P74 &lt;dbl&gt;, M1551P72 &lt;dbl&gt;,
-##       #   M1551P14 &lt;dbl&gt;, M1551P89 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1551P1 &lt;dbl&gt;, M1551P10 &lt;dbl&gt;,
-##       #   M1551P18 &lt;dbl&gt;, M1551P76 &lt;dbl&gt;, M1551P44 &lt;dbl&gt;, M1551P73 &lt;dbl&gt;, M1551P82 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1551P24 &lt;dbl&gt;, M1551P87 &lt;dbl&gt;, M1551P6 &lt;dbl&gt;,
-##       #   M1551P43 &lt;dbl&gt;, M1551P9 &lt;dbl&gt;, M1551P66 &lt;dbl&gt;, M1551P68 &lt;dbl&gt;, M1551P8 &lt;dbl&gt;,
-##       #   M1551P30 &lt;dbl&gt;, M1551P2 &lt;dbl&gt;, M1551P33 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;, M1551P80 &lt;dbl&gt;,
-##       #   M1551P39 &lt;dbl&gt;, M1551P59 &lt;dbl&gt;, M1551P11 &lt;dbl&gt;, M1551P63 &lt;dbl&gt;, M1551P56 &lt;dbl&gt;,
-##       #   M1551P42 &lt;dbl&gt;, M1551P62 &lt;dbl&gt;, M1554P149 &lt;dbl&gt;, M1554P177 &lt;dbl&gt;,
-##       #   M1554P130 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1554P102 &lt;dbl&gt;, M1554P103 &lt;dbl&gt;,
-##       #   M1554P107 &lt;dbl&gt;, M1554P108 &lt;dbl&gt;, M1554P109 &lt;dbl&gt;, M1554P110 &lt;dbl&gt;,
-##       #   M1554P111 &lt;dbl&gt;, M1554P117 &lt;dbl&gt;, M1554P118 &lt;dbl&gt;, M1554P119 &lt;dbl&gt;,
-##       #   M1554P120 &lt;dbl&gt;, M1554P126 &lt;dbl&gt;, M1554P127 &lt;dbl&gt;, M1554P129 &lt;dbl&gt;,
-##       #   M1554P133 &lt;dbl&gt;, M1554P140 &lt;dbl&gt;, M1554P144 &lt;dbl&gt;, M1554P146 &lt;dbl&gt;,
-##       #   M1554P147 &lt;dbl&gt;, M1554P152 &lt;dbl&gt;, M1554P156 &lt;dbl&gt;, M1554P157 &lt;dbl&gt;,
-##       #   M1554P158 &lt;dbl&gt;, M1554P159 &lt;dbl&gt;, M1554P166 &lt;dbl&gt;, M1554P168 &lt;dbl&gt;,
-##       #   M1554P171 &lt;dbl&gt;, M1554P174 &lt;dbl&gt;, M1554P176 &lt;dbl&gt;, M1554P181 &lt;dbl&gt;,
-##       #   M1554P183 &lt;dbl&gt;, M1554P184 &lt;dbl&gt;, M1554P123 &lt;dbl&gt;, M1554P167 &lt;dbl&gt;,
-##       #   M1554P169 &lt;dbl&gt;, M1554P153 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, …
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>Next, lets remove the columns from the abundance matrix that were removed from the sample data at the start of the section.</p>
@@ -535,29 +457,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##       # ... with 3.364e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -586,29 +486,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>Note how this removed rows in the “otu_counts” table but did not remove any taxa. To remove taxa that are no longer observed in any OTUs, we need to add the <code>drop_taxa</code> option:</p>
@@ -822,29 +700,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -869,29 +725,7 @@ Show solution
 ##       # ... with 1,778 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -924,29 +758,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -971,29 +783,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -1018,29 +808,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -1076,29 +844,7 @@ Show solution
 ##       # ... with 1.99e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -1126,30 +872,7 @@ Show solution
 ##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
 ##       # ... with 232 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
-##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Also works: filter_obs(obj, &quot;otu_counts&quot;, obj$data$otu_counts$M1981P563 &gt; 5)</span></code></pre></div>
@@ -1174,30 +897,7 @@ Show solution
 ##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
 ##       # ... with 232 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
-##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -1263,29 +963,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_props</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 3</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span> leaf  root
@@ -1315,30 +993,7 @@ Show solution
 ##       3 </span><span style='color: #00BB00;'>blb</span><span>      1252          0.        39.        0.       11.        0.       20.
 ##       # ... with 2 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;,
 ##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
-##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;,
-##       #   M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;, M1555P239 &lt;dbl&gt;,
-##       #   M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;, M1551P83 &lt;dbl&gt;,
-##       #   M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;, M1555P214 &lt;dbl&gt;,
-##       #   M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;, M1979P369 &lt;dbl&gt;,
-##       #   M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;, M1979P381 &lt;dbl&gt;,
-##       #   M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;, M1554P138 &lt;dbl&gt;,
-##       #   M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;, M1555P231 &lt;dbl&gt;,
-##       #   M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;, M1981P578 &lt;dbl&gt;,
-##       #   M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;, M1982P667 &lt;dbl&gt;,
-##       #   M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;, M1980P486 &lt;dbl&gt;,
-##       #   M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;, M1977P1705 &lt;dbl&gt;,
-##       #   M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;, M1980P475 &lt;dbl&gt;,
-##       #   M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;, M1980P535 &lt;dbl&gt;,
-##       #   M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;, M1551P92 &lt;dbl&gt;,
-##       #   M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;, M1551P37 &lt;dbl&gt;,
-##       #   M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;, M1554P124 &lt;dbl&gt;,
-##       #   M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;, M1979P378 &lt;dbl&gt;,
-##       #   M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;, M1979P383 &lt;dbl&gt;,
-##       #   M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;, M1554P128 &lt;dbl&gt;,
-##       #   M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;, M1980P499 &lt;dbl&gt;,
-##       #   M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;, M1955P745 &lt;dbl&gt;,
-##       #   M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;, M1982P703 &lt;dbl&gt;,
-##       #   M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_props</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 1,106 x 3</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span> leaf  root
@@ -1367,29 +1022,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_props</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 3</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span> leaf  root
@@ -1416,29 +1049,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_props</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 3</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span> leaf  root
@@ -1469,29 +1080,7 @@ Show solution
 ##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
-##       #   M1979P422 &lt;dbl&gt;, M1982P655 &lt;dbl&gt;, M1554P182 &lt;dbl&gt;, M1981P623 &lt;dbl&gt;,
-##       #   M1555P239 &lt;dbl&gt;, M1958P1020 &lt;dbl&gt;, M1555P205 &lt;dbl&gt;, M1959P1121 &lt;dbl&gt;,
-##       #   M1551P83 &lt;dbl&gt;, M1961P1359 &lt;dbl&gt;, M1551P21 &lt;dbl&gt;, M1690P1399 &lt;dbl&gt;,
-##       #   M1555P214 &lt;dbl&gt;, M1955P819 &lt;dbl&gt;, M1979P426 &lt;dbl&gt;, M1957P982 &lt;dbl&gt;,
-##       #   M1979P369 &lt;dbl&gt;, M1690P1397 &lt;dbl&gt;, M1978P318 &lt;dbl&gt;, M1956P853 &lt;dbl&gt;,
-##       #   M1979P381 &lt;dbl&gt;, M1960P1219 &lt;dbl&gt;, M1554P112 &lt;dbl&gt;, M1980P533 &lt;dbl&gt;,
-##       #   M1554P138 &lt;dbl&gt;, M1982P711 &lt;dbl&gt;, M1978P307 &lt;dbl&gt;, M1982P696 &lt;dbl&gt;,
-##       #   M1555P231 &lt;dbl&gt;, M1980P520 &lt;dbl&gt;, M1555P190 &lt;dbl&gt;, M1955P739 &lt;dbl&gt;,
-##       #   M1981P578 &lt;dbl&gt;, M1980P506 &lt;dbl&gt;, M1981P631 &lt;dbl&gt;, M1980P461 &lt;dbl&gt;,
-##       #   M1982P667 &lt;dbl&gt;, M1980P496 &lt;dbl&gt;, M1982P707 &lt;dbl&gt;, M1980P469 &lt;dbl&gt;,
-##       #   M1980P486 &lt;dbl&gt;, M1980P532 &lt;dbl&gt;, M1977P1714 &lt;dbl&gt;, M1981P597 &lt;dbl&gt;,
-##       #   M1977P1705 &lt;dbl&gt;, M1955P764 &lt;dbl&gt;, M1981P588 &lt;dbl&gt;, M1982P709 &lt;dbl&gt;,
-##       #   M1980P475 &lt;dbl&gt;, M1980P539 &lt;dbl&gt;, M1982P645 &lt;dbl&gt;, M1981P577 &lt;dbl&gt;,
-##       #   M1980P535 &lt;dbl&gt;, M1981P609 &lt;dbl&gt;, M1554P132 &lt;dbl&gt;, M1981P556 &lt;dbl&gt;,
-##       #   M1551P92 &lt;dbl&gt;, M1981P638 &lt;dbl&gt;, M1551P67 &lt;dbl&gt;, M1979P439 &lt;dbl&gt;,
-##       #   M1551P37 &lt;dbl&gt;, M1981P586 &lt;dbl&gt;, M1555P256 &lt;dbl&gt;, M1961P1298 &lt;dbl&gt;,
-##       #   M1554P124 &lt;dbl&gt;, M1955P814 &lt;dbl&gt;, M1555P238 &lt;dbl&gt;, M1961P1308 &lt;dbl&gt;,
-##       #   M1979P378 &lt;dbl&gt;, M1982P705 &lt;dbl&gt;, M1555P212 &lt;dbl&gt;, M1980P481 &lt;dbl&gt;,
-##       #   M1979P383 &lt;dbl&gt;, M1981P632 &lt;dbl&gt;, M1555P240 &lt;dbl&gt;, M1981P561 &lt;dbl&gt;,
-##       #   M1554P128 &lt;dbl&gt;, M1982P664 &lt;dbl&gt;, M1978P356 &lt;dbl&gt;, M1980P538 &lt;dbl&gt;,
-##       #   M1980P499 &lt;dbl&gt;, M1982P683 &lt;dbl&gt;, M1980P507 &lt;dbl&gt;, M1980P501 &lt;dbl&gt;,
-##       #   M1955P745 &lt;dbl&gt;, M1977P1711 &lt;dbl&gt;, M1980P476 &lt;dbl&gt;, M1982P646 &lt;dbl&gt;,
-##       #   M1982P703 &lt;dbl&gt;, M1981P584 &lt;dbl&gt;, M1980P470 &lt;dbl&gt;, …
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_props</span><span>:
 ## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 3</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>   leaf  root

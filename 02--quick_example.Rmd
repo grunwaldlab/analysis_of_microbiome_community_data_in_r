@@ -174,9 +174,10 @@ The simplest is just the number of species, but the ones used most often factor 
 Below, we calculate the alpha diversity of OTUs using the Inverse Simpson Index using the package `vegan`. 
 
 ```{r}
-hmp_samples$inv_simp <- vegan::diversity(obj$data$tax_data[, hmp_samples$sample_id],
-                                         index = "invsimpson",
-                                         MARGIN = 2) # What orietation the matrix is in
+library(vegan)
+hmp_samples$inv_simp <- diversity(obj$data$tax_data[, hmp_samples$sample_id],
+                                  index = "invsimpson",
+                                  MARGIN = 2) # What orietation the matrix is in
 ```
 
 Adding this on to the sample data makes it easy to use the sample information in graphing. 
