@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Example analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analysis of Microbiome Data in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-laptop"></span>
+     
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="quick_example.html">Example analysis</a>
+    </li>
+    <li>
+      <a href="parsing.html">Getting data into R</a>
+    </li>
+    <li>
+      <a href="manipulating.html">Manipulating taxonomic data</a>
+    </li>
+    <li>
+      <a href="plotting.html">Plotting taxonomic data</a>
+    </li>
+    <li>
+      <a href="quality_control.html">Data quality control</a>
+    </li>
+    <li>
+      <a href="diversity_stats.html">Diversity statistics</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="introduction_to_r.html">Introduction to R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Example analysis</h1>
+<h3 class="subtitle"><em><em>ZSL Foster and NJ Grünwald</em></em></h3>
+
+</div>
+
+
+<p>This is a short example analysis to give you a feel for the rest of the workshop. If something does not make sense now, don’t worry! We will cover everything shown here in greater detail later.</p>
+<div id="reading-data" class="section level2">
+<h2>Reading data</h2>
+<p>The first step in any analysis is getting your data into R. This can be difficult for taxonomic data since it has a hierarchical component (i.e. the taxonomic tree). <code>Metacoder</code> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span> has functions for parsing (i.e. “reading”) specific file formats used in metagenomics research. However, for this demonstration, we will be using a more all-purpose parser from the <code>taxa</code> package <span class="citation">(Foster, Chamberlain, and Grünwald 2018)</span> meant for tabular data.</p>
+<p>Included in <code>metacoder</code> is an example dataset that is a subset of the Human Microbiome Project data. This dataset has two parts:</p>
+<ul>
+<li>An abundance matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <strong>OTUs in rows</strong></li>
+<li>A sample information table called <code>hmp_samples</code>, with <strong>samples as rows</strong> and columns of information describing the samples (e.g. gender)</li>
+</ul>
+<p><img src="figure_sources/preferred_data_format_counts.png" width="593" /></p>
+<p><img src="figure_sources/preferred_data_format_samples.png" width="351" /></p>
+<p>This is a typical example of this kind of data and is the preferred way for R packages like <code>metacoder</code> and <code>taxa</code>. Let us take a look at the dataset we will use in this example (just cut and paste the commands in the grey boxes into your Rstudio console to execute them):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
+<span class="kw">print</span>(hmp_otus)</code></pre></div>
+<pre><code>## # A tibble: 1,000 x 52
+##    otu_id lineage `700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
+##    &lt;chr&gt;  &lt;chr&gt;         &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1 OTU_9… r__Roo…           0           2           1           0           0           0
+##  2 OTU_9… r__Roo…           0           0           0           0           0           0
+##  3 OTU_9… r__Roo…           0           1           0           0           0           0
+##  4 OTU_9… r__Roo…           8          36          10           5          66          38
+##  5 OTU_9… r__Roo…           3          25           0           0           0           1
+##  6 OTU_9… r__Roo…          42         277          16          22          85         211
+##  7 OTU_9… r__Roo…           4          17          21           1          74          12
+##  8 OTU_9… r__Roo…           0           0           0           0           0           0
+##  9 OTU_9… r__Roo…           0           0           0           0           0           0
+## 10 OTU_9… r__Roo…           0           0           0           0           1           0
+## # ... with 990 more rows, and 44 more variables: `700111044` &lt;int&gt;, `700101365` &lt;int&gt;,
+## #   `700100431` &lt;int&gt;, `700016050` &lt;int&gt;, `700032425` &lt;int&gt;, `700024855` &lt;int&gt;,
+## #   `700103488` &lt;int&gt;, `700096869` &lt;int&gt;, `700107379` &lt;int&gt;, `700096422` &lt;int&gt;,
+## #   `700102417` &lt;int&gt;, `700114168` &lt;int&gt;, `700037540` &lt;int&gt;, `700106397` &lt;int&gt;,
+## #   `700113498` &lt;int&gt;, `700033743` &lt;int&gt;, `700105205` &lt;int&gt;, `700024238` &lt;int&gt;,
+## #   `700034183` &lt;int&gt;, `700038390` &lt;int&gt;, `700015973` &lt;int&gt;, `700038124` &lt;int&gt;,
+## #   `700107206` &lt;int&gt;, `700037403` &lt;int&gt;, `700098429` &lt;int&gt;, `700101224` &lt;int&gt;,
+## #   `700114615` &lt;int&gt;, `700024234` &lt;int&gt;, `700108596` &lt;int&gt;, `700101076` &lt;int&gt;,
+## #   `700105882` &lt;int&gt;, `700016902` &lt;int&gt;, `700102242` &lt;int&gt;, `700038231` &lt;int&gt;,
+## #   `700109394` &lt;int&gt;, `700102530` &lt;int&gt;, `700108229` &lt;int&gt;, `700099013` &lt;int&gt;,
+## #   `700098680` &lt;int&gt;, `700106938` &lt;int&gt;, `700014916` &lt;int&gt;, `700095535` &lt;int&gt;,
+## #   `700102367` &lt;int&gt;, `700101358` &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(hmp_samples)</code></pre></div>
+<pre><code>## # A tibble: 50 x 3
+## # Groups:   body_site, sex [10]
+##    sample_id sex    body_site
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    
+##  1 700035949 female Nose     
+##  2 700097855 female Nose     
+##  3 700100489 female Nose     
+##  4 700111314 female Nose     
+##  5 700033744 female Nose     
+##  6 700109581 male   Nose     
+##  7 700111044 male   Nose     
+##  8 700101365 male   Nose     
+##  9 700100431 male   Nose     
+## 10 700016050 male   Nose     
+## # ... with 40 more rows</code></pre>
+<p>We can now read the taxonomic information in the abundance matrix using a parser from <code>taxa</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(hmp_otus,
+                      <span class="dt">class_cols =</span> <span class="st">&quot;lineage&quot;</span>, <span class="co"># the column that contains taxonomic information</span>
+                      <span class="dt">class_sep =</span> <span class="st">&quot;;&quot;</span>, <span class="co"># The character used to separate taxa in the classification</span>
+                      <span class="dt">class_regex =</span> <span class="st">&quot;^(.+)__(.+)$&quot;</span>, <span class="co"># Regex identifying where the data for each taxon is</span>
+                      <span class="dt">class_key =</span> <span class="kw">c</span>(<span class="dt">tax_rank =</span> <span class="st">&quot;info&quot;</span>, <span class="co"># A key describing each regex capture group</span>
+                                    <span class="dt">tax_name =</span> <span class="st">&quot;taxon_name&quot;</span>))</code></pre></div>
+<p>A parser grabs and translates information in alphanumeric format following some specification and breaks it into smaller elements available as a data structure for further analysis This command returns a <code>taxmap</code> data object. The <code>taxmap</code> class is designed to store any number of tables, lists, or vectors associated with taxonomic information and facilitate manipulation of the data in a cohesive way. Here is what that object looks like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   174 taxa: ab. Root, ac. Proteobacteria ... gr. Blautia, gs. Clostridium
+##   174 edges: NA-&gt;ab, ab-&gt;ac, ab-&gt;ad, ab-&gt;ae ... cm-&gt;gq, cf-&gt;gr, cw-&gt;gs
+##   2 data sets:
+##     tax_data:
+##       # A tibble: 1,000 x 53
+##         taxon_id otu_id lineage `700035949` `700097855` `700100489` `700111314`
+##         &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##       1 dm       OTU_9… r__Roo…           0           2           1           0
+##       2 dn       OTU_9… r__Roo…           0           0           0           0
+##       3 do       OTU_9… r__Roo…           0           1           0           0
+##       # ... with 997 more rows, and 46 more variables: `700033744` &lt;int&gt;,
+##       #   `700109581` &lt;int&gt;, `700111044` &lt;int&gt;, `700101365` &lt;int&gt;,
+##       #   `700100431` &lt;int&gt;, `700016050` &lt;int&gt;, `700032425` &lt;int&gt;,
+##       #   `700024855` &lt;int&gt;, `700103488` &lt;int&gt;, `700096869` &lt;int&gt;,
+##       #   `700107379` &lt;int&gt;, `700096422` &lt;int&gt;, `700102417` &lt;int&gt;,
+##       #   `700114168` &lt;int&gt;, `700037540` &lt;int&gt;, `700106397` &lt;int&gt;,
+##       #   `700113498` &lt;int&gt;, `700033743` &lt;int&gt;, `700105205` &lt;int&gt;,
+##       #   `700024238` &lt;int&gt;, `700034183` &lt;int&gt;, `700038390` &lt;int&gt;,
+##       #   `700015973` &lt;int&gt;, `700038124` &lt;int&gt;, `700107206` &lt;int&gt;,
+##       #   `700037403` &lt;int&gt;, `700098429` &lt;int&gt;, `700101224` &lt;int&gt;,
+##       #   `700114615` &lt;int&gt;, `700024234` &lt;int&gt;, `700108596` &lt;int&gt;,
+##       #   `700101076` &lt;int&gt;, `700105882` &lt;int&gt;, `700016902` &lt;int&gt;,
+##       #   `700102242` &lt;int&gt;, `700038231` &lt;int&gt;, `700109394` &lt;int&gt;,
+##       #   `700102530` &lt;int&gt;, `700108229` &lt;int&gt;, `700099013` &lt;int&gt;,
+##       #   `700098680` &lt;int&gt;, `700106938` &lt;int&gt;, `700014916` &lt;int&gt;,
+##       #   `700095535` &lt;int&gt;, `700102367` &lt;int&gt;, `700101358` &lt;int&gt;
+##     class_data:
+##       # A tibble: 5,922 x 5
+##         taxon_id input_index tax_rank tax_name            regex_match          
+##         &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                
+##       1 ab                 1 r        Root                r__Root              
+##       2 ac                 1 p        Proteobacteria      p__Proteobacteria    
+##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacter…
+##       # ... with 5,919 more rows
+##   0 functions:</code></pre>
+<p>Note how the original abundance matrix is contained in the <code>taxmap</code> object with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets.</p>
+</div>
+<div id="abundance-matrix-manipulations" class="section level2">
+<h2>Abundance matrix manipulations</h2>
+<div id="removing-low-abundance-counts" class="section level3">
+<h3>Removing low-abundance counts</h3>
+<p>Low-abundance sequences might be the result of sequencing error, so typically we remove any counts/OTUs with less than some number of reads. Lets set all counts with less than 5 reads to zero, overwriting the original table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_data &lt;-<span class="st"> </span><span class="kw">zero_low_counts</span>(obj, <span class="dt">dataset =</span> <span class="st">&quot;tax_data&quot;</span>, <span class="dt">min_count =</span> <span class="dv">5</span>)</code></pre></div>
+<pre><code>## No `cols` specified, so using all numeric columns:
+##    700035949, 700097855, 700100489 ... 700095535, 700102367, 700101358</code></pre>
+<pre><code>## Zeroing 4325 of 50000 counts less than 5.</code></pre>
+<p>There might now be some OTUs with no “real” reads. Lets check:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">no_reads &lt;-<span class="st"> </span><span class="kw">rowSums</span>(obj<span class="op">$</span>data<span class="op">$</span>tax_data[, hmp_samples<span class="op">$</span>sample_id]) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
+<span class="kw">sum</span>(no_reads)</code></pre></div>
+<pre><code>## [1] 211</code></pre>
+<p>It appears that 211 of 1000 OTUs now have no reads. We can remove those OTUs and their associated taxa with <code>filter_obs</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span class="dt">target =</span> <span class="st">&quot;tax_data&quot;</span>, <span class="op">!</span><span class="st"> </span>no_reads, <span class="dt">drop_taxa =</span> <span class="ot">TRUE</span>)
+<span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   155 taxa: ab. Root, ac. Proteobacteria ... gs. Clostridium
+##   155 edges: NA-&gt;ab, ab-&gt;ac, ab-&gt;ad, ab-&gt;ae ... dk-&gt;gp, cm-&gt;gq, cw-&gt;gs
+##   2 data sets:
+##     tax_data:
+##       # A tibble: 789 x 51
+##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
+##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1 dm                 0           0           0           0           0
+##       2 dn                 0           0           0           0           0
+##       3 do                 0           0           0           0           0
+##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
+##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;,
+##       #   `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;,
+##       #   `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
+##       #   `700096422` &lt;dbl&gt;, `700102417` &lt;dbl&gt;, `700114168` &lt;dbl&gt;,
+##       #   `700037540` &lt;dbl&gt;, `700106397` &lt;dbl&gt;, `700113498` &lt;dbl&gt;,
+##       #   `700033743` &lt;dbl&gt;, `700105205` &lt;dbl&gt;, `700024238` &lt;dbl&gt;,
+##       #   `700034183` &lt;dbl&gt;, `700038390` &lt;dbl&gt;, `700015973` &lt;dbl&gt;,
+##       #   `700038124` &lt;dbl&gt;, `700107206` &lt;dbl&gt;, `700037403` &lt;dbl&gt;,
+##       #   `700098429` &lt;dbl&gt;, `700101224` &lt;dbl&gt;, `700114615` &lt;dbl&gt;,
+##       #   `700024234` &lt;dbl&gt;, `700108596` &lt;dbl&gt;, `700101076` &lt;dbl&gt;,
+##       #   `700105882` &lt;dbl&gt;, `700016902` &lt;dbl&gt;, `700102242` &lt;dbl&gt;,
+##       #   `700038231` &lt;dbl&gt;, `700109394` &lt;dbl&gt;, `700102530` &lt;dbl&gt;,
+##       #   `700108229` &lt;dbl&gt;, `700099013` &lt;dbl&gt;, `700098680` &lt;dbl&gt;,
+##       #   `700106938` &lt;dbl&gt;, `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;,
+##       #   `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
+##     class_data:
+##       # A tibble: 5,903 x 5
+##         taxon_id input_index tax_rank tax_name            regex_match          
+##         &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                
+##       1 ab                 1 r        Root                r__Root              
+##       2 ac                 1 p        Proteobacteria      p__Proteobacteria    
+##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacter…
+##       # ... with 5,900 more rows
+##   0 functions:</code></pre>
+<p>Note how there are fewer taxa now (155 from 174), as well as fewer OTUs (789 from 1000). This is because the <code>drop_taxa = TRUE</code> option caused any taxa without OTUs assigned to them after the filtering to be removed. This coordinated manipulation of taxonomic and abundance data is one of the main benefits of using the <code>taxmap</code> class.</p>
+</div>
+<div id="accounting-for-un-even-sampling" class="section level3">
+<h3>Accounting for un-even sampling</h3>
+<p>These are raw counts, but people typically work with rarefied counts or proportions to avoid sampling depth biasing the results. The function <code>rarefy_obs</code> will return the rarefied counts for a table in a taxmap object, but we will use proportions for this demonstration:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_data &lt;-<span class="st"> </span><span class="kw">calc_obs_props</span>(obj, <span class="st">&quot;tax_data&quot;</span>)</code></pre></div>
+<pre><code>## No `cols` specified, so using all numeric columns:
+##    700035949, 700097855, 700100489 ... 700095535, 700102367, 700101358</code></pre>
+<pre><code>## Calculating proportions from counts for 50 columns for 789 observations.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   155 taxa: ab. Root, ac. Proteobacteria ... gs. Clostridium
+##   155 edges: NA-&gt;ab, ab-&gt;ac, ab-&gt;ad, ab-&gt;ae ... dk-&gt;gp, cm-&gt;gq, cw-&gt;gs
+##   2 data sets:
+##     tax_data:
+##       # A tibble: 789 x 51
+##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
+##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1 dm                 0           0           0           0           0
+##       2 dn                 0           0           0           0           0
+##       3 do                 0           0           0           0           0
+##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
+##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;,
+##       #   `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;,
+##       #   `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
+##       #   `700096422` &lt;dbl&gt;, `700102417` &lt;dbl&gt;, `700114168` &lt;dbl&gt;,
+##       #   `700037540` &lt;dbl&gt;, `700106397` &lt;dbl&gt;, `700113498` &lt;dbl&gt;,
+##       #   `700033743` &lt;dbl&gt;, `700105205` &lt;dbl&gt;, `700024238` &lt;dbl&gt;,
+##       #   `700034183` &lt;dbl&gt;, `700038390` &lt;dbl&gt;, `700015973` &lt;dbl&gt;,
+##       #   `700038124` &lt;dbl&gt;, `700107206` &lt;dbl&gt;, `700037403` &lt;dbl&gt;,
+##       #   `700098429` &lt;dbl&gt;, `700101224` &lt;dbl&gt;, `700114615` &lt;dbl&gt;,
+##       #   `700024234` &lt;dbl&gt;, `700108596` &lt;dbl&gt;, `700101076` &lt;dbl&gt;,
+##       #   `700105882` &lt;dbl&gt;, `700016902` &lt;dbl&gt;, `700102242` &lt;dbl&gt;,
+##       #   `700038231` &lt;dbl&gt;, `700109394` &lt;dbl&gt;, `700102530` &lt;dbl&gt;,
+##       #   `700108229` &lt;dbl&gt;, `700099013` &lt;dbl&gt;, `700098680` &lt;dbl&gt;,
+##       #   `700106938` &lt;dbl&gt;, `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;,
+##       #   `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
+##     class_data:
+##       # A tibble: 5,903 x 5
+##         taxon_id input_index tax_rank tax_name            regex_match          
+##         &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                
+##       1 ab                 1 r        Root                r__Root              
+##       2 ac                 1 p        Proteobacteria      p__Proteobacteria    
+##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacter…
+##       # ... with 5,900 more rows
+##   0 functions:</code></pre>
+</div>
+<div id="getting-per-taxon-information" class="section level3">
+<h3>Getting per-taxon information</h3>
+<p>Currently, we have values for the abundance of each OTU, not each taxon. To get information on the taxa, we can sum the abundance per-taxon and add the results to the <code>taxmap</code> object in a new table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_abund &lt;-<span class="st"> </span><span class="kw">calc_taxon_abund</span>(obj, <span class="st">&quot;tax_data&quot;</span>,
+                                       <span class="dt">cols =</span> hmp_samples<span class="op">$</span>sample_id)</code></pre></div>
+<pre><code>## Summing per-taxon counts from 50 columns for 155 taxa</code></pre>
+<p>Note that there is now an additional table called <code>tax_abund</code> with one row per taxon. The name of the table is arbitrary; we could have called it anything.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   155 taxa: ab. Root, ac. Proteobacteria ... gs. Clostridium
+##   155 edges: NA-&gt;ab, ab-&gt;ac, ab-&gt;ad, ab-&gt;ae ... dk-&gt;gp, cm-&gt;gq, cw-&gt;gs
+##   3 data sets:
+##     tax_data:
+##       # A tibble: 789 x 51
+##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
+##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1 dm                 0           0           0           0           0
+##       2 dn                 0           0           0           0           0
+##       3 do                 0           0           0           0           0
+##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
+##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;,
+##       #   `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;,
+##       #   `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
+##       #   `700096422` &lt;dbl&gt;, `700102417` &lt;dbl&gt;, `700114168` &lt;dbl&gt;,
+##       #   `700037540` &lt;dbl&gt;, `700106397` &lt;dbl&gt;, `700113498` &lt;dbl&gt;,
+##       #   `700033743` &lt;dbl&gt;, `700105205` &lt;dbl&gt;, `700024238` &lt;dbl&gt;,
+##       #   `700034183` &lt;dbl&gt;, `700038390` &lt;dbl&gt;, `700015973` &lt;dbl&gt;,
+##       #   `700038124` &lt;dbl&gt;, `700107206` &lt;dbl&gt;, `700037403` &lt;dbl&gt;,
+##       #   `700098429` &lt;dbl&gt;, `700101224` &lt;dbl&gt;, `700114615` &lt;dbl&gt;,
+##       #   `700024234` &lt;dbl&gt;, `700108596` &lt;dbl&gt;, `700101076` &lt;dbl&gt;,
+##       #   `700105882` &lt;dbl&gt;, `700016902` &lt;dbl&gt;, `700102242` &lt;dbl&gt;,
+##       #   `700038231` &lt;dbl&gt;, `700109394` &lt;dbl&gt;, `700102530` &lt;dbl&gt;,
+##       #   `700108229` &lt;dbl&gt;, `700099013` &lt;dbl&gt;, `700098680` &lt;dbl&gt;,
+##       #   `700106938` &lt;dbl&gt;, `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;,
+##       #   `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
+##     class_data:
+##       # A tibble: 5,903 x 5
+##         taxon_id input_index tax_rank tax_name            regex_match          
+##         &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                
+##       1 ab                 1 r        Root                r__Root              
+##       2 ac                 1 p        Proteobacteria      p__Proteobacteria    
+##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacter…
+##       # ... with 5,900 more rows
+##     tax_abund:
+##       # A tibble: 155 x 51
+##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
+##       * &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1 ab             1         1                 1      1            1    
+##       2 ac             0.206     0.0262            0      0.252        0.225
+##       3 ad             0         0.00269           0      0.0417       0    
+##       # ... with 152 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
+##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;,
+##       #   `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;,
+##       #   `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
+##       #   `700096422` &lt;dbl&gt;, `700102417` &lt;dbl&gt;, `700114168` &lt;dbl&gt;,
+##       #   `700037540` &lt;dbl&gt;, `700106397` &lt;dbl&gt;, `700113498` &lt;dbl&gt;,
+##       #   `700033743` &lt;dbl&gt;, `700105205` &lt;dbl&gt;, `700024238` &lt;dbl&gt;,
+##       #   `700034183` &lt;dbl&gt;, `700038390` &lt;dbl&gt;, `700015973` &lt;dbl&gt;,
+##       #   `700038124` &lt;dbl&gt;, `700107206` &lt;dbl&gt;, `700037403` &lt;dbl&gt;,
+##       #   `700098429` &lt;dbl&gt;, `700101224` &lt;dbl&gt;, `700114615` &lt;dbl&gt;,
+##       #   `700024234` &lt;dbl&gt;, `700108596` &lt;dbl&gt;, `700101076` &lt;dbl&gt;,
+##       #   `700105882` &lt;dbl&gt;, `700016902` &lt;dbl&gt;, `700102242` &lt;dbl&gt;,
+##       #   `700038231` &lt;dbl&gt;, `700109394` &lt;dbl&gt;, `700102530` &lt;dbl&gt;,
+##       #   `700108229` &lt;dbl&gt;, `700099013` &lt;dbl&gt;, `700098680` &lt;dbl&gt;,
+##       #   `700106938` &lt;dbl&gt;, `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;,
+##       #   `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
+##   0 functions:</code></pre>
+<p>We can also easily calculate the number of samples that have reads for each taxon:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_occ &lt;-<span class="st"> </span><span class="kw">calc_n_samples</span>(obj, <span class="st">&quot;tax_abund&quot;</span>, <span class="dt">groups =</span> hmp_samples<span class="op">$</span>body_site)</code></pre></div>
+<pre><code>## No `cols` specified, so using all numeric columns:
+##    700035949, 700097855, 700100489 ... 700095535, 700102367, 700101358</code></pre>
+<pre><code>## Calculating number of samples with a value greater than 0 for 50 columns in 5 groups for 155 observations</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<pre><code>## &lt;Taxmap&gt;
+##   155 taxa: ab. Root, ac. Proteobacteria ... gs. Clostridium
+##   155 edges: NA-&gt;ab, ab-&gt;ac, ab-&gt;ad, ab-&gt;ae ... dk-&gt;gp, cm-&gt;gq, cw-&gt;gs
+##   4 data sets:
+##     tax_data:
+##       # A tibble: 789 x 51
+##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
+##         &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1 dm                 0           0           0           0           0
+##       2 dn                 0           0           0           0           0
+##       3 do                 0           0           0           0           0
+##       # ... with 786 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
+##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;,
+##       #   `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;,
+##       #   `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
+##       #   `700096422` &lt;dbl&gt;, `700102417` &lt;dbl&gt;, `700114168` &lt;dbl&gt;,
+##       #   `700037540` &lt;dbl&gt;, `700106397` &lt;dbl&gt;, `700113498` &lt;dbl&gt;,
+##       #   `700033743` &lt;dbl&gt;, `700105205` &lt;dbl&gt;, `700024238` &lt;dbl&gt;,
+##       #   `700034183` &lt;dbl&gt;, `700038390` &lt;dbl&gt;, `700015973` &lt;dbl&gt;,
+##       #   `700038124` &lt;dbl&gt;, `700107206` &lt;dbl&gt;, `700037403` &lt;dbl&gt;,
+##       #   `700098429` &lt;dbl&gt;, `700101224` &lt;dbl&gt;, `700114615` &lt;dbl&gt;,
+##       #   `700024234` &lt;dbl&gt;, `700108596` &lt;dbl&gt;, `700101076` &lt;dbl&gt;,
+##       #   `700105882` &lt;dbl&gt;, `700016902` &lt;dbl&gt;, `700102242` &lt;dbl&gt;,
+##       #   `700038231` &lt;dbl&gt;, `700109394` &lt;dbl&gt;, `700102530` &lt;dbl&gt;,
+##       #   `700108229` &lt;dbl&gt;, `700099013` &lt;dbl&gt;, `700098680` &lt;dbl&gt;,
+##       #   `700106938` &lt;dbl&gt;, `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;,
+##       #   `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
+##     class_data:
+##       # A tibble: 5,903 x 5
+##         taxon_id input_index tax_rank tax_name            regex_match          
+##         &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;                
+##       1 ab                 1 r        Root                r__Root              
+##       2 ac                 1 p        Proteobacteria      p__Proteobacteria    
+##       3 aj                 1 c        Gammaproteobacteria c__Gammaproteobacter…
+##       # ... with 5,900 more rows
+##     tax_abund:
+##       # A tibble: 155 x 51
+##         taxon_id `700035949` `700097855` `700100489` `700111314` `700033744`
+##       * &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##       1 ab             1         1                 1      1            1    
+##       2 ac             0.206     0.0262            0      0.252        0.225
+##       3 ad             0         0.00269           0      0.0417       0    
+##       # ... with 152 more rows, and 45 more variables: `700109581` &lt;dbl&gt;,
+##       #   `700111044` &lt;dbl&gt;, `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;,
+##       #   `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;, `700024855` &lt;dbl&gt;,
+##       #   `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
+##       #   `700096422` &lt;dbl&gt;, `700102417` &lt;dbl&gt;, `700114168` &lt;dbl&gt;,
+##       #   `700037540` &lt;dbl&gt;, `700106397` &lt;dbl&gt;, `700113498` &lt;dbl&gt;,
+##       #   `700033743` &lt;dbl&gt;, `700105205` &lt;dbl&gt;, `700024238` &lt;dbl&gt;,
+##       #   `700034183` &lt;dbl&gt;, `700038390` &lt;dbl&gt;, `700015973` &lt;dbl&gt;,
+##       #   `700038124` &lt;dbl&gt;, `700107206` &lt;dbl&gt;, `700037403` &lt;dbl&gt;,
+##       #   `700098429` &lt;dbl&gt;, `700101224` &lt;dbl&gt;, `700114615` &lt;dbl&gt;,
+##       #   `700024234` &lt;dbl&gt;, `700108596` &lt;dbl&gt;, `700101076` &lt;dbl&gt;,
+##       #   `700105882` &lt;dbl&gt;, `700016902` &lt;dbl&gt;, `700102242` &lt;dbl&gt;,
+##       #   `700038231` &lt;dbl&gt;, `700109394` &lt;dbl&gt;, `700102530` &lt;dbl&gt;,
+##       #   `700108229` &lt;dbl&gt;, `700099013` &lt;dbl&gt;, `700098680` &lt;dbl&gt;,
+##       #   `700106938` &lt;dbl&gt;, `700014916` &lt;dbl&gt;, `700095535` &lt;dbl&gt;,
+##       #   `700102367` &lt;dbl&gt;, `700101358` &lt;dbl&gt;
+##     tax_occ:
+##       # A tibble: 155 x 6
+##         taxon_id  Nose Saliva  Skin Stool Throat
+##         &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##       1 ab          10     10    10    10     10
+##       2 ac           8     10     9     2     10
+##       3 ad           5     10     8    10     10
+##       # ... with 152 more rows
+##   0 functions:</code></pre>
+</div>
+<div id="plotting-taxonomic-data" class="section level3">
+<h3>Plotting taxonomic data</h3>
+<p>Now that we have per-taxon information (the <code>tax_abund</code> and <code>tax_occ</code> tables), we can plot the information using <strong>heat trees</strong> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span>. Heat trees are what we call taxonomic trees in which the node/branch size and color of a tree correspond to some statistic of interest in analogy to heatmaps. The code below plots the number of “Nose” microbiome samples that have reads for each taxon as the size of each taxon. It also plots the number of OTUs assigned to each taxon in the overall dataset as color.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
+          <span class="dt">node_label =</span> taxon_names,
+          <span class="dt">node_size =</span> n_obs,
+          <span class="dt">node_color =</span> Nose, 
+          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,
+          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,
+          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
+          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
+<p><img src="quick_example_files/figure-html/unnamed-chunk-13-1.png" width="960" /></p>
+<blockquote>
+<p>Be patient. This visualization takes a little bit of time to compute.</p>
+</blockquote>
+<p>Note how we did not have to specify the full path to the variable “Nose”, but just its name. This is a shorthand for convenience. We could have made the exact same plot using this command:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
+          <span class="dt">node_label =</span> obj<span class="op">$</span><span class="kw">taxon_names</span>(),
+          <span class="dt">node_size =</span> obj<span class="op">$</span><span class="kw">n_obs</span>(),
+          <span class="dt">node_color =</span> obj<span class="op">$</span>data<span class="op">$</span>tax_occ<span class="op">$</span>Nose, 
+          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,
+          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,
+          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
+          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
+<p>This is known as non-standard evaluation in programmer jargon and will be used in many functions throughout this workshop.</p>
+</div>
+<div id="alpha-diversity" class="section level3">
+<h3>Alpha diversity</h3>
+<p>Alpha diversity is a measure of the diversity <strong>within</strong> each sample or group of samples. It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU “rank”. There are multiple methods used to calculate a value to represent alpha diversity. The simplest is just the number of species, but the ones used most often factor in how common each species is as well. Below, we calculate the alpha diversity of OTUs using the inverse Simpson’s index <span class="citation">(Hill 1973; E. H. Simpson 1949)</span> using the package <code>vegan</code> <span class="citation">(Oksanen et al. 2018)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hmp_samples<span class="op">$</span>inv_simp &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>tax_data[, hmp_samples<span class="op">$</span>sample_id],
+                                         <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>,
+                                         <span class="dt">MARGIN =</span> <span class="dv">2</span>) <span class="co"># What orietation the matrix is in</span></code></pre></div>
+<p>Adding this on to the sample data makes it easy to use the sample information in graphing. Lets compare the alpha diversity of samples from males and females using <code>ggplot2</code>, a popular R package for plotting.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;ggplot2&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:taxa&#39;:
+## 
+##     map_data</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="quick_example_files/figure-html/unnamed-chunk-16-1.png" width="480" /></p>
+<p>Not much difference there, as you might expect. We can also compare body sites:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> body_site, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="quick_example_files/figure-html/unnamed-chunk-17-1.png" width="480" /></p>
+<p>That’s more interesting; skin has much lower diversity than any of the wetter areas, which makes sense. Lets see if that’s a significant difference using an ANOVA.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(inv_simp <span class="op">~</span><span class="st"> </span>body_site, hmp_samples)
+<span class="kw">summary</span>(anova_result)</code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## body_site    4   1155  288.63   3.247 0.0201 *
+## Residuals   45   4000   88.89                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess). A Tukey’s HSD test can compare each site to every other and tell us which are significantly different. Although base R has a Tukey’s HSD function called <code>TukeyHSD</code>, we will use one from the package <code>agricolae</code> since it supplies grouping codes that are useful for graphing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
+tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;body_site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
+<span class="kw">print</span>(tukey_result)</code></pre></div>
+<pre><code>## $statistics
+##    MSerror Df     Mean       CV      MSD
+##   88.89491 45 17.94757 52.53306 11.98101
+## 
+## $parameters
+##    test    name.t ntr StudentizedRange alpha
+##   Tukey body_site   5         4.018417  0.05
+## 
+## $means
+##         inv_simp       std  r       Min      Max       Q25       Q50       Q75
+## Nose   17.662798 10.332621 10  7.281343 37.49351 11.612608 14.592358 16.916579
+## Saliva 22.543018  6.230297 10 11.419763 34.20763 19.304662 22.978894 25.294143
+## Skin    8.857022  5.585280 10  4.765705 23.98838  5.881698  7.714934  9.019116
+## Stool  20.647132 11.392198 10  7.578868 45.00703 11.582727 19.498076 25.109358
+## Throat 20.027902 11.743822 10  2.973287 36.94885 11.194047 20.290096 25.959168
+## 
+## $comparison
+## NULL
+## 
+## $groups
+##         inv_simp groups
+## Saliva 22.543018      a
+## Stool  20.647132     ab
+## Throat 20.027902     ab
+## Nose   17.662798     ab
+## Skin    8.857022      b
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;group&quot;</code></pre>
+<p>We are interested in the <code>$groups</code> table that says which sites are different. With a little tweaking, we can add this data to the graph we made. Lets add some nicer text as well.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]
+<span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> body_site, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),
+            <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data), <span class="dt">y =</span> <span class="kw">max</span>(hmp_samples<span class="op">$</span>inv_simp) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">label =</span> group_data<span class="op">$</span>groups),
+            <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,
+            <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity of human body microbiomes&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Body site&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Inverse Simpson&#39;s index&quot;</span>)</code></pre></div>
+<p><img src="quick_example_files/figure-html/unnamed-chunk-20-1.png" width="480" /></p>
+<p>This tells us that microbiomes from saliva and skin are significantly different from each other, but not significantly different from any other community.</p>
+</div>
+<div id="comparing-two-treatmentsgroups" class="section level3">
+<h3>Comparing two treatments/groups</h3>
+<p>Usually we are interested in how groups of samples compare. For example, we might want to know which taxa differ between the nose and throat, or between men and women. The function <code>compare_groups</code> facilitates these comparisons:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table &lt;-<span class="st"> </span><span class="kw">compare_groups</span>(obj,
+                                      <span class="dt">dataset =</span> <span class="st">&quot;tax_abund&quot;</span>,
+                                      <span class="dt">cols =</span> hmp_samples<span class="op">$</span>sample_id, <span class="co"># What columns of sample data to use</span>
+                                      <span class="dt">groups =</span> hmp_samples<span class="op">$</span>sex) <span class="co"># What category each sample is assigned to</span>
+<span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table)</code></pre></div>
+<pre><code>## # A tibble: 155 x 7
+##    taxon_id treatment_1 treatment_2 log2_median_rat… median_diff mean_diff wilcox_p_value
+##    &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;                  &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;
+##  1 ab       female      male                   0          0        0              NaN    
+##  2 ac       female      male                   0.380      0.0229   0.0379           0.470
+##  3 ad       female      male                  -0.434     -0.0449  -0.0199           0.907
+##  4 ae       female      male                  -1.68      -0.0475  -0.0753           0.335
+##  5 af       female      male                   0.649      0.116    0.0614           0.386
+##  6 ag       female      male                   0          0       -0.00275          0.732
+##  7 ah       female      male                   0          0       -0.00140          0.602
+##  8 aj       female      male                   1.24       0.0162  -0.0129           0.680
+##  9 ak       female      male                   0          0        0.00121          0.416
+## 10 al       female      male                  -0.542     -0.0541  -0.0211           0.969
+## # ... with 145 more rows</code></pre>
+<p>We can use this information to create what we call a <strong>differential heat tree</strong> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span>, which indicates which taxa are more abundant in each treatment:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
+          <span class="dt">node_label =</span> taxon_names,
+          <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span>
+          <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span>
+          <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="co"># The range of `log2_median_ratio` to display</span>
+          <span class="dt">node_color_range =</span> <span class="kw">c</span>(<span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;gray&quot;</span>, <span class="st">&quot;tan&quot;</span>), <span class="co"># The color palette used</span>
+          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,
+          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log 2 ratio of median proportions&quot;</span>,
+          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
+          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
+<p><img src="quick_example_files/figure-html/unnamed-chunk-22-1.png" width="960" /></p>
+<p>In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men. Note that we have not taken into account statistical significance, so lets include that, too. First, we need to correct for multiple comparisons:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value,
+                                               <span class="dt">method =</span> <span class="st">&quot;fdr&quot;</span>)</code></pre></div>
+<p>If we then look at the distribution of p-values, we can see that none are even close to significant:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">range</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value, <span class="dt">finite =</span> <span class="ot">TRUE</span>) </code></pre></div>
+<pre><code>## [1] 0.8029954 1.0000000</code></pre>
+<p>There is no need to graph this, but if there still were some significant differences, we could set any difference that is not significant to zero and repeat the last <code>heat_tree</code> command.</p>
+</div>
+<div id="comparing-any-number-of-treatmentsgroups" class="section level3">
+<h3>Comparing any number of treatments/groups</h3>
+<p>A single differential heat tree can compare two treatments only (e.g., male and female), but what if you have more treatments? In that case we can make a matrix of heat trees, one for each pairwise comparison of treatments as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table &lt;-<span class="st"> </span><span class="kw">compare_groups</span>(obj, <span class="dt">dataset =</span> <span class="st">&quot;tax_abund&quot;</span>,
+                                      <span class="dt">cols =</span> hmp_samples<span class="op">$</span>sample_id, <span class="co"># What columns of sample data to use</span>
+                                      <span class="dt">groups =</span> hmp_samples<span class="op">$</span>body_site) <span class="co"># What category each sample is assigned to</span>
+<span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table)</code></pre></div>
+<pre><code>## # A tibble: 1,550 x 7
+##    taxon_id treatment_1 treatment_2 log2_median_rat… median_diff mean_diff wilcox_p_value
+##    &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;                  &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;
+##  1 ab       Nose        Saliva                  0         0         0         NaN        
+##  2 ac       Nose        Saliva                 -2.62     -0.167    -0.128       0.0172   
+##  3 ad       Nose        Saliva                 -7.68     -0.274    -0.265       0.000163 
+##  4 ae       Nose        Saliva                  5.36      0.616     0.595       0.0000108
+##  5 af       Nose        Saliva                 -1.23     -0.260    -0.159       0.0433   
+##  6 ag       Nose        Saliva               -Inf        -0.0228   -0.0436      0.0000874
+##  7 ah       Nose        Saliva                  0         0         0         NaN        
+##  8 aj       Nose        Saliva                 -3.83     -0.103    -0.0803      0.00707  
+##  9 ak       Nose        Saliva               -Inf        -0.0174   -0.0174      0.00156  
+## 10 al       Nose        Saliva               -Inf        -0.258    -0.248       0.000149 
+## # ... with 1,540 more rows</code></pre>
+<p>There is a special function to plot this type of data called <code>heat_tree_matrix</code> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree_matrix</span>(obj,
+                 <span class="dt">dataset =</span> <span class="st">&quot;diff_table&quot;</span>,
+                 <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span>
+                 <span class="dt">node_label =</span> taxon_names,
+                 <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span>
+                 <span class="dt">node_color_range =</span> <span class="kw">diverging_palette</span>(), <span class="co"># The built-in palette for diverging data</span>
+                 <span class="dt">node_color_trans =</span> <span class="st">&quot;linear&quot;</span>, <span class="co"># The default is scaled by circle area</span>
+                 <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span>
+                 <span class="dt">edge_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span>
+                 <span class="dt">node_size_axis_label =</span> <span class="st">&quot;Number of OTUs&quot;</span>,
+                 <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log2 ratio median proportions&quot;</span>,
+                 <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
+                 <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>, <span class="co"># The layout algorithm that initializes node locations</span>
+                 <span class="dt">output_file =</span> <span class="st">&quot;differential_heat_tree.pdf&quot;</span>) <span class="co"># Saves the plot as a pdf file</span></code></pre></div>
+<p><img src="quick_example_files/figure-html/unnamed-chunk-26-1.png" width="960" /></p>
+<p>The grey tree on the lower left functions as a key for the unlabeled trees. Each of the smaller trees represent a comparison between body sites in the columns and rows. A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row. For example, <em>Bacteroidetes</em> are more abundant (i.e., have more reads) in the throat samples than the nose samples and this is due to the greater abundance of two genera within this group: <em>Prevotella</em> and <em>Porphyromonas</em>. Download and open the PDF file to explore the details of the plot zooming in on any branches of interest</p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<!---- Reference list ---->
+<div id="refs" class="references">
+<div id="ref-foster2018taxa">
+<p>Foster, Zachary SL, Scott Chamberlain, and Niklaus J Grünwald. 2018. “Taxa: An R Package Implementing Data Standards and Methods for Taxonomic Data.” <em>F1000Research</em> 7 (272). doi:<a href="https://doi.org/10.12688/f1000research.14013.1">10.12688/f1000research.14013.1</a>.</p>
+</div>
+<div id="ref-foster2017metacoder">
+<p>Foster, Zachary SL, Thomas J Sharpton, and Niklaus J Grünwald. 2017. “Metacoder: An R Package for Visualization and Manipulation of Community Taxonomic Diversity Data.” <em>PLoS Computational Biology</em> 13 (2). Public Library of Science: e1005404. <a href="https://doi.org/10.1371/journal.pcbi.1005404" class="uri">https://doi.org/10.1371/journal.pcbi.1005404</a>.</p>
+</div>
+<div id="ref-hill1973diversity">
+<p>Hill, Mark O. 1973. “Diversity and Evenness: A Unifying Notation and Its Consequences.” <em>Ecology</em> 54 (2). Wiley Online Library: 427–32. <a href="https://doi.org/10.2307/1934352" class="uri">https://doi.org/10.2307/1934352</a>.</p>
+</div>
+<div id="ref-oksanen2007vegan">
+<p>Oksanen, Jari, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt, Pierre Legendre, Dan McGlinn, Peter R. Minchin, et al. 2018. “Vegan: Community Ecology Package.” <a href="https://CRAN.R-project.org/package=vegan" class="uri">https://CRAN.R-project.org/package=vegan</a>.</p>
+</div>
+<div id="ref-simpson1949measurement">
+<p>Simpson, Edward H. 1949. “Measurement of Diversity.” <em>Nature</em> 163 (4148). Nature Publishing Group: 688. doi:<a href="https://doi.org/10.1038/163688a0">10.1038/163688a0</a>.</p>
+</div>
+</div>
+</div>
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
