@@ -68,7 +68,7 @@ If your computer cannot load this file, don't worry, we will provide a subset la
 In this data set, the taxonomic classifications for the OTUs are in a different file.
 This information could have been included as additional columns in the OTU table and often is in other data sets.
 
-=```{r}
+```{r}
 library(readr) # Loads the readr package so we can use `read_tsv`
 ```
 

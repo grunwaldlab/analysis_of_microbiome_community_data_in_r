@@ -41,7 +41,8 @@ The `zero_low_counts` counts can be used to convert any counts less than some nu
 
 ```{r}
 library(metacoder)
-obj$data$otu_counts <- zero_low_counts(obj, "otu_counts", min_count = 10)
+obj$data$otu_counts <- zero_low_counts(obj, "otu_counts", min_count = 10,
+                                       other_cols = TRUE) # keep OTU_ID column
 ```
 
 That set all read counts less than 10 to zero.
@@ -78,7 +79,7 @@ If the minimum depth is very small, the samples with the smallest depth can be r
 Lets take a look at the distribution of read depths of our samples:
 
 ```{r fig.width=10, fig.height=5}
-hist(colSums(obj$data$otu_counts[, -1]))
+hist(colSums(obj$data$otu_counts[, sample_data$SampleID]))
 ```
 
 We have a minimum depth of `r min(colSums(obj$data$otu_counts[, -1]))`, a median of `r as.integer(median(colSums(obj$data$otu_counts[, -1])))` and a maximum depth of `r max(colSums(obj$data$otu_counts[, -1]))`.
@@ -86,7 +87,7 @@ We could try to remove one or two of the samples with the smallest depth, since 
 The `vegan` package implements many functions to help with rarefying data, but we will use a function from `metacoder` that calls the functions from `vegan` and reformats the input and outputs to make them easier to use with the way our data is formatted.
 
 ```{r}
-obj$data$otu_rarefied <- rarefy_obs(obj, "otu_counts")
+obj$data$otu_rarefied <- rarefy_obs(obj, "otu_counts", other_cols = TRUE)
 print(obj)
 ```
 

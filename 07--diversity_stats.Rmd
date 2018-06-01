@@ -5,7 +5,7 @@ bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+source("style.R")
 ```
 
 ## Load example data
@@ -54,7 +54,7 @@ hist(sample_data$alpha)
 
 Adding this as a column to the sample data table makes it easy to graph using `ggplot2`.
 
-```{r}
+```{r fig.height=5, fig.width=10}
 library(ggplot2)
 ggplot(sample_data, aes(x = Site, y = alpha)) + 
   geom_boxplot()
@@ -80,7 +80,7 @@ print(tukey_result)
 Looking at the `tukey_result$groups` table it appears that the alpha diversity of sites "Sil" and "Mah" might not be different, but there is evidence that the diversity in site "Jam" is lower.
 We can add this information to the graph using the `tukey_result$groups$groups` codes:
 
-```{r}
+```{r fig.height=5, fig.width=10}
 group_data <- tukey_result$groups[order(rownames(tukey_result$groups)),]
 ggplot(sample_data, aes(x = Site, y = alpha)) +
   geom_text(data = data.frame(),
@@ -132,12 +132,28 @@ compare_alpha <- function(sample_data, grouping_var) {
 
 Using this function, we can compare plot the alpha diversities by type of sample and genotype:
 
-```{r}
+```{r fig.height=5, fig.width=10}
 compare_alpha(sample_data, "Type")
 compare_alpha(sample_data, "Genotype")
 ```
 
 Looks like there is no difference in the alpha diversity between genotypes, but a large difference between the diversity of roots and leaves.
+
+The `phyloseq` package (@mcmurdie2013phyloseq) can be used to quickly plot a variety of alpha diversity indexes per sample using the `plot_richness` function.
+First we need to convert the `taxmap` object to a `phyloseq` object, since all of the `phyloseq` functions expect `phyloseq` objects.
+
+```{r}
+library(phyloseq)
+library(metacoder)
+ps_obj <- as_phyloseq(obj,
+                      otu_table = "otu_rarefied",
+                      otu_id_col = "OTU_ID",
+                      sample_data = sample_data,
+                      sample_id_col = "SampleID")
+plot_richness(ps_obj, color = "Type", x = "Site")
+```
+
+Each dot is a sample and the error bars in some of the indexes are the standard error.
 
 ## Beta (between sample) diversity
 
@@ -176,8 +192,8 @@ If we had only two species, we could make a scatter plot of their abundance in e
 With thousands of species, this is not possible.
 Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.
 
-```{r message=FALSE}
-mds <- metaMDS(t(obj$data$otu_rarefied[, sample_data$SampleID]), trymax = 100)
+```{r}
+mds <- metaMDS(t(obj$data$otu_rarefied[, sample_data$SampleID]))
 library(ggplot2)
 mds_data <- as.data.frame(mds$points)
 mds_data$SampleID <- rownames(mds_data)
@@ -210,6 +226,27 @@ ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
 
 There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.
 
+We can also do the above quickly in `phyloseq` using the `ordinate` and `plot_ordination` functions.
+Lets look at the differences between leaf and root samples again, but using a difference index this time.
+
+```{r}
+ps_ord <- ordinate(ps_obj, method = "NMDS", distance = "jsd")
+plot_ordination(ps_obj, ps_ord, type = "samples", color = "Type")
+```
+
+## Exercises
+
+**1a)** Look at the documentation for the `plot_richness` function from `phyloseq`. Try to make a plot using only the Simpson and inverse simpson indexes, colored by site and split up by sample type (leaf vs root).
+
+```{r hide_button = TRUE}
+plot_richness(ps_obj, color = "Site", x = "Genotype", measures = c("Simpson", "InvSimpson"))
+```
+
+**1b)** The Simpson and inverse Simpson indexes display the same information in different ways (if you know one, you can calculate the other). How do they differ?
+
+```{asis hide_button = "Show Answer"}
+The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is greater than zero. Also, the inverse Simpson index tends to spread out higher diversity values more. 
+```
 
 ## References
 
