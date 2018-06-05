@@ -22,8 +22,12 @@ However, for this demonstration, we will be using a more all-purpose parser from
 Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
 This dataset has two parts: 
 
-* An abundance matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
-* A sample information table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g. gender)
+* A count matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
+* A sample data table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g., gender)
+
+> Because our example only has two data sources should omit one of these graphics?
+
+> The graphic is labeled 'Count data' but you refer to this in text as 'abundance matrix'. I think standardizing this will bring greater clarity.
 
 ```{r echo=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
@@ -42,7 +46,13 @@ print(hmp_otus)
 print(hmp_samples)
 ```
 
-We can read the taxonomic information in the abundance matrix using a parser from `taxa`:
+One challenge this data presents is the format of the taxonomic information.
+
+```{r}
+hmp_otus$lineage[1:4]
+```
+
+We can process the count matrix, and parse the taxonomic information at the same time, using a parser from `taxa`.
 
 ```{r}
 obj <- parse_tax_data(hmp_otus,
@@ -61,21 +71,33 @@ Here is what that object looks like:
 print(obj)
 ```
 
-Note how the original abundance matrix is contained in the `taxmap` object with an additional column called "taxon_id".
+Note how the original count matrix is contained in the `taxmap` object with an additional column called "taxon_id".
 This table is stored in the list `obj$data`, which can contain any number of user-defined datasets.
+Also note that we have a different number of taxa and OTUs.
+This is different from a traditional ecological dataset.
+An OTU may contain sequence variants.
+These OTUs are assigned to taxa so a taxon may include multiple OTUs.
+Taxa may also include different numbers of ranks.
+For example, one taxon may include species while another only goes to genus.
+These abstractions are necessary becuase we may have sequences that we can not confidently assign to a traditional taxon.
+
 
 ## Abundance matrix manipulations
 
 ### Removing low-abundance counts
 
-Low-abundance sequences might be the result of sequencing error, so typically we remove any counts/OTUs with less than some number of reads.
+Recall that the abundance matrix contains samples in columns and OTUs in rows.
+Each cell is the number of times an OTU (a sequence) was observed in a sample.
+Some of these cells may contain a low number of observations.
+These low-abundance sequences might be the result of sequencing error, so typically we remove any counts/OTUs with less than some number of reads.
 Lets set all counts with less than 5 reads to zero, overwriting the original table:
 
 ```{r}
 obj$data$tax_data <- zero_low_counts(obj, dataset = "tax_data", min_count = 5)
 ```
 
-There might now be some OTUs with no "real" reads. Lets check:
+By setting low abundance cells to zero we may have created OTUs that no longer contain any observations.
+We can check as follows.
 
 ```{r}
 no_reads <- rowSums(obj$data$tax_data[, hmp_samples$sample_id]) == 0
@@ -97,8 +119,11 @@ This coordinated manipulation of taxonomic and abundance data is one of the main
 
 ### Accounting for un-even sampling
 
-These are raw counts, but people typically work with rarefied counts or proportions to avoid sampling depth biasing the results.
-The function `rarefy_obs` will return the rarefied counts for a table in a taxmap object, but we will use proportions for this demonstration:
+In a perfect world we would sequence each sample the same amount (i.e., the same number of reads).
+We do not live in a perfect world, so some samples may have more reads than others.
+This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others.
+So far we've used raw counts, but people typically work with rarefied counts or proportions to try to avoid the possibility of sampling depth biasing the results.
+Here we use the function `calc_obs_props` to divide each sample's counts by the total number of counts observed for each sample, resulting in a proportion.
 
 ```{r}
 obj$data$tax_data <- calc_obs_props(obj, "tax_data")
