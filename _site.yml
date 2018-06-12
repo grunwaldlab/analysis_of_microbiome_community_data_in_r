@@ -20,7 +20,9 @@ navbar:
   - text: Appendices
     icon: fa-book
     menu:
-    - text: Introduction to R
+    - text: Required software and data
+      href: software_and_data.html
+    - text: Introduction to R and RStudio
       href: introduction_to_r.html
   - text: About
     icon: fa-info

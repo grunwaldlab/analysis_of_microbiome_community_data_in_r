@@ -1,0 +1,68 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+source("style.R")
+```
+
+# Installing required software and data
+
+## Installing R
+
+R is a computer language that focuses on statistics, data science, and visulization.
+It can be installed on all common operating systems.
+R can be downloaded here:
+
+https://cran.r-project.org/
+
+
+## Installing RStudio
+
+RStudio is an "Integrated Devlopment Envrionment" (IDE) which is a fancy way of saying "text editor with extra programming-related tools".
+Rstudio makes it easier to use R, but is not needed to use R.
+Most R users seem to use RStudio, so we are reccomending it for this workshop.
+The main version of RStudio, which is free and open source, can be downloaded here:
+
+https://www.rstudio.com/products/rstudio/download/#download
+
+
+## Installing the required R packages
+
+In addition to tools included with every R insatllation, it is common to install "R packages", which are sets of tools bundled together in a standardize way, making them easy to install.
+In fact, most functionality used in R is from R pacakges, not "base" R. 
+The following packages are utilized in this primer.
+Clicking of their name will lead to documentation (perhaps unofficial) for the package.
+
+1. [vegan](http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf): Implements many standard statistical techniques used in ecological research. Is used extensivly by pacakges like `phyloseq` and `metacoder`
+1. [metacoder](https://github.com/grunwaldlab/metacoder#an-r-package-for-metabarcoding-research-planning-and-analysis): Manipulation and visualization of taxonomic data, particulary those from aplicon metagenomics research.
+1. [phyloseq](https://joey711.github.io/phyloseq/index.html): Tools and visulization for microbiome data specifically.
+1. [ggplot2](http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html): Awesome graphing package.
+1. [dplyr](http://stat545.com/block009_dplyr-intro.html): A pacakge for manipulating tabular data with a cohesive and intuitve set of commands. A popular alternative to base R methods.
+
+More R resources useful for microbiome data analysis can be found here: https://microsud.github.io/Tools-Microbiome-Anlaysis/. 
+
+You can enter the following script in the R console to install these packages:
+
+```{r, eval = FALSE}
+# Install phyloseq from Bioconductor
+source('http://bioconductor.org/biocLite.R')
+biocLite("phyloseq")
+
+# Install the rest of the packages from CRAN
+install.packages(c("vegan", "metacoder", "ggplot2", "dplyr"),
+                 repos = "http://cran.rstudio.com",
+                 dependencies = TRUE)
+```
+
+We wrote and actively maintain *metacoder* `r citep(bib["foster2017metacoder"])` and it
+is heavily relied upon in this primer. You can think of an R package as a library of 
+functions written and curated by someone in the R user
+community, which you can be loaded into R for use.
+
+Congratulations! You should now be all set for using R. Loading data and
+conducting your first analysis will be the topic of the next chapter. But before
+we go there lets provide a few useful resources.
+
+
+## References

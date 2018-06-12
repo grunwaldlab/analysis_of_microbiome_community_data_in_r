@@ -22,19 +22,19 @@ However, for this demonstration, we will be using a more all-purpose parser from
 Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
 This dataset has two parts: 
 
-* A count matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
+* An abundance matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
 * A sample data table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g., gender)
 
-> Because our example only has two data sources should omit one of these graphics?
-
-> The graphic is labeled 'Count data' but you refer to this in text as 'abundance matrix'. I think standardizing this will bring greater clarity.
-
-```{r echo=FALSE}
+```{r echo=FALSE, include=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
 ```
 
-```{r echo=FALSE}
+```{r echo=FALSE, include=FALSE}
 knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
+```
+
+```{r echo=FALSE, include=FALSE}
+knitr::include_graphics('./figure_sources/typical_input_format.png')
 ```
 
 This is a typical way for this kind of data to be formatted and is the preferred way for pacakges like `metacoder` and `taxa`.
@@ -52,7 +52,7 @@ One challenge this data presents is the format of the taxonomic information.
 hmp_otus$lineage[1:4]
 ```
 
-We can process the count matrix, and parse the taxonomic information at the same time, using a parser from `taxa`.
+We can process the abundance matrix, and parse the taxonomic information at the same time, using a parser from `taxa`.
 
 ```{r}
 obj <- parse_tax_data(hmp_otus,
@@ -71,7 +71,7 @@ Here is what that object looks like:
 print(obj)
 ```
 
-Note how the original count matrix is contained in the `taxmap` object with an additional column called "taxon_id".
+Note how the original abundance matrix is contained in the `taxmap` object with an additional column called "taxon_id".
 This table is stored in the list `obj$data`, which can contain any number of user-defined datasets.
 Also note that we have a different number of taxa and OTUs.
 This is different from a traditional ecological dataset.

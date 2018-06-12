@@ -1,0 +1,61 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+source("style.R")
+```
+
+## A quick introduction to R using RStudio
+
+This workshop will assume you are using RStuido to interact with R, although everything here can be done without RStudio.
+To start R using RStudio, open the RStudio application from your programs folder or start menu.
+This will initialize a R session, which will be automatically exited when RStudio is closed.
+
+Let's get comfortable with R by trying a few basic commands (i.e. functions).
+Type the following in the R console (where R prompts you with a `>` in the lower left RStudio window pane):
+
+```{r, eval=FALSE}
+getwd()
+```
+
+This is the file path to your current working directory.
+
+## Getting help/documentation
+
+One of the most important skills in R is looking up (and interpreting) the built-in documentation.
+You can get the help for **any** R function by prefixing it with a question mark like so: 
+
+```{r, eval=FALSE}
+?getwd
+```
+
+Help files have an overview of:
+
+ - purpose of a function
+ - parameters it takes
+ - output it yields
+ - examples demonstrating its usage
+ 
+This built-in documentation for each function can be a bit terse and hard to interpret.
+R pacakges will also usually have "vignettes", which combine examples and explaination for how functions in a pacakge are generally used.
+These can be found online or accessed in the installed pacakge using the `browseVignettes` function:
+
+```{r eval=FALSE}
+browseVignettes(package = "metacoder")
+```
+
+Finally, some of the best documentation can be found online.
+For some of the more popular pacakges, like `dplyr` and `ggplot2`, the best documentation is for unofficial sources, like blogs, books, and question/answer sites like Stack Overflow.
+
+
+## What to do when you dont know what to do
+
+When you run into problems or dont know how to do something, **it will save you a lot of time (serioulsy)** if you do an internet search describing the problem you have before trying to fix it by guessing, reading through documenttation, or making a custom solution.
+At least 95% of problems are well documented and discussed.
+If you think "there must be a better way to do this", there almost certantly is and some nice person on the internet spent hours writing a blog post about it or ansewering a question on Stack Overflow.
+The trick is knowing what to type since the problem/concept might take some jargon you dont know to describe.
+If you know someone who uses R more, try asking them what to search for rather than asking them to help you themselves (unless they are super nice and/or have nothing better to do).
+
+
+
