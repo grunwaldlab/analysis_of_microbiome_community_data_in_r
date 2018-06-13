@@ -58,7 +58,7 @@ Tibbles are a type of `data.frame` with some fancier printing and more consisten
 Lets read in the raw OTU table first:
 
 ```{r message=FALSE, cache=TRUE}
-otu_data <- read_tsv("data/otuTable97.txt")
+otu_data <- read_tsv("data/otuTable97.txt.bz2")
 print(otu_data) # You can also enter `otu_data` to print it
 ```
 
