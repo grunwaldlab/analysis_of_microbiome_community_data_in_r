@@ -21,6 +21,15 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-52691601-4');
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -244,7 +253,19 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="introduction_to_r.html">Introduction to R</a>
+      <a href="00--intro_to_r.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
+    </li>
+    <li>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
     </li>
   </ul>
 </li>
@@ -257,12 +278,7 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -283,18 +299,10 @@ $(document).ready(function () {
 <p>The first step in any analysis is getting your data into R. This can be difficult for taxonomic data since it has a hierarchical component (i.e. the taxonomic tree). <code>Metacoder</code> has functions for parsing (i.e. “reading”) specific file formats used in metagenomics research. However, for this demonstration, we will be using a more all-purpose parser from the <code>taxa</code> package meant for tabular data.</p>
 <p>Included in <code>metacoder</code> is an example dataset that is a subset of the Human Microbiome Project data. This dataset has two parts:</p>
 <ul>
-<li>A count matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <strong>OTUs in rows</strong></li>
+<li>An abundance matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <strong>OTUs in rows</strong></li>
 <li>A sample data table called <code>hmp_samples</code>, with <strong>samples as rows</strong> and columns of information describing the samples (e.g., gender)</li>
 </ul>
-<blockquote>
-<p>Because our example only has two data sources should omit one of these graphics?</p>
-</blockquote>
-<blockquote>
-<p>The graphic is labeled ‘Count data’ but you refer to this in text as ‘abundance matrix’. I think standardizing this will bring greater clarity.</p>
-</blockquote>
-<p><img src="figure_sources/preferred_data_format_counts.png" width="593" /></p>
-<p><img src="figure_sources/preferred_data_format_samples.png" width="351" /></p>
-<p>This is a typical way for this kind of data to be formatted and is the preferred way for pacakges like <code>metacoder</code> and <code>taxa</code>. Lets take a look at the dataset we will use in this example:</p>
+<p>This is a typical way for this kind of data to be formatted and is the preferred way for packages like <code>metacoder</code> and <code>taxa</code>. Lets take a look at the dataset we will use in this example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
 <span class="kw">print</span>(hmp_otus)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 1,000 x 52</span><span>
@@ -338,7 +346,7 @@ $(document).ready(function () {
 ## [3] "r__Root;p__Bacteroidetes;c__Bacteroidia;o__Bacteroidales;f__Porphyromonadaceae;g__Porphyromonas"            
 ## [4] "r__Root;p__Actinobacteria;c__Actinobacteria;o__Actinomycetales;f__Propionibacteriaceae;g__Propionibacterium"
 </code></pre>
-<p>We can process the count matrix, and parse the taxonomic information at the same time, using a parser from <code>taxa</code>.</p>
+<p>We can process the abundance matrix, and parse the taxonomic information at the same time, using a parser from <code>taxa</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(hmp_otus,
                       <span class="dt">class_cols =</span> <span class="st">&quot;lineage&quot;</span>, <span class="co"># the column that contains taxonomic information</span>
                       <span class="dt">class_sep =</span> <span class="st">&quot;;&quot;</span>, <span class="co"># The character used to separate taxa in the classification</span>
@@ -372,7 +380,7 @@ $(document).ready(function () {
 ##       # ... with 5,919 more rows
 ##   0 functions:
 </span></code></pre>
-<p>Note how the original count matrix is contained in the <code>taxmap</code> object with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets. Also note that we have a different number of taxa and OTUs. This is different from a traditional ecological dataset. An OTU may contain sequence variants. These OTUs are assigned to taxa so a taxon may include multiple OTUs. Taxa may also include different numbers of ranks. For example, one taxon may include species while another only goes to genus. These abstractions are necessary becuase we may have sequences that we can not confidently assign to a traditional taxon.</p>
+<p>Note how the original abundance matrix is contained in the <code>taxmap</code> object with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets. Also note that we have a different number of taxa and OTUs. This is different from a traditional ecological dataset. An OTU may contain sequence variants. These OTUs are assigned to taxa so a taxon may include multiple OTUs. Taxa may also include different numbers of ranks. For example, one taxon may include species while another only goes to genus. These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.</p>
 </div>
 <div id="abundance-matrix-manipulations" class="section level2">
 <h2>Abundance matrix manipulations</h2>
@@ -399,9 +407,9 @@ $(document).ready(function () {
 ## </span><span style='font-style: italic;'>      # A tibble: 789 x 51</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>`700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>dm</span><span>                 0           0           0           0           0           0
-##       2 </span><span style='color: #00BB00;'>dn</span><span>                 0           0           0           0           0           0
-##       3 </span><span style='color: #00BB00;'>do</span><span>                 0           0           0           0           0           0
+##       1 </span><span style='color: #00BB00;'>dm</span><span>                0.          0.          0.          0.          0.          0.
+##       2 </span><span style='color: #00BB00;'>dn</span><span>                0.          0.          0.          0.          0.          0.
+##       3 </span><span style='color: #00BB00;'>do</span><span>                0.          0.          0.          0.          0.          0.
 ##       # ... with 786 more rows, and 44 more variables: `700111044` &lt;dbl&gt;,
 ##       #   `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;,
 ##       #   `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
@@ -434,9 +442,9 @@ $(document).ready(function () {
 ## </span><span style='font-style: italic;'>      # A tibble: 789 x 51</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>`700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>dm</span><span>                 0           0           0           0           0           0
-##       2 </span><span style='color: #00BB00;'>dn</span><span>                 0           0           0           0           0           0
-##       3 </span><span style='color: #00BB00;'>do</span><span>                 0           0           0           0           0           0
+##       1 </span><span style='color: #00BB00;'>dm</span><span>                0.          0.          0.          0.          0.          0.
+##       2 </span><span style='color: #00BB00;'>dn</span><span>                0.          0.          0.          0.          0.          0.
+##       3 </span><span style='color: #00BB00;'>do</span><span>                0.          0.          0.          0.          0.          0.
 ##       # ... with 786 more rows, and 44 more variables: `700111044` &lt;dbl&gt;,
 ##       #   `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;,
 ##       #   `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
@@ -468,9 +476,9 @@ $(document).ready(function () {
 ## </span><span style='font-style: italic;'>      # A tibble: 789 x 51</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>`700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>dm</span><span>                 0           0           0           0           0           0
-##       2 </span><span style='color: #00BB00;'>dn</span><span>                 0           0           0           0           0           0
-##       3 </span><span style='color: #00BB00;'>do</span><span>                 0           0           0           0           0           0
+##       1 </span><span style='color: #00BB00;'>dm</span><span>                0.          0.          0.          0.          0.          0.
+##       2 </span><span style='color: #00BB00;'>dn</span><span>                0.          0.          0.          0.          0.          0.
+##       3 </span><span style='color: #00BB00;'>do</span><span>                0.          0.          0.          0.          0.          0.
 ##       # ... with 786 more rows, and 44 more variables: `700111044` &lt;dbl&gt;,
 ##       #   `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;,
 ##       #   `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
@@ -487,9 +495,9 @@ $(document).ready(function () {
 ## </span><span style='font-style: italic;'>      # A tibble: 155 x 51</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>`700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
 ## </span><span style='font-style: italic;'>      * &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ab</span><span>             1         1                 1      1            1         1      
-##       2 </span><span style='color: #00BB00;'>ac</span><span>             0.206     0.0262            0      0.252        0.225     0.00187
-##       3 </span><span style='color: #00BB00;'>ad</span><span>             0         0.00269           0      0.0417       0         0      
+##       1 </span><span style='color: #00BB00;'>ab</span><span>             1.00      1.00             1.      1.00         1.00      1.00   
+##       2 </span><span style='color: #00BB00;'>ac</span><span>             0.206     0.0262           0.      0.252        0.225     0.00187
+##       3 </span><span style='color: #00BB00;'>ad</span><span>             0.        0.00269          0.      0.0417       0.        0.     
 ##       # ... with 152 more rows, and 44 more variables: `700111044` &lt;dbl&gt;,
 ##       #   `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;,
 ##       #   `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
@@ -500,7 +508,7 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_occ &lt;-<span class="st"> </span><span class="kw">calc_n_samples</span>(obj, <span class="st">&quot;tax_abund&quot;</span>, <span class="dt">groups =</span> hmp_samples<span class="op">$</span>body_site)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    700035949, 700097855, 700100489, 700111314 ... 700095535, 700102367, 700101358</code></pre>
-<pre><code>## Calculating number of samples with non-zero counts from 50 columns in 5 groups for 155 observations</code></pre>
+<pre><code>## Calculating number of samples with a value greater than 0 for 50 columns in 5 groups for 155 observations</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   155 taxa: <span style='color: #00BB00;'>ab</span><span>. Root, </span><span style='color: #00BB00;'>ac</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>gq</span><span>. Collinsella, </span><span style='color: #00BB00;'>gs</span><span>. Clostridium
@@ -510,9 +518,9 @@ $(document).ready(function () {
 ## </span><span style='font-style: italic;'>      # A tibble: 789 x 51</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>`700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>dm</span><span>                 0           0           0           0           0           0
-##       2 </span><span style='color: #00BB00;'>dn</span><span>                 0           0           0           0           0           0
-##       3 </span><span style='color: #00BB00;'>do</span><span>                 0           0           0           0           0           0
+##       1 </span><span style='color: #00BB00;'>dm</span><span>                0.          0.          0.          0.          0.          0.
+##       2 </span><span style='color: #00BB00;'>dn</span><span>                0.          0.          0.          0.          0.          0.
+##       3 </span><span style='color: #00BB00;'>do</span><span>                0.          0.          0.          0.          0.          0.
 ##       # ... with 786 more rows, and 44 more variables: `700111044` &lt;dbl&gt;,
 ##       #   `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;,
 ##       #   `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
@@ -529,9 +537,9 @@ $(document).ready(function () {
 ## </span><span style='font-style: italic;'>      # A tibble: 155 x 51</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>`700035949` `700097855` `700100489` `700111314` `700033744` `700109581`
 ## </span><span style='font-style: italic;'>      * &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ab</span><span>             1         1                 1      1            1         1      
-##       2 </span><span style='color: #00BB00;'>ac</span><span>             0.206     0.0262            0      0.252        0.225     0.00187
-##       3 </span><span style='color: #00BB00;'>ad</span><span>             0         0.00269           0      0.0417       0         0      
+##       1 </span><span style='color: #00BB00;'>ab</span><span>             1.00      1.00             1.      1.00         1.00      1.00   
+##       2 </span><span style='color: #00BB00;'>ac</span><span>             0.206     0.0262           0.      0.252        0.225     0.00187
+##       3 </span><span style='color: #00BB00;'>ad</span><span>             0.        0.00269          0.      0.0417       0.        0.     
 ##       # ... with 152 more rows, and 44 more variables: `700111044` &lt;dbl&gt;,
 ##       #   `700101365` &lt;dbl&gt;, `700100431` &lt;dbl&gt;, `700016050` &lt;dbl&gt;, `700032425` &lt;dbl&gt;,
 ##       #   `700024855` &lt;dbl&gt;, `700103488` &lt;dbl&gt;, `700096869` &lt;dbl&gt;, `700107379` &lt;dbl&gt;,
@@ -558,7 +566,7 @@ $(document).ready(function () {
           <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,
           <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<p><img src="02--quick_example_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Note how we did not have to specify the full path to the variable “Nose”, but just its name. This is a shorthand for convenience. We could have made the exact same plot using this command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
           <span class="dt">node_label =</span> obj<span class="op">$</span><span class="kw">taxon_names</span>(),
@@ -589,11 +597,11 @@ $(document).ready(function () {
 ##     map_data</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-17-1.png" width="480" /></p>
+<p><img src="02--quick_example_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Not much difference there, as you might expect. We can also compare body sites:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> body_site, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-18-1.png" width="480" /></p>
+<p><img src="02--quick_example_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>That’s more interesting; skin has much lower diversity than any of the wetter areas, which makes sense. Lets see if that’s a significant difference using an ANOVA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(inv_simp <span class="op">~</span><span class="st"> </span>body_site, hmp_samples)
 <span class="kw">summary</span>(anova_result)</code></pre></div>
@@ -648,7 +656,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity of human body sites&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Body site&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Inverse Simpson Index&quot;</span>)</code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-21-1.png" width="480" /></p>
+<p><img src="02--quick_example_files/figure-html/unnamed-chunk-22-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>This tells us that samples from the saliva and skin are significantly different from each other, but not significantly different from anything else.</p>
 </div>
 <div id="comparing-two-treatmentsgroups" class="section level3">
@@ -662,15 +670,15 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 155 x 7</span><span>
 ##    taxon_id treatment_1 treatment_2 log2_median_ratio median_diff mean_diff wilcox_p_value
 ##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> ab       female      male                    0          0        0              </span><span style='color: #BB0000;'>NaN</span><span>    
+## </span><span style='color: #BCBCBC;'> 1</span><span> ab       female      male                    0.         0.       0.             </span><span style='color: #BB0000;'>NaN</span><span>    
 ## </span><span style='color: #BCBCBC;'> 2</span><span> ac       female      male                    0.380      0.022</span><span style='text-decoration: underline;'>9</span><span>   0.037</span><span style='text-decoration: underline;'>9</span><span>           0.470
 ## </span><span style='color: #BCBCBC;'> 3</span><span> ad       female      male                   -</span><span style='color: #BB0000;'>0.434</span><span>     -</span><span style='color: #BB0000;'>0.044</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>  -</span><span style='color: #BB0000;'>0.019</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>           0.907
 ## </span><span style='color: #BCBCBC;'> 4</span><span> ae       female      male                   -</span><span style='color: #BB0000;'>1.68</span><span>      -</span><span style='color: #BB0000;'>0.047</span><span style='color: #BB0000;text-decoration: underline;'>5</span><span>  -</span><span style='color: #BB0000;'>0.075</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>           0.335
 ## </span><span style='color: #BCBCBC;'> 5</span><span> af       female      male                    0.649      0.116    0.061</span><span style='text-decoration: underline;'>4</span><span>           0.386
-## </span><span style='color: #BCBCBC;'> 6</span><span> ag       female      male                    0          0       -</span><span style='color: #BB0000;'>0.002</span><span style='color: #BB0000;text-decoration: underline;'>75</span><span>          0.732
-## </span><span style='color: #BCBCBC;'> 7</span><span> ah       female      male                    0          0       -</span><span style='color: #BB0000;'>0.001</span><span style='color: #BB0000;text-decoration: underline;'>40</span><span>          0.602
+## </span><span style='color: #BCBCBC;'> 6</span><span> ag       female      male                    0.         0.      -</span><span style='color: #BB0000;'>0.002</span><span style='color: #BB0000;text-decoration: underline;'>75</span><span>          0.732
+## </span><span style='color: #BCBCBC;'> 7</span><span> ah       female      male                    0.         0.      -</span><span style='color: #BB0000;'>0.001</span><span style='color: #BB0000;text-decoration: underline;'>40</span><span>          0.602
 ## </span><span style='color: #BCBCBC;'> 8</span><span> aj       female      male                    1.24       0.016</span><span style='text-decoration: underline;'>2</span><span>  -</span><span style='color: #BB0000;'>0.012</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>           0.680
-## </span><span style='color: #BCBCBC;'> 9</span><span> ak       female      male                    0          0        0.001</span><span style='text-decoration: underline;'>21</span><span>          0.416
+## </span><span style='color: #BCBCBC;'> 9</span><span> ak       female      male                    0.         0.       0.001</span><span style='text-decoration: underline;'>21</span><span>          0.416
 ## </span><span style='color: #BCBCBC;'>10</span><span> al       female      male                   -</span><span style='color: #BB0000;'>0.542</span><span>     -</span><span style='color: #BB0000;'>0.054</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  -</span><span style='color: #BB0000;'>0.021</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>           0.969
 ## </span><span style='color: #949494;'># ... with 145 more rows</span><span>
 </span></code></pre>
@@ -685,7 +693,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
           <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log 2 ratio of median proportions&quot;</span>,
           <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
+<p><img src="02--quick_example_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men. Note that we have not taken into account statistics significance when showing this, so lets do that. First, we need to correct for multiple comparisons:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value,
                                                <span class="dt">method =</span> <span class="st">&quot;fdr&quot;</span>)</code></pre></div>
@@ -705,13 +713,13 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 1,550 x 7</span><span>
 ##    taxon_id treatment_1 treatment_2 log2_median_ratio median_diff mean_diff wilcox_p_value
 ##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> ab       Nose        Saliva                   0         0         0         </span><span style='color: #BB0000;'>NaN</span><span>        
+## </span><span style='color: #BCBCBC;'> 1</span><span> ab       Nose        Saliva                   0.        0.        0.        </span><span style='color: #BB0000;'>NaN</span><span>        
 ## </span><span style='color: #BCBCBC;'> 2</span><span> ac       Nose        Saliva                  -</span><span style='color: #BB0000;'>2.62</span><span>     -</span><span style='color: #BB0000;'>0.167</span><span>    -</span><span style='color: #BB0000;'>0.128</span><span>       0.017</span><span style='text-decoration: underline;'>2</span><span>   
 ## </span><span style='color: #BCBCBC;'> 3</span><span> ad       Nose        Saliva                  -</span><span style='color: #BB0000;'>7.68</span><span>     -</span><span style='color: #BB0000;'>0.274</span><span>    -</span><span style='color: #BB0000;'>0.265</span><span>       0.000</span><span style='text-decoration: underline;'>163</span><span> 
 ## </span><span style='color: #BCBCBC;'> 4</span><span> ae       Nose        Saliva                   5.36      0.616     0.595       0.000</span><span style='text-decoration: underline;'>010</span><span>8
 ## </span><span style='color: #BCBCBC;'> 5</span><span> af       Nose        Saliva                  -</span><span style='color: #BB0000;'>1.23</span><span>     -</span><span style='color: #BB0000;'>0.260</span><span>    -</span><span style='color: #BB0000;'>0.159</span><span>       0.043</span><span style='text-decoration: underline;'>3</span><span>   
 ## </span><span style='color: #BCBCBC;'> 6</span><span> ag       Nose        Saliva                -</span><span style='color: #BB0000;'>Inf</span><span>        -</span><span style='color: #BB0000;'>0.022</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span>   -</span><span style='color: #BB0000;'>0.043</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>      0.000</span><span style='text-decoration: underline;'>087</span><span>4
-## </span><span style='color: #BCBCBC;'> 7</span><span> ah       Nose        Saliva                   0         0         0         </span><span style='color: #BB0000;'>NaN</span><span>        
+## </span><span style='color: #BCBCBC;'> 7</span><span> ah       Nose        Saliva                   0.        0.        0.        </span><span style='color: #BB0000;'>NaN</span><span>        
 ## </span><span style='color: #BCBCBC;'> 8</span><span> aj       Nose        Saliva                  -</span><span style='color: #BB0000;'>3.83</span><span>     -</span><span style='color: #BB0000;'>0.103</span><span>    -</span><span style='color: #BB0000;'>0.080</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>      0.007</span><span style='text-decoration: underline;'>07</span><span>  
 ## </span><span style='color: #BCBCBC;'> 9</span><span> ak       Nose        Saliva                -</span><span style='color: #BB0000;'>Inf</span><span>        -</span><span style='color: #BB0000;'>0.017</span><span style='color: #BB0000;text-decoration: underline;'>4</span><span>   -</span><span style='color: #BB0000;'>0.017</span><span style='color: #BB0000;text-decoration: underline;'>4</span><span>      0.001</span><span style='text-decoration: underline;'>56</span><span>  
 ## </span><span style='color: #BCBCBC;'>10</span><span> al       Nose        Saliva                -</span><span style='color: #BB0000;'>Inf</span><span>        -</span><span style='color: #BB0000;'>0.258</span><span>    -</span><span style='color: #BB0000;'>0.248</span><span>       0.000</span><span style='text-decoration: underline;'>149</span><span> 
@@ -732,12 +740,16 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
                  <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
                  <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>, <span class="co"># The layout algorithm that initializes node locations</span>
                  <span class="dt">output_file =</span> <span class="st">&quot;differential_heat_tree.pdf&quot;</span>) <span class="co"># Saves the plot as a pdf file</span></code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-27-1.png" width="960" /></p>
+<p><img src="02--quick_example_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The grey tree on the lower left functions as a key for the unlabeled trees. Each of the smaller trees represent a comparison between body sites in the columns and rows. A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row. For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is due to the greater abundance of two genera: Prevotella and Porphyromonas. Look at the PDF file made to explore the details of the plot.</p>
 </div>
 </div>
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+<div class="footer_section">
+  <div class="footer_content">
+    <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+  </div>
+</div>
 
 
 

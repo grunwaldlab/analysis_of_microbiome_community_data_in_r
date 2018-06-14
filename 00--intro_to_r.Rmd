@@ -1,9 +1,11 @@
 ---
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
 source("style.R")
+knitr::opts_chunk$set(prompt = TRUE, comment = NA)
 ```
 
 
@@ -11,14 +13,14 @@ source("style.R")
 
 R is a large and complex topic.
 Even those who use it every day only know a small subset of what there is to know.
-However, you dont need to know very much to do some very impressive things.
+However, you don't need to know very much to do some very impressive things.
 This section is a **very** short introduction to the most basic aspects of R to get you started.
 Look at the list of resources and the end of this section for more complete tutorials.
 
 ## What is R?
 
 Unlike spreadsheet programs, like excel, R is a text-based "interactive" program, meaning that you use it by typing commands.
-If you type a valid command, R will do something, like printing something to the screen or modifying a peice of data.
+If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data.
 Where you type commands is referred to as the "R console".
 If you are using RStudio, this is the lower left window.
 Here is what an R console looks like when R is first started:
@@ -48,9 +50,8 @@ Type 'q()' to quit R.
 For example, if I type `1 + 1` into the console, R will do the math and "return" the result. 
 
 
-```
-> 1+1
-[1] 2
+```{r}
+1+1
 ```
 
 The thing after the `>` is what I typed and the line below is what was returned.
@@ -58,41 +59,33 @@ The thing after the `>` is what I typed and the line below is what was returned.
 Since I did not save the result in a variable, it was printed instead.
 The `[1]` at the start keeps track of how many values have been printed.
 Its not too useful when their is only a single value, as in this case, but gets more useful when many values are printed.
-For example, I could make a `numeric` with 100 values from 1 to 100 by typing:
+For example, I could make a variable with 100 values from 1 to 100 by typing:
 
-```
-> 1:100
-  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31
- [32]  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62
- [63]  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93
- [94]  94  95  96  97  98  99 100
+```{r}
+1:100
 ```
 
-Now the `[32]` on the second line means that `32` is the 32nd element.
+Now the `[24]` on the second line means that `24` is the 24th element.
 Every type of variable will have a different way of being printed.
 In this case, the variable is a `numeric` type.
 
 ## Variables
 
-In programmer-speak, any peice of data is called a "variable". 
+In programmer-speak, any piece of data is called a "variable". 
 There are different types (or "classes") of variables such as `character` (text), `numeric` (numbers), and `data.frame`s (tables).
 You can "save" the result of commands in R using `<-` like so:
 
-```
-> a_sequence <- 1:100
+```{r}
+a_sequence <- 1:100
 ```
 
 Note how nothing is printed since the result of `1:100` was saved in the `a_sequence` variable, but it can still be printed by entering the name of the variable:
 
-```
-> a_sequence
-  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31
- [32]  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62
- [63]  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93
- [94]  94  95  96  97  98  99 100
+```{r}
+a_sequence
 ```
 
-Now, anythime `a_sequence` is used it would be as if `1:100` was typed instead (although the calculation would not be done again).
+Now, anytime `a_sequence` is used it would be as if `1:100` was typed instead (although the calculation would not be done again).
 
 
 ## Functions
@@ -101,69 +94,85 @@ Any command/tool/action in R is a function.
 Most functions are used by putting the input to the function (if any) in parentheses following the function name.
 For example, the `length` function returns how many things are in a variable:
 
-```
-> length(a_sequence)
-[1] 100
+```{r}
+length(a_sequence)
 ```
 
 Even things like `+` and `:` are functions, although these are used in a special way.
 For example, they could also be used this way, just to demonstrate the idea:
 
-```
-> `:`(1, 10)
- [1]  1  2  3  4  5  6  7  8  9 10
-> `+`(1, 1)
-[1] 2
+```{r}
+`:`(1, 10)
+`+`(1, 1)
 ```
 
 The vast majority of functions are used like `length`.
-Perhaps confusingly, functions are also varaibles and can be created and "saved".
+Perhaps confusingly, functions are also variables and can be created and "saved".
 For example, the following code creates a function to add two numbers together and saves in the variable `add`: 
 
-```
-> add <- function(x, y) { x + y }
+```{r}
+add <- function(x, y) { x + y }
 ```
 
 We can now use this like any other function: 
 
-```
-> add(1, 1)
-[1] 2
+```{r}
+add(1, 1)
 ```
 
 And it can be printed like any other variable:
 
-```
-> add
-function(x, y) { x + y }
+```{r}
+add
 ```
 
 Functions can range in complexity from simple ones like `add` to very long and complex functions that call other custom functions.
 
+## Comments
+
+Reading code is difficult even if you wrote it.
+Athough it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two.
+Be kind to your future self or any other unfortuants that must interpret this code and use comments.
+Comments are just parts of text that R ignores.
+Anything that appears after a `#` is a comment and will be ignored by R.
+
+```{r prompt=FALSE}
+# Add 1 + 1 and writes the result to console
+1 + 1 # This is addition
+```
+
+Comments are only needed when you save R commands in a text file, rather than experimenting on the R console interactivly.
+
+## Typical workflow
+
+In the examples above we have been assuming you are using R "interactively", which means typing things directly into the console.
+This is fine for experimenting, but is really not the best way to use R.
+You should write your commands in a text file with a ".R" file extension and copy and paste them into the R console.
+That way you have a record of what you have done and can rerun your entire analysis easily.
+If you are using RStudio, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console.
 
 ## R packages
 
-An R pacakge is a set of user-defined functions organized so that people can easily share and use them.
+An R package is a set of user-defined functions organized so that people can easily share and use them.
 Most of the functions used by most R users are from R packages rather than those supplied by "base" R.
 R packages can be installed in a few ways, but the most common is to download them from The Comprehensive R Archive Network (CRAN) using the `install.packages` function.
 For example `stringr` is an R package that supplies functions to work with text.
 
-```
-> install.packages("stringr")
+```{r eval = FALSE}
+install.packages("stringr")
 ```
 
 Once installed, a package must be "loaded" using the `library` function before any functions it supplies can be used:
 
-```
-> library("stringr")
+```{r}
+library("stringr")
 ```
 
 Now we can use functions from the `stringr` package.
-For example, the `str_count` function counts the number of times a peice of text occurs in a larger peice of text:
+For example, the `str_count` function counts the number of times a piece of text occurs in a larger piece of text:
 
-```
-> str_count(string = "R is awesome!!!", pattern = "!")
-[1] 3
+```{r}
+str_count(string = "R is awesome!!!", pattern = "!")
 ```
 
 ## Getting help/documentation
@@ -171,7 +180,7 @@ For example, the `str_count` function counts the number of times a peice of text
 One of the most important skills in R is looking up (and interpreting) the built-in documentation.
 You can get the help for **any** R function by prefixing it with a question mark like so: 
 
-```{r, eval=FALSE}
+```{r eval = FALSE}
 ?getwd
 ```
 
@@ -183,27 +192,27 @@ Help files have an overview of:
  - examples demonstrating its usage
  
 This built-in documentation for each function can be a bit terse and hard to interpret and its quality varies greatly between packages.
-R pacakges will also usually have "vignettes", which combine examples and explaination for how functions in a pacakge are generally used.
-These can be found online or accessed in the installed pacakge using the `browseVignettes` function:
+R packages will also usually have "vignettes", which combine examples and explanation for how functions in a package are generally used.
+These can be found online or accessed in the installed package using the `browseVignettes` function:
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 browseVignettes(package = "metacoder")
 ```
 
 Finally, some of the best documentation can be found online.
-For some of the more popular pacakges, like `dplyr` and `ggplot2`, the best documentation is from unofficial sources, like blogs, books, and question/answer sites like [Stack Overflow](https://stackoverflow.com/).
+For some of the more popular packages, like `dplyr` and `ggplot2`, the best documentation is from unofficial sources, like blogs, books, and question/answer sites like [Stack Overflow](https://stackoverflow.com/).
 
 
 ## What to do when you dont know what to do
 
-When you run into problems or dont know how to do something, **it will save you a lot of time** if you do an internet search describing the problem you have before trying to fix it by guessing, reading through documenttation, or making a custom solution.
+When you run into problems or don't know how to do something, **it will save you a lot of time** if you do an internet search describing the problem you have before trying to fix it by guessing, reading through documentation, or making a custom solution.
 If the problem has an error message, then **copy and paste the error into a search engine**. 
 At least 95% of problems are well documented and discussed.
-If you think "there must be a better way to do this", there almost certantly is and some nice person on the internet spent hours writing a blog post about it or ansewering a question on [Stack Overflow](https://stackoverflow.com/).
-The trick is knowing what to type since the problem/concept might take some jargon you dont know to describe.
+If you think "there must be a better way to do this", there almost certainly is and some nice person on the internet spent hours writing a blog post about it or answering a question on [Stack Overflow](https://stackoverflow.com/).
+The trick is knowing what to type since the problem/concept might take some jargon to describe.
 Try describing your problem a few ways before giving up.
 If you know someone who uses R more, try asking them what to search for rather than asking them to help you themselves (unless they are super nice and/or have nothing better to do).
-For example, "I want to combine two tables based on the content of a column they both share" is a very common need, but it might be hard to get Google to undertand what you want.
+For example, "I want to combine two tables based on the content of a column they both share" is a very common need, but it might be hard to get Google to understand what you want.
 Someone who uses R a lot will tell you to search for "joining" or "joins", which will lead you in the right direction, and will take only a few seconds of their time.
 
 ## More resources
@@ -212,8 +221,27 @@ This was only the most basic concepts in R, but there are lots of free tutorials
 Searching "beginner R tutorial" on the internet will show hundreds of free resources.
 Here are a few resources for beginners to learn R:
 
+### Introductory
+
+* [Swirl](http://swirlstats.com/) is a very well thought out R package that teaches you interactively.
+* [Code School Try R](https://www.codeschool.com/courses/try-r) is a nice interactive tutorial. 
+* [Quick R](http://www.statmethods.net/interface/help.html)
+* [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+* A very nice, short [introduction to R](http://ateucher.github.io/rcourse_site/index.html)
 * [Jenny Bryan's 545 statistics in R course content](http://stat545.com/topics.html)
 * [Data Carpentry: R for data analysis and visualization of Ecological Data](http://www.datacarpentry.org/R-ecology-lesson/index.html)
 * [Software Carpentry: Programming with R](http://swcarpentry.github.io/r-novice-inflammation/)
 * [Software Carpentry: R for Reproducible Scientific Analysis](http://swcarpentry.github.io/r-novice-gapminder/)
 * [DataCamp's free introduction to R course](https://www.datacamp.com/courses/free-introduction-to-r)
+
+### Advanced
+
+* [Advanced R](http://adv-r.had.co.nz/) by Hadley Wickham
+
+### Books
+
+* [R in a Nutshell](http://shop.oreilly.com/product/0636920022008.do) 
+* [R cookbook](http://www.cookbook-r.com/) is a nice quick reference and tutorial for general R use.
+* [ggplot2 book](http://ggplot2.org/book/) is a useful reference if you want to customize graphs for publication. 
+
+

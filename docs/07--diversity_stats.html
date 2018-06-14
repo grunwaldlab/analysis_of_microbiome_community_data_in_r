@@ -11,7 +11,7 @@
 
 
 
-<title>Diversity statistics</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,6 +21,15 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-52691601-4');
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -244,7 +253,19 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="introduction_to_r.html">Introduction to R</a>
+      <a href="00--intro_to_r.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
+    </li>
+    <li>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
     </li>
   </ul>
 </li>
@@ -257,12 +278,7 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -272,11 +288,12 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Diversity statistics</h1>
 
 </div>
 
 
+<div id="diversity-statistics" class="section level1">
+<h1>Diversity statistics</h1>
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
 <p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
@@ -292,7 +309,7 @@ $(document).ready(function () {
 <p>Common alpha diversity statistics include:</p>
 <ul>
 <li><strong>Shannon</strong>: How difficult it is to predict the identity of a randomly chosen individual.</li>
-<li><strong>Simpson</strong>: The probability that two randomly chosen individuals are the same species</li>
+<li><strong>Simpson</strong>: The probability that two randomly chosen individuals are the same species.</li>
 <li><strong>Inverse Simpson</strong>: This is a bit confusing to think about. Assuming a theoretically community where all species were equally abundant, this would be the number of species needed to have the same Simpson index value for the community being analyzed.</li>
 </ul>
 <p>There are also some diversity indexes that take into account the taxonomic similarity of the species called “taxonomic diversity” and “taxonomic distinctness”, but we will not go into those.</p>
@@ -305,18 +322,18 @@ $(document).ready(function () {
                                  <span class="dt">MARGIN =</span> <span class="dv">2</span>,
                                  <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
 <span class="kw">hist</span>(sample_data<span class="op">$</span>alpha)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Adding this as a column to the sample data table makes it easy to graph using <code>ggplot2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We can use ANOVA to tell if at least one of the diversity means is different from the rest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>Site, sample_data)
 <span class="kw">summary</span>(anova_result)</code></pre></div>
 <pre class="r-output"><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Site          2  74028   37014   14.01 1.55e-06 ***
-## Residuals   289 763388    2641                     
+## Site          2  74227   37113   13.75 1.97e-06 ***
+## Residuals   289 779884    2699                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
@@ -326,26 +343,26 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <span class="kw">print</span>(tukey_result)</code></pre></div>
 <pre class="r-output"><code>## $statistics
 ##    MSerror  Df     Mean       CV
-##   2641.481 289 56.76938 90.53356
+##   2698.562 289 57.40262 90.49705
 ## 
 ## $parameters
 ##    test name.t ntr StudentizedRange alpha
 ##   Tukey   Site   3          3.33168  0.05
 ## 
 ## $means
-##        alpha      std   r      Min      Max       Q25      Q50       Q75
-## Jam 32.86620 31.74247  84 1.264057 100.7935  1.740083 33.12109  58.61937
-## Mah 60.76794 48.13430 104 1.986648 157.0547 12.898078 53.43134 104.49721
-## Sil 72.07723 65.44223 104 3.436425 229.3309 12.589029 36.06647 134.32437
+##        alpha      std   r      Min       Max       Q25      Q50       Q75
+## Jam 33.40313 31.95903  84 1.239405  99.25022  1.723806 34.77765  61.06099
+## Mah 61.58865 49.33341 104 2.009109 158.30919 13.096566 57.03051 105.52657
+## Sil 72.60079 65.68754 104 3.462677 220.19341 11.858512 34.87926 135.16351
 ## 
 ## $comparison
 ## NULL
 ## 
 ## $groups
 ##        alpha groups
-## Sil 72.07723      a
-## Mah 60.76794      a
-## Jam 32.86620      b
+## Sil 72.60079      a
+## Mah 61.58865      a
+## Jam 33.40313      b
 ## 
 ## attr(,"class")
 ## [1] "group"
@@ -361,7 +378,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>So that takes care of comparing the alpha diversity of sites, but there are other interesting grouping we can compare, such as the genotype and the type of the sample (roots vs leaves). We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks. We can generalize what we did above and put it in a function like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compare_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(sample_data, grouping_var) {
   <span class="co"># Calcuate alpha diversity</span>
@@ -395,9 +412,9 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 }</code></pre></div>
 <p>Using this function, we can compare plot the alpha diversities by type of sample and genotype:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Type&quot;</span>)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Genotype&quot;</span>)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-2.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-2.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Looks like there is no difference in the alpha diversity between genotypes, but a large difference between the diversity of roots and leaves.</p>
 <p>The <code>phyloseq</code> package (<span class="citation">McMurdie and Holmes (2013)</span>) can be used to quickly plot a variety of alpha diversity indexes per sample using the <code>plot_richness</code> function. First we need to convert the <code>taxmap</code> object to a <code>phyloseq</code> object, since all of the <code>phyloseq</code> functions expect <code>phyloseq</code> objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(phyloseq)
@@ -422,7 +439,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
                       <span class="dt">sample_data =</span> sample_data,
                       <span class="dt">sample_id_col =</span> <span class="st">&quot;SampleID&quot;</span>)
 <span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Site&quot;</span>)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Each dot is a sample and the error bars in some of the indexes are the standard error.</p>
 </div>
 <div id="beta-between-sample-diversity" class="section level2">
@@ -450,33 +467,35 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 </div>
 <div id="ordination" class="section level2">
 <h2>Ordination</h2>
-<p>Ordination is a way to display “high dimensional” data in a visable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.</p>
+<p>Ordination is a way to display “high dimensional” data in a viable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]))</code></pre></div>
 <pre class="r-output"><code>## Square root transformation
 ## Wisconsin double standardization
-## Run 0 stress 0.08539035 
-## Run 1 stress 0.1005781 
-## Run 2 stress 0.08672757 
-## Run 3 stress 0.1188722 
-## Run 4 stress 0.1049147 
-## Run 5 stress 0.1086766 
-## Run 6 stress 0.1273297 
-## Run 7 stress 0.1224604 
-## Run 8 stress 0.1194812 
-## Run 9 stress 0.1126622 
-## Run 10 stress 0.1079333 
-## Run 11 stress 0.1098147 
-## Run 12 stress 0.1142756 
-## Run 13 stress 0.1097075 
-## Run 14 stress 0.1254903 
-## Run 15 stress 0.1122532 
-## Run 16 stress 0.1050454 
-## Run 17 stress 0.1237617 
-## Run 18 stress 0.1201916 
-## Run 19 stress 0.1171133 
-## Run 20 stress 0.1051439 
-## *** No convergence -- monoMDS stopping criteria:
-##     20: stress ratio &gt; sratmax
+## Run 0 stress 0.08483364 
+## Run 1 stress 0.1071378 
+## Run 2 stress 0.1100198 
+## Run 3 stress 0.1031177 
+## Run 4 stress 0.09211226 
+## Run 5 stress 0.1295399 
+## Run 6 stress 0.1156477 
+## Run 7 stress 0.1316415 
+## Run 8 stress 0.0990092 
+## Run 9 stress 0.1048317 
+## Run 10 stress 0.09828148 
+## Run 11 stress 0.1176709 
+## Run 12 stress 0.111393 
+## Run 13 stress 0.1132281 
+## Run 14 stress 0.08483356 
+## ... New best solution
+## ... Procrustes: rmse 7.399099e-05  max resid 0.001019921 
+## ... Similar to previous best
+## Run 15 stress 0.103452 
+## Run 16 stress 0.111904 
+## Run 17 stress 0.1232994 
+## Run 18 stress 0.1032046 
+## Run 19 stress 0.100482 
+## Run 20 stress 0.1213778 
+## *** Solution reached
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 mds_data &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mds<span class="op">$</span>points)
@@ -486,71 +505,58 @@ mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span clas
 <p>Now that we have the data in a format plotting2 likes, we can plot it. Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-12-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This shows that leaf and root samples are quite distinct, as we would expect. We can also color them by Site:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Site)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-13-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It appears that within the leaf and root clusters, we “sub-clusters” corresponding to site. Finally, lets look at genotype:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Genotype)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.</p>
 <p>We can also do the above quickly in <code>phyloseq</code> using the <code>ordinate</code> and <code>plot_ordination</code> functions. Lets look at the differences between leaf and root samples again, but using a difference index this time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps_ord &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_obj, <span class="dt">method =</span> <span class="st">&quot;NMDS&quot;</span>, <span class="dt">distance =</span> <span class="st">&quot;jsd&quot;</span>)</code></pre></div>
-<pre class="r-output"><code>## Run 0 stress 0.1080859 
-## Run 1 stress 0.1081958 
-## ... Procrustes: rmse 0.004514459  max resid 0.07645293 
-## Run 2 stress 0.1081966 
-## ... Procrustes: rmse 0.004520014  max resid 0.07644094 
-## Run 3 stress 0.1080867 
-## ... Procrustes: rmse 0.0001220688  max resid 0.001510837 
-## ... Similar to previous best
-## Run 4 stress 0.1081962 
-## ... Procrustes: rmse 0.004515776  max resid 0.07645229 
-## Run 5 stress 0.1080886 
-## ... Procrustes: rmse 0.0001812707  max resid 0.002209929 
-## ... Similar to previous best
-## Run 6 stress 0.1108607 
-## Run 7 stress 0.1080854 
-## ... New best solution
-## ... Procrustes: rmse 7.185607e-05  max resid 0.0008022714 
-## ... Similar to previous best
-## Run 8 stress 0.1080852 
-## ... New best solution
-## ... Procrustes: rmse 0.0001584355  max resid 0.001769055 
-## ... Similar to previous best
-## Run 9 stress 0.1081963 
-## ... Procrustes: rmse 0.004522615  max resid 0.07645355 
-## Run 10 stress 0.1081952 
-## ... Procrustes: rmse 0.00453253  max resid 0.07646136 
-## Run 11 stress 0.1120092 
-## Run 12 stress 0.1105972 
-## Run 13 stress 0.1081965 
-## ... Procrustes: rmse 0.004523633  max resid 0.07645011 
-## Run 14 stress 0.1089907 
-## Run 15 stress 0.1089919 
-## Run 16 stress 0.1509088 
-## Run 17 stress 0.1081974 
-## ... Procrustes: rmse 0.004527927  max resid 0.07644418 
-## Run 18 stress 0.1110721 
-## Run 19 stress 0.1081956 
-## ... Procrustes: rmse 0.004529416  max resid 0.07646162 
-## Run 20 stress 0.1104226 
-## *** Solution reached
+<pre class="r-output"><code>## Run 0 stress 0.1063467 
+## Run 1 stress 0.1086795 
+## Run 2 stress 0.1068092 
+## ... Procrustes: rmse 0.004467205  max resid 0.06947953 
+## Run 3 stress 0.1071418 
+## Run 4 stress 0.1068086 
+## ... Procrustes: rmse 0.004465226  max resid 0.06948522 
+## Run 5 stress 0.1070775 
+## Run 6 stress 0.1081045 
+## Run 7 stress 0.1086828 
+## Run 8 stress 0.106391 
+## ... Procrustes: rmse 0.004140456  max resid 0.06974626 
+## Run 9 stress 0.110118 
+## Run 10 stress 0.1100103 
+## Run 11 stress 0.106391 
+## ... Procrustes: rmse 0.004138183  max resid 0.06975182 
+## Run 12 stress 0.1086798 
+## Run 13 stress 0.1091879 
+## Run 14 stress 0.1077307 
+## Run 15 stress 0.107731 
+## Run 16 stress 0.1111198 
+## Run 17 stress 0.1091478 
+## Run 18 stress 0.1086826 
+## Run 19 stress 0.1077303 
+## Run 20 stress 0.1096195 
+## *** No convergence -- monoMDS stopping criteria:
+##     20: stress ratio &gt; sratmax
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_ordination</span>(ps_obj, ps_ord, <span class="dt">type =</span> <span class="st">&quot;samples&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
-<p><strong>1a)</strong> Look at the documentation for the <code>plot_richness</code> function from <code>phyloseq</code>. Try to make a plot using only the Simpson and inverse simpson indexes, colored by site and split up by sample type (leaf vs root).</p>
+<p><strong>1a)</strong> Look at the documentation for the <code>plot_richness</code> function from <code>phyloseq</code>. Try to make a plot using only the Simpson and inverse Simpson indexes, colored by site and split up by sample type (leaf vs root).</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-16">
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-16" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Site&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Genotype&quot;</span>, <span class="dt">measures =</span> <span class="kw">c</span>(<span class="st">&quot;Simpson&quot;</span>, <span class="st">&quot;InvSimpson&quot;</span>))</code></pre></div>
-<img src="07--diversity_stats_files/figure-html/unnamed-chunk-16-1.png" width="960" />
+<img src="07--diversity_stats_files/figure-html/unnamed-chunk-16-1.png" width="480" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p><strong>1b)</strong> The Simpson and inverse Simpson indexes display the same information in different ways (if you know one, you can calculate the other). How do they differ?</p>
@@ -573,8 +579,13 @@ The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is 
 </div>
 </div>
 </div>
+</div>
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+<div class="footer_section">
+  <div class="footer_content">
+    <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+  </div>
+</div>
 
 
 

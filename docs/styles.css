@@ -1,0 +1,23 @@
+.footer_section {
+  background-color: #DDDDDD;
+  position: absolute;
+  left: 0;
+  bottom: auto;
+  width: 100%;
+  
+}
+
+.footer_content {
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  margin: 15px 0 15px 0;
+}
+
+.main-container {
+    margin-top: 20px;
+}
+
+img {
+    margin-bottom: 10px;
+}

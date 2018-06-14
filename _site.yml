@@ -38,6 +38,7 @@ output:
     theme: sandstone
     highlight: tango
     include:
+      in_header: header.html
       after_body: footer.html
     css: styles.css
     lib_dir: site_libs

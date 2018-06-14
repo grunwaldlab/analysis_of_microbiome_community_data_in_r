@@ -1,5 +1,6 @@
 ---
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
@@ -19,18 +20,20 @@ You can also download a copy of the data from this site from links in the descri
 A table with a sample in each row and info about the samples in each column, such as plant genotype and field site.
 It is a 170Kb tab-delimited text file.
 
-[SMD.txt](data/SMD.txt)
+<a href="data/SMD.txt" download="data/SMD.txt">SMD.txt</a>
 
 ## The OTU abundance table
 
-This has the numebr of reads assocaited with each OTU in each sample.
+This has the number of reads associated with each OTU in each sample.
 It is a 6Mb compressed tab-delimited text file.
 
-[otuTable97.txt.bz2](data/otuTable97.txt.bz2)
+<a href="data/otuTable97.txt.bz2" download="data/otuTable97.txt.bz2">otuTable97.txt.bz2</a>
 
 ## The OTU taxonomy file
 
 This has the taxonomic classifications for each OTU.
 It is a 6Mb tab-delimited text file.
 
-[taxAssignments97.txt](data/taxAssignments97.txt)
+<a href="data/taxAssignments97.txt" download="data/taxAssignments97.txt">taxAssignments97.txt</a>
+
+## References

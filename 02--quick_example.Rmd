@@ -1,6 +1,7 @@
 ---
 title: "Example analysis"
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r home_setup, echo=FALSE, warning=FALSE, message=FALSE}
@@ -37,7 +38,7 @@ knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
 knitr::include_graphics('./figure_sources/typical_input_format.png')
 ```
 
-This is a typical way for this kind of data to be formatted and is the preferred way for pacakges like `metacoder` and `taxa`.
+This is a typical way for this kind of data to be formatted and is the preferred way for packages like `metacoder` and `taxa`.
 Lets take a look at the dataset we will use in this example: 
 
 ```{r message=FALSE}
@@ -79,7 +80,7 @@ An OTU may contain sequence variants.
 These OTUs are assigned to taxa so a taxon may include multiple OTUs.
 Taxa may also include different numbers of ranks.
 For example, one taxon may include species while another only goes to genus.
-These abstractions are necessary becuase we may have sequences that we can not confidently assign to a traditional taxon.
+These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.
 
 
 ## Abundance matrix manipulations

@@ -1,12 +1,14 @@
 ---
-title: "Diversity statistics"
 output: html_document
 bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
 source("style.R")
+knitr::opts_chunk$set(fig.height = 5, fig.width = 5)
 ```
+
+# Diversity statistics
 
 ## Load example data
 
@@ -33,7 +35,7 @@ The `vegan` package is the main tool set used for calculating biological diversi
 Common alpha diversity statistics include: 
 
 * **Shannon**: How difficult it is to predict the identity of a randomly chosen individual.
-* **Simpson**: The probability that two randomly chosen individuals are the same species
+* **Simpson**: The probability that two randomly chosen individuals are the same species.
 * **Inverse Simpson**: This is a bit confusing to think about. Assuming a theoretically community where all species were equally abundant, this would be the number of species needed to have the same Simpson index value for the community being analyzed.
 
 There are also some diversity indexes that take into account the taxonomic similarity of the species called "taxonomic diversity" and "taxonomic distinctness", but we will not go into those.
@@ -43,18 +45,17 @@ Like other vegan functions, it assumes that samples are in rows, but they are in
 We also need to exclude the taxon ID column by subsetting the columns to only samples (i.e. all column besides the first one).
 Since alpha diversity is a per-sample attribute, we can just add this as a column to the sample data table:
 
-```{r}
+```{r }
 library(vegan)
 sample_data$alpha <- diversity(obj$data$otu_rarefied[, sample_data$SampleID],
                                  MARGIN = 2,
                                  index = "invsimpson")
 hist(sample_data$alpha)
-
 ```
 
 Adding this as a column to the sample data table makes it easy to graph using `ggplot2`.
 
-```{r fig.height=5, fig.width=10}
+```{r }
 library(ggplot2)
 ggplot(sample_data, aes(x = Site, y = alpha)) + 
   geom_boxplot()
@@ -80,7 +81,7 @@ print(tukey_result)
 Looking at the `tukey_result$groups` table it appears that the alpha diversity of sites "Sil" and "Mah" might not be different, but there is evidence that the diversity in site "Jam" is lower.
 We can add this information to the graph using the `tukey_result$groups$groups` codes:
 
-```{r fig.height=5, fig.width=10}
+```{r }
 group_data <- tukey_result$groups[order(rownames(tukey_result$groups)),]
 ggplot(sample_data, aes(x = Site, y = alpha)) +
   geom_text(data = data.frame(),
@@ -132,7 +133,7 @@ compare_alpha <- function(sample_data, grouping_var) {
 
 Using this function, we can compare plot the alpha diversities by type of sample and genotype:
 
-```{r fig.height=5, fig.width=10}
+```{r }
 compare_alpha(sample_data, "Type")
 compare_alpha(sample_data, "Genotype")
 ```
@@ -142,7 +143,7 @@ Looks like there is no difference in the alpha diversity between genotypes, but 
 The `phyloseq` package (@mcmurdie2013phyloseq) can be used to quickly plot a variety of alpha diversity indexes per sample using the `plot_richness` function.
 First we need to convert the `taxmap` object to a `phyloseq` object, since all of the `phyloseq` functions expect `phyloseq` objects.
 
-```{r}
+```{r fig.width=10, fig.height=5}
 library(phyloseq)
 library(metacoder)
 ps_obj <- as_phyloseq(obj,
@@ -176,7 +177,7 @@ The `vegan` function `vegdist` is used to calculate the pairwise beta diversity 
 Since this is a pairwise comparison, the output is a triangular matrix.
 In R, a `matrix` is like a `data.frame`, but all of the same type (e.g. all numeric), and has some different behavior.
 
-```{r}
+```{r fig.width=7, fig.height=5}
 beta_dist <- vegdist(t(obj$data$otu_rarefied[, sample_data$SampleID]),
                      index = "bray")
 ```
@@ -186,13 +187,13 @@ Since `vegdist` does not have a `MARGIN` option like `diversity`, we need to tra
 
 ## Ordination
 
-Ordination is a way to display "high dimensional" data in a visable number of dimensions (2 to 3).
+Ordination is a way to display "high dimensional" data in a viable number of dimensions (2 to 3).
 Our data is "high dimensional" because we have many samples with many species and species can be considered a "dimension".
 If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ.
 With thousands of species, this is not possible.
 Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.
 
-```{r}
+```{r fig.width=7, fig.height=5}
 mds <- metaMDS(t(obj$data$otu_rarefied[, sample_data$SampleID]))
 library(ggplot2)
 mds_data <- as.data.frame(mds$points)
@@ -203,7 +204,7 @@ mds_data <- dplyr::left_join(mds_data, sample_data)
 Now that we have the data in a format plotting2 likes, we can plot it.
 Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).
 
-```{r}
+```{r fig.width=7, fig.height=5}
 ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Type)) +
   geom_point()
 ```
@@ -211,7 +212,7 @@ ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Type)) +
 This shows that leaf and root samples are quite distinct, as we would expect.
 We can also color them by Site:
 
-```{r}
+```{r fig.width=7, fig.height=5}
 ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Site)) +
   geom_point()
 ```
@@ -219,7 +220,7 @@ ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Site)) +
 It appears that within the leaf and root clusters, we "sub-clusters" corresponding to site.
 Finally, lets look at genotype:
 
-```{r}
+```{r fig.width=7, fig.height=5}
 ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
   geom_point()
 ```
@@ -229,14 +230,14 @@ There is no decernable pattern there, suggesting plant genotype does not corresp
 We can also do the above quickly in `phyloseq` using the `ordinate` and `plot_ordination` functions.
 Lets look at the differences between leaf and root samples again, but using a difference index this time.
 
-```{r}
+```{r fig.width=7, fig.height=5}
 ps_ord <- ordinate(ps_obj, method = "NMDS", distance = "jsd")
 plot_ordination(ps_obj, ps_ord, type = "samples", color = "Type")
 ```
 
 ## Exercises
 
-**1a)** Look at the documentation for the `plot_richness` function from `phyloseq`. Try to make a plot using only the Simpson and inverse simpson indexes, colored by site and split up by sample type (leaf vs root).
+**1a)** Look at the documentation for the `plot_richness` function from `phyloseq`. Try to make a plot using only the Simpson and inverse Simpson indexes, colored by site and split up by sample type (leaf vs root).
 
 ```{r hide_button = TRUE}
 plot_richness(ps_obj, color = "Site", x = "Genotype", measures = c("Simpson", "InvSimpson"))

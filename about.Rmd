@@ -1,5 +1,6 @@
 ---
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 

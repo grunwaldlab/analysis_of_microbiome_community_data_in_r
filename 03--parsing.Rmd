@@ -1,7 +1,5 @@
 ---
-title: "Getting data into R"
 output: html_document
-subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 bibliography: "bibtexlib.bib"
 ---
 
@@ -9,26 +7,22 @@ bibliography: "bibtexlib.bib"
 source("style.R")
 ```
 
+# Getting data into R
+
 ## Typical format for microbiome data
 
 Most pipelines for processing high-throughput amplicon data, such as mothur, QIIME, and dada2, result in a matrix of read counts.
 One dimension of this matrix (i.e. the rows or the columns) consists of OTUs, phylotypes, or unique sequences (all ways to "bin" similar read sequences).
 The other dimension consists of samples.
-Different tools will expect/output different orientations of the matrix, but, in general, columns are samples and rows are OTUs:
-
-```{r echo=FALSE}
-knitr::include_graphics('./figure_sources/preferred_data_format_counts.png')
-```
-
-There is usually another table with sample information in rows:
-
-```{r echo=FALSE}
-knitr::include_graphics('./figure_sources/preferred_data_format_samples.png')
-```
-
+Different tools will expect/output different orientations of the matrix, but, in our case, columns are samples and rows are OTUs. Sometimes the OTU data and the abundance matrix are two separate tables.
+There is usually another table with sample information in rows.
 This makes it easy to add lots of additional sample data columns that can be used to subset the data. 
 Each sample and OTU will have an unique ID.
-Sometimes the OTU data and the abundance matrix are two separate tables, making the total three tables.
+
+```{r echo=FALSE}
+knitr::include_graphics('./figure_sources/typical_input_format.png')
+```
+
 
 ## Importing data into R
 

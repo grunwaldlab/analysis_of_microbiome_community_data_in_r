@@ -1,13 +1,13 @@
 ---
-title: "Plotting taxonomic data"
 output: html_document
-subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
 source("style.R")
 ```
+
+# Plotting taxonomic data
 
 Throughout this workshop we will be making many familiar types of graphs using `ggplot2` and we will explain how they are made as we go.
 In this section however, we will focus on using the `metacoder` package to plot information on a taxonomic tree using color and size to display data associated with taxa.

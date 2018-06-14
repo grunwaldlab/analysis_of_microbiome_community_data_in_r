@@ -1,12 +1,13 @@
 ---
-title: "Manipulating taxonomic data"
-subtitle: "*ZSL Foster and NJ Gr&uuml;nwald*"
 output: html_document
+bibliography: "bibtexlib.bib"
 ---
 
 ```{r setup, include=FALSE}
 source("style.R")
 ```
+
+# Manipulating taxonomic data
 
 ## Load example data
 

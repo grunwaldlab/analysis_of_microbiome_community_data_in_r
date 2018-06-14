@@ -1,0 +1,4 @@
+common_name	ncbi_seq_id	itis_taxon_id	my_taxonomy
+Lions	FJ712037	183803	mammalia, felidae, panthera, leo
+Tigers	KC879292	183806	mammalia, felidae, panthera, tigris
+Bears	HW243304	180544	mammalia, ursidae, ursus, americanus

@@ -11,7 +11,7 @@
 
 
 
-<title>Manipulating taxonomic data</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,6 +21,15 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-52691601-4');
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -244,7 +253,19 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="introduction_to_r.html">Introduction to R</a>
+      <a href="00--intro_to_r.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
+    </li>
+    <li>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
     </li>
   </ul>
 </li>
@@ -257,12 +278,7 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -272,12 +288,12 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Manipulating taxonomic data</h1>
-<h3 class="subtitle"><em><em>ZSL Foster and NJ Grünwald</em></em></h3>
 
 </div>
 
 
+<div id="manipulating-taxonomic-data" class="section level1">
+<h1>Manipulating taxonomic data</h1>
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
 <p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If you have just done the previous section, you can ignore this and proceed.</p>
@@ -290,7 +306,7 @@ $(document).ready(function () {
 </div>
 <div id="subsetting-tabular-data" class="section level2">
 <h2>Subsetting tabular data</h2>
-<p>The functions to subset taxonomic information in <code>taxmap</code> objects (the format our example data is in) provided by the <code>taxa</code> package are modeled after functions in the <code>dplyr</code> package for manipulating tabular data (<span class="citation">@wickham2015dplyr</span>). These <code>dplyr</code> functions are alternatives to the standard R indexing (e.g. <code>[</code>, <code>[[</code>, and <code>$</code>) designed to be be more intuitive and consistent. Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these. Fortunately, we have a tabular data set in need of some subsetting: our sample data.</p>
+<p>The functions to subset taxonomic information in <code>taxmap</code> objects (the format our example data is in) provided by the <code>taxa</code> package are modeled after functions in the <code>dplyr</code> package for manipulating tabular data (<span class="citation">Wickham and Francois (2015)</span>). These <code>dplyr</code> functions are alternatives to the standard R indexing (e.g. <code>[</code>, <code>[[</code>, and <code>$</code>) designed to be be more intuitive and consistent. Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these. Fortunately, we have a tabular data set in need of some subsetting: our sample data.</p>
 <p>First, lets take another look at our sample data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(sample_data)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 1,698 x 16</span><span>
@@ -309,7 +325,7 @@ $(document).ready(function () {
 ## </span><span style='color: #949494;'># ... with 1,688 more rows, and 4 more variables: Block </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, oldPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, newPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>,
 ## #   Analysis </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 </span></code></pre>
-<p>This is a large data set and not all the 1698 samples are used in the main publication of <span class="citation">@wagner2016host</span>. Only the samples in the “ecotypes” experiment are part of the main study. Using standard R indexing we could remove those like so:</p>
+<p>This is a large data set and not all the 1698 samples are used in the main publication of <span class="citation">Wagner et al. (2016)</span>. Only the samples in the “ecotypes” experiment are part of the main study. Using standard R indexing we could remove those like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span>sample_data[sample_data<span class="op">$</span>Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>, ]</code></pre></div>
 <p>Using the <code>dplyr</code> functions, the same operation would be:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
@@ -464,7 +480,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 <div id="subsetting-data-classified-by-a-taxonomy" class="section level2">
 <h2>Subsetting data classified by a taxonomy</h2>
 <p>In the previous section we subset the taxonomy in a <code>taxmap</code> object using <code>filter_taxa</code>. By default, when taxa are removed, the OTUs assigned to them were reassigned to a supertaxon or removed as well. We can also subset the OTU table directly and remove any taxa that are no longer needed using the funtion <code>filter_obs</code>. The “obs” in the function name stands for “observations”. Unlike <code>filter</code>, which you used previously to subset tables, <code>filter_obs</code> works on a data set in a <code>taxmap</code> object, like our OTU table.</p>
-<p>In the last section we removed samples (i.e. columns in the OTU table) that did not appear in the <span class="citation">@wagner2016host</span> publication. This probably means that some of the OTUs only existed in those samples and now have no reads in the remaining samples. Lets remove those to make the data set more managable. First we need to find which OTUs (i.e. rows) no have no reads. We can do that by using the function <code>rowSums</code> to get the number of reads in all samples for each OTU.</p>
+<p>In the last section we removed samples (i.e. columns in the OTU table) that did not appear in the <span class="citation">Wagner et al. (2016)</span> publication. This probably means that some of the OTUs only existed in those samples and now have no reads in the remaining samples. Lets remove those to make the data set more managable. First we need to find which OTUs (i.e. rows) no have no reads. We can do that by using the function <code>rowSums</code> to get the number of reads in all samples for each OTU.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">has_no_reads &lt;-<span class="st"> </span><span class="kw">rowSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID]) <span class="op">==</span><span class="st"> </span><span class="dv">0</span></code></pre></div>
 <p>Since the table <code>otu_counts</code> also has the taxon ID and OTU ID columns we need to subset the columns to just the samples before using <code>rowSums</code>. The command above results in a <code>logical</code> vector, which is a series of <code>TRUE</code>/<code>FALSE</code> values that can be used to subset things. We can use <code>sum</code> to count the number of <code>TRUE</code> values and hence the number of OTUs without reads.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(has_no_reads)</code></pre></div>
@@ -1095,11 +1111,24 @@ Show solution
 <p><br /></p>
 </div>
 </div>
-<div id="references" class="section level2">
+<div id="references" class="section level2 unnumbered">
 <h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-wagner2016host">
+<p>Wagner, Maggie R, Derek S Lundberg, G Tijana, Susannah G Tringe, Jeffery L Dangl, and Thomas Mitchell-Olds. 2016. “Host Genotype and Age Shape the Leaf and Root Microbiomes of a Wild Perennial Plant.” <em>Nature Communications</em> 7. Nature Publishing Group: 12151. doi:<a href="https://doi.org/10.1038/ncomms12151">10.1038/ncomms12151</a>.</p>
+</div>
+<div id="ref-wickham2015dplyr">
+<p>Wickham, Hadley, and Romain Francois. 2015. “Dplyr: A Grammar of Data Manipulation.” <em>R Package Version 0.4</em> 3.</p>
+</div>
+</div>
+</div>
 </div>
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+<div class="footer_section">
+  <div class="footer_content">
+    <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+  </div>
+</div>
 
 
 
