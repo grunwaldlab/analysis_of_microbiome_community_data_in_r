@@ -20,16 +20,19 @@ navbar:
   - text: Appendices
     icon: fa-book
     menu:
-    - text: Required software and data
-      href: software_and_data.html
-    - text: Introduction to R and RStudio
-      href: introduction_to_r.html
+    - text: Introduction to R
+      href: 00--intro_to_r.html
+    - text: Introduction to RStudio
+      href: 00--intro_to_rstudio.html
+    - text: Required software
+      href: 00--required_software.html
+    - text: Required datasets
+      href: 00--required_data.html
+    - text: Website source code
+      href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r
   - text: About
     icon: fa-info
     href: about.html
-  right:
-  - icon: fa-github
-    href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r
 output:
   html_document:
     theme: sandstone

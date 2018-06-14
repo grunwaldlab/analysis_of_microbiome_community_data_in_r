@@ -1,0 +1,36 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+source("style.R")
+```
+
+# Datasets used in this workshop
+
+In this workshop, we will be using data from @wagner2016host, a study on the effects of plant age, genotype, and environment on the bacterial microbiome of [*Boechera stricta*](https://en.wikipedia.org/wiki/Boechera_stricta), a perennial herb in the mustard family.
+@wagner2016host released their raw data with the article and it is available [here](http://datadryad.org/resource/doi:10.5061/dryad.g60r3) on [dryad](http://datadryad.org/).
+This is a great example of how to share your raw data!
+
+You can also download a copy of the data from this site from links in the descriptions below.
+
+## Sample metadata
+
+A table with a sample in each row and info about the samples in each column, such as plant genotype and field site.
+It is a 170Kb tab-delimited text file.
+
+[SMD.txt](data/SMD.txt)
+
+## The OTU abundance table
+
+This has the numebr of reads assocaited with each OTU in each sample.
+It is a 6Mb compressed tab-delimited text file.
+
+[otuTable97.txt.bz2](data/otuTable97.txt.bz2)
+
+## The OTU taxonomy file
+
+This has the taxonomic classifications for each OTU.
+It is a 6Mb tab-delimited text file.
+
+[taxAssignments97.txt](data/taxAssignments97.txt)
