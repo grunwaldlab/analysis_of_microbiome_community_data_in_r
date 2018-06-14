@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-52691601-4');
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analysis of Microbiome Data in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-laptop"></span>
+     
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="02--quick_example.html">Example analysis</a>
+    </li>
+    <li>
+      <a href="03--parsing.html">Getting data into R</a>
+    </li>
+    <li>
+      <a href="04--manipulating.html">Manipulating taxonomic data</a>
+    </li>
+    <li>
+      <a href="05--plotting.html">Plotting taxonomic data</a>
+    </li>
+    <li>
+      <a href="06--quality_control.html">Data quality control</a>
+    </li>
+    <li>
+      <a href="07--diversity_stats.html">Diversity and Ordination</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00--intro_to_r.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
+    </li>
+    <li>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="installing-required-software-and-data" class="section level1">
+<h1>Installing required software and data</h1>
+<div id="installing-r" class="section level2">
+<h2>Installing R</h2>
+<p>R is a computer language that focuses on statistics, data science, and visualization. It can be installed on all common operating systems. R can be downloaded here:</p>
+<p><a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a></p>
+</div>
+<div id="installing-rstudio" class="section level2">
+<h2>Installing RStudio</h2>
+<p>RStudio is an “Integrated Development Environment” (IDE) which is a fancy way of saying “text editor with extra programming-related tools”. RStudio makes it easier to use R, but is not needed to use R. Most R users seem to use RStudio, so we are recommending it for this workshop. The main version of RStudio, which is free and open source, can be downloaded here:</p>
+<p><a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></p>
+</div>
+<div id="installing-the-required-r-packages" class="section level2">
+<h2>Installing the required R packages</h2>
+<p>In addition to tools included with every R installation, it is common to install “R packages”, which are sets of tools bundled together in a standardize way, making them easy to install. In fact, most functionality used in R is from R packages, not “base” R. The following packages are utilized in this primer. Clicking of their name will lead to documentation (perhaps unofficial) for the package.</p>
+<ol style="list-style-type: decimal">
+<li><a href="http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf">vegan</a>: Implements many standard statistical techniques used in ecological research. Is used extensively by packages like <code>phyloseq</code> and <code>metacoder</code>. <span class="citation">(Dixon 2003)</span></li>
+<li><a href="https://github.com/grunwaldlab/metacoder#an-r-package-for-metabarcoding-research-planning-and-analysis">metacoder</a>: Manipulation and visualization of taxonomic data, particularly those from aplicon metagenomics research. <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span></li>
+<li><a href="https://joey711.github.io/phyloseq/index.html">phyloseq</a>: Tools and visualization for microbiome data specifically. <span class="citation">(McMurdie and Holmes 2013)</span></li>
+<li><a href="http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html">ggplot2</a>: Awesome graphing package. <span class="citation">(Wickham 2009)</span></li>
+<li><a href="http://stat545.com/block009_dplyr-intro.html">dplyr</a>: A package for manipulating tabular data with a cohesive and intuitive set of commands. A popular alternative to base R methods. <span class="citation">(Wickham and Francois 2015)</span></li>
+<li><a href="https://cran.r-project.org/web/packages/readr/vignettes/readr.html">readr</a>: Makes reading tabular data from files easier.</li>
+</ol>
+<p>More R resources useful for microbiome data analysis can be found here:</p>
+<p><a href="https://microsud.github.io/Tools-Microbiome-Anlaysis/" class="uri">https://microsud.github.io/Tools-Microbiome-Anlaysis/</a></p>
+<p>You can enter the following script in the R console to install these packages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install phyloseq from Bioconductor</span>
+<span class="kw">source</span>(<span class="st">&#39;http://bioconductor.org/biocLite.R&#39;</span>)
+<span class="kw">biocLite</span>(<span class="st">&quot;phyloseq&quot;</span>)
+
+<span class="co"># Install the rest of the packages from CRAN</span>
+<span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;readr&quot;</span>),
+                 <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>,
+                 <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>We wrote and actively maintain <em>metacoder</em> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span> and it is heavily relied upon in this primer. You can think of an R package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
+<p>Congratulations! You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-dixon2003vegan">
+<p>Dixon, Philip. 2003. “VEGAN, a Package of R Functions for Community Ecology.” <em>Journal of Vegetation Science</em> 14 (6). BioOne: 927–30.</p>
+</div>
+<div id="ref-foster2017metacoder">
+<p>Foster, Zachary SL, Thomas J Sharpton, and Niklaus J Grünwald. 2017. “Metacoder: An R Package for Visualization and Manipulation of Community Taxonomic Diversity Data.” <em>PLoS Computational Biology</em> 13 (2). Public Library of Science: e1005404. <a href="https://doi.org/10.1371/journal.pcbi.1005404" class="uri">https://doi.org/10.1371/journal.pcbi.1005404</a>.</p>
+</div>
+<div id="ref-mcmurdie2013phyloseq">
+<p>McMurdie, Paul J, and Susan Holmes. 2013. “Phyloseq: An R Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” <em>PloS One</em> 8 (4). Public Library of Science: e61217. <a href="https://doi.org/10.1371/journal.pone.0061217" class="uri">https://doi.org/10.1371/journal.pone.0061217</a>.</p>
+</div>
+<div id="ref-wickham2009ggplot2">
+<p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
+</div>
+<div id="ref-wickham2015dplyr">
+<p>Wickham, Hadley, and Romain Francois. 2015. “Dplyr: A Grammar of Data Manipulation.” <em>R Package Version 0.4</em> 3.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer_section">
+  <div class="footer_content">
+    <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Analysis of Microbiome Community Data in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://grunwaldlab.cgrb.oregonstate.edu/" property="cc:attributionName" rel="cc:attributionURL">The Grunwald lab and the USDA Horticultural Crops Research Unit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r" rel="dct:source">https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r</a>.
+  </div>
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

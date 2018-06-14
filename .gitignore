@@ -11,4 +11,3 @@ data/*
 site_libs/*
 *_files/*
 *_cache/*
-*.html
