@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>06--quality_control.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -34,41 +36,68 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -126,6 +155,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -307,25 +339,25 @@ $(document).ready(function () {
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
 <p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;filtered_data.Rdata&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">load</span>(<span class="st">&quot;filtered_data.Rdata&quot;</span>)</a></code></pre></div>
 </div>
 <div id="removing-low-abundance-counts" class="section level2">
 <h2>Removing low-abundance counts</h2>
 <p>The easiest way to get rid of some error in your data is to throw out any count information below some threshold. The threshold is up to you; removing singletons or doubletons is common, but lets be more conservative and remove any counts less than 10. The <code>zero_low_counts</code> counts can be used to convert any counts less than some number to zero.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
-obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span class="st"> </span><span class="kw">zero_low_counts</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">min_count =</span> <span class="dv">10</span>,
-                                       <span class="dt">other_cols =</span> <span class="ot">TRUE</span>) <span class="co"># keep OTU_ID column</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(metacoder)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span class="st"> </span><span class="kw">zero_low_counts</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">min_count =</span> <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">                                       <span class="dt">other_cols =</span> <span class="ot">TRUE</span>) <span class="co"># keep OTU_ID column</span></a></code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
 <pre><code>## Zeroing 576512 of 6331728 counts less than 10.</code></pre>
 <p>That set all read counts less than 10 to zero. It did not filter out any OTUs or their associated taxa however. We can do that using <code>filter_obs</code>, which is used to filter data associated with a taxonomy in a <code>taxmap</code> object. First lets find which OTUs now have now reads associated with them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">no_reads &lt;-<span class="st"> </span><span class="kw">rowSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID]) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
-<span class="kw">sum</span>(no_reads) <span class="co"># when `sum` is used on a TRUE/FALSE vector it counts TRUEs</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">no_reads &lt;-<span class="st"> </span><span class="kw">rowSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID]) <span class="op">==</span><span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">sum</span>(no_reads) <span class="co"># when `sum` is used on a TRUE/FALSE vector it counts TRUEs</span></a></code></pre></div>
 <pre class="r-output"><code>## [1] 14990
 </code></pre>
 <p>So now 14990 of 21684 have no reads. We can remove them and the taxa they are associated with like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="op">!</span><span class="st"> </span>no_reads, <span class="dt">drop_taxa =</span> <span class="ot">TRUE</span>)
-<span class="kw">print</span>(obj)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="op">!</span><span class="st"> </span>no_reads, <span class="dt">drop_taxa =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">print</span>(obj)</a></code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   489 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>ccz</span><span>. Enterococcaceae, </span><span style='color: #00BB00;'>cfp</span><span>. Dermacoccaceae
 ##   489 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>byk</span><span>, </span><span style='color: #00BB00;'>aqy</span><span>-&gt;</span><span style='color: #00BB00;'>ccz</span><span>, </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cfp</span><span>
@@ -334,9 +366,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3          10251         59     15857       309       134        90
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           1447       2496      2421      3331       143      1847
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -353,14 +385,14 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 </ul>
 <p>Therefore, when comparing the diversity or similarity of samples, it is important to rarefy, or subsample, to a constant depth. Typically, the depth chosen is the minimum sample depth. If the minimum depth is very small, the samples with the smallest depth can be removed and the minimum depth of the remaining samples can be used.</p>
 <p>Lets take a look at the distribution of read depths of our samples:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(<span class="kw">colSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID]))</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">hist</span>(<span class="kw">colSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID]))</a></code></pre></div>
 <p><img src="06--quality_control_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>We have a minimum depth of 1857, a median of 78767 and a maximum depth of 1.8935310^{5}. We could try to remove one or two of the samples with the smallest depth, since it seems like a waste to throw out so much data, but for this tutorial we will just rarefy to the minimum of 1857 reads. The <code>vegan</code> package implements many functions to help with rarefying data, but we will use a function from <code>metacoder</code> that calls the functions from <code>vegan</code> and reformats the input and outputs to make them easier to use with the way our data is formatted.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied &lt;-<span class="st"> </span><span class="kw">rarefy_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">other_cols =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied &lt;-<span class="st"> </span><span class="kw">rarefy_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">other_cols =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
 <pre><code>## Rarefying to 1857 since that is the lowest sample total.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">print</span>(obj)</a></code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   489 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>ccz</span><span>. Enterococcaceae, </span><span style='color: #00BB00;'>cfp</span><span>. Dermacoccaceae
 ##   489 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>byk</span><span>, </span><span style='color: #00BB00;'>aqy</span><span>-&gt;</span><span style='color: #00BB00;'>ccz</span><span>, </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cfp</span><span>
@@ -369,9 +401,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3          10251         59     15857       309       134        90
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           1447       2496      2421      3331       143      1847
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -380,9 +412,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3           354.         0.      453.        7.      134.        1.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4            67.        28.       72.       77.      143.       31.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3            353          0       442         3       134         2
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4             56         32        68        64       143        33
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -390,9 +422,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ##   0 functions:
 </span></code></pre>
 <p>This probably means that some OTUs now have no reads in the rarefied dataset. Lets remove those like we did before. However, since there is now two tables, we should not remove any taxa since they still might be used in the rarefied table, so we will not add the <code>drop_taxa = TRUE</code> option this time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">no_reads &lt;-<span class="st"> </span><span class="kw">rowSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
-obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_rarefied&quot;</span>, <span class="op">!</span><span class="st"> </span>no_reads)
-<span class="kw">print</span>(obj)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">no_reads &lt;-<span class="st"> </span><span class="kw">rowSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]) <span class="op">==</span><span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_rarefied&quot;</span>, <span class="op">!</span><span class="st"> </span>no_reads)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">print</span>(obj)</a></code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   489 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>ccz</span><span>. Enterococcaceae, </span><span style='color: #00BB00;'>cfp</span><span>. Dermacoccaceae
 ##   489 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>byk</span><span>, </span><span style='color: #00BB00;'>aqy</span><span>-&gt;</span><span style='color: #00BB00;'>ccz</span><span>, </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cfp</span><span>
@@ -401,21 +433,21 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3          10251         59     15857       309       134        90
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           1447       2496      2421      3331       143      1847
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
 ##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>otu_rarefied</span><span>:
-## </span><span style='font-style: italic;'>      # A tibble: 4,999 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 5,051 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3           354.         0.      453.        7.      134.        1.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4            67.        28.       72.       77.      143.       31.
-##       # ... with 4,996 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3            353          0       442         3       134         2
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4             56         32        68        64       143        33
+##       # ... with 5,048 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
 ##       #   M1979P422 &lt;dbl&gt;, …
@@ -425,10 +457,10 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 <div id="rarefaction-curves" class="section level2">
 <h2>Rarefaction curves</h2>
 <p>The relationship between the number of reads and the number of OTUs can be described using “rarefaction curves”. Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads. The <code>rarecurve</code> function from the <code>vegan</code> package will do the random subsampling and plot the results for an abundance matrix. For example, the code below plots the rarefaction curve for a single sample:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
-<span class="kw">rarecurve</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, <span class="st">&quot;M1981P563&quot;</span>]), <span class="dt">step =</span> <span class="dv">20</span>,
-          <span class="dt">sample =</span> <span class="kw">min</span>(<span class="kw">colSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID])),
-          <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">library</span>(vegan)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">rarecurve</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, <span class="st">&quot;M1981P563&quot;</span>]), <span class="dt">step =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">          <span class="dt">sample =</span> <span class="kw">min</span>(<span class="kw">colSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID])),</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">          <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <p><img src="06--quality_control_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>For this sample, few new OTUs are observed after about 20,000 reads. Since the number of OTUs found flattens out, it suggests that the sample had sufficient reads to capture most of the diversity. Like other functions in <code>vegan</code>, <code>rarecurve</code> expects samples to in rows instead of columns, so we had to <strong>transpose</strong> (make rows columns) the matrix with the <code>t</code> function before passing it to <code>rarecurve</code>. If you plot all the samples, which takes a few minutes, it looks like this:</p>
 <p><img src="06--quality_control_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -436,25 +468,25 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 <div id="converting-to-presenceabsence" class="section level2">
 <h2>Converting to presence/absence</h2>
 <p>Many researchers believe that read depth is not informative due to PCR and sequencing biases. Therefore, instead of comparing read counts, the counts can be converted to presence or absence of an OTU in a given sample. This can be done like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">counts_to_presence</span>(obj, <span class="st">&quot;otu_rarefied&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">counts_to_presence</span>(obj, <span class="st">&quot;otu_rarefied&quot;</span>)</a></code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
-<pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 4,999 x 293</span><span>
+<pre class="r-output"><code>## # A tibble: 5,051 x 293
 ##    taxon_id M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611 M1981P587 M1982P729
-##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    
-## </span><span style='color: #BCBCBC;'> 1</span><span> ben      FALSE     FALSE      FALSE     FALSE     FALSE     FALSE     FALSE     FALSE    
-## </span><span style='color: #BCBCBC;'> 2</span><span> beo      TRUE      FALSE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 3</span><span> ben      TRUE      TRUE       TRUE      TRUE      TRUE      TRUE      TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 4</span><span> bep      TRUE      TRUE       TRUE      TRUE      FALSE     TRUE      TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 5</span><span> beq      TRUE      TRUE       TRUE      TRUE      FALSE     TRUE      TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 6</span><span> amk      TRUE      TRUE       TRUE      TRUE      TRUE      TRUE      TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 7</span><span> bes      TRUE      TRUE       FALSE     TRUE      FALSE     TRUE      TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 8</span><span> bet      FALSE     TRUE       TRUE      FALSE     TRUE      FALSE     TRUE      TRUE     
-## </span><span style='color: #BCBCBC;'> 9</span><span> beu      TRUE      TRUE       TRUE      TRUE      FALSE     FALSE     TRUE      FALSE    
-## </span><span style='color: #BCBCBC;'>10</span><span> bev      TRUE      TRUE       TRUE      TRUE      FALSE     TRUE      FALSE     TRUE     
-## </span><span style='color: #949494;'># ... with 4,989 more rows, and 284 more variables: M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
-## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, …</span><span>
+##    <span style='font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>      </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>    
+##  1 ben      FALSE     FALSE      FALSE     FALSE     FALSE     FALSE     FALSE     FALSE    
+##  2 beo      TRUE      FALSE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE     
+##  3 ben      TRUE      TRUE       TRUE      TRUE      TRUE      TRUE      TRUE      TRUE     
+##  4 bep      TRUE      TRUE       TRUE      TRUE      FALSE     TRUE      TRUE      TRUE     
+##  5 beq      TRUE      TRUE       TRUE      TRUE      FALSE     TRUE      TRUE      TRUE     
+##  6 amk      TRUE      TRUE       TRUE      TRUE      TRUE      TRUE      TRUE      TRUE     
+##  7 bes      FALSE     TRUE       FALSE     TRUE      FALSE     TRUE      TRUE      TRUE     
+##  8 bet      TRUE      TRUE       TRUE      FALSE     TRUE      FALSE     TRUE      FALSE    
+##  9 beu      TRUE      FALSE      TRUE      TRUE      FALSE     FALSE     TRUE      FALSE    
+## 10 bev      FALSE     TRUE       FALSE     TRUE      FALSE     TRUE      FALSE     TRUE     
+## # ... with 5,041 more rows, and 284 more variables: M1979P447 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1982P701 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>,
+## #   M1982P661 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1978P293 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1980P462 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1555P221 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1980P471 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>,
+## #   M1979P422 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1982P655 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, M1554P182 </span><span style='font-style: italic;'>&lt;lgl&gt;</span><span>, …
 </span></code></pre>
 <p>For this workshop however, we will use the read counts.</p>
 </div>
@@ -491,25 +523,25 @@ Around 40,000 reads.
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-16" class="collapse">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rarefy_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">sample_size =</span> <span class="dv">1000</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">rarefy_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">sample_size =</span> <span class="dv">1000</span>)</a></code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
-<pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 6,694 x 293</span><span>
+<pre class="r-output"><code>## # A tibble: 6,694 x 293
 ##    taxon_id M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611 M1981P587 M1982P729
-##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> ben             0.         0.        0.        0.        0.        0.        2.        0.
-## </span><span style='color: #BCBCBC;'> 2</span><span> beo           181.         0.      250.        5.       70.        0.      209.        0.
-## </span><span style='color: #BCBCBC;'> 3</span><span> ben            24.        20.       34.       32.       76.       20.       36.       22.
-## </span><span style='color: #BCBCBC;'> 4</span><span> bep             1.         3.        2.       10.        0.        4.        3.        5.
-## </span><span style='color: #BCBCBC;'> 5</span><span> beq             5.        31.        1.       28.        0.       32.        0.       18.
-## </span><span style='color: #BCBCBC;'> 6</span><span> amk            38.         6.       85.        8.      131.        2.       55.        5.
-## </span><span style='color: #BCBCBC;'> 7</span><span> bes             0.        28.        0.       21.        0.       23.        5.       17.
-## </span><span style='color: #BCBCBC;'> 8</span><span> bet             0.         3.        3.        0.       10.        0.        8.        0.
-## </span><span style='color: #BCBCBC;'> 9</span><span> beu            59.         0.       73.        1.        0.        0.       47.        0.
-## </span><span style='color: #BCBCBC;'>10</span><span> bev             1.        16.        0.       20.        0.       17.        0.       28.
-## </span><span style='color: #949494;'># ... with 6,684 more rows, and 284 more variables: M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+##    <span style='font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>
+##  1 ben              0          0         0         0         0         0         0         0
+##  2 beo            201          4       225         0        72         2       212         0
+##  3 ben             26         16        33        34        76        15        34        29
+##  4 bep              1          2         0         3         0         1         2         5
+##  5 beq              0         32         5        22         0        32         0        37
+##  6 amk             44          4        98         5       119         3        58         4
+##  7 bes              1         20         0        18         0        26         9        16
+##  8 bet              0          2         3         1         7         1         6         0
+##  9 beu             51          0        70         0         0         0        69         0
+## 10 bev              2          7         0        24         0        11         0        28
+## # ... with 6,684 more rows, and 284 more variables: M1979P447 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1982P701 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>,
+## #   M1982P661 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1978P293 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1980P462 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1555P221 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1980P471 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>,
+## #   M1979P422 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1982P655 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, M1554P182 </span><span style='font-style: italic;'>&lt;dbl&gt;</span><span>, …
 </span></code></pre>
 </div>
 <p><br /></p>

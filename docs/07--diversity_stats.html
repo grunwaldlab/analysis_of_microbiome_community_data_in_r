@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>07--diversity_stats.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -34,41 +36,68 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -126,6 +155,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -297,7 +329,7 @@ $(document).ready(function () {
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
 <p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;clean_data.Rdata&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">load</span>(<span class="st">&quot;clean_data.Rdata&quot;</span>)</a></code></pre></div>
 </div>
 <div id="measures-of-diversity" class="section level2">
 <h2>Measures of diversity</h2>
@@ -314,131 +346,119 @@ $(document).ready(function () {
 </ul>
 <p>There are also some diversity indexes that take into account the taxonomic similarity of the species called “taxonomic diversity” and “taxonomic distinctness”, but we will not go into those.</p>
 <p>The <code>diversity</code> function from the <code>vegan</code> package can be used to calculate the alpha diversity of a set of samples. Like other vegan functions, it assumes that samples are in rows, but they are in columns in our data, so we need to use the <code>MARGIN = 2</code> option. We also need to exclude the taxon ID column by subsetting the columns to only samples (i.e. all column besides the first one). Since alpha diversity is a per-sample attribute, we can just add this as a column to the sample data table:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
-<pre><code>## Loading required package: permute</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## This is vegan 2.5-1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
-                                 <span class="dt">MARGIN =</span> <span class="dv">2</span>,
-                                 <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
-<span class="kw">hist</span>(sample_data<span class="op">$</span>alpha)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(vegan)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">                                 <span class="dt">MARGIN =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">                                 <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">hist</span>(sample_data<span class="op">$</span>alpha)</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Adding this as a column to the sample data table makes it easy to graph using <code>ggplot2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We can use ANOVA to tell if at least one of the diversity means is different from the rest.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>Site, sample_data)
-<span class="kw">summary</span>(anova_result)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>Site, sample_data)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">summary</span>(anova_result)</a></code></pre></div>
 <pre class="r-output"><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## Site          2  74227   37113   13.75 1.97e-06 ***
-## Residuals   289 779884    2699                     
+## Site          2  82665   41333    14.8 7.57e-07 ***
+## Residuals   289 806886    2792                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
 <p>That tells us that there is a difference, but does not tell us which means are different. A Tukey’s Honest Significant Difference (HSD) test can do pairwise comparisons of the means to find this out. We will use the <code>HSD.test</code> function from the <code>agricolae</code> package since it provides grouping codes that are useful for graphing.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
-tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;Site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
-<span class="kw">print</span>(tukey_result)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(agricolae)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;Site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">print</span>(tukey_result)</a></code></pre></div>
 <pre class="r-output"><code>## $statistics
-##    MSerror  Df     Mean       CV
-##   2698.562 289 57.40262 90.49705
+##    MSerror  Df    Mean       CV
+##   2791.992 289 57.7827 91.44484
 ## 
 ## $parameters
 ##    test name.t ntr StudentizedRange alpha
 ##   Tukey   Site   3          3.33168  0.05
 ## 
 ## $means
-##        alpha      std   r      Min       Max       Q25      Q50       Q75
-## Jam 33.40313 31.95903  84 1.239405  99.25022  1.723806 34.77765  61.06099
-## Mah 61.58865 49.33341 104 2.009109 158.30919 13.096566 57.03051 105.52657
-## Sil 72.60079 65.68754 104 3.462677 220.19341 11.858512 34.87926 135.16351
+##        alpha      std   r      Min      Max      Q25      Q50       Q75
+## Jam 33.00094 31.72510  84 1.270947 100.2952  1.67059 33.57619  59.38898
+## Mah 60.77268 48.30861 104 2.052750 148.5312 12.07503 54.93179 107.45515
+## Sil 74.80877 68.47679 104 3.471979 244.9356 12.10417 34.59325 144.63457
 ## 
 ## $comparison
 ## NULL
 ## 
 ## $groups
 ##        alpha groups
-## Sil 72.60079      a
-## Mah 61.58865      a
-## Jam 33.40313      b
+## Sil 74.80877      a
+## Mah 60.77268      a
+## Jam 33.00094      b
 ## 
 ## attr(,"class")
 ## [1] "group"
 </code></pre>
 <p>Looking at the <code>tukey_result$groups</code> table it appears that the alpha diversity of sites “Sil” and “Mah” might not be different, but there is evidence that the diversity in site “Jam” is lower. We can add this information to the graph using the <code>tukey_result$groups$groups</code> codes:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]
-<span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),
-            <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data), <span class="dt">y =</span> <span class="kw">max</span>(sample_data<span class="op">$</span>alpha) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">label =</span> group_data<span class="op">$</span>groups),
-            <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,
-            <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">            <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data), <span class="dt">y =</span> <span class="kw">max</span>(sample_data<span class="op">$</span>alpha) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">label =</span> group_data<span class="op">$</span>groups),</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">            <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">            <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>So that takes care of comparing the alpha diversity of sites, but there are other interesting grouping we can compare, such as the genotype and the type of the sample (roots vs leaves). We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks. We can generalize what we did above and put it in a function like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compare_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(sample_data, grouping_var) {
-  <span class="co"># Calcuate alpha diversity</span>
-  sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
-                                 <span class="dt">MARGIN =</span> <span class="dv">2</span>,
-                                 <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
-  
-  <span class="co"># Do ANOVA</span>
-  sample_data<span class="op">$</span>grouping &lt;-<span class="st"> </span>sample_data[[grouping_var]] <span class="co"># needed for how `aov` works</span>
-  anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>grouping, sample_data)
-  
-  <span class="co"># Do Tukey&#39;s HSD test</span>
-  tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;grouping&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
-
-  <span class="co"># Plot result</span>
-  group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]
-  my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> grouping, <span class="dt">y =</span> alpha)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),
-              <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data),
-                  <span class="dt">y =</span> <span class="kw">max</span>(sample_data<span class="op">$</span>alpha) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,
-                  <span class="dt">label =</span> group_data<span class="op">$</span>groups),
-              <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,
-              <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(grouping_var) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)
-  
-  <span class="co"># Return plot</span>
-  <span class="kw">return</span>(my_plot)
-}</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">compare_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(sample_data, grouping_var) {</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="co"># Calcuate alpha diversity</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">                                 <span class="dt">MARGIN =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">                                 <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">  <span class="co"># Do ANOVA</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">  sample_data<span class="op">$</span>grouping &lt;-<span class="st"> </span>sample_data[[grouping_var]] <span class="co"># needed for how `aov` works</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">  anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>grouping, sample_data)</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">  </a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">  <span class="co"># Do Tukey&#39;s HSD test</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">  tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;grouping&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="co"># Plot result</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">  group_data &lt;-<span class="st"> </span>tukey_result<span class="op">$</span>groups[<span class="kw">order</span>(<span class="kw">rownames</span>(tukey_result<span class="op">$</span>groups)),]</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">  my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> grouping, <span class="dt">y =</span> alpha)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(),</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">              <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rownames</span>(group_data),</a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">                  <span class="dt">y =</span> <span class="kw">max</span>(sample_data<span class="op">$</span>alpha) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20">                  <span class="dt">label =</span> group_data<span class="op">$</span>groups),</a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">              <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>,</a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">              <span class="dt">size =</span> <span class="dv">10</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="st">    </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Alpha diversity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="st">    </span><span class="kw">xlab</span>(grouping_var) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">  </a>
+<a class="sourceLine" id="cb7-28" data-line-number="28">  <span class="co"># Return plot</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29">  <span class="kw">return</span>(my_plot)</a>
+<a class="sourceLine" id="cb7-30" data-line-number="30">}</a></code></pre></div>
 <p>Using this function, we can compare plot the alpha diversities by type of sample and genotype:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Type&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Type&quot;</span>)</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Genotype&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">compare_alpha</span>(sample_data, <span class="st">&quot;Genotype&quot;</span>)</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-8-2.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Looks like there is no difference in the alpha diversity between genotypes, but a large difference between the diversity of roots and leaves.</p>
 <p>The <code>phyloseq</code> package (<span class="citation">McMurdie and Holmes (2013)</span>) can be used to quickly plot a variety of alpha diversity indexes per sample using the <code>plot_richness</code> function. First we need to convert the <code>taxmap</code> object to a <code>phyloseq</code> object, since all of the <code>phyloseq</code> functions expect <code>phyloseq</code> objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(phyloseq)
-<span class="kw">library</span>(metacoder)</code></pre></div>
-<pre><code>## Loading required package: taxa</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(phyloseq)</a></code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;taxa&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:phyloseq&#39;:
+## Attaching package: &#39;phyloseq&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:taxa&#39;:
 ## 
 ##     filter_taxa</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     map_data</code></pre>
-<pre><code>## This is metacoder verison 0.2.1.9003 [1m(development version)[22m. If you use metacoder for published research, please cite our paper:
-## 
-## Foster Z, Sharpton T and Grunwald N (2017). &quot;Metacoder: An R package for visualization and manipulation of community taxonomic diversity data.&quot; [3mPLOS Computational Biology[23m, [1m13[22m(2), pp. 1-15. doi: 10.1371/journal.pcbi.1005404
-## 
-## Enter `citation(&quot;metacoder&quot;)` for a BibTeX entry for this citation.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,
-                      <span class="dt">otu_table =</span> <span class="st">&quot;otu_rarefied&quot;</span>,
-                      <span class="dt">otu_id_col =</span> <span class="st">&quot;OTU_ID&quot;</span>,
-                      <span class="dt">sample_data =</span> sample_data,
-                      <span class="dt">sample_id_col =</span> <span class="st">&quot;SampleID&quot;</span>)
-<span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Site&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">library</span>(metacoder)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">                      <span class="dt">otu_table =</span> <span class="st">&quot;otu_rarefied&quot;</span>,</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">                      <span class="dt">otu_id_col =</span> <span class="st">&quot;OTU_ID&quot;</span>,</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">                      <span class="dt">sample_data =</span> sample_data,</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">                      <span class="dt">sample_id_col =</span> <span class="st">&quot;SampleID&quot;</span>)</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Site&quot;</span>)</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Each dot is a sample and the error bars in some of the indexes are the standard error.</p>
 </div>
@@ -460,92 +480,101 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <li><strong>Weighted Unifrac</strong>: The fraction of the phylogenetic tree branch lengths shared by the two communities, weighted by the counts of organisms, so more abundant organisms have a greater influence.</li>
 </ul>
 <p>The <code>vegan</code> function <code>vegdist</code> is used to calculate the pairwise beta diversity indexes for a set of samples. Since this is a pairwise comparison, the output is a triangular matrix. In R, a <code>matrix</code> is like a <code>data.frame</code>, but all of the same type (e.g. all numeric), and has some different behavior.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta_dist &lt;-<span class="st"> </span><span class="kw">vegdist</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]),
-                     <span class="dt">index =</span> <span class="st">&quot;bray&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">beta_dist &lt;-<span class="st"> </span><span class="kw">vegdist</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]),</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">                     <span class="dt">index =</span> <span class="st">&quot;bray&quot;</span>)</a></code></pre></div>
 <p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to transpose the matrix with the <code>t</code> function.</p>
 </div>
 </div>
 <div id="ordination" class="section level2">
 <h2>Ordination</h2>
 <p>Ordination is a way to display “high dimensional” data in a viable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]))</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">mds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]))</a></code></pre></div>
 <pre class="r-output"><code>## Square root transformation
 ## Wisconsin double standardization
-## Run 0 stress 0.08483364 
-## Run 1 stress 0.1071378 
-## Run 2 stress 0.1100198 
-## Run 3 stress 0.1031177 
-## Run 4 stress 0.09211226 
-## Run 5 stress 0.1295399 
-## Run 6 stress 0.1156477 
-## Run 7 stress 0.1316415 
-## Run 8 stress 0.0990092 
-## Run 9 stress 0.1048317 
-## Run 10 stress 0.09828148 
-## Run 11 stress 0.1176709 
-## Run 12 stress 0.111393 
-## Run 13 stress 0.1132281 
-## Run 14 stress 0.08483356 
-## ... New best solution
-## ... Procrustes: rmse 7.399099e-05  max resid 0.001019921 
-## ... Similar to previous best
-## Run 15 stress 0.103452 
-## Run 16 stress 0.111904 
-## Run 17 stress 0.1232994 
-## Run 18 stress 0.1032046 
-## Run 19 stress 0.100482 
-## Run 20 stress 0.1213778 
-## *** Solution reached
+## Run 0 stress 0.08393171 
+## Run 1 stress 0.1215783 
+## Run 2 stress 0.1042401 
+## Run 3 stress 0.09352817 
+## Run 4 stress 0.09074972 
+## Run 5 stress 0.1175892 
+## Run 6 stress 0.1009062 
+## Run 7 stress 0.09941183 
+## Run 8 stress 0.09357209 
+## Run 9 stress 0.1160378 
+## Run 10 stress 0.1243481 
+## Run 11 stress 0.09712008 
+## Run 12 stress 0.1059878 
+## Run 13 stress 0.1154871 
+## Run 14 stress 0.1254878 
+## Run 15 stress 0.09581018 
+## Run 16 stress 0.1119667 
+## Run 17 stress 0.08486114 
+## Run 18 stress 0.1025586 
+## Run 19 stress 0.1147969 
+## Run 20 stress 0.1142336 
+## *** No convergence -- monoMDS stopping criteria:
+##     15: stress ratio &gt; sratmax
+##      5: scale factor of the gradient &lt; sfgrmin
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-mds_data &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mds<span class="op">$</span>points)
-mds_data<span class="op">$</span>SampleID &lt;-<span class="st"> </span><span class="kw">rownames</span>(mds_data)
-mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(mds_data, sample_data)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">mds_data &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mds<span class="op">$</span>points)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">mds_data<span class="op">$</span>SampleID &lt;-<span class="st"> </span><span class="kw">rownames</span>(mds_data)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(mds_data, sample_data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;SampleID&quot;</code></pre>
 <p>Now that we have the data in a format plotting2 likes, we can plot it. Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This shows that leaf and root samples are quite distinct, as we would expect. We can also color them by Site:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Site)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Site)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It appears that within the leaf and root clusters, we “sub-clusters” corresponding to site. Finally, lets look at genotype:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Genotype)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Genotype)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.</p>
 <p>We can also do the above quickly in <code>phyloseq</code> using the <code>ordinate</code> and <code>plot_ordination</code> functions. Lets look at the differences between leaf and root samples again, but using a difference index this time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps_ord &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_obj, <span class="dt">method =</span> <span class="st">&quot;NMDS&quot;</span>, <span class="dt">distance =</span> <span class="st">&quot;jsd&quot;</span>)</code></pre></div>
-<pre class="r-output"><code>## Run 0 stress 0.1063467 
-## Run 1 stress 0.1086795 
-## Run 2 stress 0.1068092 
-## ... Procrustes: rmse 0.004467205  max resid 0.06947953 
-## Run 3 stress 0.1071418 
-## Run 4 stress 0.1068086 
-## ... Procrustes: rmse 0.004465226  max resid 0.06948522 
-## Run 5 stress 0.1070775 
-## Run 6 stress 0.1081045 
-## Run 7 stress 0.1086828 
-## Run 8 stress 0.106391 
-## ... Procrustes: rmse 0.004140456  max resid 0.06974626 
-## Run 9 stress 0.110118 
-## Run 10 stress 0.1100103 
-## Run 11 stress 0.106391 
-## ... Procrustes: rmse 0.004138183  max resid 0.06975182 
-## Run 12 stress 0.1086798 
-## Run 13 stress 0.1091879 
-## Run 14 stress 0.1077307 
-## Run 15 stress 0.107731 
-## Run 16 stress 0.1111198 
-## Run 17 stress 0.1091478 
-## Run 18 stress 0.1086826 
-## Run 19 stress 0.1077303 
-## Run 20 stress 0.1096195 
-## *** No convergence -- monoMDS stopping criteria:
-##     20: stress ratio &gt; sratmax
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">ps_ord &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_obj, <span class="dt">method =</span> <span class="st">&quot;NMDS&quot;</span>, <span class="dt">distance =</span> <span class="st">&quot;jsd&quot;</span>)</a></code></pre></div>
+<pre class="r-output"><code>## Run 0 stress 0.1071796 
+## Run 1 stress 0.1079047 
+## Run 2 stress 0.1071772 
+## ... New best solution
+## ... Procrustes: rmse 0.0001583033  max resid 0.002428048 
+## ... Similar to previous best
+## Run 3 stress 0.1079128 
+## Run 4 stress 0.1236617 
+## Run 5 stress 0.1069452 
+## ... New best solution
+## ... Procrustes: rmse 0.004973089  max resid 0.08432136 
+## Run 6 stress 0.1077278 
+## Run 7 stress 0.1077271 
+## Run 8 stress 0.1071776 
+## ... Procrustes: rmse 0.00497448  max resid 0.08437457 
+## Run 9 stress 0.1069459 
+## ... Procrustes: rmse 7.573203e-05  max resid 0.0009419793 
+## ... Similar to previous best
+## Run 10 stress 0.1097236 
+## Run 11 stress 0.1135039 
+## Run 12 stress 0.1071277 
+## ... Procrustes: rmse 0.001499037  max resid 0.02503174 
+## Run 13 stress 0.1094704 
+## Run 14 stress 0.1097231 
+## Run 15 stress 0.1069452 
+## ... Procrustes: rmse 3.58559e-05  max resid 0.0004109271 
+## ... Similar to previous best
+## Run 16 stress 0.1092814 
+## Run 17 stress 0.1071765 
+## ... Procrustes: rmse 0.004972287  max resid 0.08437637 
+## Run 18 stress 0.1071767 
+## ... Procrustes: rmse 0.00497537  max resid 0.08438539 
+## Run 19 stress 0.1069454 
+## ... Procrustes: rmse 6.823349e-05  max resid 0.0007509618 
+## ... Similar to previous best
+## Run 20 stress 0.1077286 
+## *** Solution reached
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_ordination</span>(ps_obj, ps_ord, <span class="dt">type =</span> <span class="st">&quot;samples&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">plot_ordination</span>(ps_obj, ps_ord, <span class="dt">type =</span> <span class="st">&quot;samples&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>)</a></code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exercises" class="section level2">
@@ -555,7 +584,7 @@ mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span clas
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-16" class="collapse">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Site&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Genotype&quot;</span>, <span class="dt">measures =</span> <span class="kw">c</span>(<span class="st">&quot;Simpson&quot;</span>, <span class="st">&quot;InvSimpson&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Site&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Genotype&quot;</span>, <span class="dt">measures =</span> <span class="kw">c</span>(<span class="st">&quot;Simpson&quot;</span>, <span class="st">&quot;InvSimpson&quot;</span>))</a></code></pre></div>
 <img src="07--diversity_stats_files/figure-html/unnamed-chunk-16-1.png" width="480" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
