@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>00--intro_to_r.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -34,41 +36,68 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -126,6 +155,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -318,12 +350,12 @@ Type &#39;q()&#39; to quit R.
 
 &gt; |</code></pre>
 <p>For example, if I type <code>1 + 1</code> into the console, R will do the math and “return” the result.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span><span class="op">+</span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span><span class="op">+</span><span class="dv">1</span></a></code></pre></div>
 <pre class="r-output"><code>[1] 2
 </code></pre>
 <p>The thing after the <code>&gt;</code> is what I typed and the line below is what was returned.</p>
 <p>Since I did not save the result in a variable, it was printed instead. The <code>[1]</code> at the start keeps track of how many values have been printed. Its not too useful when their is only a single value, as in this case, but gets more useful when many values are printed. For example, I could make a variable with 100 values from 1 to 100 by typing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a></code></pre></div>
 <pre class="r-output"><code>  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23
  [24]  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46
  [47]  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69
@@ -335,9 +367,9 @@ Type &#39;q()&#39; to quit R.
 <div id="variables" class="section level2">
 <h2>Variables</h2>
 <p>In programmer-speak, any piece of data is called a “variable”. There are different types (or “classes”) of variables such as <code>character</code> (text), <code>numeric</code> (numbers), and <code>data.frame</code>s (tables). You can “save” the result of commands in R using <code>&lt;-</code> like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a_sequence &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>a_sequence &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a></code></pre></div>
 <p>Note how nothing is printed since the result of <code>1:100</code> was saved in the <code>a_sequence</code> variable, but it can still be printed by entering the name of the variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a_sequence</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>a_sequence</a></code></pre></div>
 <pre class="r-output"><code>  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23
  [24]  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46
  [47]  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69
@@ -349,24 +381,24 @@ Type &#39;q()&#39; to quit R.
 <div id="functions" class="section level2">
 <h2>Functions</h2>
 <p>Any command/tool/action in R is a function. Most functions are used by putting the input to the function (if any) in parentheses following the function name. For example, the <code>length</code> function returns how many things are in a variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(a_sequence)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(a_sequence)</a></code></pre></div>
 <pre class="r-output"><code>[1] 100
 </code></pre>
 <p>Even things like <code>+</code> and <code>:</code> are functions, although these are used in a special way. For example, they could also be used this way, just to demonstrate the idea:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> `</span><span class="dt">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> `</span><span class="dt">:</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a></code></pre></div>
 <pre class="r-output"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> `</span><span class="dt">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> `</span><span class="dt">+</span><span class="st">`</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a></code></pre></div>
 <pre class="r-output"><code>[1] 2
 </code></pre>
 <p>The vast majority of functions are used like <code>length</code>. Perhaps confusingly, functions are also variables and can be created and “saved”. For example, the following code creates a function to add two numbers together and saves in the variable <code>add</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>add &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) { x <span class="op">+</span><span class="st"> </span>y }</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>add &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) { x <span class="op">+</span><span class="st"> </span>y }</a></code></pre></div>
 <p>We can now use this like any other function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a></code></pre></div>
 <pre class="r-output"><code>[1] 2
 </code></pre>
 <p>And it can be printed like any other variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>add</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>add</a></code></pre></div>
 <pre class="r-output"><code>function(x, y) { x + y }
 </code></pre>
 <p>Functions can range in complexity from simple ones like <code>add</code> to very long and complex functions that call other custom functions.</p>
@@ -374,8 +406,8 @@ Type &#39;q()&#39; to quit R.
 <div id="comments" class="section level2">
 <h2>Comments</h2>
 <p>Reading code is difficult even if you wrote it. Athough it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two. Be kind to your future self or any other unfortuants that must interpret this code and use comments. Comments are just parts of text that R ignores. Anything that appears after a <code>#</code> is a comment and will be ignored by R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add 1 + 1 and writes the result to console</span>
-<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># This is addition</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># Add 1 + 1 and writes the result to console</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># This is addition</span></a></code></pre></div>
 <pre class="r-output"><code>[1] 2
 </code></pre>
 <p>Comments are only needed when you save R commands in a text file, rather than experimenting on the R console interactivly.</p>
@@ -387,18 +419,18 @@ Type &#39;q()&#39; to quit R.
 <div id="r-packages" class="section level2">
 <h2>R packages</h2>
 <p>An R package is a set of user-defined functions organized so that people can easily share and use them. Most of the functions used by most R users are from R packages rather than those supplied by “base” R. R packages can be installed in a few ways, but the most common is to download them from The Comprehensive R Archive Network (CRAN) using the <code>install.packages</code> function. For example <code>stringr</code> is an R package that supplies functions to work with text.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)</a></code></pre></div>
 <p>Once installed, a package must be “loaded” using the <code>library</code> function before any functions it supplies can be used:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</a></code></pre></div>
 <p>Now we can use functions from the <code>stringr</code> package. For example, the <code>str_count</code> function counts the number of times a piece of text occurs in a larger piece of text:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="st">&quot;R is awesome!!!&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;!&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="st">&quot;R is awesome!!!&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;!&quot;</span>)</a></code></pre></div>
 <pre class="r-output"><code>[1] 3
 </code></pre>
 </div>
 <div id="getting-helpdocumentation" class="section level2">
 <h2>Getting help/documentation</h2>
 <p>One of the most important skills in R is looking up (and interpreting) the built-in documentation. You can get the help for <strong>any</strong> R function by prefixing it with a question mark like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>?getwd</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>?getwd</a></code></pre></div>
 <p>Help files have an overview of:</p>
 <ul>
 <li>purpose of a function</li>
@@ -407,7 +439,7 @@ Type &#39;q()&#39; to quit R.
 <li>examples demonstrating its usage</li>
 </ul>
 <p>This built-in documentation for each function can be a bit terse and hard to interpret and its quality varies greatly between packages. R packages will also usually have “vignettes”, which combine examples and explanation for how functions in a package are generally used. These can be found online or accessed in the installed package using the <code>browseVignettes</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;metacoder&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;metacoder&quot;</span>)</a></code></pre></div>
 <p>Finally, some of the best documentation can be found online. For some of the more popular packages, like <code>dplyr</code> and <code>ggplot2</code>, the best documentation is from unofficial sources, like blogs, books, and question/answer sites like <a href="https://stackoverflow.com/">Stack Overflow</a>.</p>
 </div>
 <div id="what-to-do-when-you-dont-know-what-to-do" class="section level2">
