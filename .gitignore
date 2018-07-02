@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-data/*
 *.Rdata
 *.pdf
 ./*.html
