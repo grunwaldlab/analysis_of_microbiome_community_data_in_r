@@ -601,14 +601,15 @@ $(document).ready(function () {
 <a class="sourceLine" id="cb22-9" data-line-number="9">          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></a></code></pre></div>
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Note how we did not have to specify the full path to the variable “Nose”, but just its name. This is a shorthand for convenience. We could have made the exact same plot using this command:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">heat_tree</span>(obj, </a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">          <span class="dt">node_label =</span> obj<span class="op">$</span><span class="kw">taxon_names</span>(),</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">          <span class="dt">node_size =</span> obj<span class="op">$</span><span class="kw">n_obs</span>(),</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">          <span class="dt">node_color =</span> obj<span class="op">$</span>data<span class="op">$</span>tax_occ<span class="op">$</span>Nose, </a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,</a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
-<a class="sourceLine" id="cb23-8" data-line-number="8">          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">heat_tree</span>(obj, </a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">          <span class="dt">node_label =</span> obj<span class="op">$</span><span class="kw">taxon_names</span>(),</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">          <span class="dt">node_size =</span> obj<span class="op">$</span><span class="kw">n_obs</span>(),</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">          <span class="dt">node_color =</span> obj<span class="op">$</span>data<span class="op">$</span>tax_occ<span class="op">$</span>Nose, </a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></a></code></pre></div>
 <p>This is known as non-standard evaluation in programmer jargon and will be used in many functions throughout this workshop.</p>
 </div>
 <div id="alpha-diversity" class="section level3">
@@ -760,20 +761,21 @@ $(document).ready(function () {
 ## # ... with 1,540 more rows
 </span></code></pre>
 <p>There is a special function to plot this type of data called <code>heat_tree_matrix</code>:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">heat_tree_matrix</span>(obj,</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">                 <span class="dt">dataset =</span> <span class="st">&quot;diff_table&quot;</span>,</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">                 <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span></a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">                 <span class="dt">node_label =</span> taxon_names,</a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">                 <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span></a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">                 <span class="dt">node_color_range =</span> <span class="kw">diverging_palette</span>(), <span class="co"># The built-in palette for diverging data</span></a>
-<a class="sourceLine" id="cb42-7" data-line-number="7">                 <span class="dt">node_color_trans =</span> <span class="st">&quot;linear&quot;</span>, <span class="co"># The default is scaled by circle area</span></a>
-<a class="sourceLine" id="cb42-8" data-line-number="8">                 <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
-<a class="sourceLine" id="cb42-9" data-line-number="9">                 <span class="dt">edge_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
-<a class="sourceLine" id="cb42-10" data-line-number="10">                 <span class="dt">node_size_axis_label =</span> <span class="st">&quot;Number of OTUs&quot;</span>,</a>
-<a class="sourceLine" id="cb42-11" data-line-number="11">                 <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log2 ratio median proportions&quot;</span>,</a>
-<a class="sourceLine" id="cb42-12" data-line-number="12">                 <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
-<a class="sourceLine" id="cb42-13" data-line-number="13">                 <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>, <span class="co"># The layout algorithm that initializes node locations</span></a>
-<a class="sourceLine" id="cb42-14" data-line-number="14">                 <span class="dt">output_file =</span> <span class="st">&quot;differential_heat_tree.pdf&quot;</span>) <span class="co"># Saves the plot as a pdf file</span></a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">heat_tree_matrix</span>(obj,</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">                 <span class="dt">dataset =</span> <span class="st">&quot;diff_table&quot;</span>,</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">                 <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span></a>
+<a class="sourceLine" id="cb42-5" data-line-number="5">                 <span class="dt">node_label =</span> taxon_names,</a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">                 <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span></a>
+<a class="sourceLine" id="cb42-7" data-line-number="7">                 <span class="dt">node_color_range =</span> <span class="kw">diverging_palette</span>(), <span class="co"># The built-in palette for diverging data</span></a>
+<a class="sourceLine" id="cb42-8" data-line-number="8">                 <span class="dt">node_color_trans =</span> <span class="st">&quot;linear&quot;</span>, <span class="co"># The default is scaled by circle area</span></a>
+<a class="sourceLine" id="cb42-9" data-line-number="9">                 <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
+<a class="sourceLine" id="cb42-10" data-line-number="10">                 <span class="dt">edge_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
+<a class="sourceLine" id="cb42-11" data-line-number="11">                 <span class="dt">node_size_axis_label =</span> <span class="st">&quot;Number of OTUs&quot;</span>,</a>
+<a class="sourceLine" id="cb42-12" data-line-number="12">                 <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log2 ratio median proportions&quot;</span>,</a>
+<a class="sourceLine" id="cb42-13" data-line-number="13">                 <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
+<a class="sourceLine" id="cb42-14" data-line-number="14">                 <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>, <span class="co"># The layout algorithm that initializes node locations</span></a>
+<a class="sourceLine" id="cb42-15" data-line-number="15">                 <span class="dt">output_file =</span> <span class="st">&quot;differential_heat_tree.pdf&quot;</span>) <span class="co"># Saves the plot as a pdf file</span></a></code></pre></div>
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The grey tree on the lower left functions as a key for the unlabeled trees. Each of the smaller trees represent a comparison between body sites in the columns and rows. A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row. For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is due to the greater abundance of two genera: Prevotella and Porphyromonas. Look at the PDF file made to explore the details of the plot.</p>
 </div>
