@@ -164,6 +164,7 @@ The code below plots the number of "Nose" samples that have reads for each taxon
 It also plots the number of OTUs assigned to each taxon in the overall dataset as color.
 
 ```{r}
+set.seed(999)
 heat_tree(obj, 
           node_label = taxon_names,
           node_size = n_obs,
@@ -179,6 +180,7 @@ This is a shorthand for convenience.
 We could have made the exact same plot using this command:
 
 ```{r, eval = FALSE}
+set.seed(999)
 heat_tree(obj, 
           node_label = obj$taxon_names(),
           node_size = obj$n_obs(),
@@ -278,6 +280,7 @@ For each taxon, a `r gloss$add('Wilcoxon Rank Sum test')` was used to test for d
 We can use this information to create what we call a **differential heat tree**, which indicates which taxa are more abundant in each treatment: 
 
 ```{r}
+set.seed(999)
 heat_tree(obj, 
           node_label = taxon_names,
           node_size = n_obs, # n_obs is a function that calculates, in this case, the number of OTUs per taxon
@@ -322,6 +325,7 @@ print(obj$data$diff_table)
 There is a special function to plot this type of data called `heat_tree_matrix`:
 
 ```{r}
+set.seed(999)
 heat_tree_matrix(obj,
                  dataset = "diff_table",
                  node_size = n_obs, # n_obs is a function that calculates, in this case, the number of OTUs per taxon
