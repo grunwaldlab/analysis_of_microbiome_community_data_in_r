@@ -42,3 +42,8 @@ knitr::knit_hooks$set(
 
 # Display settings
 options(width = 100)
+
+# Glossary settings
+library(glossary)
+gloss <- glossary(definitions_path = "_glossary_definitions.Rmd", glossary_path = "00--glossary.Rmd")
+

@@ -17,7 +17,7 @@ Most R users seem to use RStudio and we like it, so we recommend using it.
 
 ## Installing RStudio
 
-The main version of RStudio, which is free and open source, can be downloaded here:
+The main version of RStudio that most people use, which is free and open source, can be downloaded here:
 
 https://www.rstudio.com/products/rstudio/download/#download
 
@@ -30,7 +30,7 @@ This can be overwhelming at first, but you only need to use a few to be producti
 
 ![](images/rstudio_console.png)
 
-The R console is where you give R commands and is the lower left window in RStudio.
+The `r gloss$add('R console')` is where you give R commands and is the lower left window in RStudio.
 It is the same way you would interact with R on the command line or terminal.
 In other words, the "Console" tab in the lower left window is the only part of RStudio that is actually R itself; everything else is optional tools. 
 
@@ -38,7 +38,7 @@ In other words, the "Console" tab in the lower left window is the only part of R
 
 ![](images/rstudio_text_editor.png)
 
-The upper left window is a plain text editor, like Notepad or TextEdit.
+The upper left window is a `r gloss$add('plain text')` editor, like Notepad or TextEdit.
 "Plain text" means no fonts, formatting etc, unlike program like Microsoft Word.
 You can have multiple files open at once and they appear in tabs.
 Depending on the type of the file being edited (i.e. its file extension), there will be different tools and behavior, but its all plain text.
@@ -56,7 +56,7 @@ You can ignore the rest of the tabs there for now (Plots, Packages, Help, and Vi
 
 ![](images/rstudio_envrionment.png)
 
-The "Environment" tab in the top right window lists the variables and functions present in the current R session.
+The "Environment" tab in the top right window lists the `r gloss$add('variable', shown = 'variables')` and `r gloss$add('function', shown = 'functions')` present in the current R session.
 It does not include the function/data in loaded packages however (unless you select a package from the drop down menu that says "Global Environment").
 When you ask "what have I created so far", the answer is in the environment tab. 
 

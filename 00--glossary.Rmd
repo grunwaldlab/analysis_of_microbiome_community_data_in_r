@@ -1,0 +1,17 @@
+---
+output: html_document
+bibliography: "bibtexlib.bib"
+---
+
+```{r setup, include=FALSE}
+source("style.R")
+knitr::opts_chunk$set(prompt = TRUE, comment = NA)
+```
+
+
+# Glossary
+
+```{r, echo=FALSE}
+gloss$render_all()
+```
+

@@ -21,7 +21,8 @@ Look at the list of resources and the end of this section for more complete tuto
 
 Unlike spreadsheet programs, like excel, R is a text-based "interactive" program, meaning that you use it by typing commands.
 If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data.
-Where you type commands is referred to as the "R console".
+If you type an invalid command, R will print an error message and, ideally, nothing will happen.
+Where you type commands is referred to as the `r gloss$add('R console')`.
 If you are using RStudio, this is the lower left window.
 Here is what an R console looks like when R is first started:
 
@@ -56,23 +57,21 @@ For example, if I type `1 + 1` into the console, R will do the math and "return"
 
 The thing after the `>` is what I typed and the line below is what was returned.
 
-Since I did not save the result in a variable, it was printed instead.
+Since I did not save the result, it was printed instead.
 The `[1]` at the start keeps track of how many values have been printed.
-Its not too useful when their is only a single value, as in this case, but gets more useful when many values are printed.
-For example, I could make a variable with 100 values from 1 to 100 by typing:
+Its not too useful when there is only a single value, as in this case, but gets more useful when many values are printed.
+For example, I could print values from 1 to 100 by typing:
 
 ```{r}
 1:100
 ```
 
 Now the `[24]` on the second line means that `24` is the 24th element.
-Every type of variable will have a different way of being printed.
-In this case, the variable is a `numeric` type.
 
 ## Variables
 
 In programmer-speak, any piece of data is called a "variable". 
-There are different types (or "classes") of variables such as `character` (text), `numeric` (numbers), and `data.frame`s (tables).
+There are different types, or `r gloss$add("class", shown = "classes")`,  of variables such as `character` (text), `numeric` (numbers), and `data.frame`s (tables).
 You can "save" the result of commands in R using `<-` like so:
 
 ```{r}
@@ -131,9 +130,9 @@ Functions can range in complexity from simple ones like `add` to very long and c
 ## Comments
 
 Reading code is difficult even if you wrote it.
-Athough it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two.
-Be kind to your future self or any other unfortuants that must interpret this code and use comments.
-Comments are just parts of text that R ignores.
+Although it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two.
+Be kind to your future self or any other unfortunates that must interpret this code and use comments.
+Comments are parts of text that R ignores and programmers use to leave notes.
 Anything that appears after a `#` is a comment and will be ignored by R.
 
 ```{r prompt=FALSE}
@@ -141,7 +140,7 @@ Anything that appears after a `#` is a comment and will be ignored by R.
 1 + 1 # This is addition
 ```
 
-Comments are only needed when you save R commands in a text file, rather than experimenting on the R console interactivly.
+Comments are only needed when you save R commands in a text file, rather than experimenting on the R console interactively.
 
 ## Typical workflow
 
@@ -154,8 +153,8 @@ If you are using RStudio, you can move the cursor to the line you want to run in
 ## R packages
 
 An R package is a set of user-defined functions organized so that people can easily share and use them.
-Most of the functions used by most R users are from R packages rather than those supplied by "base" R.
-R packages can be installed in a few ways, but the most common is to download them from The Comprehensive R Archive Network (CRAN) using the `install.packages` function.
+Most of the functions used by most R users are from R packages rather than those supplied by `r gloss$add("base R")`.
+R packages can be installed in a few ways, but the most common is to download them from `r gloss$add('The Comprehensive R Archive Network (CRAN)')` using the `install.packages` function.
 For example `stringr` is an R package that supplies functions to work with text.
 
 ```{r eval = FALSE}
@@ -187,7 +186,7 @@ You can get the help for **any** R function by prefixing it with a question mark
 Help files have an overview of:
 
  - purpose of a function
- - parameters it takes
+ - options it takes
  - output it yields
  - examples demonstrating its usage
  

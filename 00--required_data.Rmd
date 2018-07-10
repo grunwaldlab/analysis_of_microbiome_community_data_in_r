@@ -18,7 +18,7 @@ You can also download a copy of the data from this site from links in the descri
 ## Sample metadata
 
 A table with a sample in each row and info about the samples in each column, such as plant genotype and field site.
-It is a 170Kb tab-delimited text file.
+It is a 170Kb `r gloss$add('tab-delimited text file')`.
 
 <a href="data/SMD.txt" download="data/SMD.txt">SMD.txt</a>
 

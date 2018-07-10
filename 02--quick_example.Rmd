@@ -23,7 +23,7 @@ However, for this demonstration, we will be using a more all-purpose parser from
 Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
 This dataset has two parts: 
 
-* An abundance matrix called `hmp_otus`, with **samples in columns** and **OTUs in rows**
+* An abundance matrix called `hmp_otus`, with **samples in columns** and **`r gloss$add('Operational Taxonomic Units (OTUs)')` in rows**
 * A sample data table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g., gender)
 
 ```{r echo=FALSE, include=FALSE}
@@ -65,20 +65,20 @@ obj <- parse_tax_data(hmp_otus,
 ```
 
 This returns a `taxmap` object.
-The `taxmap` class is designed to store any number of tables, lists, or vectors associated with taxonomic information and facilitate manipulating the data in a cohesive way.
+The `taxmap` class is designed to store any number of tables, `r gloss$add('list', shown = 'lists')`, or `r gloss$add('vector', shown = 'vectors')` associated with taxonomic information and facilitate manipulating the data in a cohesive way.
 Here is what that object looks like:
 
 ```{r}
 print(obj)
 ```
 
-Note how the original abundance matrix is contained in the `taxmap` object with an additional column called "taxon_id".
+Note how the original abundance matrix is contained in the `taxmap` `r gloss$add('object')` with an additional column called "taxon_id".
 This table is stored in the list `obj$data`, which can contain any number of user-defined datasets.
 Also note that we have a different number of taxa and OTUs.
 This is different from a traditional ecological dataset.
 An OTU may contain sequence variants.
 These OTUs are assigned to taxa so a taxon may include multiple OTUs.
-Taxa may also include different numbers of ranks.
+Taxa may also include different numbers of `r gloss$add('Taxonomic ranks', shown = 'ranks')`.
 For example, one taxon may include species while another only goes to genus.
 These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.
 
@@ -123,7 +123,7 @@ This coordinated manipulation of taxonomic and abundance data is one of the main
 In a perfect world we would sequence each sample the same amount (i.e., the same number of reads).
 We do not live in a perfect world, so some samples may have more reads than others.
 This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others.
-So far we've used raw counts, but people typically work with rarefied counts or proportions to try to avoid the possibility of sampling depth biasing the results.
+So far we've used raw counts, but people typically work with `r gloss$add('Rarefaction', shown = 'rarefied')` counts or proportions to try to avoid the possibility of sampling depth biasing the results.
 Here we use the function `calc_obs_props` to divide each sample's counts by the total number of counts observed for each sample, resulting in a proportion.
 
 ```{r}
@@ -197,7 +197,7 @@ Alpha diversity is a measure of the diversity **within** each sample or group of
 It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU "rank".
 There are multiple methods used to calculate a value to represent alpha diversity. 
 The simplest is just the number of species, but the ones used most often factor in how common each species is as well.
-Below, we calculate the alpha diversity of OTUs using the Inverse Simpson Index using the package `vegan`. 
+Below, we calculate the alpha diversity of OTUs using the `r gloss$add('Inverse Simpson Index')` using the package `vegan`. 
 
 ```{r}
 library(vegan)
@@ -224,7 +224,7 @@ ggplot(hmp_samples, aes(x = body_site, y = inv_simp)) +
 ```
 
 That's more interesting; skin has much lower diversity than any of the wetter areas, which makes sense.
-Lets see if that's a significant difference using an ANOVA.
+Lets see if that's a significant difference using `r gloss$add('analysis of variance (ANOVA)')`.
 
 ```{r}
 anova_result <- aov(inv_simp ~ body_site, hmp_samples)
@@ -232,8 +232,8 @@ summary(anova_result)
 ```
 
 That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess).
-A Tukey's HSD test can compare each site to every other and tell us which are significantly different.
-Although base R has a Tukey's HSD function called `TukeyHSD`, we will use one from the package `agricolae` since it supplies grouping codes that are useful for graphing.
+A `r gloss$add('Tukey's Honest Significant Difference (HSD)')` test can compare each site to every other and tell us which are significantly different.
+Although `r gloss$add('base R')` has a Tukey's HSD function called `TukeyHSD`, we will use one from the package `agricolae` since it supplies grouping codes that are useful for graphing.
 
 ```{r}
 library(agricolae)
@@ -274,6 +274,7 @@ obj$data$diff_table <- compare_groups(obj,
 print(obj$data$diff_table)
 ```
 
+For each taxon, a `r gloss$add('Wilcoxon Rank Sum test')` was used to test for differences between the median abundances of samples in each treatment.
 We can use this information to create what we call a **differential heat tree**, which indicates which taxa are more abundant in each treatment: 
 
 ```{r}
@@ -291,7 +292,7 @@ heat_tree(obj,
 
 In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men.
 Note that we have not taken into account statistics significance when showing this, so lets do that.
-First, we need to correct for multiple comparisons: 
+First, we need to `r gloss$add('Multiple comparison corrections', shown = 'correct for multiple comparisons')`: 
 
 ```{r}
 obj$data$diff_table$wilcox_p_value <- p.adjust(obj$data$diff_table$wilcox_p_value,

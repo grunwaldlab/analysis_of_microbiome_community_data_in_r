@@ -1,0 +1,275 @@
+
+## R console
+
+This is the text prompt you use to interact with R.
+When R is started, the R console will look something like this: 
+
+```
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+```
+
+
+## Variable
+
+In programming, a variable is a name associated with a value that can change or "vary".
+This is similar to how the word is used in math.
+For example, the equaltion for a line is `y = mx + b`.
+In this equation, all of the letters are variables that can represent any number.
+
+## Function
+
+Any command or operation the does something in a prgramming language is a function.
+Functions often have inputs that influence what the output is, but some dont have inputs.
+Functions will usually return some type of output, but they might not, or they might have an effect besides what they return (this is rare in R, but common in other programming languanges).
+The concept of functions, like variables, comes from math.
+For example, the equaltion for a line is `y = mx + b`.
+In R, you could make a function to return `y` given the values of `m`, `x`, and `b`, like so: 
+
+```{r}
+line <- function(m, x, b) {
+  return(m * x + b)
+}
+```
+
+And find the vaule for y, for a given set of inputs like so: 
+
+```{r}
+line(m = 2.5, x = 3, b = -1)
+```
+
+
+## Class 
+
+A class is a defined set of variables along with a set of functions designed to work with those variable.
+The specifics of how classes are structured vary greaty between programming languages, but the concepts are similar.
+For example, you might have a class called "Dog" that contained the dogs age (number), the dogs breed (text), and the name of the dogs owner (text).
+With those variables, the "Dog" class might have functions that make the dog a year older or change the owner of the dog, etc.
+
+## The Comprehensive R Archive Network (CRAN)
+
+A volunteeer-run orgnaization that hosts R packages and enforces standards for how they should be structured.
+When you install an R pacakge using `install.packages`, you are installing from CRAN.
+CRAN is one of the major reasons R packages are so easy to install.
+
+
+## Plain text
+
+Plain text is the term used to describe text editors like Notepad or TextEdit that do not have fonts, images, or other non-text things.
+When you write R code, you are writing plain text.
+All programming languages use plain text because it is simple and has very few dependencies.
+Some programs for editing plain text might highlight relevant patterns in differenet colors, but these colors are specific to the program used to view the text, not the text itself.
+
+## R project
+
+"R projects" are an RStudio concept and are integral to many peoples workflow and organization.
+An R project is just a folder that has a file in it ending in ".Rproj".
+This file is created by RStudio when you create a new project.
+Although R projects are not needed, we highly recommend using them for the following reasons:
+
+* They help with organization, since they encourage you to put all the code and data for a project in a single directory.
+* They help standardize your current working directory. Each time a project is opened, your current working directory is automatically switched to the project directory.
+* They store where you left off when you last closed RStudio. Depending on how you set things up, its as if you never closed RStudio at all. All the variables and files will be where you last left them. Even unsaved files. NOTE: It is recommended that you do not rely on restoring variables between sessions, although RStudio will offer. 
+
+Whenever you start something in R that you want to save, we recommend using an R project.
+You can make a new project by clicking on the upper right drop-down menu or "File > New Project".
+
+![](images/rstudio_project.png)
+
+## R package
+
+An R package is a set of user-defined functions organized so that people can easily share and use them.
+Most of the functions used by most R users are from R packages rather than those supplied by base R.
+R packages can be installed in a few ways, but the most common is to download them from The Comprehensive R Archive Network (CRAN) using the `install.packages` function.
+For example `stringr` is an R package that supplies functions to work with text.
+
+```{r eval = FALSE}
+install.packages("stringr")
+```
+
+Once installed, a package must be "loaded" using the `library` function before any functions it supplies can be used:
+
+```{r}
+library("stringr")
+```
+
+Now we can use functions from the `stringr` package.
+
+
+## Operational Taxonomic Units (OTUs)
+
+OTUs are clusters of similar sequences often intended to correspond to some taxonomic rank, such as species.
+They are used to estimate diversty and account for sequencing error.
+Different barcodes (i.e. genes/loci) evolve at different rates, so the how similar sequences must be to be grouped together will vary depending on taxonomic group, the barcode used, and what taxonomic rank OTUs are intended to correspond to (if any).
+There are two types of OTUs: *de novo* and "closed reference".
+*De novo* OTUs are constructed based on pairwise distances between sequences and do not rely on reference databases.
+Closed reference OTUs (aka phylotypes) are made by comparing seqeuecnes to references databases and clustering base on distance from the most similar reference seqeunce.
+For the limiations of OTUs and alternative approches, see:
+
+Callahan, Benjamin J., Paul J. McMurdie, and Susan P. Holmes. "Exact sequence variants should replace operational taxonomic units in marker-gene data analysis." The ISME journal 11.12 (2017): 2639.
+
+## Phylotypes
+
+There seems to be some variation in how the term "phylotype" is used, but here we will use the following definition.
+Phylotypes are groupings of sequences based on their similarity to a reference sequence.
+These differ from *de novo* OTUs due to their reliance on a similar reference sequence.
+They are the same as "closed reference" OTUs. 
+
+## Exact sequence variants (ESVs)
+
+Also called Amplicon Sequence Variants (ASVs).
+ESVs are the inferred unique sequences present in the original sample, after correcting for seqeunceing and PCR errors.
+See the following for reasonds to use ESVs instead of OTUs:
+
+Callahan, Benjamin J., Paul J. McMurdie, and Susan P. Holmes. "Exact sequence variants should replace operational taxonomic units in marker-gene data analysis." The ISME journal 11.12 (2017): 2639.
+
+
+## List
+
+A common R data type used to hold an ordered set of other R data of any type.
+Unlike a vector, a single list can have data of multiple types.
+For example you can make a list of vectors of different types:
+
+```{r}
+list(1:3, "bob", c(TRUE, FALSE))
+```
+
+
+## Vector
+
+An ordered set of data of the same type.
+This is one of the most common types of data uesd in R.
+Any number or peice of text in R is a vector.
+For example, typing `5` produces a `numeric` vector of length 1:
+
+```{r}
+5
+```
+
+And typeing `1:10` produces a `numeric` vecotr of length 10:
+
+```{r}
+1:10
+```
+
+Vectors can also be other types like `character`:
+
+```{r}
+c("hello", "world")
+```
+
+
+## Taxonomic ranks
+
+Ranks are the level a taxon appears in a nested hierarchy of taxa.
+Common ranks include species, genus, family, order, class, phylym, and domain, although there might be others.
+
+## Rarefaction
+
+## Chimeric sequences
+
+## Compositional data
+
+## Inverse Simpson Index
+
+## Analysis of variance (ANOVA)
+
+## Tukey's Honest Significant Difference (HSD)
+
+## Base R
+
+## Multiple comparison corrections
+
+## Wilcoxon Rank Sum test
+
+## Amplicon
+
+## Pipelines
+
+## Tibble
+
+## Regular expressions
+
+## Capture groups
+
+## Taxonomic classifications
+
+The set of nested taxa an organism belongs to.
+For eaxmple, the taxonomic classification of *Homo sapiens* is: 
+
+Animalia > Chordata > Mammalia > Primates > Haplorhini > Simiiformes > Hominidae > Homininae > Hominini > Homo > H. sapiens
+
+
+## Random number generator seeds
+
+Random number generators are used by computers to simulate randomness, but are not actually random.
+They work by taking a starting number and running that number through a function that returns another number, which is then run through the same function to produce another number and so on.
+The first number is the "seed" and a given seed will always produce the same series of random numbers.
+Random number generators appear random because the seed that is chosen when the generator is created is usually something like the miliseconds on your computer's internal clock.
+You can however set the seed youself if you always want the same "random" behavior using the `set.seed` function.
+For example:
+
+```{r}
+rnorm(3) # produces 3 "random" numbers from a normal distribution
+rnorm(3)
+set.seed(1)
+rnorm(3)
+set.seed(1)
+rnorm(3)
+```
+
+
+## Subtaxa
+
+The taxa contained within another taxon.
+For example, *Homo sapiens* is a subtaxoon of the genus *Homo*.
+
+
+## Supertaxa
+
+The taxa a taxon is contained within.
+For example, *Homo* is a supertaxon of the species *Homo sapiens*.
+
+
+## Hexadecimal color codes
+
+## Singleton
+
+A sequence that only appears once in a sample or in all samples, depending on the exact definition being used.
+
+## Doubletons
+
+A sequence that only appears twice in a sample or in all samples, depending on the exact definition being used.
+
+## Transpose
+
+To "turn" a table or matrix 90 degrees, making the rows into columns and the columns into rows.
+
+## Tab-delimited text file
+
+Also known as tab-seperated value (TSV) format and usually has the file extension `.tsv`.
+A plain text file used to store tables.
+Each row is one line and columns are seperated by tabs (i.e. `\\t`).
+
+## Comma-delimited text file
+
+Also known as comma-seperated value (CSV) format and usually has the file extension `.csv`.
+A plain text file used to store tables.
+Each row is one line and columns are seperated by commas (i.e. `,`).

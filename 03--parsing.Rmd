@@ -11,10 +11,10 @@ source("style.R")
 
 ## Typical format for microbiome data
 
-Most pipelines for processing high-throughput amplicon data, such as mothur, QIIME, and dada2, result in a matrix of read counts.
-One dimension of this matrix (i.e. the rows or the columns) consists of OTUs, phylotypes, or unique sequences (all ways to "bin" similar read sequences).
+Most `r gloss$add('pipelines')` for processing high-throughput `r gloss$add('amplicon')` data, such as mothur, QIIME, and dada2, result in a matrix of read counts.
+One dimension of this matrix (i.e. the rows or the columns) consists of `r gloss$add('Operational Taxonomic Units (OTUs)')`, `r gloss$add('phylotypes')`, or `r gloss$add('exact sequence variants (ESVs)')` (all ways to "bin" similar read sequences).
 The other dimension consists of samples.
-Different tools will expect/output different orientations of the matrix, but, in our case, columns are samples and rows are OTUs. Sometimes the OTU data and the abundance matrix are two separate tables.
+Different tools will expect/output different orientations of the matrix, but, in our case, columns are samples and rows are OTUs. Sometimes the `r gloss$add('Operational Taxonomic Units (OTUs)', show = 'OTU')` data and the abundance matrix are two separate tables.
 There is usually another table with sample information in rows.
 This makes it easy to add lots of additional sample data columns that can be used to subset the data. 
 Each sample and OTU will have an unique ID.
@@ -27,7 +27,7 @@ knitr::include_graphics('./figure_sources/typical_input_format.png')
 ## Importing data into R
 
 Importing data into R can be quite easy if the data is formatted well, but can be a very frustrating experience otherwise.
-An example of well-formatted data is .csv (comma-separated value) or .tsv (tab-separated value) files, each with a single table and no additional comments or formatting (e.g. merged cells).
+An example of well-formatted data is `r gloss$add('Comma-delimited text file', shown = '.csv (comma-separated value)')` or `r gloss$add('Tab-delimited text file', shown = '.tsv (tab-separated value)')` files, each with a single table and no additional comments or formatting (e.g. merged cells).
 Either of these formats might also have a .txt extension (the extension does not really matter; its for humans, not computers).
 For more information on correct data formatting, see the [data formating section](http://grunwaldlab.github.io/Reproducible-science-in-R/03--Data_formatting.html) of our [guide for reporducible research](http://grunwaldlab.github.io/Reproducible-science-in-R/index.html).
 You should always import the raw output data whenever possible and avoid any "manual" (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time (@zeeberg2004mistaken).
@@ -42,13 +42,13 @@ knitr::include_graphics('images/boechera_stricta.jpg')
 @wagner2016host released their raw data with the article and it is available [here](http://datadryad.org/resource/doi:10.5061/dryad.g60r3) on [dryad](http://datadryad.org/).
 This is a great example of how to share your raw data!
 
-There are many functions commonly used to read tabular data, including the traditional ones like `read.table` and `read.csv`, but we will be using functions from the new [`readr` package](http://readr.tidyverse.org/articles/readr.html), which returns ["tibbles"](http://r4ds.had.co.nz/tibbles.html) instead of `data.frame`s (A "table" in R).
+There are many `r gloss$add('function', shown = 'functions')` commonly used to read tabular data, including the traditional ones like `read.table` and `read.csv`, but we will be using functions from the new [`readr` package](http://readr.tidyverse.org/articles/readr.html), which returns ["tibbles"](http://r4ds.had.co.nz/tibbles.html) instead of `data.frame`s (A "table" in R).
 
 ```{r}
 library(readr) # Loads the readr package so we can use `read_tsv`
 ```
 
-Tibbles are a type of `data.frame` with some fancier printing and more consistent behavior.
+`r gloss$add('Tibble', shown = 'Tibbles')` are a type of `data.frame` with some fancier printing and more consistent behavior.
 Lets read in the raw OTU table first:
 
 ```{r message=FALSE, cache=TRUE}
@@ -56,24 +56,22 @@ otu_data <- read_tsv("data/otuTable97.txt.bz2")
 print(otu_data) # You can also enter `otu_data` to print it
 ```
 
-This is a big data set, with `r nrow(otu_data)` rows (OTUs) and `r ncol(otu_data)` columns (`r ncol(otu_data) - 1` samples and an OTU ID).
+This is a big data set, with `r format(nrow(otu_data), big.mark = ",")` rows (OTUs) and `r format(ncol(otu_data), big.mark = ",")` columns (`r format(ncol(otu_data) - 1, big.mark = ",")` samples and an OTU ID).
 If your computer cannot load this file, don't worry, we will provide a subset later for the rest of the workshop. 
 
 In this data set, the taxonomic classifications for the OTUs are in a different file.
 This information could have been included as additional columns in the OTU table and often is in other data sets.
-
-```{r}
-library(readr) # Loads the readr package so we can use `read_tsv`
-```
 
 ```{r message=FALSE, cache=TRUE}
 tax_data <- read_tsv("data/taxAssignments97.txt")
 print(tax_data) # You can also enter `tax_data` to print it
 ```
 
-Although these data are very well-formatted compared to most, it is not perfect.
+Although these data are very well-formatted compared to most, there are still a few issues.
 The "OTU ID" column contains a space in the name (hence the back ticks), which makes it a bit more annoying to work with in R.
-More importantly, the OTU IDs in the taxonomy table are prefixed with "OTU_" and those in the OTU table are not, so we have to remove that prefix to make the two match up:
+More importantly, the OTU IDs in the taxonomy table are prefixed with "OTU_" and those in the OTU table are not, so we have to remove that prefix to make the two match up.
+The functions `sub` and `gsub` are used to search and replace parts of text; `sub` replaces only the first match and `gsub` replaces all matches.
+Replacing with nothing (`""`) effectively searches and deletes.
 
 ```{r}
 tax_data$`OTU ID` <- sub(tax_data$`OTU ID`, # ` are needed because of the space
@@ -97,7 +95,7 @@ print(otu_data)
 There are so many columns that all of them are not shown in the print out, but we can verify that they are there by looking at the last 10 column names: 
 
 ```{r}
-tail(colnames(otu_data), n = 10)
+tail(colnames(otu_data), n = 10) # `tail` returns the last n elements
 ```
 
 Next, lets load the sample data:
@@ -109,14 +107,15 @@ print(sample_data) # You can also enter `sample_data` to print it
 ```
 
 Note how the number of sample columns in `otu_data` is equal to the number of rows in `sample_data` and the columns names of `otu_data` appear in the "SampleID" column.
+This means that the contents of `sample_data$SampleID` can be used to subset columns in the OTU table.
 
 ## Converting to the `taxmap` format
 
 Although our data is now in R, it is not in a format that is specialized for community abundance data; all R knows is that you have a few big tables. 
-Different R packages for community (e.g. microbiome) analysis expect data in different formats or **classes**.
+Different R packages for community (e.g. microbiome) analysis expect data in different formats or `r gloss$add('class', shown = 'classes')`.
 A class, in programming jargon, is a defined way to store data plus some functions designed to interact with that data.
-When you format a specific data set in this way, we call it an **object** or an instance of the class.
-Many packages implement their own classes and functions to convert data to their format, whereas some packages use the classes defined in other packages.
+When you format a specific data set in this way, we call it an `r gloss$add('object')` or an "instance" of the class.
+Many R packages implement their own classes and functions to convert data to their format, whereas some packages use the classes defined in other packages.
 There are a few options for how to store an abundance matrix classified by a taxonomy in R (e.g. `phyloseq` objects), but we will be using classes defined in the `taxa` package here.
 The goal of the `taxa` package is to provide an all-purpose standard way of manipulation any type of information assigned to a taxonomy.
 `Taxa` provides a set of flexible parsers that should be able to read nearly any format, given the correct settings.
@@ -131,7 +130,7 @@ head(otu_data$taxonomy, 10)
 
 Note that there are some odd aspects to the format that could make it challenging to parse:
 
-* Some taxa have ranks (e.g. "k__Bacteria") and some don't (e.g. "Unassigned" and "Root"). 
+* Some taxa have `r gloss$add('Taxonomic ranks', shown = 'ranks')` (e.g. "k__Bacteria") and some don't (e.g. "Unassigned" and "Root"). 
 * Some taxa have ranks, but no names (e.g. "f__").
 
 If we just consider the ranks to be a part of the taxon name, then its pretty easy to parse:
@@ -145,7 +144,7 @@ print(obj)
 ```
 
 Above is the print out of a `taxmap` object.
-The first line tells us that the OTUs are assigned to `r length(obj$taxon_names())` unique taxa and lists their IDs and names.
+The first line tells us that the OTUs are assigned to `r format(length(obj$taxon_names()), big.mark = ",")` unique taxa and lists their IDs and names.
 These taxon IDs were generated automatically when converting to the `taxmap` format and were not in the original data set.
 The second line describes how taxa relate to each other in the tree.
 Note how our original data are now inside this object: 
@@ -155,12 +154,12 @@ print(obj$data$tax_data)
 ```
 
 `obj$data` is a list of arbitrary, user-defined data sets.
-These data sets can be named anything and can be any R object, such as lists, vectors, or tables.
+These data sets can be named anything and can be any R object, such as `r gloss$add('list', shown = 'lists')`, or `r gloss$add('vector', shown = 'vectors')`, or tables.
 This is different than `phyloseq` objects, which have a fixed number of data sets in pre-defined formats.
 Note that our data set now has a "taxon_id" column, which maps rows in the table to a taxa in the taxonomy.
 This column is essential for the manipulation functions of `taxa` to know how to handle these data sets, as we will demonstrate later.
 
-If we want to split out the rank information, we can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression)  (a.k.a "regex") to specify which part of each taxon is a rank and which part is a name.
+If we want to split out the rank information, we can use `r gloss$add('regular expressions')` (a.k.a "regex") to specify which part of each taxon is a rank and which part is a name.
 If you are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very useful skill to have, so it is worth learning.
 Most regular expressions are composed of a series of "what to match" followed by "how many times to match".
 One regular expression that matches the pattern of taxon names is `^[a-z]{0,1}_{0,2}.*$`.
@@ -174,7 +173,7 @@ The whole regex means the following in common English:
 
 "From the start of the string, (`^`) match any character between "a" and "z" (`[a-z]`) zero or one times (`{0,1}`) followed by an underscore (`_`) occurring between zero and 2 times  (`{0,2}`), followed by any character (`.`) occurring zero or more times (`*`), followed by the end of the text (`$`)."
 
-We can add parentheses that specify which parts of the pattern go together; these are called **capture groups** in regex jargon.
+We can add parentheses that specify which parts of the pattern go together; these are called `r gloss$add('capture groups')` in regex jargon.
 These do not change what will be matched; they just define different parts of the pattern.
 In this case, we are interested in the taxon rank (matched by `([a-z]{0,1})`) and the taxon name (matched by `(.*)`).
 
@@ -194,7 +193,7 @@ print(obj)
 Note how the taxon names do not have the rank information anymore:
 
 ```{r}
-head(obj$taxon_names())
+head(taxon_names(obj))
 ```
 
 Instead, the rank information (and any other capture group content) is in a separate data set:
@@ -206,7 +205,7 @@ obj$data$class_data
 However, ranks can also be accessed using the `taxon_ranks` function: 
 
 ```{r}
-head(obj$taxon_ranks())
+head(taxon_ranks(obj))
 ```
 
 So we don't really need the "class_data" table, so lets get rid of it:
@@ -226,12 +225,14 @@ print(obj)
 save(obj, sample_data, file = "parsed_data.Rdata")
 ```
 
+We can name the tables or other info in `obj$data` whatever we want.
+`obj$data` is a standard `list`, which means any number of things of any type can be put in it.
 
 ## Exercises
 
 ### Reading tabular data
 
-**1)** Take a look at the file called "parsing_exercise_1_example.tsv".
+**1)** Take a look at the file [example_data_1.tsv](data/example_data_1.tsv).
 
 **2)** Try reading the file using the base R function `read.table`. You might need to change some of the options. Type `?read.table` to see the documentation for this function. Hint: what does the `.tsv` extension mean?
 
@@ -311,12 +312,12 @@ cat(
 ### Reading taxonomic data from complex formats
 
 Sometimes taxonomic data can be embedded in complex text, like FASTA headers.
-Look at the file "example_data_2.fa" which contains headers with two sources of taxonomic information:
+Look at the file [example_data_2.fa](data/example_data_2.fa) which contains headers with two sources of taxonomic information:
 
 * The Genbank accession number
 * The taxonomic classification
 
-**1)** Read the FASTA file called "example_data_2.fa" using the `read.FASTA` function from the `ape` package and store the result in a variable.
+**1)** Read the FASTA file [example_data_2.fa](data/example_data_2.fa) using the `read.FASTA` function from the `ape` package and store the result in a variable.
 
 ```{r hide_button = TRUE}
 library(ape)

@@ -26,14 +26,14 @@ It gets even more complicated when there are other data mapped to (i.e. associat
 For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? 
 If so, how do we identify which taxa are in that phylum?
 Depending on the format the data is in, this might be hard.
-If other data  (e.g. OTU counts) are associated with taxa within that phylum, do we also remove those?
+If other data  (e.g. `r gloss$add('Operational Taxonomic Units (OTUs)', show = 'OTU')` counts) are associated with taxa within that phylum, do we also remove those?
 After all, even if the phylum and the taxa within it are removed, we still know that all the associated data are bacterial, so do we reassign them to the Bacteria taxon, or just throw those data out?
 The answer to these kind of questions will depend on our data and what we want to do with it.
 
 ## Subsetting tabular data
 
-The functions to subset taxonomic information in `taxmap` objects (the format our example data is in) provided by the `taxa` package are modeled after functions in the `dplyr` package for manipulating tabular data (@wickham2015dplyr).
-These `dplyr` functions are alternatives to the standard R indexing (e.g. `[`, `[[`, and `$`) designed to be be more intuitive and consistent.
+The `r gloss$add('function', shown = 'functions')` to subset taxonomic information in `taxmap` objects (the format our example data is in) provided by the `taxa` package are modeled after functions in the `dplyr` package for manipulating tabular data (@wickham2015dplyr).
+These `dplyr` functions are alternatives to the standard R subsetting (e.g. `[`, `[[`, and `$`) designed to be be more intuitive and consistent.
 Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these. 
 Fortunately, we have a tabular data set in need of some subsetting: our sample data.
 
@@ -45,7 +45,7 @@ print(sample_data)
 
 This is a large data set and not all the `r nrow(sample_data)` samples are used in the main publication of @wagner2016host.
 Only the samples in the "ecotypes" experiment are part of the main study.
-Using standard R indexing we could remove those like so:
+Using standard R subsetting we could remove those like so:
 
 ```{r eval = FALSE}
 sample_data <- sample_data[sample_data$Experiment == "ecotypes", ]
@@ -80,7 +80,7 @@ sample_data <- filter(sample_data,
 This is usually equivalent to combining multiple conditions with `&` in normal subsetting, but is faster for large data sets. 
 It also will not return values for which conditions evaluate to `NA`, unlike base subsetting.
 
-Up until now, everything we have done using `filter` can be easily done with base R subsetting as well, but `dplyr` introduces a few more advanced features that can save time/typing.
+Up until now, everything we have done using `filter` can be easily done with `r gloss$add('base R')` subsetting as well, but `dplyr` introduces a few more advanced features that can save time/typing.
 We wont go into these in detail, but its good to know they exist.
 One is the concept of "grouping".
 When rows are "grouped" by the values in one column, the rows corresponding to each unique value in that column are treated as a unit in some functions.
@@ -103,7 +103,7 @@ Next we will subset the abundance data to just these samples to get the dataset 
 ## Subsetting a taxonomy
 
 The analog to `filter` for taxonomic data is `filter_taxa` from the `taxa` package.
-This works in a similar way, but has much more options for taxonomic relationships are used and what is done with data mapped to removed taxa.
+This works in a similar way, but has much more options for taxonomic relationships are used and what is done with data associated with removed taxa.
 Lets take another look at our data object:
 
 ```{r}
@@ -111,7 +111,7 @@ print(obj)
 ```
 
 If we look at the second line, we can see that some taxa do not have names.
-These are the ones that only had rank information in the classification we parsed in the last section (e.g. `o__` in  `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`).
+These are the ones that only had  `r gloss$add('Taxonomic ranks', shown = 'rank')` information in the classification we parsed in the last section (e.g. `o__` in  `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`).
 Since these do not add any information, lets remove them.
 
 ```{r}
@@ -120,9 +120,9 @@ obj <- filter_taxa(obj, taxon_names != "")
 print(obj)
 ```
 
-There were OTUs mapped to the nameless taxa, but no OTUs were filtered out, so what happened to them?
+There were OTUs associated with the nameless taxa, but no OTUs were filtered out, so what happened to them?
 By default, they are reassigned to the closest supertaxon that passes the filter.
-For example, for the classification `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`, the OTU would be reassigned to the class "SJA-28".
+For example, for the `r gloss$add('Taxonomic classifications', shown = 'classification')` `"Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__"`, the OTU would be reassigned to the class "SJA-28".
 
 Like `filter`, `filter_taxa` can use variables contained in the input objects as if they were independent variables.
 In this case, `taxon_names` is actually a function that is called when referenced in this way.
@@ -132,7 +132,7 @@ head(obj$taxon_names())
 head(taxon_names(obj))
 ```
 
-Other values that can be used this way include columns in tables and lists/vectors stored in the `obj$data` list in `taxmap` objects.
+Other values that can be used this way include columns in tables and `r gloss$add('list', shown = 'lists')`/`r gloss$add('vector', shown = 'vectors')` stored in the `obj$data` list in `taxmap` objects.
 Since `taxmap` objects can store any number of lists, vectors, or tables mapped to a taxonomy, there can be many variables that can be referenced by name.
 The `all_names` function returns the name and location of variables that can be used this way:
 
@@ -221,7 +221,7 @@ save(obj, sample_data, file = "filtered_data.Rdata")
 
 In these exercises, we will be using the table `sample_data` from the analysis above.
 
-**1)** Try to subset `sample_data` to just "leaf" samples using standard R indexing (e.g. `my_table[rows, columns]`).
+**1)** Try to subset `sample_data` to just "leaf" samples using standard R subsetting (e.g. `my_table[rows, columns]`).
 
 ```{r hide_button = TRUE}
 sample_data[sample_data$Type == "leaf", ]
