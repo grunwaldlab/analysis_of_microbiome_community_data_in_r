@@ -11,7 +11,7 @@
 
 
 
-<title>00--intro_to_rstudio.utf8.md</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,9 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -85,9 +83,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -259,7 +254,7 @@ $(document).ready(function () {
 <p>RStudio is not R or a “type” of R. It is a program that runs R and provides extra tools that are helpful when writing R code, kind of like how your operating system can run a web browser. This workshop will assume you are using RStudio to interact with R, although everything here can be done without RStudio. Most R users seem to use RStudio and we like it, so we recommend using it.</p>
 <div id="installing-rstudio" class="section level2">
 <h2>Installing RStudio</h2>
-<p>The main version of RStudio, which is free and open source, can be downloaded here:</p>
+<p>The main version of RStudio that most people use, which is free and open source, can be downloaded here:</p>
 <p><a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></p>
 </div>
 <div id="the-parts-of-rstudio" class="section level2">
@@ -267,23 +262,35 @@ $(document).ready(function () {
 <p>When you open RStudio, you will notice a lot of different windows, each with some tabs. This can be overwhelming at first, but you only need to use a few to be productive and the ones you need are similar to other computer programs you probably already use.</p>
 <div id="the-r-console-tab" class="section level3">
 <h3>The R console tab</h3>
-<p><img src="images/rstudio_console.png" /></p>
-<p>The R console is where you give R commands and is the lower left window in RStudio. It is the same way you would interact with R on the command line or terminal. In other words, the “Console” tab in the lower left window is the only part of RStudio that is actually R itself; everything else is optional tools.</p>
+<div class="figure">
+<img src="images/rstudio_console.png" />
+
+</div>
+<p>The <a href ="00--glossary.html#r_console_anchor">R console</a> is where you give R commands and is the lower left window in RStudio. It is the same way you would interact with R on the command line or terminal. In other words, the “Console” tab in the lower left window is the only part of RStudio that is actually R itself; everything else is optional tools.</p>
 </div>
 <div id="the-text-editor" class="section level3">
 <h3>The text editor</h3>
-<p><img src="images/rstudio_text_editor.png" /></p>
-<p>The upper left window is a plain text editor, like Notepad or TextEdit. “Plain text” means no fonts, formatting etc, unlike program like Microsoft Word. You can have multiple files open at once and they appear in tabs. Depending on the type of the file being edited (i.e. its file extension), there will be different tools and behavior, but its all plain text.</p>
+<div class="figure">
+<img src="images/rstudio_text_editor.png" />
+
+</div>
+<p>The upper left window is a <a href ="00--glossary.html#plain_text_anchor">plain text</a> editor, like Notepad or TextEdit. “Plain text” means no fonts, formatting etc, unlike program like Microsoft Word. You can have multiple files open at once and they appear in tabs. Depending on the type of the file being edited (i.e. its file extension), there will be different tools and behavior, but its all plain text.</p>
 </div>
 <div id="the-file-browser-tab" class="section level3">
 <h3>The file browser tab</h3>
-<p><img src="images/rstudio_file_browser.png" /></p>
+<div class="figure">
+<img src="images/rstudio_file_browser.png" />
+
+</div>
 <p>The default tab in the lower right window is a basic file browser. You can open, delete, and rename files there. Its not as well-developed as your operating system’s file browser and is mostly there so you don’t have to switch applications to manage files. You can ignore the rest of the tabs there for now (Plots, Packages, Help, and Viewer), since they are usually automatically opened when they are relevant.</p>
 </div>
 <div id="the-environment-tab" class="section level3">
 <h3>The “Environment” tab</h3>
-<p><img src="images/rstudio_envrionment.png" /></p>
-<p>The “Environment” tab in the top right window lists the variables and functions present in the current R session. It does not include the function/data in loaded packages however (unless you select a package from the drop down menu that says “Global Environment”). When you ask “what have I created so far”, the answer is in the environment tab.</p>
+<div class="figure">
+<img src="images/rstudio_envrionment.png" />
+
+</div>
+<p>The “Environment” tab in the top right window lists the <a href ="00--glossary.html#variable_anchor">variables</a> and <a href ="00--glossary.html#function_anchor">functions</a> present in the current R session. It does not include the function/data in loaded packages however (unless you select a package from the drop down menu that says “Global Environment”). When you ask “what have I created so far”, the answer is in the environment tab.</p>
 </div>
 </div>
 <div id="console-tricks" class="section level2">
@@ -311,7 +318,10 @@ $(document).ready(function () {
 <li>They store where you left off when you last closed RStudio. Depending on how you set things up, its as if you never closed RStudio at all. All the variables and files will be where you last left them. Even unsaved files. NOTE: It is recommended that you do not rely on restoring variables between sessions, although RStudio will offer.</li>
 </ul>
 <p>Whenever you start something in R that you want to save, we recommend using an R project. You can make a new project by clicking on the upper right drop-down menu or “File &gt; New Project”.</p>
-<p><img src="images/rstudio_project.png" /></p>
+<div class="figure">
+<img src="images/rstudio_project.png" />
+
+</div>
 <div id="everything-else" class="section level3">
 <h3>Everything else</h3>
 <p>Don’t worry about it! Its all useful, but not needed when you start, and some of it you will likely never use.</p>
