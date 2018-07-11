@@ -234,7 +234,7 @@ summary(anova_result)
 ```
 
 That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess).
-A `r gloss$add('Tukey's Honest Significant Difference (HSD)')` test can compare each site to every other and tell us which are significantly different.
+A `r gloss$add("Tukey's Honest Significant Difference (HSD)")` test can compare each site to every other and tell us which are significantly different.
 Although `r gloss$add('base R')` has a Tukey's HSD function called `TukeyHSD`, we will use one from the package `agricolae` since it supplies grouping codes that are useful for graphing.
 
 ```{r}
@@ -347,9 +347,6 @@ Each of the smaller trees represent a comparison between body sites in the colum
 A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row.
 For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is  due to the greater abundance of two genera: Prevotella and Porphyromonas.
 Look at the PDF file made to explore the details of the plot. 
-
-```{r, child="_sessioninfo.Rmd"}
-```
 
 ```{r cleanup, message=FALSE, warning=FALSE, include=FALSE}
 file.remove("differential_heat_tree.pdf")

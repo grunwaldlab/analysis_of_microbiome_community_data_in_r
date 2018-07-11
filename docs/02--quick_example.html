@@ -214,7 +214,10 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="02--quick_example.html">Example analysis</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
      
@@ -224,7 +227,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="02--quick_example.html">Example analysis</a>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
     </li>
     <li>
       <a href="03--parsing.html">Getting data into R</a>
@@ -259,10 +265,7 @@ $(document).ready(function () {
       <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
     </li>
     <li>
-      <a href="00--required_software.html">Required software</a>
-    </li>
-    <li>
-      <a href="00--required_data.html">Required datasets</a>
+      <a href="00--glossary.html">Glossary</a>
     </li>
     <li>
       <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
@@ -299,7 +302,7 @@ $(document).ready(function () {
 <p>The first step in any analysis is getting your data into R. This can be difficult for taxonomic data since it has a hierarchical component (i.e. the taxonomic tree). <code>Metacoder</code> has functions for parsing (i.e. “reading”) specific file formats used in metagenomics research. However, for this demonstration, we will be using a more all-purpose parser from the <code>taxa</code> package meant for tabular data.</p>
 <p>Included in <code>metacoder</code> is an example dataset that is a subset of the Human Microbiome Project data. This dataset has two parts:</p>
 <ul>
-<li>An abundance matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <strong>OTUs in rows</strong></li>
+<li>An abundance matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <strong><a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">Operational Taxonomic Units (OTUs)</a> in rows</strong></li>
 <li>A sample data table called <code>hmp_samples</code>, with <strong>samples as rows</strong> and columns of information describing the samples (e.g., gender)</li>
 </ul>
 <p>This is a typical way for this kind of data to be formatted and is the preferred way for packages like <code>metacoder</code> and <code>taxa</code>. Lets take a look at the dataset we will use in this example:</p>
@@ -353,7 +356,7 @@ $(document).ready(function () {
                       <span class="dt">class_regex =</span> <span class="st">&quot;^(.+)__(.+)$&quot;</span>, <span class="co"># Regex identifying where the data for each taxon is</span>
                       <span class="dt">class_key =</span> <span class="kw">c</span>(<span class="dt">tax_rank =</span> <span class="st">&quot;info&quot;</span>, <span class="co"># A key describing each regex capture group</span>
                                     <span class="dt">tax_name =</span> <span class="st">&quot;taxon_name&quot;</span>))</code></pre></div>
-<p>This returns a <code>taxmap</code> object. The <code>taxmap</code> class is designed to store any number of tables, lists, or vectors associated with taxonomic information and facilitate manipulating the data in a cohesive way. Here is what that object looks like:</p>
+<p>This returns a <code>taxmap</code> object. The <code>taxmap</code> class is designed to store any number of tables, <a href ="00--glossary.html#list_anchor">lists</a>, or <a href ="00--glossary.html#vector_anchor">vectors</a> associated with taxonomic information and facilitate manipulating the data in a cohesive way. Here is what that object looks like:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   174 taxa: <span style='color: #00BB00;'>ab</span><span>. Root, </span><span style='color: #00BB00;'>ac</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>gr</span><span>. Blautia, </span><span style='color: #00BB00;'>gs</span><span>. Clostridium
@@ -380,7 +383,7 @@ $(document).ready(function () {
 ##       # ... with 5,919 more rows
 ##   0 functions:
 </span></code></pre>
-<p>Note how the original abundance matrix is contained in the <code>taxmap</code> object with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets. Also note that we have a different number of taxa and OTUs. This is different from a traditional ecological dataset. An OTU may contain sequence variants. These OTUs are assigned to taxa so a taxon may include multiple OTUs. Taxa may also include different numbers of ranks. For example, one taxon may include species while another only goes to genus. These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.</p>
+<p>Note how the original abundance matrix is contained in the <code>taxmap</code> <a href ="00--glossary.html#object_anchor">object</a> with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets. Also note that we have a different number of taxa and OTUs. This is different from a traditional ecological dataset. An OTU may contain sequence variants. These OTUs are assigned to taxa so a taxon may include multiple OTUs. Taxa may also include different numbers of <a href ="00--glossary.html#taxonomic_ranks_anchor">ranks</a>. For example, one taxon may include species while another only goes to genus. These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.</p>
 </div>
 <div id="abundance-matrix-manipulations" class="section level2">
 <h2>Abundance matrix manipulations</h2>
@@ -428,7 +431,7 @@ $(document).ready(function () {
 </div>
 <div id="accounting-for-un-even-sampling" class="section level3">
 <h3>Accounting for un-even sampling</h3>
-<p>In a perfect world we would sequence each sample the same amount (i.e., the same number of reads). We do not live in a perfect world, so some samples may have more reads than others. This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others. So far we’ve used raw counts, but people typically work with rarefied counts or proportions to try to avoid the possibility of sampling depth biasing the results. Here we use the function <code>calc_obs_props</code> to divide each sample’s counts by the total number of counts observed for each sample, resulting in a proportion.</p>
+<p>In a perfect world we would sequence each sample the same amount (i.e., the same number of reads). We do not live in a perfect world, so some samples may have more reads than others. This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others. So far we’ve used raw counts, but people typically work with <a href ="00--glossary.html#rarefaction_anchor">rarefied</a> counts or proportions to try to avoid the possibility of sampling depth biasing the results. Here we use the function <code>calc_obs_props</code> to divide each sample’s counts by the total number of counts observed for each sample, resulting in a proportion.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_data &lt;-<span class="st"> </span><span class="kw">calc_obs_props</span>(obj, <span class="st">&quot;tax_data&quot;</span>)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    700035949, 700097855, 700100489, 700111314 ... 700095535, 700102367, 700101358</code></pre>
@@ -558,8 +561,8 @@ $(document).ready(function () {
 <div id="plotting-taxonomic-data" class="section level3">
 <h3>Plotting taxonomic data</h3>
 <p>Now that we have per-taxon information (The <code>tax_abund</code> and <code>tax_occ</code> tables), we can plot the information using <strong>heat trees</strong>. Heat trees are what we call taxonomic trees in which the size and color of tree parts correspond to some statistic of interest. The code below plots the number of “Nose” samples that have reads for each taxon as the size of each taxon. It also plots the number of OTUs assigned to each taxon in the overall dataset as color.</p>
-<<<<<<< HEAD
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+<span class="kw">heat_tree</span>(obj, 
           <span class="dt">node_label =</span> taxon_names,
           <span class="dt">node_size =</span> n_obs,
           <span class="dt">node_color =</span> Nose, 
@@ -569,7 +572,8 @@ $(document).ready(function () {
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Note how we did not have to specify the full path to the variable “Nose”, but just its name. This is a shorthand for convenience. We could have made the exact same plot using this command:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+<span class="kw">heat_tree</span>(obj, 
           <span class="dt">node_label =</span> obj<span class="op">$</span><span class="kw">taxon_names</span>(),
           <span class="dt">node_size =</span> obj<span class="op">$</span><span class="kw">n_obs</span>(),
           <span class="dt">node_color =</span> obj<span class="op">$</span>data<span class="op">$</span>tax_occ<span class="op">$</span>Nose, 
@@ -577,33 +581,11 @@ $(document).ready(function () {
           <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,
           <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">heat_tree</span>(obj, </a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">          <span class="dt">node_label =</span> taxon_names,</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">          <span class="dt">node_size =</span> n_obs,</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5">          <span class="dt">node_color =</span> Nose, </a>
-<a class="sourceLine" id="cb22-6" data-line-number="6">          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,</a>
-<a class="sourceLine" id="cb22-7" data-line-number="7">          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,</a>
-<a class="sourceLine" id="cb22-8" data-line-number="8">          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
-<a class="sourceLine" id="cb22-9" data-line-number="9">          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></a></code></pre></div>
-<p><img src="02--quick_example_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Note how we did not have to specify the full path to the variable “Nose”, but just its name. This is a shorthand for convenience. We could have made the exact same plot using this command:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">heat_tree</span>(obj, </a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">          <span class="dt">node_label =</span> obj<span class="op">$</span><span class="kw">taxon_names</span>(),</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">          <span class="dt">node_size =</span> obj<span class="op">$</span><span class="kw">n_obs</span>(),</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">          <span class="dt">node_color =</span> obj<span class="op">$</span>data<span class="op">$</span>tax_occ<span class="op">$</span>Nose, </a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,</a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,</a>
-<a class="sourceLine" id="cb23-8" data-line-number="8">          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
-<a class="sourceLine" id="cb23-9" data-line-number="9">          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></a></code></pre></div>
->>>>>>> a0dd8744378f5f56a3f39ed08ac3612f5593d68a
 <p>This is known as non-standard evaluation in programmer jargon and will be used in many functions throughout this workshop.</p>
 </div>
 <div id="alpha-diversity" class="section level3">
 <h3>Alpha diversity</h3>
-<p>Alpha diversity is a measure of the diversity <strong>within</strong> each sample or group of samples. It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU “rank”. There are multiple methods used to calculate a value to represent alpha diversity. The simplest is just the number of species, but the ones used most often factor in how common each species is as well. Below, we calculate the alpha diversity of OTUs using the Inverse Simpson Index using the package <code>vegan</code>.</p>
+<p>Alpha diversity is a measure of the diversity <strong>within</strong> each sample or group of samples. It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU “rank”. There are multiple methods used to calculate a value to represent alpha diversity. The simplest is just the number of species, but the ones used most often factor in how common each species is as well. Below, we calculate the alpha diversity of OTUs using the <a href ="00--glossary.html#inverse_simpson_index_anchor">Inverse Simpson Index</a> using the package <code>vegan</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
 <pre><code>## Loading required package: permute</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
@@ -625,7 +607,7 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> body_site, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>That’s more interesting; skin has much lower diversity than any of the wetter areas, which makes sense. Lets see if that’s a significant difference using an ANOVA.</p>
+<p>That’s more interesting; skin has much lower diversity than any of the wetter areas, which makes sense. Lets see if that’s a significant difference using <a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(inv_simp <span class="op">~</span><span class="st"> </span>body_site, hmp_samples)
 <span class="kw">summary</span>(anova_result)</code></pre></div>
 <pre class="r-output"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -634,7 +616,7 @@ $(document).ready(function () {
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
-<p>That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess). A Tukey’s HSD test can compare each site to every other and tell us which are significantly different. Although base R has a Tukey’s HSD function called <code>TukeyHSD</code>, we will use one from the package <code>agricolae</code> since it supplies grouping codes that are useful for graphing.</p>
+<p>That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess). A <a href ="00--glossary.html#tukey's_honest_significant_difference_(hsd)_anchor">Tukey’s Honest Significant Difference (HSD)</a> test can compare each site to every other and tell us which are significantly different. Although <a href ="00--glossary.html#base_r_anchor">base R</a> has a Tukey’s HSD function called <code>TukeyHSD</code>, we will use one from the package <code>agricolae</code> since it supplies grouping codes that are useful for graphing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
 tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;body_site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
 <span class="kw">print</span>(tukey_result)</code></pre></div>
@@ -705,9 +687,9 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 ## </span><span style='color: #BCBCBC;'>10</span><span> al       female      male                   -</span><span style='color: #BB0000;'>0.542</span><span>     -</span><span style='color: #BB0000;'>0.054</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  -</span><span style='color: #BB0000;'>0.021</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>           0.969
 ## </span><span style='color: #949494;'># ... with 145 more rows</span><span>
 </span></code></pre>
-<p>We can use this information to create what we call a <strong>differential heat tree</strong>, which indicates which taxa are more abundant in each treatment:</p>
-<<<<<<< HEAD
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj, 
+<p>For each taxon, a <a href ="00--glossary.html#wilcoxon_rank_sum_test_anchor">Wilcoxon Rank Sum test</a> was used to test for differences between the median abundances of samples in each treatment. We can use this information to create what we call a <strong>differential heat tree</strong>, which indicates which taxa are more abundant in each treatment:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+<span class="kw">heat_tree</span>(obj, 
           <span class="dt">node_label =</span> taxon_names,
           <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span>
           <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span>
@@ -717,21 +699,8 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
           <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log 2 ratio of median proportions&quot;</span>,
           <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">heat_tree</span>(obj, </a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">          <span class="dt">node_label =</span> taxon_names,</a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">          <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5">          <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span></a>
-<a class="sourceLine" id="cb38-6" data-line-number="6">          <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
-<a class="sourceLine" id="cb38-7" data-line-number="7">          <span class="dt">node_color_range =</span> <span class="kw">c</span>(<span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;gray&quot;</span>, <span class="st">&quot;tan&quot;</span>), <span class="co"># The color palette used</span></a>
-<a class="sourceLine" id="cb38-8" data-line-number="8">          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,</a>
-<a class="sourceLine" id="cb38-9" data-line-number="9">          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log 2 ratio of median proportions&quot;</span>,</a>
-<a class="sourceLine" id="cb38-10" data-line-number="10">          <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
-<a class="sourceLine" id="cb38-11" data-line-number="11">          <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></a></code></pre></div>
->>>>>>> a0dd8744378f5f56a3f39ed08ac3612f5593d68a
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men. Note that we have not taken into account statistics significance when showing this, so lets do that. First, we need to correct for multiple comparisons:</p>
+<p>In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men. Note that we have not taken into account statistics significance when showing this, so lets do that. First, we need to <a href ="00--glossary.html#multiple_comparison_corrections_anchor">correct for multiple comparisons</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value,
                                                <span class="dt">method =</span> <span class="st">&quot;fdr&quot;</span>)</code></pre></div>
 <p>If we then look at the distribution of p-values, we can see that none are even close to significant:</p>
@@ -763,8 +732,8 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 ## </span><span style='color: #949494;'># ... with 1,540 more rows</span><span>
 </span></code></pre>
 <p>There is a special function to plot this type of data called <code>heat_tree_matrix</code>:</p>
-<<<<<<< HEAD
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree_matrix</span>(obj,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+<span class="kw">heat_tree_matrix</span>(obj,
                  <span class="dt">dataset =</span> <span class="st">&quot;diff_table&quot;</span>,
                  <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span>
                  <span class="dt">node_label =</span> taxon_names,
@@ -778,23 +747,6 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
                  <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
                  <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>, <span class="co"># The layout algorithm that initializes node locations</span>
                  <span class="dt">output_file =</span> <span class="st">&quot;differential_heat_tree.pdf&quot;</span>) <span class="co"># Saves the plot as a pdf file</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">heat_tree_matrix</span>(obj,</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">                 <span class="dt">dataset =</span> <span class="st">&quot;diff_table&quot;</span>,</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">                 <span class="dt">node_size =</span> n_obs, <span class="co"># n_obs is a function that calculates, in this case, the number of OTUs per taxon</span></a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">                 <span class="dt">node_label =</span> taxon_names,</a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">                 <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># A column from `obj$data$diff_table`</span></a>
-<a class="sourceLine" id="cb42-7" data-line-number="7">                 <span class="dt">node_color_range =</span> <span class="kw">diverging_palette</span>(), <span class="co"># The built-in palette for diverging data</span></a>
-<a class="sourceLine" id="cb42-8" data-line-number="8">                 <span class="dt">node_color_trans =</span> <span class="st">&quot;linear&quot;</span>, <span class="co"># The default is scaled by circle area</span></a>
-<a class="sourceLine" id="cb42-9" data-line-number="9">                 <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
-<a class="sourceLine" id="cb42-10" data-line-number="10">                 <span class="dt">edge_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="co"># The range of `log2_median_ratio` to display</span></a>
-<a class="sourceLine" id="cb42-11" data-line-number="11">                 <span class="dt">node_size_axis_label =</span> <span class="st">&quot;Number of OTUs&quot;</span>,</a>
-<a class="sourceLine" id="cb42-12" data-line-number="12">                 <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log2 ratio median proportions&quot;</span>,</a>
-<a class="sourceLine" id="cb42-13" data-line-number="13">                 <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span></a>
-<a class="sourceLine" id="cb42-14" data-line-number="14">                 <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>, <span class="co"># The layout algorithm that initializes node locations</span></a>
-<a class="sourceLine" id="cb42-15" data-line-number="15">                 <span class="dt">output_file =</span> <span class="st">&quot;differential_heat_tree.pdf&quot;</span>) <span class="co"># Saves the plot as a pdf file</span></a></code></pre></div>
->>>>>>> a0dd8744378f5f56a3f39ed08ac3612f5593d68a
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The grey tree on the lower left functions as a key for the unlabeled trees. Each of the smaller trees represent a comparison between body sites in the columns and rows. A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row. For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is due to the greater abundance of two genera: Prevotella and Porphyromonas. Look at the PDF file made to explore the details of the plot.</p>
 </div>

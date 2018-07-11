@@ -31,16 +31,16 @@ Type 'q()' to quit R.
 
 In programming, a variable is a name associated with a value that can change or "vary".
 This is similar to how the word is used in math.
-For example, the equaltion for a line is `y = mx + b`.
+For example, the equation for a line is `y = mx + b`.
 In this equation, all of the letters are variables that can represent any number.
 
 ## Function
 
-Any command or operation the does something in a prgramming language is a function.
-Functions often have inputs that influence what the output is, but some dont have inputs.
-Functions will usually return some type of output, but they might not, or they might have an effect besides what they return (this is rare in R, but common in other programming languanges).
+Any command or operation the does something in a programming language is a function.
+Functions often have inputs that influence what the output is, but some don't have inputs.
+Functions will usually return some type of output, but they might not, or they might have an effect besides what they return (this is rare in R, but common in other programming languages).
 The concept of functions, like variables, comes from math.
-For example, the equaltion for a line is `y = mx + b`.
+For example, the equation for a line is `y = mx + b`.
 In R, you could make a function to return `y` given the values of `m`, `x`, and `b`, like so: 
 
 ```{r}
@@ -49,7 +49,7 @@ line <- function(m, x, b) {
 }
 ```
 
-And find the vaule for y, for a given set of inputs like so: 
+And find the value for y, for a given set of inputs like so: 
 
 ```{r}
 line(m = 2.5, x = 3, b = -1)
@@ -59,14 +59,20 @@ line(m = 2.5, x = 3, b = -1)
 ## Class 
 
 A class is a defined set of variables along with a set of functions designed to work with those variable.
-The specifics of how classes are structured vary greaty between programming languages, but the concepts are similar.
+The specifics of how classes are structured vary greatly between programming languages, but the concepts are similar.
 For example, you might have a class called "Dog" that contained the dogs age (number), the dogs breed (text), and the name of the dogs owner (text).
 With those variables, the "Dog" class might have functions that make the dog a year older or change the owner of the dog, etc.
 
+## Object
+
+An instance of a class.
+In other words, a data with a defined type and functions designed to operate on it.
+For example, if you had a class for "Dog", you might have an object of that class stored in a variable called "fido" and another called "scraps". 
+
 ## The Comprehensive R Archive Network (CRAN)
 
-A volunteeer-run orgnaization that hosts R packages and enforces standards for how they should be structured.
-When you install an R pacakge using `install.packages`, you are installing from CRAN.
+A volunteer-run organization that hosts R packages and enforces standards for how they should be structured.
+When you install an R package using `install.packages`, you are installing from CRAN.
 CRAN is one of the major reasons R packages are so easy to install.
 
 
@@ -75,7 +81,7 @@ CRAN is one of the major reasons R packages are so easy to install.
 Plain text is the term used to describe text editors like Notepad or TextEdit that do not have fonts, images, or other non-text things.
 When you write R code, you are writing plain text.
 All programming languages use plain text because it is simple and has very few dependencies.
-Some programs for editing plain text might highlight relevant patterns in differenet colors, but these colors are specific to the program used to view the text, not the text itself.
+Some programs for editing plain text might highlight relevant patterns in different colors, but these colors are specific to the program used to view the text, not the text itself.
 
 ## R project
 
@@ -116,12 +122,12 @@ Now we can use functions from the `stringr` package.
 ## Operational Taxonomic Units (OTUs)
 
 OTUs are clusters of similar sequences often intended to correspond to some taxonomic rank, such as species.
-They are used to estimate diversty and account for sequencing error.
+They are used to estimate diversity and account for sequencing error.
 Different barcodes (i.e. genes/loci) evolve at different rates, so the how similar sequences must be to be grouped together will vary depending on taxonomic group, the barcode used, and what taxonomic rank OTUs are intended to correspond to (if any).
 There are two types of OTUs: *de novo* and "closed reference".
 *De novo* OTUs are constructed based on pairwise distances between sequences and do not rely on reference databases.
-Closed reference OTUs (aka phylotypes) are made by comparing seqeuecnes to references databases and clustering base on distance from the most similar reference seqeunce.
-For the limiations of OTUs and alternative approches, see:
+Closed reference OTUs (aka phylotypes) are made by comparing sequences to references databases and clustering base on distance from the most similar reference sequence.
+For the limitations of OTUs and alternative approaches, see:
 
 Callahan, Benjamin J., Paul J. McMurdie, and Susan P. Holmes. "Exact sequence variants should replace operational taxonomic units in marker-gene data analysis." The ISME journal 11.12 (2017): 2639.
 
@@ -135,8 +141,8 @@ They are the same as "closed reference" OTUs.
 ## Exact sequence variants (ESVs)
 
 Also called Amplicon Sequence Variants (ASVs).
-ESVs are the inferred unique sequences present in the original sample, after correcting for seqeunceing and PCR errors.
-See the following for reasonds to use ESVs instead of OTUs:
+ESVs are the inferred unique sequences present in the original sample, after correcting for sequencing and PCR errors.
+See the following for reasons to use ESVs instead of OTUs:
 
 Callahan, Benjamin J., Paul J. McMurdie, and Susan P. Holmes. "Exact sequence variants should replace operational taxonomic units in marker-gene data analysis." The ISME journal 11.12 (2017): 2639.
 
@@ -155,15 +161,15 @@ list(1:3, "bob", c(TRUE, FALSE))
 ## Vector
 
 An ordered set of data of the same type.
-This is one of the most common types of data uesd in R.
-Any number or peice of text in R is a vector.
+This is one of the most common types of data used in R.
+Any number or piece of text in R is a vector.
 For example, typing `5` produces a `numeric` vector of length 1:
 
 ```{r}
 5
 ```
 
-And typeing `1:10` produces a `numeric` vecotr of length 10:
+And typing `1:10` produces a `numeric` vector of length 10:
 
 ```{r}
 1:10
@@ -179,40 +185,101 @@ c("hello", "world")
 ## Taxonomic ranks
 
 Ranks are the level a taxon appears in a nested hierarchy of taxa.
-Common ranks include species, genus, family, order, class, phylym, and domain, although there might be others.
+Common ranks include species, genus, family, order, class, phylum, and domain, although there might be others.
 
 ## Rarefaction
 
+Subsets counts of types (e.g. OTUs or species) in a sample to some total number of counts.
+For example, a sample with 4 counts of A and 2 counts of B, rarefied to a total of 3, would (on average) become 2 counts of A and 1 count of B.
+This is used to transform read counts to simulate equal sampling depth, since different samples usually have different numbers of reads, due to unavoidable inconsistencies in high-throughput sequencing.
+This is important when evaluating the relative diversity among a set of samples, since higher numbers of reads mean rare species are more likely to be observed.
+
 ## Chimeric sequences
+
+Sequences composed of two or more pieces of unrelated DNA caused by "errors" during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle.
 
 ## Compositional data
 
-## Inverse Simpson Index
+When counts have a fixed total regardless of the actual abundance of things counted.
+All microbiome data is compositional because we sequence some number of reads regardless of how many PCR amplicons there were or template DNA molecules; i.e. we don't get more reads from samples with more DNA.
+This means the number of reads for a given organism does not relate to its abundance, but it abundance relative to other organisms in the community (assuming no other biases).
+Its important to keep this in mind because many common statistical techniques assume independence of observations and read counts are not independent.
+For example, if you have 10 reads of a organism in one sample and 5 reads in another, it could be that the organisms is equally abundant in both, but the second community just has a lot more other species as well. 
+
+## Inverse Simpson index
+
+An alternate way of encoding the Simpson index with numbers greater than 1.
+Assuming a theoretically community where all species were equally abundant, this would be the number of species needed to have the same Simpson index value for the community being analyzed.
 
 ## Analysis of variance (ANOVA)
 
+A statistical technique to determine of one of two or more sample means is different from the others.
+If a the result is significant, it still does not tell you which of the means were different, just that at least one was different.
+To see which of the means are different from the others, you can use the Tukey's Honest Significant Difference (HSD) test.
+
 ## Tukey's Honest Significant Difference (HSD)
+
+A test the can be used after an ANOVA to tell which of a set of samples means are different from each other by performing pairwise comparisons.
 
 ## Base R
 
+This is the term used for all of the R functions that are loaded by default when starting R, without installing or loading any packages explicitly.
+
 ## Multiple comparison corrections
+
+The p-value in a statistical test measures the likelihood that an such a result or more extreme would occur by chance if the experiment was run repeatedly (making lots of assumptions about the variance of the test statistic).
+If many tests are run on subsets of the data, then the chance that at least one has a "significant" p value by chance goes up and the p-value for each test is no longer accurate.
+There are a set of techniques to correct these p-values called multiple comparison corrections.
+Commons ones include the False discovery rate (FDR) and Bonferroni corrections.
 
 ## Wilcoxon Rank Sum test
 
+A non-parametric test (i.e. does not rely on a normal distribution) that tests if a randomly selected value from one population is greater on average than a randomly selected value from another.
+It can be thought of as the equivalent of a t-test, but only takes into account the *if* a value is greater than another value, rather than *how much* greater it is. 
+
 ## Amplicon
+
+A piece of DNA produced by PCR.
 
 ## Pipelines
 
+A term used for a series of programs (often automated) used to process data where each program takes the output of the one before as input.
+The term is generally used when the individual programs used are useful on their own for a specific purpose, rather then for small all-purpose tools like R functions. 
+
 ## Tibble
+
+An enhanced `data.frame` with better appearance when printed to the console and more consistent behavior.
+Tibbles do not allow for row names, since their designer, Hadley Wickham, thinks all data should be treated the same and row names are a kind of "special" case.
+Here is an example of a tibble compared to a `data.frame`:
+
+```{r}
+# data.frame
+mtcars
+
+# tibble
+dplyr::as.tbl(mtcars)
+```
+
 
 ## Regular expressions
 
+Also knows as a "regex".
+It is a kind of computer language used to specify and search for patterns in plain text.
+It is widely used in other languages like R, python, and Perl.
+Most regular expressions are composed of a series of "what to match" followed by "how many times to match".
+For example, `"John [a-z]+"` would match any instance of the word "John" followed by a space and one ore more lower case letters.
+Regular expressions can be very complicated, but are also very useful. 
+
 ## Capture groups
+
+A way of specifying subsets of a regular expressions that are of interest, often for the purpose of extracting the values that those portions match.
+They are specified by parentheses and do not change what the regular expression matches.
+For example, extracting the capture group in `"John ([a-z]+)"` would return the last name of people with the first name "John".
 
 ## Taxonomic classifications
 
 The set of nested taxa an organism belongs to.
-For eaxmple, the taxonomic classification of *Homo sapiens* is: 
+For example, the taxonomic classification of *Homo sapiens* is: 
 
 Animalia > Chordata > Mammalia > Primates > Haplorhini > Simiiformes > Hominidae > Homininae > Hominini > Homo > H. sapiens
 
@@ -222,8 +289,8 @@ Animalia > Chordata > Mammalia > Primates > Haplorhini > Simiiformes > Hominidae
 Random number generators are used by computers to simulate randomness, but are not actually random.
 They work by taking a starting number and running that number through a function that returns another number, which is then run through the same function to produce another number and so on.
 The first number is the "seed" and a given seed will always produce the same series of random numbers.
-Random number generators appear random because the seed that is chosen when the generator is created is usually something like the miliseconds on your computer's internal clock.
-You can however set the seed youself if you always want the same "random" behavior using the `set.seed` function.
+Random number generators appear random because the seed that is chosen when the generator is created is usually something like the milliseconds on your computer's internal clock.
+You can however set the seed yourself if you always want the same "random" behavior using the `set.seed` function.
 For example:
 
 ```{r}
@@ -239,7 +306,7 @@ rnorm(3)
 ## Subtaxa
 
 The taxa contained within another taxon.
-For example, *Homo sapiens* is a subtaxoon of the genus *Homo*.
+For example, *Homo sapiens* is a subtaxon of the genus *Homo*.
 
 
 ## Supertaxa
@@ -249,6 +316,13 @@ For example, *Homo* is a supertaxon of the species *Homo sapiens*.
 
 
 ## Hexadecimal color codes
+
+A way of encoding colors using 6 numbers or letters.
+Colors on a computer are made by varying the intensity of red, green, and blue.
+The intensity of each color is encoded from 0-255 (1 byte) and converted to a base 16 numbering system that uses the numbers 0-9 and the letters A-F, so it only takes 2 digits to encode 256 values.
+Three pairs of two digits corresponding to the intensity of red, green, and blue make up a hexadecimal color code.
+For example, `"#FF0000"` is the most intense red and corresponds to red = 255, green = 0, and blue = 0.
+Black is `"#000000"` and white is `"#FFFFFF"`.
 
 ## Singleton
 
@@ -264,12 +338,12 @@ To "turn" a table or matrix 90 degrees, making the rows into columns and the col
 
 ## Tab-delimited text file
 
-Also known as tab-seperated value (TSV) format and usually has the file extension `.tsv`.
+Also known as tab-separated value (TSV) format and usually has the file extension `.tsv`.
 A plain text file used to store tables.
-Each row is one line and columns are seperated by tabs (i.e. `\\t`).
+Each row is one line and columns are separated by tabs (i.e. `\\t`).
 
 ## Comma-delimited text file
 
-Also known as comma-seperated value (CSV) format and usually has the file extension `.csv`.
+Also known as comma-separated value (CSV) format and usually has the file extension `.csv`.
 A plain text file used to store tables.
-Each row is one line and columns are seperated by commas (i.e. `,`).
+Each row is one line and columns are separated by commas (i.e. `,`).

@@ -371,9 +371,5 @@ cat(
 ```
 
 
-
-```{r, child="_sessioninfo.Rmd"}
-```
-
 ## References
 

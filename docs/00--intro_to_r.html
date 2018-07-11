@@ -214,7 +214,10 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="02--quick_example.html">Example analysis</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
      
@@ -224,7 +227,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="02--quick_example.html">Example analysis</a>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
     </li>
     <li>
       <a href="03--parsing.html">Getting data into R</a>
@@ -259,10 +265,7 @@ $(document).ready(function () {
       <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
     </li>
     <li>
-      <a href="00--required_software.html">Required software</a>
-    </li>
-    <li>
-      <a href="00--required_data.html">Required datasets</a>
+      <a href="00--glossary.html">Glossary</a>
     </li>
     <li>
       <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
@@ -297,7 +300,7 @@ $(document).ready(function () {
 <p>R is a large and complex topic. Even those who use it every day only know a small subset of what there is to know. However, you don’t need to know very much to do some very impressive things. This section is a <strong>very</strong> short introduction to the most basic aspects of R to get you started. Look at the list of resources and the end of this section for more complete tutorials.</p>
 <div id="what-is-r" class="section level2">
 <h2>What is R?</h2>
-<p>Unlike spreadsheet programs, like excel, R is a text-based “interactive” program, meaning that you use it by typing commands. If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data. If you type an invalid command, R will print an error message and nothing will happen (ideally). Where you type commands is referred to as the <a href ="00--glossary.html#R_console_anchor">R console</a>. If you are using RStudio, this is the lower left window. Here is what an R console looks like when R is first started:</p>
+<p>Unlike spreadsheet programs, like excel, R is a text-based “interactive” program, meaning that you use it by typing commands. If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data. If you type an invalid command, R will print an error message and, ideally, nothing will happen. Where you type commands is referred to as the <a href ="00--glossary.html#r_console_anchor">R console</a>. If you are using RStudio, this is the lower left window. Here is what an R console looks like when R is first started:</p>
 <pre><code>R version 3.4.4 (2018-03-15) -- &quot;Someone to Lean On&quot;
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -322,7 +325,7 @@ Type &#39;q()&#39; to quit R.
 <pre class="r-output"><code>[1] 2
 </code></pre>
 <p>The thing after the <code>&gt;</code> is what I typed and the line below is what was returned.</p>
-<p>Since I did not save the result in a variable, it was printed instead. The <code>[1]</code> at the start keeps track of how many values have been printed. Its not too useful when their is only a single value, as in this case, but gets more useful when many values are printed. For example, I could make a variable with 100 values from 1 to 100 by typing:</p>
+<p>Since I did not save the result, it was printed instead. The <code>[1]</code> at the start keeps track of how many values have been printed. Its not too useful when there is only a single value, as in this case, but gets more useful when many values are printed. For example, I could print values from 1 to 100 by typing:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
 <pre class="r-output"><code>  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23
  [24]  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46
@@ -330,11 +333,11 @@ Type &#39;q()&#39; to quit R.
  [70]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92
  [93]  93  94  95  96  97  98  99 100
 </code></pre>
-<p>Now the <code>[24]</code> on the second line means that <code>24</code> is the 24th element. Every type of variable will have a different way of being printed. In this case, the variable is a <code>numeric</code> type.</p>
+<p>Now the <code>[24]</code> on the second line means that <code>24</code> is the 24th element.</p>
 </div>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
-<p>In programmer-speak, any piece of data is called a “variable”. There are different types (or “classes”) of variables such as <code>character</code> (text), <code>numeric</code> (numbers), and <code>data.frame</code>s (tables). You can “save” the result of commands in R using <code>&lt;-</code> like so:</p>
+<p>In programmer-speak, any piece of data is called a “variable”. There are different types, or <a href ="00--glossary.html#class_anchor">classes</a>, of variables such as <code>character</code> (text), <code>numeric</code> (numbers), and <code>data.frame</code>s (tables). You can “save” the result of commands in R using <code>&lt;-</code> like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a_sequence &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
 <p>Note how nothing is printed since the result of <code>1:100</code> was saved in the <code>a_sequence</code> variable, but it can still be printed by entering the name of the variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a_sequence</code></pre></div>
@@ -373,7 +376,7 @@ Type &#39;q()&#39; to quit R.
 </div>
 <div id="comments" class="section level2">
 <h2>Comments</h2>
-<p>Reading code is difficult even if you wrote it. Although it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two. Be kind to your future self or any other unfortunates that must interpret this code and use comments. Comments are just parts of text that R ignores. Anything that appears after a <code>#</code> is a comment and will be ignored by R.</p>
+<p>Reading code is difficult even if you wrote it. Although it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two. Be kind to your future self or any other unfortunates that must interpret this code and use comments. Comments are parts of text that R ignores and programmers use to leave notes. Anything that appears after a <code>#</code> is a comment and will be ignored by R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add 1 + 1 and writes the result to console</span>
 <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># This is addition</span></code></pre></div>
 <pre class="r-output"><code>[1] 2
@@ -386,7 +389,7 @@ Type &#39;q()&#39; to quit R.
 </div>
 <div id="r-packages" class="section level2">
 <h2>R packages</h2>
-<p>An R package is a set of user-defined functions organized so that people can easily share and use them. Most of the functions used by most R users are from R packages rather than those supplied by “base” R. R packages can be installed in a few ways, but the most common is to download them from The Comprehensive R Archive Network (CRAN) using the <code>install.packages</code> function. For example <code>stringr</code> is an R package that supplies functions to work with text.</p>
+<p>An R package is a set of user-defined functions organized so that people can easily share and use them. Most of the functions used by most R users are from R packages rather than those supplied by <a href ="00--glossary.html#base_r_anchor">base R</a>. R packages can be installed in a few ways, but the most common is to download them from <a href ="00--glossary.html#the_comprehensive_r_archive_network_(cran)_anchor">The Comprehensive R Archive Network (CRAN)</a> using the <code>install.packages</code> function. For example <code>stringr</code> is an R package that supplies functions to work with text.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)</code></pre></div>
 <p>Once installed, a package must be “loaded” using the <code>library</code> function before any functions it supplies can be used:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</code></pre></div>
@@ -402,7 +405,7 @@ Type &#39;q()&#39; to quit R.
 <p>Help files have an overview of:</p>
 <ul>
 <li>purpose of a function</li>
-<li>parameters it takes</li>
+<li>options it takes</li>
 <li>output it yields</li>
 <li>examples demonstrating its usage</li>
 </ul>

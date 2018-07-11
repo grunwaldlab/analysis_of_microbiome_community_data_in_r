@@ -2,11 +2,15 @@ name: my-website
 navbar:
   title: Analysis of Microbiome Data in R
   left:
+  - text: Example analysis
+    href: 02--quick_example.html
   - text: Workshop
     icon: fa-laptop
     menu:
-    - text: Example analysis
-      href: 02--quick_example.html
+    - text: Required software
+      href: 00--required_software.html
+    - text: Required datasets
+      href: 00--required_data.html
     - text: Getting data into R
       href: 03--parsing.html
     - text: Manipulating taxonomic data
@@ -24,10 +28,8 @@ navbar:
       href: 00--intro_to_r.html
     - text: Introduction to RStudio
       href: 00--intro_to_rstudio.html
-    - text: Required software
-      href: 00--required_software.html
-    - text: Required datasets
-      href: 00--required_data.html
+    - text: Glossary
+      href: 00--glossary.html
     - text: Website source code
       href: https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r
   - text: About

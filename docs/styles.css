@@ -21,3 +21,8 @@
 img {
     margin-bottom: 10px;
 }
+
+
+.glossary_anchor:target {
+  padding-top: 90px;
+}

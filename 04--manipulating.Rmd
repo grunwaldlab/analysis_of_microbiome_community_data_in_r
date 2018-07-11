@@ -373,8 +373,4 @@ This effectivly sorts by how "characteristic" an OTU is to root samples.
 arrange_obs(obj, "sample_props", leaf - root)
 ```
 
-
-```{r, child="_sessioninfo.Rmd"}
-```
-
 ## References

@@ -104,7 +104,7 @@ print(obj)
 
 ## Rarefaction curves
 
-The relationship between the number of reads and the number of OTUs can be described using `r gloss$add('rarefaction curves')`.
+The relationship between the number of reads and the number of OTUs can be described using `r gloss$add('Rarefaction', shown = 'rarefaction curves')`.
 Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads.
 The `rarecurve` function from the `vegan` package will do the random subsampling and plot the results for an abundance matrix.
 For example, the code below plots the rarefaction curve for a single sample:
@@ -179,8 +179,4 @@ Around 40,000 reads.
 
 ```{r hide_button = TRUE}
 rarefy_obs(obj, "otu_counts", sample_size = 1000)
-```
-
-
-```{r, child="_sessioninfo.Rmd"}
 ```

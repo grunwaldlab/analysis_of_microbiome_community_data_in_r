@@ -69,7 +69,7 @@ summary(anova_result)
 ```
 
 That tells us that there is a difference, but does not tell us which means are different.
-A Tukey's Honest Significant Difference (HSD) test can do pairwise comparisons of the means to find this out.
+A `r gloss$add("Tukey's Honest Significant Difference (HSD)")` test can do pairwise comparisons of the means to find this out.
 We will use the `HSD.test` function from the `agricolae` package since it provides grouping codes that are useful for graphing.
 
 ```{r}
@@ -250,6 +250,3 @@ The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is 
 ```
 
 ## References
-
-```{r, child="_sessioninfo.Rmd"}
-```

@@ -214,7 +214,10 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="02--quick_example.html">Example analysis</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-laptop"></span>
      
@@ -224,7 +227,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="02--quick_example.html">Example analysis</a>
+      <a href="00--required_software.html">Required software</a>
+    </li>
+    <li>
+      <a href="00--required_data.html">Required datasets</a>
     </li>
     <li>
       <a href="03--parsing.html">Getting data into R</a>
@@ -259,10 +265,7 @@ $(document).ready(function () {
       <a href="00--intro_to_rstudio.html">Introduction to RStudio</a>
     </li>
     <li>
-      <a href="00--required_software.html">Required software</a>
-    </li>
-    <li>
-      <a href="00--required_data.html">Required datasets</a>
+      <a href="00--glossary.html">Glossary</a>
     </li>
     <li>
       <a href="https://github.com/grunwaldlab/analysis_of_microbiome_community_data_in_r">Website source code</a>
@@ -296,18 +299,18 @@ $(document).ready(function () {
 <h1>Getting data into R</h1>
 <div id="typical-format-for-microbiome-data" class="section level2">
 <h2>Typical format for microbiome data</h2>
-<p>Most pipelines for processing high-throughput amplicon data, such as mothur, QIIME, and dada2, result in a matrix of read counts. One dimension of this matrix (i.e. the rows or the columns) consists of OTUs, phylotypes, or unique sequences (all ways to “bin” similar read sequences). The other dimension consists of samples. Different tools will expect/output different orientations of the matrix, but, in our case, columns are samples and rows are OTUs. Sometimes the OTU data and the abundance matrix are two separate tables. There is usually another table with sample information in rows. This makes it easy to add lots of additional sample data columns that can be used to subset the data. Each sample and OTU will have an unique ID.</p>
+<p>Most <a href ="00--glossary.html#pipelines_anchor">pipelines</a> for processing high-throughput <a href ="00--glossary.html#amplicon_anchor">amplicon</a> data, such as mothur, QIIME, and dada2, result in a matrix of read counts. One dimension of this matrix (i.e. the rows or the columns) consists of <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">Operational Taxonomic Units (OTUs)</a>, <a href ="00--glossary.html#phylotypes_anchor">phylotypes</a>, or <a href ="00--glossary.html#exact_sequence_variants_(esvs)_anchor">exact sequence variants (ESVs)</a> (all ways to “bin” similar read sequences). The other dimension consists of samples. Different tools will expect/output different orientations of the matrix, but, in our case, columns are samples and rows are OTUs. Sometimes the <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a> data and the abundance matrix are two separate tables. There is usually another table with sample information in rows. This makes it easy to add lots of additional sample data columns that can be used to subset the data. Each sample and OTU will have an unique ID.</p>
 <p><img src="figure_sources/typical_input_format.png" width="780" style="display: block; margin: auto;" /></p>
 </div>
 <div id="importing-data-into-r" class="section level2">
 <h2>Importing data into R</h2>
-<p>Importing data into R can be quite easy if the data is formatted well, but can be a very frustrating experience otherwise. An example of well-formatted data is .csv (comma-separated value) or .tsv (tab-separated value) files, each with a single table and no additional comments or formatting (e.g. merged cells). Either of these formats might also have a .txt extension (the extension does not really matter; its for humans, not computers). For more information on correct data formatting, see the <a href="http://grunwaldlab.github.io/Reproducible-science-in-R/03--Data_formatting.html">data formating section</a> of our <a href="http://grunwaldlab.github.io/Reproducible-science-in-R/index.html">guide for reporducible research</a>. You should always import the raw output data whenever possible and avoid any “manual” (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time (<span class="citation">Zeeberg et al. (2004)</span>).</p>
+<p>Importing data into R can be quite easy if the data is formatted well, but can be a very frustrating experience otherwise. An example of well-formatted data is <a href ="00--glossary.html#comma-delimited_text_file_anchor">.csv (comma-separated value)</a> or <a href ="00--glossary.html#tab-delimited_text_file_anchor">.tsv (tab-separated value)</a> files, each with a single table and no additional comments or formatting (e.g. merged cells). Either of these formats might also have a .txt extension (the extension does not really matter; its for humans, not computers). For more information on correct data formatting, see the <a href="http://grunwaldlab.github.io/Reproducible-science-in-R/03--Data_formatting.html">data formating section</a> of our <a href="http://grunwaldlab.github.io/Reproducible-science-in-R/index.html">guide for reporducible research</a>. You should always import the raw output data whenever possible and avoid any “manual” (i.e. non-scripted) modification of the data, especially in programs like Excel, which are known to mangle data from time to time (<span class="citation">Zeeberg et al. (2004)</span>).</p>
 <p>Throughout this workshop, we will be using data from <span class="citation">Wagner et al. (2016)</span>, a study on the effects of plant age, genotype, and environment on the bacterial microbiome of <a href="https://en.wikipedia.org/wiki/Boechera_stricta"><em>Boechera stricta</em></a>, a perennial herb in the mustard family. Here is a photo of <em>Boechera stricta</em> taken by Mary Ellen Harte:</p>
 <p><img src="images/boechera_stricta.jpg" width="375" style="display: block; margin: auto;" /></p>
 <p><span class="citation">Wagner et al. (2016)</span> released their raw data with the article and it is available <a href="http://datadryad.org/resource/doi:10.5061/dryad.g60r3">here</a> on <a href="http://datadryad.org/">dryad</a>. This is a great example of how to share your raw data!</p>
-<p>There are many functions commonly used to read tabular data, including the traditional ones like <code>read.table</code> and <code>read.csv</code>, but we will be using functions from the new <a href="http://readr.tidyverse.org/articles/readr.html"><code>readr</code> package</a>, which returns <a href="http://r4ds.had.co.nz/tibbles.html">“tibbles”</a> instead of <code>data.frame</code>s (A “table” in R).</p>
+<p>There are many <a href ="00--glossary.html#function_anchor">functions</a> commonly used to read tabular data, including the traditional ones like <code>read.table</code> and <code>read.csv</code>, but we will be using functions from the new <a href="http://readr.tidyverse.org/articles/readr.html"><code>readr</code> package</a>, which returns <a href="http://r4ds.had.co.nz/tibbles.html">“tibbles”</a> instead of <code>data.frame</code>s (A “table” in R).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr) <span class="co"># Loads the readr package so we can use `read_tsv`</span></code></pre></div>
-<p>Tibbles are a type of <code>data.frame</code> with some fancier printing and more consistent behavior. Lets read in the raw OTU table first:</p>
+<p><a href ="00--glossary.html#tibble_anchor">Tibbles</a> are a type of <code>data.frame</code> with some fancier printing and more consistent behavior. Lets read in the raw OTU table first:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">otu_data &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;data/otuTable97.txt.bz2&quot;</span>)
 <span class="kw">print</span>(otu_data) <span class="co"># You can also enter `otu_data` to print it</span></code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 47,806 x 1,699</span><span>
@@ -346,7 +349,7 @@ $(document).ready(function () {
 ## </span><span style='color: #BCBCBC;'>10</span><span> OTU_10005 Root;k__Bacteria;p__Cyanobact… Bacteria Cyanob… 4C0d-2   MLE1-12  </span><span style='color: #BB0000;'>NA</span><span>             1.00 
 ## </span><span style='color: #949494;'># ... with 47,796 more rows</span><span>
 </span></code></pre>
-<p>Although these data are very well-formatted compared to most, it is not perfect. The “OTU ID” column contains a space in the name (hence the back ticks), which makes it a bit more annoying to work with in R. More importantly, the OTU IDs in the taxonomy table are prefixed with “OTU_” and those in the OTU table are not, so we have to remove that prefix to make the two match up:</p>
+<p>Although these data are very well-formatted compared to most, there are still a few issues. The “OTU ID” column contains a space in the name (hence the back ticks), which makes it a bit more annoying to work with in R. More importantly, the OTU IDs in the taxonomy table are prefixed with “OTU_” and those in the OTU table are not, so we have to remove that prefix to make the two match up. The functions <code>sub</code> and <code>gsub</code> are used to search and replace parts of text; <code>sub</code> replaces only the first match and <code>gsub</code> replaces all matches. Replacing with nothing (<code>&quot;&quot;</code>) effectively searches and deletes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tax_data<span class="op">$</span><span class="st">`</span><span class="dt">OTU ID</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">sub</span>(tax_data<span class="op">$</span><span class="st">`</span><span class="dt">OTU ID</span><span class="st">`</span>, <span class="co"># ` are needed because of the space</span>
                          <span class="dt">pattern =</span> <span class="st">&quot;OTU_&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)
 <span class="kw">print</span>(tax_data) </code></pre></div>
@@ -390,7 +393,7 @@ otu_data &lt;-<span class="st"> </span><span class="kw">left_join</span>(otu_dat
 ## #   M1551P75 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P88 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
 </span></code></pre>
 <p>There are so many columns that all of them are not shown in the print out, but we can verify that they are there by looking at the last 10 column names:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(<span class="kw">colnames</span>(otu_data), <span class="dt">n =</span> <span class="dv">10</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(<span class="kw">colnames</span>(otu_data), <span class="dt">n =</span> <span class="dv">10</span>) <span class="co"># `tail` returns the last n elements</span></code></pre></div>
 <pre class="r-output"><code>##  [1] "M1958P1043" "M1691P1526" "M1691P1557" "taxonomy"   "Kingdom"    "Phylum"     "Class"     
 ##  [8] "Order"      "Family"     "Confidence"
 </code></pre>
@@ -414,11 +417,11 @@ otu_data &lt;-<span class="st"> </span><span class="kw">left_join</span>(otu_dat
 ## </span><span style='color: #949494;'># ... with 1,688 more rows, and 4 more variables: Block </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, oldPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, newPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>,
 ## #   Analysis </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 </span></code></pre>
-<p>Note how the number of sample columns in <code>otu_data</code> is equal to the number of rows in <code>sample_data</code> and the columns names of <code>otu_data</code> appear in the “SampleID” column.</p>
+<p>Note how the number of sample columns in <code>otu_data</code> is equal to the number of rows in <code>sample_data</code> and the columns names of <code>otu_data</code> appear in the “SampleID” column. This means that the contents of <code>sample_data$SampleID</code> can be used to subset columns in the OTU table.</p>
 </div>
 <div id="converting-to-the-taxmap-format" class="section level2">
 <h2>Converting to the <code>taxmap</code> format</h2>
-<p>Although our data is now in R, it is not in a format that is specialized for community abundance data; all R knows is that you have a few big tables. Different R packages for community (e.g. microbiome) analysis expect data in different formats or <strong>classes</strong>. A class, in programming jargon, is a defined way to store data plus some functions designed to interact with that data. When you format a specific data set in this way, we call it an <strong>object</strong> or an instance of the class. Many packages implement their own classes and functions to convert data to their format, whereas some packages use the classes defined in other packages. There are a few options for how to store an abundance matrix classified by a taxonomy in R (e.g. <code>phyloseq</code> objects), but we will be using classes defined in the <code>taxa</code> package here. The goal of the <code>taxa</code> package is to provide an all-purpose standard way of manipulation any type of information assigned to a taxonomy. <code>Taxa</code> provides a set of flexible parsers that should be able to read nearly any format, given the correct settings.</p>
+<p>Although our data is now in R, it is not in a format that is specialized for community abundance data; all R knows is that you have a few big tables. Different R packages for community (e.g. microbiome) analysis expect data in different formats or <a href ="00--glossary.html#class_anchor">classes</a>. A class, in programming jargon, is a defined way to store data plus some functions designed to interact with that data. When you format a specific data set in this way, we call it an <a href ="00--glossary.html#object_anchor">object</a> or an “instance” of the class. Many R packages implement their own classes and functions to convert data to their format, whereas some packages use the classes defined in other packages. There are a few options for how to store an abundance matrix classified by a taxonomy in R (e.g. <code>phyloseq</code> objects), but we will be using classes defined in the <code>taxa</code> package here. The goal of the <code>taxa</code> package is to provide an all-purpose standard way of manipulation any type of information assigned to a taxonomy. <code>Taxa</code> provides a set of flexible parsers that should be able to read nearly any format, given the correct settings.</p>
 <blockquote>
 <p>Add link to taxa parsing guide once it is online</p>
 </blockquote>
@@ -437,7 +440,7 @@ otu_data &lt;-<span class="st"> </span><span class="kw">left_join</span>(otu_dat
 </code></pre>
 <p>Note that there are some odd aspects to the format that could make it challenging to parse:</p>
 <ul>
-<li>Some taxa have ranks (e.g. “k__Bacteria“) and some don’t (e.g.”Unassigned&quot; and “Root”).</li>
+<li>Some taxa have <a href ="00--glossary.html#taxonomic_ranks_anchor">ranks</a> (e.g. “k__Bacteria“) and some don’t (e.g.”Unassigned&quot; and “Root”).</li>
 <li>Some taxa have ranks, but no names (e.g. “f__“).</li>
 </ul>
 <p>If we just consider the ranks to be a part of the taxon name, then its pretty easy to parse:</p>
@@ -462,7 +465,7 @@ obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_dat
 ##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
-<p>Above is the print out of a <code>taxmap</code> object. The first line tells us that the OTUs are assigned to 1558 unique taxa and lists their IDs and names. These taxon IDs were generated automatically when converting to the <code>taxmap</code> format and were not in the original data set. The second line describes how taxa relate to each other in the tree. Note how our original data are now inside this object:</p>
+<p>Above is the print out of a <code>taxmap</code> object. The first line tells us that the OTUs are assigned to 1,558 unique taxa and lists their IDs and names. These taxon IDs were generated automatically when converting to the <code>taxmap</code> format and were not in the original data set. The second line describes how taxa relate to each other in the tree. Note how our original data are now inside this object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>tax_data)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 47,806 x 1,707</span><span>
 ##    taxon_id OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85 M1551P28 M1551P29 M1551P38 M1551P90
@@ -481,8 +484,8 @@ obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_dat
 ## #   M1551P84 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P48 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P4 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P52 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P3 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P15 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
 ## #   M1551P31 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P75 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
 </span></code></pre>
-<p><code>obj$data</code> is a list of arbitrary, user-defined data sets. These data sets can be named anything and can be any R object, such as lists, vectors, or tables. This is different than <code>phyloseq</code> objects, which have a fixed number of data sets in pre-defined formats. Note that our data set now has a “taxon_id” column, which maps rows in the table to a taxa in the taxonomy. This column is essential for the manipulation functions of <code>taxa</code> to know how to handle these data sets, as we will demonstrate later.</p>
-<p>If we want to split out the rank information, we can use <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> (a.k.a “regex”) to specify which part of each taxon is a rank and which part is a name. If you are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very useful skill to have, so it is worth learning. Most regular expressions are composed of a series of “what to match” followed by “how many times to match”. One regular expression that matches the pattern of taxon names is <code>^[a-z]{0,1}_{0,2}.*$</code>. This might look intimidating, but we can break it down into understandable parts:</p>
+<p><code>obj$data</code> is a list of arbitrary, user-defined data sets. These data sets can be named anything and can be any R object, such as <a href ="00--glossary.html#list_anchor">lists</a>, or <a href ="00--glossary.html#vector_anchor">vectors</a>, or tables. This is different than <code>phyloseq</code> objects, which have a fixed number of data sets in pre-defined formats. Note that our data set now has a “taxon_id” column, which maps rows in the table to a taxa in the taxonomy. This column is essential for the manipulation functions of <code>taxa</code> to know how to handle these data sets, as we will demonstrate later.</p>
+<p>If we want to split out the rank information, we can use <a href ="00--glossary.html#regular_expressions_anchor">regular expressions</a> (a.k.a “regex”) to specify which part of each taxon is a rank and which part is a name. If you are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very useful skill to have, so it is worth learning. Most regular expressions are composed of a series of “what to match” followed by “how many times to match”. One regular expression that matches the pattern of taxon names is <code>^[a-z]{0,1}_{0,2}.*$</code>. This might look intimidating, but we can break it down into understandable parts:</p>
 <ul>
 <li>The <code>^</code> and <code>$</code> represent the start and end of the text respectively. If these were not there, then the pattern could match just a part of the text</li>
 <li>The square brackets (e.g. <code>[a-z]</code>) specify a range of characters that can be matched. Likewise the <code>.</code> means match any character.</li>
@@ -490,7 +493,7 @@ obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_dat
 </ul>
 <p>The whole regex means the following in common English:</p>
 <p>“From the start of the string, (<code>^</code>) match any character between”a&quot; and “z” (<code>[a-z]</code>) zero or one times (<code>{0,1}</code>) followed by an underscore (<code>_</code>) occurring between zero and 2 times (<code>{0,2}</code>), followed by any character (<code>.</code>) occurring zero or more times (<code>*</code>), followed by the end of the text (<code>$</code>).&quot;</p>
-<p>We can add parentheses that specify which parts of the pattern go together; these are called <strong>capture groups</strong> in regex jargon. These do not change what will be matched; they just define different parts of the pattern. In this case, we are interested in the taxon rank (matched by <code>([a-z]{0,1})</code>) and the taxon name (matched by <code>(.*)</code>).</p>
+<p>We can add parentheses that specify which parts of the pattern go together; these are called <a href ="00--glossary.html#capture_groups_anchor">capture groups</a> in regex jargon. These do not change what will be matched; they just define different parts of the pattern. In this case, we are interested in the taxon rank (matched by <code>([a-z]{0,1})</code>) and the taxon name (matched by <code>(.*)</code>).</p>
 <p>The <code>parse_tax_data</code> function from the <code>taxa</code> package uses regular expressions with capture groups to isolate the pieces of information we want. For each capture group in the regular expression (aka “regex”), a value is given to the <code>class_key</code> option specifying what the group is (e.g. taxon name). Putting this all together, we can read the data like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_data,
                       <span class="dt">class_cols =</span> <span class="st">&quot;taxonomy&quot;</span>,
@@ -523,7 +526,7 @@ obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_dat
 ##   0 functions:
 </span></code></pre>
 <p>Note how the taxon names do not have the rank information anymore:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(obj<span class="op">$</span><span class="kw">taxon_names</span>())</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">taxon_names</span>(obj))</code></pre></div>
 <pre class="r-output"><code>##              aab              aac              aad              aae              aaf 
 ##     "Unassigned"           "Root"       "Bacteria"        "Archaea" "Proteobacteria" 
 ##              aag 
@@ -547,7 +550,7 @@ obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_dat
 ## </span><span style='color: #949494;'># ... with 216,407 more rows</span><span>
 </span></code></pre>
 <p>However, ranks can also be accessed using the <code>taxon_ranks</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(obj<span class="op">$</span><span class="kw">taxon_ranks</span>())</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">taxon_ranks</span>(obj))</code></pre></div>
 <pre class="r-output"><code>## aab aac aad aae aaf aag 
 ##  ""  "" "k" "k" "p" "p"
 </code></pre>
@@ -572,12 +575,13 @@ obj &lt;-<span class="st"> </span><span class="kw">parse_tax_data</span>(otu_dat
 ##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
+<p>We can name the tables or other info in <code>obj$data</code> whatever we want. <code>obj$data</code> is a standard <code>list</code>, which means any number of things of any type can be put in it.</p>
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
 <div id="reading-tabular-data" class="section level3">
 <h3>Reading tabular data</h3>
-<p><strong>1)</strong> Take a look at the file called “parsing_exercise_1_example.tsv”.</p>
+<p><strong>1)</strong> Take a look at the file <a href="data/example_data_1.tsv">example_data_1.tsv</a>.</p>
 <p><strong>2)</strong> Try reading the file using the base R function <code>read.table</code>. You might need to change some of the options. Type <code>?read.table</code> to see the documentation for this function. Hint: what does the <code>.tsv</code> extension mean?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-20">
 Show solution
@@ -748,7 +752,7 @@ Show solution
 <div id="hide_buttonunnamed-chunk-28" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lookup_tax_data</span>(my_data, <span class="dt">type =</span> <span class="st">&quot;taxon_id&quot;</span>, <span class="dt">column =</span> <span class="st">&quot;itis_taxon_id&quot;</span>, <span class="dt">database =</span> <span class="st">&quot;itis&quot;</span>)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
-##   22 taxa: <span style='color: #00BB00;'>202423</span><span>. Animalia, </span><span style='color: #00BB00;'>914154</span><span>. Bilateria ... </span><span style='color: #00BB00;'>183806</span><span>. Panthera  tigris  tigris
+##   22 taxa: <span style='color: #00BB00;'>202423</span><span>. Animalia, </span><span style='color: #00BB00;'>914154</span><span>. Bilateria ... </span><span style='color: #00BB00;'>183806</span><span>. Panthera tigris tigris
 ##   22 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>202423</span><span>, </span><span style='color: #00BB00;'>202423</span><span>-&gt;</span><span style='color: #00BB00;'>914154</span><span> ... </span><span style='color: #00BB00;'>180592</span><span>-&gt;</span><span style='color: #00BB00;'>183805</span><span>, </span><span style='color: #00BB00;'>183805</span><span>-&gt;</span><span style='color: #00BB00;'>183806</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>tax_data</span><span>:
@@ -785,12 +789,12 @@ Show Answer
 </div>
 <div id="reading-taxonomic-data-from-complex-formats" class="section level3">
 <h3>Reading taxonomic data from complex formats</h3>
-<p>Sometimes taxonomic data can be embedded in complex text, like FASTA headers. Look at the file “example_data_2.fa” which contains headers with two sources of taxonomic information:</p>
+<p>Sometimes taxonomic data can be embedded in complex text, like FASTA headers. Look at the file <a href="data/example_data_2.fa">example_data_2.fa</a> which contains headers with two sources of taxonomic information:</p>
 <ul>
 <li>The Genbank accession number</li>
 <li>The taxonomic classification</li>
 </ul>
-<p><strong>1)</strong> Read the FASTA file called “example_data_2.fa” using the <code>read.FASTA</code> function from the <code>ape</code> package and store the result in a variable.</p>
+<p><strong>1)</strong> Read the FASTA file <a href="data/example_data_2.fa">example_data_2.fa</a> using the <code>read.FASTA</code> function from the <code>ape</code> package and store the result in a variable.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-30">
 Show solution
 </button>
