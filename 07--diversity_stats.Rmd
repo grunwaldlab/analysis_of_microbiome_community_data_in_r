@@ -225,7 +225,7 @@ ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
   geom_point()
 ```
 
-There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.
+There is no discernable pattern there, suggesting plant genotype does not correspond to community structure.
 
 We can also do the above quickly in `phyloseq` using the `ordinate` and `plot_ordination` functions.
 Lets look at the differences between leaf and root samples again, but using a difference index this time.

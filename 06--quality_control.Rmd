@@ -17,8 +17,8 @@ There are lots of ways to filter out errors including:
 This information is typically in the .fastq files returned by the sequencer.
 There are many programs, such as "trimmomatic", that can use the quality scores in these files to filter out low-quality sequences.
 * Clustering similar sequences together. Many erroneous sequences are very similar to the true sequences, so they will be incorporated into the same `r gloss$add('Operational Taxonomic Units (OTUs)', show = 'OTU')` as the true sequence. In that sense, clustering into OTUs will hide some sequencing error.
-* Remove of `r gloss$add('chimeric sequences')`. "Chimeras" are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.
-* Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called "singletons". So when you hear things like "singletons were removed" and means all OTUs with only a single sequence were removed.
+* Removing `r gloss$add('chimeric sequences')`. "Chimeras" are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.
+* Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called "singletons". So when you hear things like "singletons were removed" this means all OTUs with only a single sequence were removed.
 * `r gloss$add('Rarefaction', show = 'Rarefying')` read counts. Usually, we try to make each sample in a sequencing run have a the same number of reads sequenced, but that does not always happen. When a sample has many more reads than another sample, its apparent diversity can be artificially inflated since rare taxa are more likely to be found. To avoid this, the reads are subsampled to a fixed number or "rarefied". 
 * Converting counts to presence/absence. Due to PCR biases and the nature of `r gloss$add('compositional data')`, many researchers advocate not using read count information at all. Instead, they recommend converting counts to simply "present" or "absent". 
 
@@ -55,7 +55,7 @@ no_reads <- rowSums(obj$data$otu_counts[, sample_data$SampleID]) == 0
 sum(no_reads) # when `sum` is used on a TRUE/FALSE vector it counts TRUEs
 ```
 
-So now `r sum(no_reads)` of `r nrow(obj$data$otu_counts)` have no reads.
+So now `r sum(no_reads)` of `r nrow(obj$data$otu_counts)` OTUs have no reads.
 We can remove them and the taxa they are associated with like so: 
 
 ```{r}

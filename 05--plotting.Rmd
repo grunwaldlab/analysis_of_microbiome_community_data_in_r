@@ -341,7 +341,7 @@ obj %>%
 ```
 
 Note the use of the `tree_label` option used to add the tree labels based on the name of their root taxa.
-This can be used to make very large taxonomies easier to understand or emphasize the difference between taxa.
+This can be used to make very large taxonomies easier to understand or emphasize differences between taxa.
 
 ## Exercises
 
