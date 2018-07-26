@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -126,6 +128,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -299,17 +304,17 @@ $(document).ready(function () {
 <h1>Data quality control</h1>
 <p>Sequencing technologies all have some amount of error. Some of this error happens during PCR and some happens during sequencing. There are lots of ways to filter out errors including:</p>
 <ul>
-<li>Removing sequences/bases that the sequencer indicates are low quality. This information is typically in the .fastq files returned by the sequencer. There are many programs, such as “trimmomatic”, that can use the quality scores in these files to filter out low-quality sequences.</li>
+<li>Removing sequences/bases that the sequencer indicates are low quality. This information is typically in the <a href ="00--glossary.html#fastq_anchor">.fastq</a> files returned by the sequencer. There are many programs, such as <a href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a>, that can use the quality scores in these files to filter out low-quality sequences.</li>
 <li>Clustering similar sequences together. Many erroneous sequences are very similar to the true sequences, so they will be incorporated into the same <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a> as the true sequence. In that sense, clustering into OTUs will hide some sequencing error.</li>
-<li>Remove of <a href ="00--glossary.html#chimeric_sequences_anchor">chimeric sequences</a>. “Chimeras” are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.</li>
-<li>Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called “singletons”. So when you hear things like “singletons were removed” and means all OTUs with only a single sequence were removed.</li>
-<li><a href ="00--glossary.html#rarefaction_anchor">Rarefying</a> read counts. Usually, we try to make each sample in a sequencing run have a the same number of reads sequenced, but that does not always happen. When a sample has many more reads than another sample, its apparent diversity can be artificially inflated since rare taxa are more likely to be found. To avoid this, the reads are subsampled to a fixed number or “rarefied”.</li>
+<li>Removal of <a href ="00--glossary.html#chimeric_sequences_anchor">chimeric sequences</a>. “Chimeras” are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.</li>
+<li>Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called <a href ="00--glossary.html#singleton_anchor">singletons</a>. So when you hear things like “singletons were removed” and means all OTUs with only a single sequence were removed.</li>
+<li><a href ="00--glossary.html#rarefaction_anchor">Rarefying</a> read counts. Usually, we try to make each sample in a sequencing run have the same number of reads sequenced, but that does not always happen. When a sample has many more reads than another sample, its apparent diversity can be artificially inflated since rare taxa are more likely to be found. To avoid this, the reads are subsampled to a fixed number or “rarefied”.</li>
 <li>Converting counts to presence/absence. Due to PCR biases and the nature of <a href ="00--glossary.html#compositional_data_anchor">compositional data</a>, many researchers advocate not using read count information at all. Instead, they recommend converting counts to simply “present” or “absent”.</li>
 </ul>
 <p>Since we are only working with abundance matrices in these tutorials, the first three types of quality control have already been done (ideally), but we can still remove low-abundance OTUs and rarefy the counts of the remaining OTUs.</p>
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
-<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
+<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. You can download the “filtered_data.Rdata” file <a href="filtered_data.Rdata" download="filtered_data.Rdata">here</a>. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;filtered_data.Rdata&quot;</span>)</code></pre></div>
 </div>
 <div id="removing-low-abundance-counts" class="section level2">
@@ -337,9 +342,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3          10251         59     15857       309       134        90
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           1447       2496      2421      3331       143      1847
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -351,7 +356,7 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 <h2>Rarefaction</h2>
 <p>Rarefaction is used to simulate even numbers of samples (i.e. reads). Even sampling is important for at least two reasons:</p>
 <ul>
-<li>When comparing diversity of samples, more samples make it more likely to observe rare species. This will have a larger effect on some diversity indexes than others, depending on how they weight rare species.</li>
+<li>When comparing diversity of samples, more samples make it more likely to observe rare species. This will have a larger effect on some diversity indexes than others, depending on how they weigh rare species.</li>
 <li>When comparing the similarity of samples, the presence of rare species due to higher sampling depth in one sample but not another can make the two samples appear more different than they actually are.</li>
 </ul>
 <p>Therefore, when comparing the diversity or similarity of samples, it is important to rarefy, or subsample, to a constant depth. Typically, the depth chosen is the minimum sample depth. If the minimum depth is very small, the samples with the smallest depth can be removed and the minimum depth of the remaining samples can be used.</p>
@@ -372,9 +377,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3          10251         59     15857       309       134        90
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           1447       2496      2421      3331       143      1847
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -383,9 +388,9 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3           398.         1.      402.        6.      134.        3.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4            52.        35.       70.       66.      143.       30.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3            398          1       402         6       134         3
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4             52         35        70        66       143        30
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -404,9 +409,9 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 ## </span><span style='font-style: italic;'>      # A tibble: 6,694 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3          10251         59     15857       309       134        90
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           1447       2496      2421      3331       143      1847
 ##       # ... with 6,691 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -415,9 +420,9 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 ## </span><span style='font-style: italic;'>      # A tibble: 5,053 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
 ## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
-##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             0.         0.        0.        0.        0.        0.
-##       2 </span><span style='color: #00BB00;'>beo</span><span>      3           398.         1.      402.        6.      134.        3.
-##       3 </span><span style='color: #00BB00;'>ben</span><span>      4            52.        35.       70.       66.      143.       30.
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2              0          0         0         0         0         0
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3            398          1       402         6       134         3
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4             52         35        70        66       143        30
 ##       # ... with 5,050 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
 ##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
 ##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
@@ -463,17 +468,11 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
-<p><strong>1)</strong> Consider the following rarefaction curves:</p>
-<p><img src="06--quality_control_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><strong>1a)</strong> Which sample is more diverse?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-13">
-Show Answer
-</button>
-<div id="hide_buttonunnamed-chunk-13" class="collapse">
-B
-</div>
-<p><br /></p>
-<p><strong>1b)</strong> Which sample needs the most reads to capture all of its diversity?</p>
+<p>In these exercises, we will be using the <code>obj</code> from the analysis above. If you did not run the code above or had problems, run the following code to get the objects used. You can download the “clean_data.Rdata” file <a href="clean_data.Rdata" download="clean_data.Rdata">here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;clean_data.Rdata&quot;</span>)</code></pre></div>
+<p><strong>1a)</strong> Consider the following rarefaction curves:</p>
+<p><img src="06--quality_control_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><strong>1b)</strong> Which sample is more diverse?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-14">
 Show Answer
 </button>
@@ -481,35 +480,43 @@ Show Answer
 B
 </div>
 <p><br /></p>
-<p><strong>1c)</strong> What would be a sufficient read count to capture all of the diversity in these three samples?</p>
+<p><strong>1c)</strong> Which sample needs the most reads to capture all of its diversity?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-15">
 Show Answer
 </button>
 <div id="hide_buttonunnamed-chunk-15" class="collapse">
+B
+</div>
+<p><br /></p>
+<p><strong>1d)</strong> What would be a sufficient read count to capture all of the diversity in these three samples?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-16">
+Show Answer
+</button>
+<div id="hide_buttonunnamed-chunk-16" class="collapse">
 Around 40,000 reads.
 </div>
 <p><br /></p>
 <p><strong>2)</strong> Look at the documentation for <code>rarefy_obs</code>. Rarefy the sample OTU counts to 1000 reads.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-16">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-17">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-16" class="collapse">
+<div id="hide_buttonunnamed-chunk-17" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rarefy_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">sample_size =</span> <span class="dv">1000</span>)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 6,694 x 293</span><span>
 ##    taxon_id M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611 M1981P587 M1982P729
 ##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> ben             0.         0.        0.        0.        0.        0.        2.        0.
-## </span><span style='color: #BCBCBC;'> 2</span><span> beo           181.         0.      250.        5.       70.        0.      209.        0.
-## </span><span style='color: #BCBCBC;'> 3</span><span> ben            24.        20.       34.       32.       76.       20.       36.       22.
-## </span><span style='color: #BCBCBC;'> 4</span><span> bep             1.         3.        2.       10.        0.        4.        3.        5.
-## </span><span style='color: #BCBCBC;'> 5</span><span> beq             5.        31.        1.       28.        0.       32.        0.       18.
-## </span><span style='color: #BCBCBC;'> 6</span><span> amk            38.         6.       85.        8.      131.        2.       55.        5.
-## </span><span style='color: #BCBCBC;'> 7</span><span> bes             0.        28.        0.       21.        0.       23.        5.       17.
-## </span><span style='color: #BCBCBC;'> 8</span><span> bet             0.         3.        3.        0.       10.        0.        8.        0.
-## </span><span style='color: #BCBCBC;'> 9</span><span> beu            59.         0.       73.        1.        0.        0.       47.        0.
-## </span><span style='color: #BCBCBC;'>10</span><span> bev             1.        16.        0.       20.        0.       17.        0.       28.
+## </span><span style='color: #BCBCBC;'> 1</span><span> ben              0          0         0         0         0         0         2         0
+## </span><span style='color: #BCBCBC;'> 2</span><span> beo            181          0       250         5        70         0       209         0
+## </span><span style='color: #BCBCBC;'> 3</span><span> ben             24         20        34        32        76        20        36        22
+## </span><span style='color: #BCBCBC;'> 4</span><span> bep              1          3         2        10         0         4         3         5
+## </span><span style='color: #BCBCBC;'> 5</span><span> beq              5         31         1        28         0        32         0        18
+## </span><span style='color: #BCBCBC;'> 6</span><span> amk             38          6        85         8       131         2        55         5
+## </span><span style='color: #BCBCBC;'> 7</span><span> bes              0         28         0        21         0        23         5        17
+## </span><span style='color: #BCBCBC;'> 8</span><span> bet              0          3         3         0        10         0         8         0
+## </span><span style='color: #BCBCBC;'> 9</span><span> beu             59          0        73         1         0         0        47         0
+## </span><span style='color: #BCBCBC;'>10</span><span> bev              1         16         0        20         0        17         0        28
 ## </span><span style='color: #949494;'># ... with 6,684 more rows, and 284 more variables: M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
 ## #   M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
 ## #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P655 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1554P182 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>

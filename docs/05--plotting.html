@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -126,6 +128,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -303,14 +308,23 @@ $(document).ready(function () {
 <p>Although this is a well-constructed graph, its usefulness is limited by the nature of stacked barcharts. The reliance on color to differentiate taxa means that the maximum number of taxa that can be effectively displayed is limited by the number of colors that can be distinguished. This is typically around 10, maybe 13 with careful selection (as in the graph above), but definitely not more than 15. For those who are color blind (~ 4% of people), even fewer colors can be used. This limitation is likely the reason <span class="citation">Wagner et al. (2016)</span> chose to show phylum-level abundances and grouped some phyla into a “Low abundance” category, even though there might be interesting pattern in finer ranks (e.g. genus or species). This is typical of most publications, which either show only the most coarse ranks (e.g. phylum) or only the ~10 most abundant taxa when using stacked barcharts. As an alternative/complement to stacked barcharts, we have developed what we call “heat trees” to display statistics associated with taxa (e.g. abundance) in a tree format.</p>
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
-<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following code to load data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment from a previous section, you can ignore the following command.</p>
+<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following code to load data used in this section. You can download the “filtered_data.Rdata” file <a href="filtered_data.Rdata" download="filtered_data.Rdata">here</a>. If <code>obj</code> and <code>sample_data</code> are already in your environment from a previous section, you can ignore the following command.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;filtered_data.Rdata&quot;</span>)</code></pre></div>
 </div>
 <div id="heat-trees" class="section level2">
 <h2>Heat trees</h2>
-<p>The <code>metacoder</code> package implements “heat trees” to graph taxonomic data (<span class="citation">Foster, Sharpton, and Grünwald (2017)</span>). This visualization technique uses the color and size of parts of a taxonomic tree to display numeric data associated with taxa. Below is an example of a heat tree showing the number of <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">Operational Taxonomic Units (OTUs)</a> in all taxa down to the class level:</p>
+<p>The <code>metacoder</code> package implements “heat trees” to graph taxonomic data (<span class="citation">Foster, Sharpton, and Grünwald (2017)</span>). This visualization technique uses the color and size of parts of a taxonomic tree to display numeric data associated with taxa. Below is an example of a heat tree showing the number of <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">Operational Taxonomic Units (OTUs)</a> in all taxa down to the class rank:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
+obj <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter_taxa</span>(<span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;^[a-zA-Z]+$&quot;</span>, taxon_names)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove &quot;odd&quot; taxa</span>
+<span class="st">  </span><span class="kw">filter_taxa</span>(taxon_ranks <span class="op">==</span><span class="st"> &quot;o&quot;</span>, <span class="dt">supertaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># subset to the order rank</span>
+<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_label =</span> <span class="kw">gsub</span>(<span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[|</span><span class="ch">\\</span><span class="st">]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>, taxon_names),
+            <span class="dt">node_size =</span> n_obs,
+            <span class="dt">node_color =</span> n_obs,
+            <span class="dt">node_color_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,
+            <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>)</code></pre></div>
 <p><img src="05--plotting_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>This is a type of taxonomic tree where each node (the circles) is a taxon and the edges (lines) show hierarchical relationships between taxa. For example, the large <em>Proteobacteria</em> phylum node contains the <em>Alphaproteobacteria</em> and <em>Gammaproteobacteria</em> classes. This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones are also possible. We are going to go through the process of creating figures like this one in this section. Although this might seem like complicated code to make this figure, code like this is typically the result of iterative small improvements started from a simple base. We will imitate this process here for demonstration.</p>
+<p>This is a type of taxonomic tree in which each node (the circles) is a taxon and the edges (lines) show hierarchical relationships between taxa. For example, the large <em>Proteobacteria</em> phylum node contains the <em>Alphaproteobacteria</em> and <em>Gammaproteobacteria</em> classes. This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones are possible. We are going to go through the process of creating figures like this one in this section. Although this might seem like complicated code to make this figure, code like this is typically the result of iterative small improvements started from a simple base. We will imitate this process here for demonstration.</p>
 <div id="getting-started" class="section level3">
 <h3>Getting started</h3>
 <p>The <code>heat_tree</code> function takes a <code>taxmap</code> object as its first argument. Lets start with the simplest possible code:</p>
@@ -322,7 +336,7 @@ $(document).ready(function () {
           <span class="dt">node_size =</span> n_obs,
           <span class="dt">node_color =</span> n_obs)</code></pre></div>
 <p><img src="05--plotting_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>As with many other functions from <code>taxa</code> and <code>metacoder</code>, any table column or <a href ="00--glossary.html#function_anchor">function</a> associated with the <code>taxmap</code> object being plotted can be refereed to as if it was an independent variable in the function call. For example, the last plot could also have been made this way:</p>
+<p>As with many other functions from <code>taxa</code> and <code>metacoder</code>, any table column or <a href ="00--glossary.html#function_anchor">function</a> associated with the <code>taxmap</code> object being plotted can be refereed to as if it was an independent variable in the function call using <a href ="00--glossary.html#non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a>. For example, the last plot could also have been made this way:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heat_tree</span>(obj,
           <span class="dt">node_label =</span> <span class="kw">taxon_names</span>(obj),
           <span class="dt">node_size =</span> <span class="kw">n_obs</span>(obj),
@@ -335,7 +349,7 @@ $(document).ready(function () {
             <span class="dt">node_color =</span> n_obs,
             <span class="dt">output_file =</span> <span class="st">&quot;plot_example.pdf&quot;</span>)</code></pre></div>
 <p><img src="05--plotting_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>If we zoom in on the output, we can see a lot of taxa with odd names like “Ellin329” and “BD7−3”. During analysis such taxa might be important to see, but for publication purposes, most can probably be removed from the plot to make it easier to understand. We can filter those taxa out before plotting using a regular expression that only matches letters:</p>
+<p>If we zoom in on the output, we can see a lot of taxa with odd names like “Ellin329” and “BD7−3”. During analysis such taxa might be important to see, but for publication purposes, most can probably be removed from the plot to make it easier to understand. We can filter those taxa out before plotting using a <a href ="00--glossary.html#regular_expressions_anchor">regular expression</a> that only matches letters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(<span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;^[a-zA-Z]+$&quot;</span>, taxon_names)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove &quot;odd&quot; taxa</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_ranks <span class="op">==</span><span class="st"> &quot;o&quot;</span>, <span class="dt">supertaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># subset to the class rank</span>
@@ -350,7 +364,7 @@ $(document).ready(function () {
 <li>davidson-harel</li>
 <li>fruchterman-reingold</li>
 </ul>
-<p>You only need to use the first few letters of each name. Lets look at these other two formats. First, fruchterman-reingold:</p>
+<p>See <code>?heat_tree</code> for a complete list. You only need to use the first few letters of each name. Lets look at these other two formats. First, fruchterman-reingold:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(<span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;^[a-zA-Z]+$&quot;</span>, taxon_names)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove &quot;odd&quot; taxa</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_ranks <span class="op">==</span><span class="st"> &quot;o&quot;</span>, <span class="dt">supertaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># subset to the class rank</span>
@@ -404,18 +418,18 @@ obj <span class="op">%&gt;%</span>
 <pre><code>## Summing per-taxon counts from 292 columns in 2 groups for 704 taxa</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>tax_abund)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 704 x 3</span><span>
-##    taxon_id     leaf      root
-##  </span><span style='color: #BCBCBC;'>*</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> aad      9</span><span style='text-decoration: underline;'>756</span><span>557. 14</span><span style='text-decoration: underline;'>913</span><span>548.
-## </span><span style='color: #BCBCBC;'> 2</span><span> aaf      6</span><span style='text-decoration: underline;'>453</span><span>231.  6</span><span style='text-decoration: underline;'>545</span><span>249.
-## </span><span style='color: #BCBCBC;'> 3</span><span> aag       </span><span style='text-decoration: underline;'>986</span><span>779.  4</span><span style='text-decoration: underline;'>018</span><span>650.
-## </span><span style='color: #BCBCBC;'> 4</span><span> aah       </span><span style='text-decoration: underline;'>449</span><span>603.   </span><span style='text-decoration: underline;'>220</span><span>102.
-## </span><span style='color: #BCBCBC;'> 5</span><span> aai      1</span><span style='text-decoration: underline;'>640</span><span>232.  1</span><span style='text-decoration: underline;'>629</span><span>309.
-## </span><span style='color: #BCBCBC;'> 6</span><span> aaj        </span><span style='text-decoration: underline;'>29</span><span>798.    </span><span style='text-decoration: underline;'>76</span><span>133.
-## </span><span style='color: #BCBCBC;'> 7</span><span> aak        </span><span style='text-decoration: underline;'>18</span><span>195.   </span><span style='text-decoration: underline;'>442</span><span>261.
-## </span><span style='color: #BCBCBC;'> 8</span><span> aal        </span><span style='text-decoration: underline;'>20</span><span>625.   </span><span style='text-decoration: underline;'>503</span><span>211.
-## </span><span style='color: #BCBCBC;'> 9</span><span> aam        </span><span style='text-decoration: underline;'>10</span><span>398.   </span><span style='text-decoration: underline;'>220</span><span>376.
-## </span><span style='color: #BCBCBC;'>10</span><span> aan        </span><span style='text-decoration: underline;'>68</span><span>473.   </span><span style='text-decoration: underline;'>738</span><span>385.
+##    taxon_id    leaf     root
+##  </span><span style='color: #BCBCBC;'>*</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+## </span><span style='color: #BCBCBC;'> 1</span><span> aad      9</span><span style='text-decoration: underline;'>756</span><span>557 14</span><span style='text-decoration: underline;'>913</span><span>548
+## </span><span style='color: #BCBCBC;'> 2</span><span> aaf      6</span><span style='text-decoration: underline;'>453</span><span>231  6</span><span style='text-decoration: underline;'>545</span><span>249
+## </span><span style='color: #BCBCBC;'> 3</span><span> aag       </span><span style='text-decoration: underline;'>986</span><span>779  4</span><span style='text-decoration: underline;'>018</span><span>650
+## </span><span style='color: #BCBCBC;'> 4</span><span> aah       </span><span style='text-decoration: underline;'>449</span><span>603   </span><span style='text-decoration: underline;'>220</span><span>102
+## </span><span style='color: #BCBCBC;'> 5</span><span> aai      1</span><span style='text-decoration: underline;'>640</span><span>232  1</span><span style='text-decoration: underline;'>629</span><span>309
+## </span><span style='color: #BCBCBC;'> 6</span><span> aaj        </span><span style='text-decoration: underline;'>29</span><span>798    </span><span style='text-decoration: underline;'>76</span><span>133
+## </span><span style='color: #BCBCBC;'> 7</span><span> aak        </span><span style='text-decoration: underline;'>18</span><span>195   </span><span style='text-decoration: underline;'>442</span><span>261
+## </span><span style='color: #BCBCBC;'> 8</span><span> aal        </span><span style='text-decoration: underline;'>20</span><span>625   </span><span style='text-decoration: underline;'>503</span><span>211
+## </span><span style='color: #BCBCBC;'> 9</span><span> aam        </span><span style='text-decoration: underline;'>10</span><span>398   </span><span style='text-decoration: underline;'>220</span><span>376
+## </span><span style='color: #BCBCBC;'>10</span><span> aan        </span><span style='text-decoration: underline;'>68</span><span>473   </span><span style='text-decoration: underline;'>738</span><span>385
 ## </span><span style='color: #949494;'># ... with 694 more rows</span><span>
 </span></code></pre>
 <p>Since the “leaf” and “root” columns have one value per taxon, they can be used for plotting. We can set the root read counts to the node color and the leaf read counts to the edge color.</p>
@@ -500,7 +514,7 @@ obj <span class="op">%&gt;%</span>
 </div>
 <div id="trees-with-multiple-roots" class="section level3">
 <h3>Trees with multiple roots</h3>
-<p>In all the trees we have made so far have a single “root”. A “root” is a taxon without a supertaxon. Common examples of roots in taxonomy databases include coarse taxa like “fungi”, “bacteria”, or “cellular organisms”. When a taxonomy has multiple roots, multiple trees are graphed in the same plot. We can force multiple roots to demonstrate this by selecting some taxa without preserving supertaxa:</p>
+<p>In all the trees we have made so far have a single “root”. A “root” is a taxon without a <a href ="00--glossary.html#supertaxa_anchor">supertaxon</a>. Common examples of roots in taxonomy databases include coarse taxa like “fungi”, “bacteria”, or “cellular organisms”. When a taxonomy has multiple roots, multiple trees are graphed in the same plot. We can force multiple roots to demonstrate this by selecting some taxa without preserving supertaxa:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># Each number will produce a slightly different result for some layouts</span>
 obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(<span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;^[a-zA-Z]+$&quot;</span>, taxon_names)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove &quot;odd&quot; taxa</span>
@@ -521,28 +535,30 @@ obj <span class="op">%&gt;%</span>
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
+<p>In these exercises, we will be using the <code>obj</code> from the analysis above. If you did not run the code above or had problems, run the following code to get the objects used. You can download the “plotting_data.Rdata” file <a href="plotting_data.Rdata" download="plotting_data.Rdata">here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;plotting_data.Rdata&quot;</span>)</code></pre></div>
 <p><strong>1a)</strong> Make a plot of <em>Firmicutes</em> and <a href ="00--glossary.html#subtaxa_anchor">subtaxa</a> with the size of nodes proportional to the number of OTUs and label the nodes with taxon names.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-20">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-22">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-20" class="collapse">
+<div id="hide_buttonunnamed-chunk-22" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Firmicutes&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_obs,
             <span class="dt">node_label =</span> taxon_names)</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" />
+<img src="05--plotting_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p><strong>1b)</strong> Modify the plot you made in part <strong>a</strong> so that the taxon names and OTU counts are combined in the label like “my_taxon (123)”. Hint: try <code>paste0</code> to combine multiple pieces of text.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-21">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-23">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-21" class="collapse">
+<div id="hide_buttonunnamed-chunk-23" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Firmicutes&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_obs,
             <span class="dt">node_label =</span> <span class="kw">paste0</span>(taxon_names, <span class="st">&quot; (&quot;</span>, n_obs, <span class="st">&quot;)&quot;</span>))</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" />
+<img src="05--plotting_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p><strong>2a)</strong> The function <code>n_subtaxa</code> returns the number of taxa each taxon has within it:</p>
@@ -551,31 +567,6 @@ Show solution
 ## 703 164  71  28  38  46
 </code></pre>
 <p>Like, the <code>taxon_names</code> and <code>n_obs</code> functions, this returns one value per taxon, so is useful for plotting heat trees. Try to make a tree of only <em>Proteobacteria</em> and its subtaxa where the size of nodes is proportional to the number of subtaxa. Label the nodes by taxon names.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-23">
-Show solution
-</button>
-<div id="hide_buttonunnamed-chunk-23" class="collapse">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_subtaxa,
-            <span class="dt">node_label =</span> taxon_names)</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" />
-</div>
-<p><br /></p>
-<p><strong>2b)</strong> <code>heat_tree</code> has an option called <code>node_size_range</code> to force node sizes to be in a specified range instead of letting the function pick the maximum and minimum size. Remake the graph for <strong>a</strong>, but use <code>node_size_range</code> to make the node sizes vary between 0.5% and 5% of the graph width.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-24">
-Show solution
-</button>
-<div id="hide_buttonunnamed-chunk-24" class="collapse">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_subtaxa,
-            <span class="dt">node_label =</span> taxon_names,
-            <span class="dt">node_size_range =</span> <span class="kw">c</span>(<span class="fl">0.005</span>, <span class="fl">0.05</span>))</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" />
-</div>
-<p><br /></p>
-<p><strong>2c)</strong> This made the node labels in the tips too small to read. We can also force the labels to be a specified range of sizes. Use the <code>node_label_size_range</code> option to make the tips readable without cluttering the graph too much.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-25">
 Show solution
 </button>
@@ -583,80 +574,105 @@ Show solution
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_subtaxa,
-            <span class="dt">node_label =</span> taxon_names,
-            <span class="dt">node_size_range =</span> <span class="kw">c</span>(<span class="fl">0.005</span>, <span class="fl">0.05</span>),
-            <span class="dt">node_label_size_range =</span> <span class="kw">c</span>(<span class="fl">0.008</span>, <span class="fl">0.04</span>))</code></pre></div>
+            <span class="dt">node_label =</span> taxon_names)</code></pre></div>
 <img src="05--plotting_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
-<p><strong>3a)</strong> Using the “root” and “leaf” columns in the “tax_abund” table created earlier in this section for this example, plot the number of reads in leaf samples in “Proteobacteria” and subtaxa using the size and color of nodes. Label the nodes with taxon names.</p>
+<p><strong>2b)</strong> <code>heat_tree</code> has an option called <code>node_size_range</code> to force node sizes to be in a specified range instead of letting the function pick the maximum and minimum size. Remake the graph for <strong>a</strong>, but use <code>node_size_range</code> to make the node sizes vary between 0.5% and 5% of the graph width.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-26">
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-26" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> leaf,
-            <span class="dt">node_color =</span> leaf,
-            <span class="dt">node_label =</span> taxon_names)</code></pre></div>
+<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_subtaxa,
+            <span class="dt">node_label =</span> taxon_names,
+            <span class="dt">node_size_range =</span> <span class="kw">c</span>(<span class="fl">0.005</span>, <span class="fl">0.05</span>))</code></pre></div>
 <img src="05--plotting_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
-<p><strong>3b)</strong> Which taxon at the tip of the tree had the most reads in leaf samples?</p>
+<p><strong>2c)</strong> This made the node labels in the tips too small to read. We can also force the labels to be a specified range of sizes. Use the <code>node_label_size_range</code> option to make the tips readable without cluttering the graph too much.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-27">
-Show Answer
+Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-27" class="collapse">
-mitochondria
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> n_subtaxa,
+            <span class="dt">node_label =</span> taxon_names,
+            <span class="dt">node_size_range =</span> <span class="kw">c</span>(<span class="fl">0.005</span>, <span class="fl">0.05</span>),
+            <span class="dt">node_label_size_range =</span> <span class="kw">c</span>(<span class="fl">0.008</span>, <span class="fl">0.04</span>))</code></pre></div>
+<img src="05--plotting_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
-<p><strong>3c)</strong> Try to adjust the plot you made in part <strong>a</strong> to remove any taxa with less than 100 reads. Hint: this can be done with <code>filter_taxa</code>.</p>
+<p><strong>3a)</strong> Using the “root” and “leaf” columns in the “tax_abund” table created earlier in this section for this example, plot the number of reads in leaf samples in “Proteobacteria” and subtaxa using the size and color of nodes. Label the nodes with taxon names.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-28">
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-28" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter_taxa</span>(leaf <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> leaf,
             <span class="dt">node_color =</span> leaf,
             <span class="dt">node_label =</span> taxon_names)</code></pre></div>
 <img src="05--plotting_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
-<p><strong>4a)</strong> In addition to automatically coloring taxa to represent a number (e.g. OTU count), you can specify the color of each taxon using common color names (e.g. “red” or “blue”) or hexadecimal color codes (e.g. “#000000” for black). You can either supply a single color to color everything the same or a vector of colors (e.g. c(“red”, “blue”, …)) with one value for each taxon.</p>
-<p>Try to plot <em>Actinobacteria</em> and subtaxa with node size correlating with number of reads in root samples. Color all edges a light blue. Enter <code>colors()</code> to see the list of named colors that can be used.</p>
+<p><strong>3b)</strong> Which taxon at the tip of the tree had the most reads in leaf samples?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-29">
-Show solution
+Show Answer
 </button>
 <div id="hide_buttonunnamed-chunk-29" class="collapse">
+mitochondria
+</div>
+<p><br /></p>
+<p><strong>3c)</strong> Try to adjust the plot you made in part <strong>a</strong> to remove any taxa with less than 100 reads. Hint: this can be done with <code>filter_taxa</code>.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-30">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-30" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Proteobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter_taxa</span>(leaf <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> leaf,
+            <span class="dt">node_color =</span> leaf,
+            <span class="dt">node_label =</span> taxon_names)</code></pre></div>
+<img src="05--plotting_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" />
+</div>
+<p><br /></p>
+<p><strong>4a)</strong> In addition to automatically coloring taxa to represent a number (e.g. OTU count), you can specify the color of each taxon using common color names (e.g. “red” or “blue”) or hexadecimal color codes (e.g. “#000000” for black). You can either supply a single color to color everything the same or a vector of colors (e.g. c(“red”, “blue”, …)) with one value for each taxon.</p>
+<p>Try to plot <em>Actinobacteria</em> and subtaxa with node size correlating with number of reads in root samples. Color all edges a light blue. Enter <code>colors()</code> to see the list of named colors that can be used.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-31">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-31" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Firmicutes&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> root,
             <span class="dt">edge_color =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="co"># Other colors also correct</span>
             <span class="dt">node_label =</span> taxon_names)</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" />
+<img src="05--plotting_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p><strong>4b)</strong> Modify the command from part <strong>a</strong> so that all taxa on the tips (i.e. “leafs”) are colored green and the rest are grey Hint: the <code>is_leaf</code> and <code>ifelse</code> functions might be useful. See the help page for these functions (e.g. Type <code>?is_leaf</code>).</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-30">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-32">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-30" class="collapse">
+<div id="hide_buttonunnamed-chunk-32" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Firmicutes&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> leaf,
             <span class="dt">edge_color =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="co"># Other colors also correct</span>
             <span class="dt">node_color =</span> <span class="kw">ifelse</span>(is_leaf, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;grey&quot;</span>),
             <span class="dt">node_label =</span> taxon_names)</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" />
+<img src="05--plotting_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p><strong>4c)</strong> Modify the command from part <strong>b</strong> to make the background of the plot beige. Look at the help pages for <code>heat_tree</code> (Type <code>?heat_tree</code>) to figure out what option to use.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-31">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-33">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-31" class="collapse">
+<div id="hide_buttonunnamed-chunk-33" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter_taxa</span>(taxon_names <span class="op">==</span><span class="st"> &quot;Firmicutes&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_size =</span> leaf,
@@ -664,7 +680,7 @@ Show solution
             <span class="dt">node_color =</span> <span class="kw">ifelse</span>(is_leaf, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;grey&quot;</span>),
             <span class="dt">node_label =</span> taxon_names,
             <span class="dt">background_color =</span> <span class="st">&quot;beige&quot;</span>)</code></pre></div>
-<img src="05--plotting_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" />
+<img src="05--plotting_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 </div>

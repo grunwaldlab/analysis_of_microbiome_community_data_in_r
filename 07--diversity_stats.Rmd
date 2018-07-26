@@ -13,6 +13,7 @@ knitr::opts_chunk$set(fig.height = 5, fig.width = 5)
 ## Load example data
 
 If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section.
+You can download the "clean_data.Rdata" file <a href="clean_data.Rdata" download="clean_data.Rdata">here</a>.
 If `obj` and `sample_data` are already in your environment, you can ignore this and proceed.
 
 ```{r}
@@ -61,7 +62,7 @@ ggplot(sample_data, aes(x = Site, y = alpha)) +
   geom_boxplot()
 ```
 
-We can use ANOVA to tell if at least one of the diversity means is different from the rest.
+We can use `r gloss$add('analysis of variance (ANOVA)')` to tell if at least one of the diversity means is different from the rest.
 
 ```{r}
 anova_result <- aov(alpha ~ Site, sample_data)
@@ -94,7 +95,7 @@ ggplot(sample_data, aes(x = Site, y = alpha)) +
   ylab("Alpha diversity index")
 ```
 
-So that takes care of comparing the alpha diversity of sites, but there are other interesting grouping we can compare, such as the genotype and the type of the sample (roots vs leaves).
+So that takes care of comparing the alpha diversity of sites, but there are other interesting groupings we can compare, such as the genotype and the type of the sample (roots vs leaves).
 We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks.
 We can generalize what we did above and put it in a function like so:
 
@@ -160,7 +161,7 @@ Each dot is a sample and the error bars in some of the indexes are the standard 
 
 Beta diversity is a way to quantify the difference between two communities. 
 There are many metrics that are used for this, but we will only mention a few of the more popular ones.
-A few also incorporate phylogenetic relatedness and require a phylogentic tree of the organisms in either community to be calculated.
+A few also incorporate phylogenetic relatedness and require a phylogenetic tree of the organisms in either community to be calculated.
 
 #### Examples of indexes used with presence/absence data:
 
@@ -182,7 +183,7 @@ beta_dist <- vegdist(t(obj$data$otu_rarefied[, sample_data$SampleID]),
                      index = "bray")
 ```
 
-Since `vegdist` does not have a `MARGIN` option like `diversity`, we need to transpose the matrix with the `t` function.
+Since `vegdist` does not have a `MARGIN` option like `diversity`, we need to `r gloss$add("transpose")` the matrix with the `t` function.
 
 
 ## Ordination
@@ -191,7 +192,7 @@ Ordination is a way to display "high dimensional" data in a viable number of dim
 Our data is "high dimensional" because we have many samples with many species and species can be considered a "dimension".
 If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ.
 With thousands of species, this is not possible.
-Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.
+Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new "artificial" dimensions.
 
 ```{r fig.width=7, fig.height=5}
 mds <- metaMDS(t(obj$data$otu_rarefied[, sample_data$SampleID]))
@@ -201,7 +202,7 @@ mds_data$SampleID <- rownames(mds_data)
 mds_data <- dplyr::left_join(mds_data, sample_data)
 ```
 
-Now that we have the data in a format plotting2 likes, we can plot it.
+Now that we have the data in a format ggplot2 likes, we can plot it.
 Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).
 
 ```{r fig.width=7, fig.height=5}
@@ -225,7 +226,7 @@ ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
   geom_point()
 ```
 
-There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.
+There is no discernible pattern there, suggesting plant genotype does not correspond to community structure.
 
 We can also do the above quickly in `phyloseq` using the `ordinate` and `plot_ordination` functions.
 Lets look at the differences between leaf and root samples again, but using a difference index this time.

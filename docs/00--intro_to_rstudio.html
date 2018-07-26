@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -83,6 +85,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -257,7 +262,7 @@ $(document).ready(function () {
 <p>RStudio is not R or a “type” of R. It is a program that runs R and provides extra tools that are helpful when writing R code, kind of like how your operating system can run a web browser. This workshop will assume you are using RStudio to interact with R, although everything here can be done without RStudio. Most R users seem to use RStudio and we like it, so we recommend using it.</p>
 <div id="installing-rstudio" class="section level2">
 <h2>Installing RStudio</h2>
-<p>The main version of RStudio that most people use, which is free and open source, can be downloaded here:</p>
+<p>The main version of RStudio that most people use is free and open source and can be downloaded here:</p>
 <p><a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></p>
 </div>
 <div id="the-parts-of-rstudio" class="section level2">
@@ -305,16 +310,16 @@ $(document).ready(function () {
 </div>
 <div id="command-history" class="section level3">
 <h3>Command history</h3>
-<p>RStudio records your command history. Thus you can scroll up or down the history of executed commands using the <em>Up</em> or <em>Down</em> arrows. Make sure your cursor is in the console and try to re-execute previous commands.</p>
+<p>RStudio records your command history and you can scroll up or down the history of executed commands using the <em>Up</em> or <em>Down</em> keys. Make sure your cursor is in the console and try to re-execute previous commands.</p>
 </div>
 <div id="quickly-running-code-in-a-file" class="section level3">
 <h3>Quickly running code in a file</h3>
-<p>Its best to write even experimental code in a file in the text editor, rather than writing it directly to the console, but it can get tedious to always be copying and pasting to try it out. Instead, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console.</p>
+<p>Its best to write even experimental code in a file in the text editor, rather than writing it directly to the console, but it can get tedious to always be copying and pasting to try it out. Instead, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console all at once. This is a good habit to develop.</p>
 </div>
 </div>
 <div id="r-projects" class="section level2">
 <h2>R projects</h2>
-<p>“R projects” are an RStudio concept and are integral to many peoples workflow and organization. An R project is just a folder that has a file in it ending in “.Rproj”. This file is created by RStudio when you create a new project. Although R projects are not needed, we highly recommend using them for the following reasons:</p>
+<p><a href ="00--glossary.html#r_project_anchor">R projects</a> are an RStudio concept and are integral to many people’s workflow and organization. An R project is just a folder that has a file in it ending in “.Rproj”. This file is created by RStudio when you create a new project. Although R projects are not needed, we highly recommend using them for the following reasons:</p>
 <ul>
 <li>They help with organization, since they encourage you to put all the code and data for a project in a single directory.</li>
 <li>They help standardize your current working directory. Each time a project is opened, your current working directory is automatically switched to the project directory.</li>

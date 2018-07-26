@@ -9,21 +9,21 @@ library(grid)
 source("style.R")
 ```
 
-This is a short example analysis to give you a feel for the rest of the workshop.
+This is a short example analysis to give you a feel for how `metacoder` and `taxa` are used in microbiome analysis.
 If something does not make sense now, don't worry!
 We will cover everything shown here in greater detail later.
 
 ## Reading data
 
 The first step in any analysis is getting your data into R.
-This can be difficult for taxonomic data since it has a hierarchical component (i.e. the taxonomic tree).
-`Metacoder` has functions for parsing (i.e. "reading") specific file formats used in metagenomics research.
+This can be difficult for taxonomic data since it has a hierarchical component (i.e., the taxonomic tree).
+`Metacoder` has functions for `r gloss$add('parsing')` specific file formats used in metagenomics research.
 However, for this demonstration, we will be using a more all-purpose parser from the `taxa` package meant for tabular data.
 
 Included in `metacoder` is an example dataset that is a subset of the Human Microbiome Project data.
 This dataset has two parts: 
 
-* An abundance matrix called `hmp_otus`, with **samples in columns** and **`r gloss$add('Operational Taxonomic Units (OTUs)')` in rows**
+* An abundance matrix called `hmp_otus`, with **samples in columns** and `r gloss$add('Operational Taxonomic Units (OTUs)')` in rows
 * A sample data table called `hmp_samples`, with **samples as rows** and columns of information describing the samples (e.g., gender)
 
 ```{r echo=FALSE, include=FALSE}
@@ -65,7 +65,7 @@ obj <- parse_tax_data(hmp_otus,
 ```
 
 This returns a `taxmap` object.
-The `taxmap` class is designed to store any number of tables, `r gloss$add('list', shown = 'lists')`, or `r gloss$add('vector', shown = 'vectors')` associated with taxonomic information and facilitate manipulating the data in a cohesive way.
+The `taxmap` class is designed to store any number of tables, `r gloss$add('list', shown = 'lists')`, or `r gloss$add('vector', shown = 'vectors')` associated with taxonomic information and facilitate manipulating the data.
 Here is what that object looks like:
 
 ```{r}
@@ -76,10 +76,10 @@ Note how the original abundance matrix is contained in the `taxmap` `r gloss$add
 This table is stored in the list `obj$data`, which can contain any number of user-defined datasets.
 Also note that we have a different number of taxa and OTUs.
 This is different from a traditional ecological dataset.
-An OTU may contain sequence variants.
+An OTU may contain sequence variants, so a single OTU represents multiple similar sequences.
 These OTUs are assigned to taxa so a taxon may include multiple OTUs.
-Taxa may also include different numbers of `r gloss$add('Taxonomic ranks', shown = 'ranks')`.
-For example, one taxon may include species while another only goes to genus.
+Taxa may be organized in different `r gloss$add('Taxonomic ranks', shown = 'ranks')`.
+For example, one taxon might be a species while another might be a genus.
 These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.
 
 
@@ -88,7 +88,7 @@ These abstractions are necessary because we may have sequences that we can not c
 ### Removing low-abundance counts
 
 Recall that the abundance matrix contains samples in columns and OTUs in rows.
-Each cell is the number of times an OTU (a sequence) was observed in a sample.
+Each cell is the number of times an OTU was observed in a sample.
 Some of these cells may contain a low number of observations.
 These low-abundance sequences might be the result of sequencing error, so typically we remove any counts/OTUs with less than some number of reads.
 Lets set all counts with less than 5 reads to zero, overwriting the original table:
@@ -97,7 +97,7 @@ Lets set all counts with less than 5 reads to zero, overwriting the original tab
 obj$data$tax_data <- zero_low_counts(obj, dataset = "tax_data", min_count = 5)
 ```
 
-By setting low abundance cells to zero we may have created OTUs that no longer contain any observations.
+By setting low abundance counts to zero we might have created OTUs that no longer contain any observations.
 We can check as follows.
 
 ```{r}
@@ -106,7 +106,7 @@ sum(no_reads)
 ```
 
 It appears that `r sum(no_reads)`  of `r nrow(obj$data$tax_data)` OTUs now have no reads.
-We can remove those OTUs and their associated taxa with `filter_obs`:
+We can remove those OTUs and their associated taxa with `filter_obs` from the `taxa` package:
 
 ```{r}
 obj <- filter_obs(obj, target = "tax_data", ! no_reads, drop_taxa = TRUE)
@@ -120,8 +120,8 @@ This coordinated manipulation of taxonomic and abundance data is one of the main
 
 ### Accounting for un-even sampling
 
-In a perfect world we would sequence each sample the same amount (i.e., the same number of reads).
-We do not live in a perfect world, so some samples may have more reads than others.
+Ideally, we would sequence each sample the same amount (i.e., the same number of reads).
+However, sequencing technologies are imperfect, so some samples may have more reads than others.
 This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others.
 So far we've used raw counts, but people typically work with `r gloss$add('Rarefaction', shown = 'rarefied')` counts or proportions to try to avoid the possibility of sampling depth biasing the results.
 Here we use the function `calc_obs_props` to divide each sample's counts by the total number of counts observed for each sample, resulting in a proportion.
@@ -149,7 +149,7 @@ The name of the table is arbitrary; we could have called it anything.
 print(obj)
 ```
 
-We can also easily calculate the number of samples have reads for each taxon:
+We can also easily calculate the number of samples that have reads for each taxon:
 
 ```{r}
 obj$data$tax_occ <- calc_n_samples(obj, "tax_abund", groups = hmp_samples$body_site)
@@ -164,7 +164,7 @@ The code below plots the number of "Nose" samples that have reads for each taxon
 It also plots the number of OTUs assigned to each taxon in the overall dataset as color.
 
 ```{r}
-set.seed(999)
+set.seed(1) # This makes the plot appear the same each time it is run 
 heat_tree(obj, 
           node_label = taxon_names,
           node_size = n_obs,
@@ -180,7 +180,7 @@ This is a shorthand for convenience.
 We could have made the exact same plot using this command:
 
 ```{r, eval = FALSE}
-set.seed(999)
+set.seed(1)
 heat_tree(obj, 
           node_label = obj$taxon_names(),
           node_size = obj$n_obs(),
@@ -191,7 +191,7 @@ heat_tree(obj,
           initial_layout = "reingold-tilford") # The layout algorithm that initializes node locations
 ```
 
-This is known as non-standard evaluation in programmer jargon and will be used in many functions throughout this workshop.
+This is known as `r gloss$add('Non-standard evaluation (NSE)')` in programmer jargon and will be used in many functions throughout this workshop.
 
 ### Alpha diversity
 
@@ -208,7 +208,7 @@ hmp_samples$inv_simp <- diversity(obj$data$tax_data[, hmp_samples$sample_id],
                                   MARGIN = 2) # What orietation the matrix is in
 ```
 
-Adding this on to the sample data makes it easy to use the sample information in graphing. 
+Adding this to the sample data table makes it easy to use the sample information in graphing. 
 Lets compare the alpha diversity of samples from males and females using `ggplot2`, a popular R package for plotting. 
 
 ```{r fig.height=5, fig.width=5}
@@ -294,7 +294,7 @@ heat_tree(obj,
 ```
 
 In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men.
-Note that we have not taken into account statistics significance when showing this, so lets do that.
+Note that we have not taken into account statistical significance when showing this, so lets do that.
 First, we need to `r gloss$add('Multiple comparison corrections', shown = 'correct for multiple comparisons')`: 
 
 ```{r}
@@ -308,7 +308,11 @@ If we then look at the distribution of p-values, we can see that none are even c
 range(obj$data$diff_table$wilcox_p_value, finite = TRUE) 
 ```
 
-There is no need to graph this, but if there still were some significant differences, we could set any difference that is not significant to zero and repeat the last `heat_tree` command.
+There is no need to graph this, but if there still were some significant differences, we could set any difference that is not significant to zero and repeat the last `heat_tree` command doing something like:
+
+```{r eval = FALSE}
+obj$data$diff_table$log2_median_ratio[obj$data$diff_table$wilcox_p_value > 0.05] <- 0
+```
 
 ### Comparing any number of treatments/groups
 
@@ -325,7 +329,7 @@ print(obj$data$diff_table)
 There is a special function to plot this type of data called `heat_tree_matrix`:
 
 ```{r}
-set.seed(999)
+set.seed(1)
 heat_tree_matrix(obj,
                  dataset = "diff_table",
                  node_size = n_obs, # n_obs is a function that calculates, in this case, the number of OTUs per taxon
@@ -345,8 +349,8 @@ heat_tree_matrix(obj,
 The grey tree on the lower left functions as a key for the unlabeled trees.
 Each of the smaller trees represent a comparison between body sites in the columns and rows.
 A taxon colored brown is more abundant in the body site in the column and a taxon colored green is more abundant in body site of the row.
-For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is  due to the greater abundance of two genera: Prevotella and Porphyromonas.
-Look at the PDF file made to explore the details of the plot. 
+For example, Bacteroidetes is more abundant (i.e. has more reads) in the throat samples than the nose samples and this is  due to the greater abundance of two genera *Prevotella* and *Porphyromonas*.
+Look at the PDF file saved as "differential_heat_tree.pdf" to explore the details of the plot. 
 
 ```{r cleanup, message=FALSE, warning=FALSE, include=FALSE}
 file.remove("differential_heat_tree.pdf")

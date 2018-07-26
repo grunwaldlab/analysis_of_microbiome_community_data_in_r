@@ -23,7 +23,7 @@ Unlike spreadsheet programs, like excel, R is a text-based "interactive" program
 If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data.
 If you type an invalid command, R will print an error message and, ideally, nothing will happen.
 Where you type commands is referred to as the `r gloss$add('R console')`.
-If you are using RStudio, this is the lower left window.
+If you are using `r gloss$add('RStudio')`, this is the lower left window.
 Here is what an R console looks like when R is first started:
 
 ```
@@ -70,7 +70,7 @@ Now the `[24]` on the second line means that `24` is the 24th element.
 
 ## Variables
 
-In programmer-speak, any piece of data is called a "variable". 
+In programmer-speak, any piece of data is called a `r gloss$add("variable")`. 
 There are different types, or `r gloss$add("class", shown = "classes")`,  of variables such as `character` (text), `numeric` (numbers), and `data.frame`s (tables).
 You can "save" the result of commands in R using `<-` like so:
 
@@ -89,7 +89,7 @@ Now, anytime `a_sequence` is used it would be as if `1:100` was typed instead (a
 
 ## Functions
 
-Any command/tool/action in R is a function.
+Any command/tool/action in R is a `r gloss$add("function")`
 Most functions are used by putting the input to the function (if any) in parentheses following the function name.
 For example, the `length` function returns how many things are in a variable:
 
@@ -130,9 +130,9 @@ Functions can range in complexity from simple ones like `add` to very long and c
 ## Comments
 
 Reading code is difficult even if you wrote it.
-Although it might seems that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two.
+Although it might seem that the purpose of the code you just wrote is obvious, it will probably be much less clear in a month or two.
 Be kind to your future self or any other unfortunates that must interpret this code and use comments.
-Comments are parts of text that R ignores and programmers use to leave notes.
+Comments are parts of text that R ignores and programmers use to leave notes for themselves and other programmers.
 Anything that appears after a `#` is a comment and will be ignored by R.
 
 ```{r prompt=FALSE}
@@ -146,9 +146,9 @@ Comments are only needed when you save R commands in a text file, rather than ex
 
 In the examples above we have been assuming you are using R "interactively", which means typing things directly into the console.
 This is fine for experimenting, but is really not the best way to use R.
-You should write your commands in a text file with a ".R" file extension and copy and paste them into the R console.
+You should write your commands in a `r gloss$add("plain text")` file with a ".R" file extension and copy and paste them into the R console.
 That way you have a record of what you have done and can rerun your entire analysis easily.
-If you are using RStudio, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console.
+If you are using RStudio, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console all at once.
 
 ## R packages
 
@@ -191,7 +191,7 @@ Help files have an overview of:
  - examples demonstrating its usage
  
 This built-in documentation for each function can be a bit terse and hard to interpret and its quality varies greatly between packages.
-R packages will also usually have "vignettes", which combine examples and explanation for how functions in a package are generally used.
+R packages will also usually have `r gloss$add("vignette", shown = "vignettes")`, which combine examples and explanations for how functions in a package are generally used.
 These can be found online or accessed in the installed package using the `browseVignettes` function:
 
 ```{r eval = FALSE}

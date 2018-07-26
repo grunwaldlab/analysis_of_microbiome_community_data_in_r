@@ -13,7 +13,7 @@ In this workshop, we will be using data from @wagner2016host, a study on the eff
 @wagner2016host released their raw data with the article and it is available [here](http://datadryad.org/resource/doi:10.5061/dryad.g60r3) on [dryad](http://datadryad.org/).
 This is a great example of how to share your raw data!
 
-You can also download a copy of the data from this site from links in the descriptions below.
+A copy of this data is included in this site and can be downloaded from links below.
 
 ## Sample metadata
 
@@ -24,14 +24,14 @@ It is a 170Kb `r gloss$add('tab-delimited text file')`.
 
 ## The OTU abundance table
 
-This has the number of reads associated with each OTU in each sample.
+This has the number of reads associated with each `r gloss$add('Operational Taxonomic Units (OTUs)', shown = 'OTU')` in each sample.
 It is a 6Mb compressed tab-delimited text file.
 
 <a href="data/otuTable97.txt.bz2" download="data/otuTable97.txt.bz2">otuTable97.txt.bz2</a>
 
 ## The OTU taxonomy file
 
-This has the taxonomic classifications for each OTU.
+This has the `r gloss$add('taxonomic classifications')` for each OTU.
 It is a 6Mb tab-delimited text file.
 
 <a href="data/taxAssignments97.txt" download="data/taxAssignments97.txt">taxAssignments97.txt</a>

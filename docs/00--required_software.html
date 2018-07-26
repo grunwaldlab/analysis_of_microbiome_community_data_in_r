@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -126,6 +128,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -304,19 +309,23 @@ $(document).ready(function () {
 </div>
 <div id="installing-rstudio" class="section level2">
 <h2>Installing RStudio</h2>
-<p>RStudio is an “Integrated Development Environment” (IDE) which is a fancy way of saying “text editor with extra programming-related tools”. RStudio makes it easier to use R, but is not needed to use R. Most R users seem to use RStudio, so we are recommending it for this workshop. The main version of RStudio, which is free and open source, can be downloaded here:</p>
+<p><a href ="00--glossary.html#rstudio_anchor">RStudio</a> is an “Integrated Development Environment” (IDE) which is a fancy way of saying “text editor with extra programming-related tools”. RStudio makes it easier to use R, but is not needed to use R. Most R users seem to use RStudio, so we are recommending it for this workshop. The main version of RStudio, which is free and open source, can be downloaded here:</p>
 <p><a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></p>
 </div>
 <div id="installing-the-required-r-packages" class="section level2">
 <h2>Installing the required R packages</h2>
-<p>In addition to tools included with every R installation, it is common to install “R packages”, which are sets of tools bundled together in a standardize way, making them easy to install. In fact, most functionality used in R is from R packages, not “base” R. The following packages are utilized in this primer. Clicking of their name will lead to documentation (perhaps unofficial) for the package.</p>
+<p>In addition to tools included with every R installation, it is common to install <a href ="00--glossary.html#r_package_anchor">R packages</a>, which are sets of tools bundled together in a standardize way, making them easy to install. In fact, most functionality used in R is from R packages, not <a href ="00--glossary.html#base_r_anchor">base R</a>. The following packages are used in this primer. Clicking of their name will lead to documentation (perhaps unofficial) for the package.</p>
 <ol style="list-style-type: decimal">
 <li><a href="http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf">vegan</a>: Implements many standard statistical techniques used in ecological research. Is used extensively by packages like <code>phyloseq</code> and <code>metacoder</code>. <span class="citation">(Dixon 2003)</span></li>
-<li><a href="https://github.com/grunwaldlab/metacoder#an-r-package-for-metabarcoding-research-planning-and-analysis">metacoder</a>: Manipulation and visualization of taxonomic data, particularly those from aplicon metagenomics research. <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span></li>
-<li><a href="https://joey711.github.io/phyloseq/index.html">phyloseq</a>: Tools and visualization for microbiome data specifically. <span class="citation">(McMurdie and Holmes 2013)</span></li>
+<li><a href="https://github.com/grunwaldlab/metacoder#an-r-package-for-metabarcoding-research-planning-and-analysis">metacoder</a>: Manipulation and visualization of taxonomic data, particularly those from amplicon metagenomics research. <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span></li>
+<li><a href="https://github.com/ropensci/taxa#taxa">taxa</a>: defines taxonomic <a href ="00--glossary.html#class_anchor">classes</a> and functions to manipulate them. The goal is to use these classes as low level fundamental taxonomic classes that other R packages can build on and use. This is used by <code>metacoder</code>. <span class="citation">(Foster, Chamberlain, and Grünwald 2018)</span></li>
+<li><a href="https://joey711.github.io/phyloseq/index.html">phyloseq</a>: Popular package with tools for analysis and visualization of microbiome data <span class="citation">(McMurdie and Holmes 2013)</span>.</li>
 <li><a href="http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html">ggplot2</a>: Awesome graphing package. <span class="citation">(Wickham 2009)</span></li>
 <li><a href="http://stat545.com/block009_dplyr-intro.html">dplyr</a>: A package for manipulating tabular data with a cohesive and intuitive set of commands. A popular alternative to base R methods. <span class="citation">(Wickham and Francois 2015)</span></li>
 <li><a href="https://cran.r-project.org/web/packages/readr/vignettes/readr.html">readr</a>: Makes reading tabular data from files easier.</li>
+<li><a href="https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html">stringr</a>: Functions for text manipulation.</li>
+<li><a href="https://cran.r-project.org/web/packages/agricolae/vignettes/tutorial.pdf">agricolae</a>: Used for the design and analysis of experiments, especially plant-related experiments.</li>
+<li><a href="http://ape-package.ird.fr/">ape</a>: A popular package for DNA sequence analysis and phylogenetics.</li>
 </ol>
 <p>More R resources useful for microbiome data analysis can be found here:</p>
 <p><a href="https://microsud.github.io/Tools-Microbiome-Anlaysis/" class="uri">https://microsud.github.io/Tools-Microbiome-Anlaysis/</a></p>
@@ -326,17 +335,20 @@ $(document).ready(function () {
 <span class="kw">biocLite</span>(<span class="st">&quot;phyloseq&quot;</span>)
 
 <span class="co"># Install the rest of the packages from CRAN</span>
-<span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;readr&quot;</span>),
+<span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;agricolae&quot;</span>, <span class="st">&quot;ape&quot;</span>),
                  <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>,
                  <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>We wrote and actively maintain <em>metacoder</em> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span> and it is heavily relied upon in this primer. You can think of an R package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
-<p>Congratulations! You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
+<p>We wrote and actively maintain <code>metacoder</code> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span> and <code>taxa</code> <span class="citation">(Foster, Chamberlain, and Grünwald 2018)</span> so they are heavily relied upon in this primer.</p>
+<p>Congratulations! You should now be all set for using R in this workshop.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>
 <div id="refs" class="references">
 <div id="ref-dixon2003vegan">
 <p>Dixon, Philip. 2003. “VEGAN, a Package of R Functions for Community Ecology.” <em>Journal of Vegetation Science</em> 14 (6). BioOne: 927–30.</p>
+</div>
+<div id="ref-foster2018taxa">
+<p>Foster, Zachary SL, Scott Chamberlain, and Niklaus J Grünwald. 2018. “Taxa: An R Package Implementing Data Standards and Methods for Taxonomic Data.” <em>F1000Research</em> 7 (272). doi:<a href="https://doi.org/10.12688/f1000research.14013.1">10.12688/f1000research.14013.1</a>.</p>
 </div>
 <div id="ref-foster2017metacoder">
 <p>Foster, Zachary SL, Thomas J Sharpton, and Niklaus J Grünwald. 2017. “Metacoder: An R Package for Visualization and Manipulation of Community Taxonomic Diversity Data.” <em>PLoS Computational Biology</em> 13 (2). Public Library of Science: e1005404. <a href="https://doi.org/10.1371/journal.pcbi.1005404" class="uri">https://doi.org/10.1371/journal.pcbi.1005404</a>.</p>

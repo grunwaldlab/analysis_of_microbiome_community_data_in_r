@@ -17,7 +17,7 @@ Most R users seem to use RStudio and we like it, so we recommend using it.
 
 ## Installing RStudio
 
-The main version of RStudio that most people use, which is free and open source, can be downloaded here:
+The main version of RStudio that most people use is free and open source and can be downloaded here:
 
 https://www.rstudio.com/products/rstudio/download/#download
 
@@ -72,17 +72,18 @@ Type `help(` and hit <kbd>Tab</kbd> to select arguments for the help function.
 
 ### Command history
 
-RStudio records your command history. Thus you can scroll up or down the history of executed commands using the *Up* or *Down* arrows.
+RStudio records your command history and you can scroll up or down the history of executed commands using the *Up* or *Down* keys.
 Make sure your cursor is in the console and try to re-execute previous commands.
 
 ### Quickly running code in a file
 
 Its best to write even experimental code in a file in the text editor, rather than writing it directly to the console, but it can get tedious to always be copying and pasting to try it out.
-Instead, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console.
+Instead, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console all at once.
+This is a good habit to develop.
 
 ## R projects
 
-"R projects" are an RStudio concept and are integral to many peoples workflow and organization.
+`r gloss$add('R project', shown = 'R projects')` are an RStudio concept and are integral to many people's workflow and organization.
 An R project is just a folder that has a file in it ending in ".Rproj".
 This file is created by RStudio when you create a new project.
 Although R projects are not needed, we highly recommend using them for the following reasons:

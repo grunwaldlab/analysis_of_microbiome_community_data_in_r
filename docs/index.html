@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -83,6 +85,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -252,26 +257,23 @@ $(document).ready(function () {
 </div>
 
 
-<blockquote>
-<p>Note: Still under development</p>
-</blockquote>
 <div id="analysis-of-microbiome-community-data-in-r" class="section level1">
 <h1>Analysis of Microbiome Community Data in R</h1>
 <p>Welcome! This primer provides a concise introduction to conducting applied analyses of microbiome data in R. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer.</p>
-<p><strong>Please install the required <a href="00--required_software.html">software</a> and download the <a href="00--required_data.html">example data</a> before comming to the workshop.</strong></p>
+<p><strong>Please install the required <a href="00--required_software.html">software</a> and download the <a href="00--required_data.html">example data</a> before coming to the workshop.</strong></p>
 <div id="what-is-covered" class="section level2">
 <h2>What is covered</h2>
-<p>This primer provides a concise introduction to conducting the statistical analyses and visualize microbiome data in R based on metabarcoding and high throughput sequencing (HTS). This primer does not cover “shotgun” metagenomic analysis, which is very different in nature. The reader is expected to have a very basic understanding of ecological diversity theory and some experience with R. The techniques presented here assume the raw sequences have been converted to exact sequence variants (ESVs) or operational taxonomic units (OTUs) and classified (i.e., assigned a taxonomy) using tools such as QIIME, mothur, or dada2 <span class="citation">(Schloss et al. 2009; Caporaso et al. 2010; Callahan et al. 2016)</span>.</p>
+<p>This primer provides a concise introduction to conducting the statistical analyses and visualize microbiome data in R based on metabarcoding and high throughput sequencing (HTS). This primer does not cover “shotgun” metagenomic analysis, which is very different in nature. The reader is expected to have a very basic understanding of ecological diversity theory and some experience with R. The techniques presented here assume the raw sequences have been converted to <a href ="00--glossary.html#exact_sequence_variants_(esvs)_anchor">exact sequence variants (ESVs)</a> or <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">operational Taxonomic Units (OTUs)</a> and <a href ="00--glossary.html#taxonomic_classifications_anchor">classified</a> (i.e., assigned a taxonomy) using tools such as QIIME, mothur, or dada2 <span class="citation">(Schloss et al. 2009; Caporaso et al. 2010; Callahan et al. 2016)</span>.</p>
 </div>
 <div id="why-use-r" class="section level2">
 <h2>Why use R?</h2>
-<p>R is an open source (free) statistical programming and graphing language that includes tools for analysis of statistical, ecological diversity and community data, among many other things. R provides a cohesive environment to analyze data using modular “toolboxes” called R <strong>packages</strong>. R runs on all major operating systems including Microsoft Windows, Linux (e.g., Ubuntu), and Apple’s OS X. The general type of analyses done in this workshop could be done in python, Perl, or using command line tools. We like R for the following reasons:</p>
+<p>R is an open source (free) statistical programming and graphing language that includes tools for analysis of statistical, ecological diversity and community data, among many other things. R provides a cohesive environment to analyze data using modular “toolboxes” called <a href ="00--glossary.html#r_package_anchor">R packages</a>. R runs on all major operating systems including Microsoft Windows, Linux (e.g., Ubuntu), and Apple’s OS X. The general type of analyses done in this workshop could be done in python, Perl, or using command line tools. We like R for the following reasons:</p>
 <ul>
 <li>We use it (i.e., we are biased).</li>
 <li>R packages are easy to install and not too hard to make.</li>
 <li>The R community is very active and growing. Packages are updated frequently.</li>
-<li>Repositories such as CRAN and Bioconductor provide some quality control of packages and make them easy to install.</li>
-<li>RStudio is a great, free graphics user interface.</li>
+<li>Repositories such as <a href ="00--glossary.html#the_comprehensive_r_archive_network_(cran)_anchor">the Comprehensive R Archive Network (CRAN)</a> and Bioconductor provide some quality control of packages and make them easy to install.</li>
+<li><a href ="00--glossary.html#rstudio_anchor">RStudio</a> is a great, free graphics user interface.</li>
 <li>R Markdown is well supported, allowing R code to be embedded in documents and output to diverse formats. This website is the output of a set of R Markdown documents. Thus, R markdown can be used as an electronic notebook facilitating for reproducible research <a href="http://grunwaldlab.github.io/Reproducible-science-in-R/">link</a>.</li>
 <li>R has strong graphing and statistical capabilities.</li>
 <li>You can produce publication ready graphics</li>
@@ -303,9 +305,7 @@ $(document).ready(function () {
 </div>
 <div id="citing-this-primer" class="section level2">
 <h2>Citing this primer</h2>
-<blockquote>
 <p>Please cite this primer if you find it useful for your research as: ZSL Foster and NJ Grünwald. 2018. Analysis of Microbiome Community Data in R. DOI: XXX.</p>
-</blockquote>
 <p><em>Niklaus J. Grünwald</em> <a href="https://orcid.org/0000-0003-1656-7602" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1656-7602</a> and <em>Zach S. L. Foster</em> <a href="https://orcid.org/0000-0002-5075-0948" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-5075-0948</a></p>
 <p>© 2018, Corvallis, Oregon, USA</p>
 </div>

@@ -32,6 +32,7 @@ As an alternative/complement to stacked barcharts, we have developed what we cal
 ## Load example data
 
 If you are starting the workshop at this section, or had problems running code in a previous section, use the following code to load data used in this section.
+You can download the "filtered_data.Rdata" file <a href="filtered_data.Rdata" download="filtered_data.Rdata">here</a>.
 If `obj` and `sample_data` are already in your environment from a previous section, you can ignore the following command.
 
 ```{r}
@@ -43,9 +44,9 @@ load("filtered_data.Rdata")
 
 The `metacoder` package implements "heat trees" to graph taxonomic data (@foster2017metacoder).
 This visualization technique uses the color and size of parts of a taxonomic tree to display numeric data associated with taxa.
-Below is an example of a heat tree showing the number of `r gloss$add('Operational Taxonomic Units (OTUs)')` in all taxa down to the class level:
+Below is an example of a heat tree showing the number of `r gloss$add('Operational Taxonomic Units (OTUs)')` in all taxa down to the class rank:
 
-```{r echo = FALSE, message=FALSE}
+```{r message=FALSE}
 library(metacoder)
 obj %>% 
   filter_taxa(grepl(pattern = "^[a-zA-Z]+$", taxon_names)) %>% # remove "odd" taxa
@@ -57,9 +58,9 @@ obj %>%
             layout = "davidson-harel", initial_layout = "reingold-tilford")
 ```
 
-This is a type of taxonomic tree where each node (the circles) is a taxon and the edges (lines) show hierarchical relationships between taxa.
+This is a type of taxonomic tree in which each node (the circles) is a taxon and the edges (lines) show hierarchical relationships between taxa.
 For example, the large *Proteobacteria* phylum node contains the *Alphaproteobacteria* and *Gammaproteobacteria* classes.
-This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones are also possible.
+This is a relatively small heat tree meant as a demonstration; much larger and more intricate ones are possible.
 We are going to go through the process of creating figures like this one in this section.
 Although this might seem like complicated code to make this figure, code like this is typically the result of iterative small improvements started from a simple base.
 We will imitate this process here for demonstration. 
@@ -85,7 +86,7 @@ heat_tree(obj,
           node_color = n_obs)
 ```
 
-As with many other functions from `taxa` and `metacoder`, any table column or `r gloss$add('function')` associated with the `taxmap` object being plotted can be refereed to as if it was an independent variable in the function call.
+As with many other functions from `taxa` and `metacoder`, any table column or `r gloss$add('function')` associated with the `taxmap` object being plotted can be refereed to as if it was an independent variable in the function call using `r gloss$add('Non-standard evaluation (NSE)')`.
 For example, the last plot could also have been made this way:
 
 ```{r eval = FALSE}
@@ -112,7 +113,7 @@ obj %>%
 
 If we zoom in on the output, we can see a lot of taxa with odd names like "Ellin329" and "BD7−3".
 During analysis such taxa might be important to see, but for publication purposes, most can probably be removed from the plot to make it easier to understand.
-We can filter those taxa out before plotting using a regular expression that only matches letters:
+We can filter those taxa out before plotting using a `r gloss$add('Regular expressions', shown = 'regular expression')` that only matches letters:
 
 ```{r}
 obj %>%
@@ -133,6 +134,7 @@ Some of the better ones for this use include:
 * davidson-harel
 * fruchterman-reingold
 
+See `?heat_tree` for a complete list.
 You only need to use the first few letters of each name.
 Lets look at these other two formats.
 First, fruchterman-reingold:
@@ -318,7 +320,7 @@ obj %>%
 ### Trees with multiple roots
 
 In all the trees we have made so far have a single "root".
-A "root" is a taxon without a supertaxon. 
+A "root" is a taxon without a `r gloss$add('supertaxa', shown = 'supertaxon')`. 
 Common examples of roots in taxonomy databases include coarse taxa like "fungi", "bacteria", or "cellular organisms".
 When a taxonomy has multiple roots, multiple trees are graphed in the same plot.
 We can force multiple roots to demonstrate this by selecting some taxa without preserving supertaxa:
@@ -343,7 +345,20 @@ obj %>%
 Note the use of the `tree_label` option used to add the tree labels based on the name of their root taxa.
 This can be used to make very large taxonomies easier to understand or emphasize the difference between taxa.
 
+```{r echo = FALSE}
+save(obj, sample_data, file = "plotting_data.Rdata")
+```
+
+
 ## Exercises
+
+In these exercises, we will be using the `obj` from the analysis above.
+If you did not run the code above or had problems, run the following code to get the objects used.
+You can download the "plotting_data.Rdata" file <a href="plotting_data.Rdata" download="plotting_data.Rdata">here</a>.
+
+```{r}
+load("plotting_data.Rdata")
+```
 
 **1a)** Make a plot of *Firmicutes* and `r gloss$add('subtaxa')` with the size of nodes proportional to the number of OTUs and label the nodes with taxon names.
 

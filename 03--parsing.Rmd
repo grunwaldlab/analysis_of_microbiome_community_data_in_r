@@ -42,18 +42,19 @@ knitr::include_graphics('images/boechera_stricta.jpg')
 @wagner2016host released their raw data with the article and it is available [here](http://datadryad.org/resource/doi:10.5061/dryad.g60r3) on [dryad](http://datadryad.org/).
 This is a great example of how to share your raw data!
 
-There are many `r gloss$add('function', shown = 'functions')` commonly used to read tabular data, including the traditional ones like `read.table` and `read.csv`, but we will be using functions from the new [`readr` package](http://readr.tidyverse.org/articles/readr.html), which returns ["tibbles"](http://r4ds.had.co.nz/tibbles.html) instead of `data.frame`s (A "table" in R).
+There are many `r gloss$add('function', shown = 'functions')` commonly used to read tabular data, including the `r gloss$add('base R')` ones like `read.table` and `read.csv`, but we will be using functions from the new [`readr` package](http://readr.tidyverse.org/articles/readr.html), which returns `r gloss$add('tibble', shown = 'tibbles')` instead of `data.frame`s (A "table" in R).
 
 ```{r}
 library(readr) # Loads the readr package so we can use `read_tsv`
 ```
 
-`r gloss$add('Tibble', shown = 'Tibbles')` are a type of `data.frame` with some fancier printing and more consistent behavior.
+Tibbles are a type of `data.frame` with some fancier printing and more consistent behavior.
+Click <a href="data/otuTable97.txt.bz2" download="data/otuTable97.txt.bz2">here</a> to download the OTU table.
 Lets read in the raw OTU table first:
 
 ```{r message=FALSE, cache=TRUE}
-otu_data <- read_tsv("data/otuTable97.txt.bz2")
-print(otu_data) # You can also enter `otu_data` to print it
+otu_data <- read_tsv("data/otuTable97.txt.bz2") # You might need to change the path to the file
+print(otu_data) # You can also enter just `otu_data` to print it
 ```
 
 This is a big data set, with `r format(nrow(otu_data), big.mark = ",")` rows (OTUs) and `r format(ncol(otu_data), big.mark = ",")` columns (`r format(ncol(otu_data) - 1, big.mark = ",")` samples and an OTU ID).
@@ -61,6 +62,7 @@ If your computer cannot load this file, don't worry, we will provide a subset la
 
 In this data set, the taxonomic classifications for the OTUs are in a different file.
 This information could have been included as additional columns in the OTU table and often is in other data sets.
+Click <a href="data/taxAssignments97.txt" download="data/taxAssignments97.txt">here</a> to download the taxonomic classifications table.
 
 ```{r message=FALSE, cache=TRUE}
 tax_data <- read_tsv("data/taxAssignments97.txt")
@@ -98,7 +100,8 @@ There are so many columns that all of them are not shown in the print out, but w
 tail(colnames(otu_data), n = 10) # `tail` returns the last n elements
 ```
 
-Next, lets load the sample data:
+Next, lets load the sample data.
+Click <a href="data/SMD.txt" download="data/SMD.txt">here</a> to download the sample data table.
 
 ```{r message=FALSE}
 sample_data <- read_tsv("data/SMD.txt",
@@ -118,10 +121,8 @@ When you format a specific data set in this way, we call it an `r gloss$add('obj
 Many R packages implement their own classes and functions to convert data to their format, whereas some packages use the classes defined in other packages.
 There are a few options for how to store an abundance matrix classified by a taxonomy in R (e.g. `phyloseq` objects), but we will be using classes defined in the `taxa` package here.
 The goal of the `taxa` package is to provide an all-purpose standard way of manipulation any type of information assigned to a taxonomy.
-`Taxa` provides a set of flexible parsers that should be able to read nearly any format, given the correct settings.
-
-> Add link to taxa parsing guide once it is online
-
+`Taxa` provides a set of flexible `r gloss$add('parsing', shown = 'parsers')` that should be able to read nearly any format, given the correct settings.
+You can read more about parsing taxonomic data with `taxa` here: https://github.com/ropensci/taxa#parsing-data.
 The taxonomic data we appended to the abundance matrix has the following form: 
 
 ```{r}
@@ -155,19 +156,20 @@ print(obj$data$tax_data)
 
 `obj$data` is a list of arbitrary, user-defined data sets.
 These data sets can be named anything and can be any R object, such as `r gloss$add('list', shown = 'lists')`, or `r gloss$add('vector', shown = 'vectors')`, or tables.
-This is different than `phyloseq` objects, which have a fixed number of data sets in pre-defined formats.
-Note that our data set now has a "taxon_id" column, which maps rows in the table to a taxa in the taxonomy.
+This is different than `phyloseq` objects, which have a fixed number of data sets in pre-defined formats, since the focus of `taxa` is taxonomic data in general and the focus of `phyloseq` is microbiome data in particular.
+Note that our data set now has a "taxon_id" column, which associates rows in the table to a taxa in the taxonomy.
 This column is essential for the manipulation functions of `taxa` to know how to handle these data sets, as we will demonstrate later.
 
-If we want to split out the rank information, we can use `r gloss$add('regular expressions')` (a.k.a "regex") to specify which part of each taxon is a rank and which part is a name.
+If we want to split out the rank information while parsing, we can use `r gloss$add('regular expressions')` (a.k.a "regex") to specify which part of each taxon is a rank and which part is a name.
 If you are not familiar with using regular expressions, this might be challenging to understand at first, but it is a very useful skill to have, so it is worth learning.
 Most regular expressions are composed of a series of "what to match" followed by "how many times to match".
 One regular expression that matches the pattern of taxon names is `^[a-z]{0,1}_{0,2}.*$`.
 This might look intimidating, but we can break it down into understandable parts: 
 
-* The `^` and `$` represent the start and end of the text respectively. If these were not there, then the pattern could match just a part of the text
-* The square brackets (e.g. `[a-z]`) specify a range of characters that can be matched. Likewise the `.` means match any character. 
+* The `^` and `$` represent the start and end of the text respectively. If these were not there, then the pattern could match just a part of the text.
+* The square brackets (e.g. `[a-z]`) specify a range of characters that can be matched. Likewise the `.` means match any character.
 * The contents of the curly braces (e.g. `{0,1}`) indicate the number of time the preceding pattern can match. Likewise, the `*` means 0 or more matches. For example the part of the regex `^[a-z]{0,1}` means "match a character `a` through `z` that occurs at the start of the string either zero or one times". 
+* Any text that is not a special regex character (e.g., `[` and `.`) matches itself, so the `_` matches a `_` in the text. To match characters like `[` in the text you "escape" them with `\\` (e.g., `\\[`).
 
 The whole regex means the following in common English: 
 
@@ -211,7 +213,7 @@ head(taxon_ranks(obj))
 So we don't really need the "class_data" table, so lets get rid of it:
 
 ```{r}
-obj$data <- obj$data[1] # 1 is index of the "tax_data" table we want
+obj$data$class_data <- NULL
 ```
 
 Lets also rename the "tax_data" table to something more informative:
@@ -232,7 +234,7 @@ We can name the tables or other info in `obj$data` whatever we want.
 
 ### Reading tabular data
 
-**1)** Take a look at the file [example_data_1.tsv](data/example_data_1.tsv).
+**1)** Take a look at the file [example_data_1.tsv](data/example_data_1.tsv) (click to download).
 
 **2)** Try reading the file using the base R function `read.table`. You might need to change some of the options. Type `?read.table` to see the documentation for this function. Hint: what does the `.tsv` extension mean?
 
@@ -273,7 +275,7 @@ my_data <- read_tsv("data/example_data_1.tsv")
 print(my_data)
 ```
 
-**1)** Look at the documentation for `parse_tax_data` and `lookup_tax_data`. The examples at the bottom of the documentation should be helpful.
+**6)** Look at the documentation for `parse_tax_data` and `lookup_tax_data`. The examples at the bottom of the documentation should be helpful.
 
 ```{r hide_button = TRUE, eval = FALSE}
 library(taxa)
@@ -281,25 +283,25 @@ library(taxa)
 ?lookup_tax_data
 ```
 
-**2)** Try using `parse_tax_data` to convert the table to a `taxmap` object, using the `my_taxonomy` column for the taxonomic information. You should get a taxonomy with "mammalia" at the root. How does the table included in the output differ from the input table?
+**7)** Try using `parse_tax_data` to convert the table to a `taxmap` object, using the `my_taxonomy` column for the taxonomic information. You should get a taxonomy with "mammalia" at the root. How does the table included in the output differ from the input table?
 
 ```{r hide_button = TRUE}
 parse_tax_data(my_data, class_cols = "my_taxonomy", class_sep = ", ")
 ```
 
-**3)** Try using `lookup_tax_data` to convert the table to a `taxmap` object, using the `ncbi_seq_id` column to look up the taxonomy associated with these Genbank accession numbers. NOTE: This requires an internet connection.
+**8)** Try using `lookup_tax_data` to convert the table to a `taxmap` object, using the `ncbi_seq_id` column to look up the taxonomy associated with these Genbank accession numbers. NOTE: This requires an internet connection.
 
 ```{r hide_button = TRUE, message=FALSE}
 lookup_tax_data(my_data, type = "seq_id", column = "ncbi_seq_id", database = "ncbi")
 ```
 
-**4)** Try using `lookup_tax_data` to convert the table to a `taxmap` object, using the `itis_taxon_id` column to look up the taxonomic classifications from the Integrated Taxonomic Information System (ITIS) for these taxon IDs. NOTE: This requires an internet connection.
+**9)** Try using `lookup_tax_data` to convert the table to a `taxmap` object, using the `itis_taxon_id` column to look up the taxonomic classifications from the Integrated Taxonomic Information System (ITIS) for these taxon IDs. NOTE: This requires an internet connection.
 
 ```{r hide_button = TRUE, message=FALSE}
 lookup_tax_data(my_data, type = "taxon_id", column = "itis_taxon_id", database = "itis")
 ```
 
-**4)** Compare the results of the three sources of taxonomic information. What is different? What is the same? 
+**10)** Compare the results of the three sources of taxonomic information. What is different? What is the same? 
 
 ```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
 cat(
@@ -312,12 +314,12 @@ cat(
 ### Reading taxonomic data from complex formats
 
 Sometimes taxonomic data can be embedded in complex text, like FASTA headers.
-Look at the file [example_data_2.fa](data/example_data_2.fa) which contains headers with two sources of taxonomic information:
+Look at the file [example_data_2.fa](data/example_data_2.fa) (click to download) which contains headers with two sources of taxonomic information:
 
 * The Genbank accession number
 * The taxonomic classification
 
-**1)** Read the FASTA file [example_data_2.fa](data/example_data_2.fa) using the `read.FASTA` function from the `ape` package and store the result in a variable.
+**11)** Read the FASTA file [example_data_2.fa](data/example_data_2.fa) using the `read.FASTA` function from the `ape` package and store the result in a variable.
 
 ```{r hide_button = TRUE}
 library(ape)
@@ -325,16 +327,16 @@ seqs <- read.FASTA("data/example_data_2.fa")
 print(seqs)
 ```
 
-**2)** Use the `names` function to get the headers and stores those in another variable.
+**12)** Use the `names` function to get the headers and stores those in another variable.
 
 ```{r hide_button = TRUE}
 headers <- names(seqs)
 print(headers)
 ```
 
-**3)** Look at the documentation for `extract_tax_data` from the `taxa` package.
+**13)** Look at the documentation for `extract_tax_data` from the `taxa` package.
 
-**4)** Use the `extract_tax_data` function to convert the headers to a `taxmap` object, using the NCBI accession number. The classification can be ignored (i.e. not given a capture group and key value) or stored as `"info"`.
+**14)** Use the `extract_tax_data` function to convert the headers to a `taxmap` object, using the NCBI accession number. The classification can be ignored (i.e. not given a capture group and key value) or stored as `"info"`.
 
 ```{r hide_button = TRUE, message = FALSE}
 extract_tax_data(headers,
@@ -342,7 +344,7 @@ extract_tax_data(headers,
                  regex = "^(.+)::(.+)$")
 ```
 
-**5)** Now use the classification instead of the accession numbers. The accession number can be ignored or stored as `"info"`. Consider the rank as part of the taxon name for now.
+**15)** Now use the classification instead of the accession numbers. The accession number can be ignored or stored as `"info"`. Consider the rank as part of the taxon name for now.
 
 ```{r hide_button = TRUE}
 extract_tax_data(headers,
@@ -351,7 +353,7 @@ extract_tax_data(headers,
                  class_sep = ";")
 ```
 
-**6)** Now try to split out the rank information from the taxon name. You will need to use the `class_key` and `class_regex` options. The ranks can be stored as `"info"` or `"taxon_rank`". Using `"taxon_rank`" allows the ranks to be accessed with the `taxon_ranks` function.
+**16)** Now try to split out the rank information from the taxon name. You will need to use the `class_key` and `class_regex` options. The ranks can be stored as `"info"` or `"taxon_rank`". Using `"taxon_rank`" allows the ranks to be accessed with the `taxon_ranks` function.
 
 ```{r hide_button = TRUE}
 extract_tax_data(headers,
@@ -362,7 +364,7 @@ extract_tax_data(headers,
                  class_regex = "^(.+)_(.+)$")
 ```
 
-**7)** Sometimes you will have the option to use more than one source of taxonomic information, like in this exercise. What are the benefits of using the embedded classification information instead of a Genbank accession number or taxon ID?
+**17)** Sometimes you will have the option to use more than one source of taxonomic information, like in this exercise. What are the benefits of using the embedded classification information instead of a Genbank accession number or taxon ID?
 
 ```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
 cat(

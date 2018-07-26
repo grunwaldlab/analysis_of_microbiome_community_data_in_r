@@ -255,9 +255,17 @@ Here is an example of a tibble compared to a `data.frame`:
 ```{r}
 # data.frame
 mtcars
+```
 
+```{r eval = FALSE}
 # tibble
 dplyr::as.tbl(mtcars)
+```
+
+```{r echo = FALSE}
+options(crayon.enabled = FALSE)
+dplyr::as.tbl(mtcars)
+options(crayon.enabled = TRUE)
 ```
 
 
@@ -347,3 +355,73 @@ Each row is one line and columns are separated by tabs (i.e. `\\t`).
 Also known as comma-separated value (CSV) format and usually has the file extension `.csv`.
 A plain text file used to store tables.
 Each row is one line and columns are separated by commas (i.e. `,`).
+
+## Vignette
+
+A short tutorial-like document included in R pacakges to help new users get familar with the package.
+These can be found online or accessed in the installed package using the `browseVignettes` function.
+For example, you can see `vegan`'s vignettes by typing the following into an R console:
+
+```{r eval = FALSE}
+browseVignettes(package = "vegan")
+```
+
+## RStudio
+
+A program used write and organize projects with R code.
+It can run R, but is not R itself, and relies on a seperate installation of R to work.
+
+## Parsing
+
+The word "parsing" is used in different ways, but in the context of data science, it means to transform data from one form to another.
+For example, to read a text file into R and store it as a `data.frame` would be to parse that file since the data is changing forms.
+
+## Non-standard evaluation (NSE)
+
+This is a rather advanced programming technique that allows for code in a function call to be interpreted by R in a different way from how it would be interpreted outside that function call.
+It is used by many R functions to make them easier to read and reduce typing.
+For example, the `library` function uses NSE to allow users to leave off the quotes when naming R pacakges to import.
+You can call the `library` function this way:
+
+```{r eval = FALSE}
+library("metacoder")
+```
+
+However, using NSE, you can call it this way:
+
+```{r}
+library(metacoder)
+```
+
+Even though the variable `metacoder` does not exist outside the function call:
+
+```{r error = TRUE}
+print("metacoder")
+print(metacoder)
+```
+
+This is used extensivly in many newer R packages like `dplyr` and `taxa`.
+
+## FASTQ
+
+A file format used to store DNA sequences with associated per-base quaility scores, often made by DNA sequencers.
+The format is similar to FASTA, but with an extra few lines per sequence.
+A FASTQ file might look like this:
+
+```
+@SEQ_ID1 other info...
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+@SEQ_ID2 other info...
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+```
+
+Every sequence has four lines:
+
+1. Like a FASTA file, the first line for each sequence is a header starting with `@` and can contain anything.
+2. The DNA sequence
+3. Always starts with a `+`
+4. The per-base quality scores in ASCII code order. They correspond to numbers.

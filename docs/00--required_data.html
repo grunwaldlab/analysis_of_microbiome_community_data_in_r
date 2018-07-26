@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -83,6 +85,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -255,7 +260,7 @@ $(document).ready(function () {
 <div id="datasets-used-in-this-workshop" class="section level1">
 <h1>Datasets used in this workshop</h1>
 <p>In this workshop, we will be using data from <span class="citation">Wagner et al. (2016)</span>, a study on the effects of plant age, genotype, and environment on the bacterial microbiome of <a href="https://en.wikipedia.org/wiki/Boechera_stricta"><em>Boechera stricta</em></a>, a perennial herb in the mustard family. <span class="citation">Wagner et al. (2016)</span> released their raw data with the article and it is available <a href="http://datadryad.org/resource/doi:10.5061/dryad.g60r3">here</a> on <a href="http://datadryad.org/">dryad</a>. This is a great example of how to share your raw data!</p>
-<p>You can also download a copy of the data from this site from links in the descriptions below.</p>
+<p>A copy of this data is included in this site and can be downloaded from links below.</p>
 <div id="sample-metadata" class="section level2">
 <h2>Sample metadata</h2>
 <p>A table with a sample in each row and info about the samples in each column, such as plant genotype and field site. It is a 170Kb <a href ="00--glossary.html#tab-delimited_text_file_anchor">tab-delimited text file</a>.</p>
@@ -263,12 +268,12 @@ $(document).ready(function () {
 </div>
 <div id="the-otu-abundance-table" class="section level2">
 <h2>The OTU abundance table</h2>
-<p>This has the number of reads associated with each OTU in each sample. It is a 6Mb compressed tab-delimited text file.</p>
+<p>This has the number of reads associated with each <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a> in each sample. It is a 6Mb compressed tab-delimited text file.</p>
 <p><a href="data/otuTable97.txt.bz2" download="data/otuTable97.txt.bz2">otuTable97.txt.bz2</a></p>
 </div>
 <div id="the-otu-taxonomy-file" class="section level2">
 <h2>The OTU taxonomy file</h2>
-<p>This has the taxonomic classifications for each OTU. It is a 6Mb tab-delimited text file.</p>
+<p>This has the <a href ="00--glossary.html#taxonomic_classifications_anchor">taxonomic classifications</a> for each OTU. It is a 6Mb tab-delimited text file.</p>
 <p><a href="data/taxAssignments97.txt" download="data/taxAssignments97.txt">taxAssignments97.txt</a></p>
 </div>
 <div id="references" class="section level2 unnumbered">

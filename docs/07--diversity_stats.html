@@ -20,7 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -126,6 +128,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -299,7 +304,7 @@ $(document).ready(function () {
 <h1>Diversity statistics</h1>
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
-<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
+<p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. You can download the “clean_data.Rdata” file <a href="clean_data.Rdata" download="clean_data.Rdata">here</a>. If <code>obj</code> and <code>sample_data</code> are already in your environment, you can ignore this and proceed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;clean_data.Rdata&quot;</span>)</code></pre></div>
 </div>
 <div id="measures-of-diversity" class="section level2">
@@ -328,7 +333,7 @@ sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span cl
 <span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>We can use ANOVA to tell if at least one of the diversity means is different from the rest.</p>
+<p>We can use <a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a> to tell if at least one of the diversity means is different from the rest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>Site, sample_data)
 <span class="kw">summary</span>(anova_result)</code></pre></div>
 <pre class="r-output"><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -379,7 +384,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Alpha diversity index&quot;</span>)</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>So that takes care of comparing the alpha diversity of sites, but there are other interesting grouping we can compare, such as the genotype and the type of the sample (roots vs leaves). We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks. We can generalize what we did above and put it in a function like so:</p>
+<p>So that takes care of comparing the alpha diversity of sites, but there are other interesting groupings we can compare, such as the genotype and the type of the sample (roots vs leaves). We could do the above all over with minor modifications, but one of the benefits of using a programming language is that you can create your own functions to automate repeated tasks. We can generalize what we did above and put it in a function like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">compare_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(sample_data, grouping_var) {
   <span class="co"># Calcuate alpha diversity</span>
   sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
@@ -435,7 +440,7 @@ ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,
 </div>
 <div id="beta-between-sample-diversity" class="section level2">
 <h2>Beta (between sample) diversity</h2>
-<p>Beta diversity is a way to quantify the difference between two communities. There are many metrics that are used for this, but we will only mention a few of the more popular ones. A few also incorporate phylogenetic relatedness and require a phylogentic tree of the organisms in either community to be calculated.</p>
+<p>Beta diversity is a way to quantify the difference between two communities. There are many metrics that are used for this, but we will only mention a few of the more popular ones. A few also incorporate phylogenetic relatedness and require a phylogenetic tree of the organisms in either community to be calculated.</p>
 <div id="examples-of-indexes-used-with-presenceabsence-data" class="section level4">
 <h4>Examples of indexes used with presence/absence data:</h4>
 <ul>
@@ -453,12 +458,12 @@ ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,
 <p>The <code>vegan</code> function <code>vegdist</code> is used to calculate the pairwise beta diversity indexes for a set of samples. Since this is a pairwise comparison, the output is a triangular matrix. In R, a <code>matrix</code> is like a <code>data.frame</code>, but all of the same type (e.g. all numeric), and has some different behavior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta_dist &lt;-<span class="st"> </span><span class="kw">vegdist</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]),
                      <span class="dt">index =</span> <span class="st">&quot;bray&quot;</span>)</code></pre></div>
-<p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to transpose the matrix with the <code>t</code> function.</p>
+<p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to <a href ="00--glossary.html#transpose_anchor">transpose</a> the matrix with the <code>t</code> function.</p>
 </div>
 </div>
 <div id="ordination" class="section level2">
 <h2>Ordination</h2>
-<p>Ordination is a way to display “high dimensional” data in a viable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new dimensions.</p>
+<p>Ordination is a way to display “high dimensional” data in a viable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new “artificial” dimensions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]))</code></pre></div>
 <pre class="r-output"><code>## Square root transformation
 ## Wisconsin double standardization
@@ -492,7 +497,7 @@ mds_data &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mds
 mds_data<span class="op">$</span>SampleID &lt;-<span class="st"> </span><span class="kw">rownames</span>(mds_data)
 mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(mds_data, sample_data)</code></pre></div>
 <pre><code>## Joining, by = &quot;SampleID&quot;</code></pre>
-<p>Now that we have the data in a format plotting2 likes, we can plot it. Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).</p>
+<p>Now that we have the data in a format ggplot2 likes, we can plot it. Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -504,7 +509,7 @@ mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Genotype)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There is no decernable pattern there, suggesting plant genotype does not correspond to community structure.</p>
+<p>There is no discernible pattern there, suggesting plant genotype does not correspond to community structure.</p>
 <p>We can also do the above quickly in <code>phyloseq</code> using the <code>ordinate</code> and <code>plot_ordination</code> functions. Lets look at the differences between leaf and root samples again, but using a difference index this time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps_ord &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_obj, <span class="dt">method =</span> <span class="st">&quot;NMDS&quot;</span>, <span class="dt">distance =</span> <span class="st">&quot;jsd&quot;</span>)</code></pre></div>
 <pre class="r-output"><code>## Run 0 stress 0.1075255 
