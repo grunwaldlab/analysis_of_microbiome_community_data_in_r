@@ -313,7 +313,7 @@ filter_taxa(obj, taxon_names == "Actinobacteria",
             reassign_obs = FALSE)
 ```
 
-### Subsetting data assocaited with a taxonomy
+### Subsetting data associated with a taxonomy
 
 In these exercises, we will be using the `taxmap` object `obj` from the analysis above.
 For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj` with `<-`).

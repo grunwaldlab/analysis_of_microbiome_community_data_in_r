@@ -331,7 +331,7 @@ obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span c
 <span class="kw">sum</span>(no_reads) <span class="co"># when `sum` is used on a TRUE/FALSE vector it counts TRUEs</span></code></pre></div>
 <pre class="r-output"><code>## [1] 14990
 </code></pre>
-<p>So now 14990 of 21684 have no reads. We can remove them and the taxa they are associated with like so:</p>
+<p>So now 14990 of 21684 OTUs have no reads. We can remove them and the taxa they are associated with like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="op">!</span><span class="st"> </span>no_reads, <span class="dt">drop_taxa =</span> <span class="ot">TRUE</span>)
 <span class="kw">print</span>(obj)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;

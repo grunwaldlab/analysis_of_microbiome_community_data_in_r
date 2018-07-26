@@ -56,7 +56,7 @@ no_reads <- rowSums(obj$data$otu_counts[, sample_data$SampleID]) == 0
 sum(no_reads) # when `sum` is used on a TRUE/FALSE vector it counts TRUEs
 ```
 
-So now `r sum(no_reads)` of `r nrow(obj$data$otu_counts)` have no reads.
+So now `r sum(no_reads)` of `r nrow(obj$data$otu_counts)` OTUs have no reads.
 We can remove them and the taxa they are associated with like so: 
 
 ```{r}
