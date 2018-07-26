@@ -46,6 +46,9 @@ Clicking of their name will lead to documentation (perhaps unofficial) for the p
 1. [agricolae](https://cran.r-project.org/web/packages/agricolae/vignettes/tutorial.pdf): Used for the design and analysis of experiments, especially plant-related experiments.
 1. [ape](http://ape-package.ird.fr/): A popular package for DNA sequence analysis and phylogenetics.
 
+We wrote and actively maintain `metacoder` [@foster2017metacoder] and `taxa` [@foster2018taxa] so they
+are heavily relied upon in this primer.
+
 More R resources useful for microbiome data analysis can be found here:
 
 https://microsud.github.io/Tools-Microbiome-Anlaysis/ 
@@ -58,15 +61,33 @@ source('http://bioconductor.org/biocLite.R')
 biocLite("phyloseq")
 
 # Install the rest of the packages from CRAN
-install.packages(c("vegan", "metacoder", "ggplot2", "dplyr", "readr", "stringr", "agricolae", "ape"),
+install.packages(c("vegan", "metacoder", "taxa", "ggplot2", "dplyr", "readr", "stringr", "agricolae", "ape"),
                  repos = "http://cran.rstudio.com",
                  dependencies = TRUE)
 ```
 
-We wrote and actively maintain `metacoder` [@foster2017metacoder] and `taxa` [@foster2018taxa] so they
-are heavily relied upon in this primer.
+If the installation does not work, try installing the packages one at a time (e.g., `install.packages("taxa")`) and look for error messages.
+Usually the problem is that there is a non-R dependency that needs to be installed and how you install it will depend on your operating system.
+Copying the error messages into Google will usually help you figure it out.
+If a package has installed correctly, you should be able to load it with `library` (e.g., `library(phyloseq)`).
 
-Congratulations! You should now be all set for using R in this workshop.
+You can test if the software is installed correctly by opening RStudio and running the following code.
+Look at the appendices if you need help using R or RStudio. 
+
+```{r warning=FALSE}
+library(metacoder)
+x = parse_tax_data(hmp_otus, class_cols = "lineage", class_sep = ";",
+                   class_key = c(tax_rank = "info", tax_name = "taxon_name"),
+                   class_regex = "^(.+)__(.+)$")
+heat_tree(x, node_label = taxon_names, node_size = n_obs, node_color = n_obs)
+```
+
+If you see the above graph, then congratulations! You should now be all set for using R in this workshop.
+If you do not see the graph, then email us the result of the following code to help us troubleshoot the problem.
+
+```{r eval=FALSE}
+sessionInfo()
+```
 
 
 ## References

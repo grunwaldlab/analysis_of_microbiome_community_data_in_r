@@ -327,6 +327,7 @@ $(document).ready(function () {
 <li><a href="https://cran.r-project.org/web/packages/agricolae/vignettes/tutorial.pdf">agricolae</a>: Used for the design and analysis of experiments, especially plant-related experiments.</li>
 <li><a href="http://ape-package.ird.fr/">ape</a>: A popular package for DNA sequence analysis and phylogenetics.</li>
 </ol>
+<p>We wrote and actively maintain <code>metacoder</code> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span> and <code>taxa</code> <span class="citation">(Foster, Chamberlain, and Grünwald 2018)</span> so they are heavily relied upon in this primer.</p>
 <p>More R resources useful for microbiome data analysis can be found here:</p>
 <p><a href="https://microsud.github.io/Tools-Microbiome-Anlaysis/" class="uri">https://microsud.github.io/Tools-Microbiome-Anlaysis/</a></p>
 <p>You can enter the following script in the R console to install these packages:</p>
@@ -335,11 +336,19 @@ $(document).ready(function () {
 <span class="kw">biocLite</span>(<span class="st">&quot;phyloseq&quot;</span>)
 
 <span class="co"># Install the rest of the packages from CRAN</span>
-<span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;agricolae&quot;</span>, <span class="st">&quot;ape&quot;</span>),
+<span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;metacoder&quot;</span>, <span class="st">&quot;taxa&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;agricolae&quot;</span>, <span class="st">&quot;ape&quot;</span>),
                  <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>,
                  <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>We wrote and actively maintain <code>metacoder</code> <span class="citation">(Foster, Sharpton, and Grünwald 2017)</span> and <code>taxa</code> <span class="citation">(Foster, Chamberlain, and Grünwald 2018)</span> so they are heavily relied upon in this primer.</p>
-<p>Congratulations! You should now be all set for using R in this workshop.</p>
+<p>If the installation does not work, try installing the packages one at a time (e.g., <code>install.packages(&quot;taxa&quot;)</code>) and look for error messages. Usually the problem is that there is a non-R dependency that needs to be installed and how you install it will depend on your operating system. Copying the error messages into Google will usually help you figure it out. If a package has installed correctly, you should be able to load it with <code>library</code> (e.g., <code>library(phyloseq)</code>).</p>
+<p>You can test if the software is installed correctly by opening RStudio and running the following code. Look at the appendices if you need help using R or RStudio.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
+x =<span class="st"> </span><span class="kw">parse_tax_data</span>(hmp_otus, <span class="dt">class_cols =</span> <span class="st">&quot;lineage&quot;</span>, <span class="dt">class_sep =</span> <span class="st">&quot;;&quot;</span>,
+                   <span class="dt">class_key =</span> <span class="kw">c</span>(<span class="dt">tax_rank =</span> <span class="st">&quot;info&quot;</span>, <span class="dt">tax_name =</span> <span class="st">&quot;taxon_name&quot;</span>),
+                   <span class="dt">class_regex =</span> <span class="st">&quot;^(.+)__(.+)$&quot;</span>)
+<span class="kw">heat_tree</span>(x, <span class="dt">node_label =</span> taxon_names, <span class="dt">node_size =</span> n_obs, <span class="dt">node_color =</span> n_obs)</code></pre></div>
+<p><img src="00--required_software_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>If you see the above graph, then congratulations! You should now be all set for using R in this workshop. If you do not see the graph, then email us the result of the following code to help us troubleshoot the problem.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>
