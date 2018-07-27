@@ -520,9 +520,9 @@ Plain text is the term used to describe text editors like Notepad or TextEdit th
 Random number generators are used by computers to simulate randomness, but are not actually random. They work by taking a starting number and running that number through a function that returns another number, which is then run through the same function to produce another number and so on. The first number is the “seed” and a given seed will always produce the same series of random numbers. Random number generators appear random because the seed that is chosen when the generator is created is usually something like the milliseconds on your computer’s internal clock. You can however set the seed yourself if you always want the same “random” behavior using the <code>set.seed</code> function. For example:
 </p>
 <pre class="r"><code>rnorm(3) # produces 3 "random" numbers from a normal distribution</code></pre>
-<pre><code>## [1] -0.2997664 -1.4119366  0.5360714</code></pre>
+<pre><code>## [1] -1.386881 -2.116571  0.261496</code></pre>
 <pre class="r"><code>rnorm(3)</code></pre>
-<pre><code>## [1] -1.5336615  1.0249468 -0.8976529</code></pre>
+<pre><code>## [1] -1.2569011 -0.4763849 -0.8233635</code></pre>
 <pre class="r"><code>set.seed(1)
 rnorm(3)</code></pre>
 <pre><code>## [1] -0.6264538  0.1836433 -0.8356286</code></pre>

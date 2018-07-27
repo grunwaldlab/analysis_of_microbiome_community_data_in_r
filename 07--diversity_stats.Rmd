@@ -157,6 +157,25 @@ plot_richness(ps_obj, color = "Type", x = "Site")
 
 Each dot is a sample and the error bars in some of the indexes are the standard error.
 
+```{r include=FALSE}
+save(ps_obj, file = "ps_obj.Rdata")
+```
+
+
+*NOTE: the `as_phyloseq` function is only available in the development version of metacoder. If you want to try it, you can install it by typing:*
+
+```{r eval = FALSE}
+devtools::install_github("ropensci/taxa")
+devtools::install_github("grunwaldlab/metacoder")
+```
+
+*or you can use the current version of metacoder and load the `ps_obj` object this way:*
+
+```{r}
+load("ps_obj.Rdata")
+```
+
+
 ## Beta (between sample) diversity
 
 Beta diversity is a way to quantify the difference between two communities. 
@@ -237,6 +256,15 @@ plot_ordination(ps_obj, ps_ord, type = "samples", color = "Type")
 ```
 
 ## Exercises
+
+In these exercises, we will be using the `ps_obj` from the analysis above.
+If you did not run the code above or had problems, run the following code to get the objects used.
+You can download the "ps_obj.Rdata" file <a href="ps_obj.Rdata" download="ps_obj.Rdata">here</a>.
+
+```{r}
+load("ps_obj.Rdata")
+```
+
 
 **1a)** Look at the documentation for the `plot_richness` function from `phyloseq`. Try to make a plot using only the Simpson and inverse Simpson indexes, colored by site and split up by sample type (leaf vs root).
 

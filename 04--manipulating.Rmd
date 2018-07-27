@@ -216,7 +216,7 @@ save(obj, sample_data, file = "filtered_data.Rdata")
 
 ## Exercises
 
-In these exercises, we will be using the table `sample_data` from the analysis above.
+In these exercises, we will be using `obj` and `sample_data` from the analysis above.
 If you did not run the code above or had problems, run the following code to get the objects used.
 You can download the "filtered_data.Rdata" file <a href="filtered_data.Rdata" download="filtered_data.Rdata">here</a>.
 
@@ -249,7 +249,6 @@ filter(sample_data,
 
 ### Subsetting a taxonomy
 
-In these exercises, we will be using the `taxmap` object `obj` from the analysis above.
 For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj`).
 
 **4)** The function `n_obs` counts the number of items in the first dataset (the OTU table in our case) assigned to each taxon. Try running `n_obs(obj)` to see how many OTUs are within each taxon.
@@ -315,7 +314,6 @@ filter_taxa(obj, taxon_names == "Actinobacteria",
 
 ### Subsetting data associated with a taxonomy
 
-In these exercises, we will be using the `taxmap` object `obj` from the analysis above.
 For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj` with `<-`).
 
 **9a)** Use `filter_obs` to remove all rows of "otu_counts" that have less than 5 reads in the first sample, "M1981P563" without removing any taxa in the taxonomy.
@@ -331,32 +329,35 @@ filter_obs(obj, "otu_counts", M1981P563 > 5)
 filter_obs(obj, "otu_counts", M1981P563 > 5, drop_taxa = TRUE)
 ```
 
-**10a)** The function `calc_prop_samples` from the `metacoder` package returns the proportion of samples each OTU appears in (i.e. has a non-zero count): 
+**10a)** The function `calc_n_samples` from the `metacoder` package returns the proportion of samples each OTU appears in (i.e. has a non-zero count): 
 
 ```{r}
 library(metacoder)
-calc_prop_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
+calc_n_samples(obj, dataset = "otu_counts")
 ```
 
 Using the `groups` option, it can do the calculation on columns grouped by treatment: 
 
 ```{r}
-calc_prop_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
+calc_n_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
 ```
 
 Run the following code to add this as a table in your `taxmap` object:
 
 ```{r}
-obj$data$sample_props <- calc_prop_samples(obj, dataset = "otu_counts", groups = sample_data$Type)
+obj$data$sample_counts <- calc_n_samples(obj,
+                                         dataset = "otu_counts",
+                                         groups = sample_data$Type,
+                                         other_cols = "OTU_ID")
 print(obj)
 ```
 
-Since the "sample_props" table is derived from the "otu_counts" table and in the same order, we can use values from it to subset "otu_counts".
+Since the "sample_counts" table is derived from the "otu_counts" table and in the same order, we can use values from it to subset "otu_counts".
 Using `filter_obs`, try to subset "otu_counts" to taxa that do not appear in leaf samples, but appear in at least 90% of root samples.
 Remove any taxa not represented by these OTUs unique to roots.
 
 ```{r hide_button = TRUE}
-filter_obs(obj, "otu_counts", leaf == 0, root > 0.9, drop_taxa = TRUE)
+filter_obs(obj, "otu_counts", leaf == 0, root > 100, drop_taxa = TRUE)
 ```
 
 **10b)** The function `arrange_obs` sorts tables in `taxmap` object. For example, you can sort the OTU table in `obj` by the number of reads in sample "M1981P563" like so:
@@ -371,11 +372,41 @@ To sort in descending order wrap the sorting parameter in `desc()`:
 arrange_obs(obj, "otu_counts", desc(M1981P563))
 ```
 
-Try to sort the OTU table by the difference between the proportion of leaf samples and OTU was found in and the proportion of root samples and OTU was found in.
+Try to sort the OTU table by the difference between the number of leaf samples and OTU was found in and the number of root samples and OTU was found in.
 This effectively sorts by how "characteristic" an OTU is to root samples.
 
 ```{r hide_button = TRUE}
-arrange_obs(obj, "sample_props", leaf - root)
+arrange_obs(obj, "sample_counts", leaf - root)
+```
+
+**10c)** What is the ID of the OTU most "characteristic" of roots vs leafs?
+
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+  '436, 881, or 927'
+)
+```
+
+**10d)** `mutate_obs` is used to add new columns to tables in a `taxmap` objects. Look at the documentation and see if you can figure out how to add the results of the `classifications` function as a column in the "sample_counts" table. Note that you will need to use the "taxon_id" column of the "sample_counts" table to subset the results of the `classifications` function so that they match the taxon IDs in the "sample_counts" table.
+
+```{r hide_button = TRUE}
+mutate_obs(obj, "sample_counts", class = classifications(obj)[obj$data$sample_counts$taxon_id])
+```
+
+**10e)** Now use the `%>%` operator to pipe the code for part **d** into the code for part **b** to sort it and see what taxa are most "characteristic" of roots vs leafs.
+
+```{r hide_button = TRUE}
+obj %>%
+  mutate_obs("sample_counts", class = classifications(obj)[obj$data$sample_counts$taxon_id]) %>%
+  arrange_obs("sample_counts", leaf - root)
+```
+
+**10c)** What are the families of the OTUs most "characteristic" of roots vs leafs?
+
+```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
+cat(
+  'Hyphomicrobiaceae, Paenibacillaceae, and Gemmataceae'
+)
 ```
 
 ## References
