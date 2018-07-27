@@ -20,9 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -128,9 +126,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -418,18 +413,18 @@ obj <span class="op">%&gt;%</span>
 <pre><code>## Summing per-taxon counts from 292 columns in 2 groups for 704 taxa</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>tax_abund)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 704 x 3</span><span>
-##    taxon_id    leaf     root
-##  </span><span style='color: #BCBCBC;'>*</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-## </span><span style='color: #BCBCBC;'> 1</span><span> aad      9</span><span style='text-decoration: underline;'>756</span><span>557 14</span><span style='text-decoration: underline;'>913</span><span>548
-## </span><span style='color: #BCBCBC;'> 2</span><span> aaf      6</span><span style='text-decoration: underline;'>453</span><span>231  6</span><span style='text-decoration: underline;'>545</span><span>249
-## </span><span style='color: #BCBCBC;'> 3</span><span> aag       </span><span style='text-decoration: underline;'>986</span><span>779  4</span><span style='text-decoration: underline;'>018</span><span>650
-## </span><span style='color: #BCBCBC;'> 4</span><span> aah       </span><span style='text-decoration: underline;'>449</span><span>603   </span><span style='text-decoration: underline;'>220</span><span>102
-## </span><span style='color: #BCBCBC;'> 5</span><span> aai      1</span><span style='text-decoration: underline;'>640</span><span>232  1</span><span style='text-decoration: underline;'>629</span><span>309
-## </span><span style='color: #BCBCBC;'> 6</span><span> aaj        </span><span style='text-decoration: underline;'>29</span><span>798    </span><span style='text-decoration: underline;'>76</span><span>133
-## </span><span style='color: #BCBCBC;'> 7</span><span> aak        </span><span style='text-decoration: underline;'>18</span><span>195   </span><span style='text-decoration: underline;'>442</span><span>261
-## </span><span style='color: #BCBCBC;'> 8</span><span> aal        </span><span style='text-decoration: underline;'>20</span><span>625   </span><span style='text-decoration: underline;'>503</span><span>211
-## </span><span style='color: #BCBCBC;'> 9</span><span> aam        </span><span style='text-decoration: underline;'>10</span><span>398   </span><span style='text-decoration: underline;'>220</span><span>376
-## </span><span style='color: #BCBCBC;'>10</span><span> aan        </span><span style='text-decoration: underline;'>68</span><span>473   </span><span style='text-decoration: underline;'>738</span><span>385
+##    taxon_id     leaf      root
+##  </span><span style='color: #BCBCBC;'>*</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+## </span><span style='color: #BCBCBC;'> 1</span><span> aad      9</span><span style='text-decoration: underline;'>756</span><span>557. 14</span><span style='text-decoration: underline;'>913</span><span>548.
+## </span><span style='color: #BCBCBC;'> 2</span><span> aaf      6</span><span style='text-decoration: underline;'>453</span><span>231.  6</span><span style='text-decoration: underline;'>545</span><span>249.
+## </span><span style='color: #BCBCBC;'> 3</span><span> aag       </span><span style='text-decoration: underline;'>986</span><span>779.  4</span><span style='text-decoration: underline;'>018</span><span>650.
+## </span><span style='color: #BCBCBC;'> 4</span><span> aah       </span><span style='text-decoration: underline;'>449</span><span>603.   </span><span style='text-decoration: underline;'>220</span><span>102.
+## </span><span style='color: #BCBCBC;'> 5</span><span> aai      1</span><span style='text-decoration: underline;'>640</span><span>232.  1</span><span style='text-decoration: underline;'>629</span><span>309.
+## </span><span style='color: #BCBCBC;'> 6</span><span> aaj        </span><span style='text-decoration: underline;'>29</span><span>798.    </span><span style='text-decoration: underline;'>76</span><span>133.
+## </span><span style='color: #BCBCBC;'> 7</span><span> aak        </span><span style='text-decoration: underline;'>18</span><span>195.   </span><span style='text-decoration: underline;'>442</span><span>261.
+## </span><span style='color: #BCBCBC;'> 8</span><span> aal        </span><span style='text-decoration: underline;'>20</span><span>625.   </span><span style='text-decoration: underline;'>503</span><span>211.
+## </span><span style='color: #BCBCBC;'> 9</span><span> aam        </span><span style='text-decoration: underline;'>10</span><span>398.   </span><span style='text-decoration: underline;'>220</span><span>376.
+## </span><span style='color: #BCBCBC;'>10</span><span> aan        </span><span style='text-decoration: underline;'>68</span><span>473.   </span><span style='text-decoration: underline;'>738</span><span>385.
 ## </span><span style='color: #949494;'># ... with 694 more rows</span><span>
 </span></code></pre>
 <p>Since the “leaf” and “root” columns have one value per taxon, they can be used for plotting. We can set the root read counts to the node color and the leaf read counts to the edge color.</p>

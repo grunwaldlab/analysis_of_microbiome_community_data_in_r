@@ -358,7 +358,7 @@ Each row is one line and columns are separated by commas (i.e. `,`).
 
 ## Vignette
 
-A short tutorial-like document included in R pacakges to help new users get familar with the package.
+A short tutorial-like document included in R packages to help new users get familiar with the package.
 These can be found online or accessed in the installed package using the `browseVignettes` function.
 For example, you can see `vegan`'s vignettes by typing the following into an R console:
 
@@ -369,7 +369,7 @@ browseVignettes(package = "vegan")
 ## RStudio
 
 A program used write and organize projects with R code.
-It can run R, but is not R itself, and relies on a seperate installation of R to work.
+It can run R, but is not R itself, and relies on a separate installation of R to work.
 
 ## Parsing
 
@@ -380,7 +380,7 @@ For example, to read a text file into R and store it as a `data.frame` would be 
 
 This is a rather advanced programming technique that allows for code in a function call to be interpreted by R in a different way from how it would be interpreted outside that function call.
 It is used by many R functions to make them easier to read and reduce typing.
-For example, the `library` function uses NSE to allow users to leave off the quotes when naming R pacakges to import.
+For example, the `library` function uses NSE to allow users to leave off the quotes when naming R packages to import.
 You can call the `library` function this way:
 
 ```{r eval = FALSE}
@@ -400,11 +400,11 @@ print("metacoder")
 print(metacoder)
 ```
 
-This is used extensivly in many newer R packages like `dplyr` and `taxa`.
+This is used extensively in many newer R packages like `dplyr` and `taxa`.
 
 ## FASTQ
 
-A file format used to store DNA sequences with associated per-base quaility scores, often made by DNA sequencers.
+A file format used to store DNA sequences with associated per-base quality scores, often made by DNA sequencers.
 The format is similar to FASTA, but with an extra few lines per sequence.
 A FASTQ file might look like this:
 

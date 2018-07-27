@@ -20,9 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -85,9 +83,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -347,7 +342,7 @@ Callahan, Benjamin J., Paul J. McMurdie, and Susan P. Holmes. “Exact sequence 
 <a class="glossary_anchor" id="fastq_anchor">FASTQ</a>
 </h3>
 <p>
-A file format used to store DNA sequences with associated per-base quaility scores, often made by DNA sequencers. The format is similar to FASTA, but with an extra few lines per sequence. A FASTQ file might look like this:
+A file format used to store DNA sequences with associated per-base quality scores, often made by DNA sequencers. The format is similar to FASTA, but with an extra few lines per sequence. A FASTQ file might look like this:
 </p>
 <pre><code>@SEQ_ID1 other info...
 GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
@@ -437,7 +432,7 @@ The p-value in a statistical test measures the likelihood that an such a result 
 <a class="glossary_anchor" id="non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a>
 </h3>
 <p>
-This is a rather advanced programming technique that allows for code in a function call to be interpreted by R in a different way from how it would be interpreted outside that function call. It is used by many R functions to make them easier to read and reduce typing. For example, the <code>library</code> function uses NSE to allow users to leave off the quotes when naming R pacakges to import. You can call the <code>library</code> function this way:
+This is a rather advanced programming technique that allows for code in a function call to be interpreted by R in a different way from how it would be interpreted outside that function call. It is used by many R functions to make them easier to read and reduce typing. For example, the <code>library</code> function uses NSE to allow users to leave off the quotes when naming R packages to import. You can call the <code>library</code> function this way:
 </p>
 <pre class="r"><code>library("metacoder")</code></pre>
 <p>
@@ -445,7 +440,7 @@ However, using NSE, you can call it this way:
 </p>
 <pre class="r"><code>library(metacoder)</code></pre>
 <pre><code>## Loading required package: taxa</code></pre>
-<pre><code>## This is metacoder verison 0.2.1 (stable). If you use metacoder for published research, please cite our paper:
+<pre><code>## This is metacoder verison 0.2.1.9008 [1m(development version)[22m. If you use metacoder for published research, please cite our paper:
 ## 
 ## Foster Z, Sharpton T and Grunwald N (2017). "Metacoder: An R package for visualization and manipulation of community taxonomic diversity data." [3mPLOS Computational Biology[23m, [1m13[22m(2), pp. 1-15. doi: 10.1371/journal.pcbi.1005404
 ## 
@@ -458,7 +453,7 @@ Even though the variable <code>metacoder</code> does not exist outside the funct
 <pre class="r"><code>print(metacoder)</code></pre>
 <pre><code>## Error in print(metacoder): object 'metacoder' not found</code></pre>
 <p>
-This is used extensivly in many newer R packages like <code>dplyr</code> and <code>taxa</code>.
+This is used extensively in many newer R packages like <code>dplyr</code> and <code>taxa</code>.
 </p>
 </div>
 <div id="object" class="section level3">
@@ -520,9 +515,9 @@ Plain text is the term used to describe text editors like Notepad or TextEdit th
 Random number generators are used by computers to simulate randomness, but are not actually random. They work by taking a starting number and running that number through a function that returns another number, which is then run through the same function to produce another number and so on. The first number is the “seed” and a given seed will always produce the same series of random numbers. Random number generators appear random because the seed that is chosen when the generator is created is usually something like the milliseconds on your computer’s internal clock. You can however set the seed yourself if you always want the same “random” behavior using the <code>set.seed</code> function. For example:
 </p>
 <pre class="r"><code>rnorm(3) # produces 3 "random" numbers from a normal distribution</code></pre>
-<pre><code>## [1] -1.386881 -2.116571  0.261496</code></pre>
+<pre><code>## [1] -1.63013109  0.02875075  0.87633906</code></pre>
 <pre class="r"><code>rnorm(3)</code></pre>
-<pre><code>## [1] -1.2569011 -0.4763849 -0.8233635</code></pre>
+<pre><code>## [1] -1.2819657 -1.5142024 -0.2625129</code></pre>
 <pre class="r"><code>set.seed(1)
 rnorm(3)</code></pre>
 <pre><code>## [1] -0.6264538  0.1836433 -0.8356286</code></pre>
@@ -619,7 +614,7 @@ Whenever you start something in R that you want to save, we recommend using an R
 <a class="glossary_anchor" id="rstudio_anchor">RStudio</a>
 </h3>
 <p>
-A program used write and organize projects with R code. It can run R, but is not R itself, and relies on a seperate installation of R to work.
+A program used write and organize projects with R code. It can run R, but is not R itself, and relies on a separate installation of R to work.
 </p>
 </div>
 <div id="singleton" class="section level3">
@@ -728,16 +723,16 @@ dplyr::as.tbl(mtcars)</code></pre>
 <pre><code>## # A tibble: 32 x 11
 ##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 ##  * &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
-##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
-##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
-##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
-##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
-##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
-## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+##  1  21.0    6.  160.  110.  3.90  2.62  16.5    0.    1.    4.    4.
+##  2  21.0    6.  160.  110.  3.90  2.88  17.0    0.    1.    4.    4.
+##  3  22.8    4.  108.   93.  3.85  2.32  18.6    1.    1.    4.    1.
+##  4  21.4    6.  258.  110.  3.08  3.22  19.4    1.    0.    3.    1.
+##  5  18.7    8.  360.  175.  3.15  3.44  17.0    0.    0.    3.    2.
+##  6  18.1    6.  225.  105.  2.76  3.46  20.2    1.    0.    3.    1.
+##  7  14.3    8.  360.  245.  3.21  3.57  15.8    0.    0.    3.    4.
+##  8  24.4    4.  147.   62.  3.69  3.19  20.0    1.    0.    4.    2.
+##  9  22.8    4.  141.   95.  3.92  3.15  22.9    1.    0.    4.    2.
+## 10  19.2    6.  168.  123.  3.92  3.44  18.3    1.    0.    4.    4.
 ## # ... with 22 more rows</code></pre>
 </div>
 <div id="transpose" class="section level3">
@@ -789,7 +784,7 @@ Vectors can also be other types like <code>character</code>:
 <a class="glossary_anchor" id="vignette_anchor">Vignette</a>
 </h3>
 <p>
-A short tutorial-like document included in R pacakges to help new users get familar with the package. These can be found online or accessed in the installed package using the <code>browseVignettes</code> function. For example, you can see <code>vegan</code>’s vignettes by typing the following into an R console:
+A short tutorial-like document included in R packages to help new users get familiar with the package. These can be found online or accessed in the installed package using the <code>browseVignettes</code> function. For example, you can see <code>vegan</code>’s vignettes by typing the following into an R console:
 </p>
 <pre class="r"><code>browseVignettes(package = "vegan")</code></pre>
 </div>

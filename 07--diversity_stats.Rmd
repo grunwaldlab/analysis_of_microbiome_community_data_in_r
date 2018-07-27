@@ -169,7 +169,7 @@ devtools::install_github("ropensci/taxa")
 devtools::install_github("grunwaldlab/metacoder")
 ```
 
-*or you can use the current version of metacoder and load the `ps_obj` object this way:*
+*or you can use the current version of metacoder, download the file "ps_obj.Rdata" <a href="ps_obj.Rdata" download="ps_obj.Rdata">here</a>, and load the `ps_obj` object this way:*
 
 ```{r}
 load("ps_obj.Rdata")
@@ -204,6 +204,90 @@ beta_dist <- vegdist(t(obj$data$otu_rarefied[, sample_data$SampleID]),
 
 Since `vegdist` does not have a `MARGIN` option like `diversity`, we need to `r gloss$add("transpose")` the matrix with the `t` function.
 
+
+## Differential heat trees
+
+Beta diversity summarizes the difference between two samples in a single number, but does not tell you why the samples are different.
+We developed a plotting technique we call "differential heat trees" to display differences in abundance of each taxon in two samples or groups of samples.
+These are like the heat trees shown in the plotting section, but colored with a diverging color scale the indicates which sample a each taxon is more abundant in.
+In this way, it is similar to heat maps used for the same purpose and in gene expression studies.
+
+### Comparing taxon abundance in two groups
+
+Before we can make a differential heat tree, we need to calculate the difference in abundance for each group of samples, such as root vs leaf samples.
+There are many ways this can be done, ranging from simple differences in mean read counts, to outputs from specialized programs designed for microbiome data.
+We will be using a function in `metacoder` called `compare_groups` to do the comparisons.
+First however, we need to calculate the per-taxon abundance from our OTU counts.
+We can use the `calc_taxon_abund` function to do this:
+
+```{r}
+obj$data$tax_abund <- calc_taxon_abund(obj, "otu_rarefied",
+                                       cols = sample_data$SampleID)
+```
+
+For each taxon, at every rank, `compare_groups` function compares two groups of counts.
+We have to define which sample belong to which groups using `groups` option:
+
+```{r}
+obj$data$diff_table <- compare_groups(obj, dataset = "tax_abund",
+                                      cols = sample_data$SampleID,
+                                      groups = sample_data$Type)
+print(obj$data$diff_table)
+```
+
+By default, `r gloss$add("Wilcoxon Rank Sum test")` is used to test for statistical significance of differences and various summary statistics are reported to measure the size of the difference.
+Since we have done many independent tests (one for each taxon), we need to `r gloss$add('Multiple comparison corrections', shown = 'correct for multiple comparisions')`.
+We will do that with a false discovery rate (FDR) correction, but other types can be used as well.
+
+```{r}
+obj <- mutate_obs(obj, "diff_table",
+                  wilcox_p_value = p.adjust(wilcox_p_value, method = "fdr"))
+```
+
+The most useful statistic for plotting is the log of ratio of median abundances in the two groups, since it is centered on 0 and is symmetric (e.g., a value of -4 is the same magnitude as 4).
+Lets set any differences that are not significant to 0 so all differences shown on the plot are significant.
+
+```{r}
+obj$data$diff_table$log2_median_ratio[obj$data$diff_table$wilcox_p_value > 0.05] <- 0
+```
+
+Now we have all the info needed to make a differential heat tree.
+The standard `heat_tree` function can be used, but a few things need to be done to make an effective differential heat tree:
+
+* A diverging color scale should be used, preferably with a neutral color in the middle, like gray.
+* The interval of values displayed must be symmetric around zero so the neutral middle color is centered on zero.
+* The node color should be set to the log of ratio of median abundances in the two groups
+
+```{r}
+set.seed(1)
+heat_tree(obj, 
+          node_label = taxon_names,
+          node_size = n_obs, # number of OTUs
+          node_color = log2_median_ratio, # difference between groups
+          node_color_interval = c(-10, 10), # symmetric interval
+          node_color_range = c("cyan", "gray", "magenta"), # diverging colors
+          node_size_axis_label = "OTU count",
+          node_color_axis_label = "Log 2 ratio of median counts")
+```
+
+That's not too bad looking, but we can tweak it a bit to make it better by changing the layout and adding a title:
+
+```{r}
+set.seed(1)
+heat_tree(obj, 
+          node_label = taxon_names,
+          node_size = n_obs, # number of OTUs
+          node_color = log2_median_ratio, # difference between groups
+          node_color_interval = c(-10, 10), # symmetric interval
+          node_color_range = c("cyan", "gray", "magenta"), # diverging colors
+          node_size_axis_label = "OTU count",
+          node_color_axis_label = "Log 2 ratio of median counts",
+          layout = "da", initial_layout = "re", # good layout for large trees
+          title = "leaf vs root samples")
+```
+
+What color corresponds to each group depends on the order they were given in the `compare_groups` function.
+Since "leaf" is "treatment_1" in the "diff_table", and "log2_median_ratio" is defined as "log2(treatment_1 / treatment_2)", when a taxon has more counts in leaf samples, the ratio is positive, therefore taxa more abundant in leafs are colored magenta in this case.
 
 ## Ordination
 

@@ -20,9 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -128,9 +126,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -315,34 +310,26 @@ $(document).ready(function () {
 <p>First, lets take another look at our sample data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(sample_data)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 1,698 x 16</span><span>
-##    SampleID Name  Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
-##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-## </span><span style='color: #BCBCBC;'> 1</span><span> M1024P1… R_02… R_026    root  fieldBCMA  2008   2011      3     LTM   field     26    ril     
-## </span><span style='color: #BCBCBC;'> 2</span><span> M1024P1… R_07… R_073    root  fieldBCMA  2008   2011      3     LTM   field     73    ril     
-## </span><span style='color: #BCBCBC;'> 3</span><span> M1024P1… R_08… R_088    root  fieldBCMA  2009   2011      2     LTM   field     88    ril     
-## </span><span style='color: #BCBCBC;'> 4</span><span> M1024P1… R_15… R_156    root  fieldBCMA  2009   2011      2     LTM   field     156   ril     
-## </span><span style='color: #BCBCBC;'> 5</span><span> M1955P8… 1_A_… 1_A_1    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   par1… PAR     
-## </span><span style='color: #BCBCBC;'> 6</span><span> M1956P8… 1_A_… 1_A_12   root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   mah3… MAH     
-## </span><span style='color: #BCBCBC;'> 7</span><span> M1957P9… 1_A_… 1_A_3    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   silL… SIL     
-## </span><span style='color: #BCBCBC;'> 8</span><span> M1956P8… 1_A_… 1_A_4    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   par1… PAR     
-## </span><span style='color: #BCBCBC;'> 9</span><span> M1957P9… 1_A_… 1_A_7    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   par9… PAR     
-## </span><span style='color: #BCBCBC;'>10</span><span> M1957P9… 1_A_… 1_A_8    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   mil5… MIL     
+##    SampleID  Name   Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
+##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
+## </span><span style='color: #BCBCBC;'> 1</span><span> M1024P17… R_026… R_026    root  fieldBCMA  2008   2011      3     LTM   field     26    ril     
+## </span><span style='color: #BCBCBC;'> 2</span><span> M1024P17… R_073… R_073    root  fieldBCMA  2008   2011      3     LTM   field     73    ril     
+## </span><span style='color: #BCBCBC;'> 3</span><span> M1024P17… R_088… R_088    root  fieldBCMA  2009   2011      2     LTM   field     88    ril     
+## </span><span style='color: #BCBCBC;'> 4</span><span> M1024P18… R_156… R_156    root  fieldBCMA  2009   2011      2     LTM   field     156   ril     
+## </span><span style='color: #BCBCBC;'> 5</span><span> M1955P804 1_A_1… 1_A_1    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   par1… PAR     
+## </span><span style='color: #BCBCBC;'> 6</span><span> M1956P837 1_A_1… 1_A_12   root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   mah3… MAH     
+## </span><span style='color: #BCBCBC;'> 7</span><span> M1957P983 1_A_3… 1_A_3    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   silL… SIL     
+## </span><span style='color: #BCBCBC;'> 8</span><span> M1956P845 1_A_4… 1_A_4    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   par1… PAR     
+## </span><span style='color: #BCBCBC;'> 9</span><span> M1957P987 1_A_7… 1_A_7    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   par9… PAR     
+## </span><span style='color: #BCBCBC;'>10</span><span> M1957P923 1_A_8… 1_A_8    root  ecoGH      </span><span style='color: #BB0000;'>NA</span><span>     2011      </span><span style='color: #BB0000;'>NA</span><span>    Duke  MAHsoil   mil5… MIL     
 ## </span><span style='color: #949494;'># ... with 1,688 more rows, and 4 more variables: Block </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, oldPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, newPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>,
 ## #   Analysis </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 </span></code></pre>
 <p>This is a large data set and not all the 1698 samples are used in the main publication of <span class="citation">Wagner et al. (2016)</span>. Only the samples in the “ecotypes” experiment are part of the main study. Using standard R subsetting we could remove those like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span>sample_data[sample_data<span class="op">$</span>Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>, ]</code></pre></div>
 <p>Using the <code>dplyr</code> functions, the same operation would be:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_data, Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_data, Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>)</code></pre></div>
 <p>Note how we could use the <code>Experiment</code> column on its own within the <code>filter</code> functions. That is a special property of the <code>filter</code> function and many others in <code>dplyr</code> known as <a href ="00--glossary.html#non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a>. If we tried that outside of the function, we would get an error. For example, the following will not work:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_ecotype &lt;-<span class="st"> </span>Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;Experiment&#39; not found</code></pre>
@@ -366,15 +353,15 @@ $(document).ready(function () {
 ##   1558 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aab</span><span>, </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aac</span><span>, </span><span style='color: #00BB00;'>aac</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aac</span><span>-&gt;</span><span style='color: #00BB00;'>aae</span><span> ... </span><span style='color: #00BB00;'>bel</span><span>-&gt;</span><span style='color: #00BB00;'>chw</span><span>, </span><span style='color: #00BB00;'>ays</span><span>-&gt;</span><span style='color: #00BB00;'>chx</span><span>, </span><span style='color: #00BB00;'>bem</span><span>-&gt;</span><span style='color: #00BB00;'>chy</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 47,806 x 1,707</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 47,806 x 1,707</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85 M1551P28 M1551P29 M1551P38
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> aab      1               0        0        0        0        0        0        0
-##       </span><span style='color: #BCBCBC;'>2</span><span> ben      2              41       22        4      726   </span><span style='text-decoration: underline;'>112</span><span>492        2      413
-##       </span><span style='color: #BCBCBC;'>3</span><span> beo      3              67       65       12    </span><span style='text-decoration: underline;'>13</span><span>514        1        4    </span><span style='text-decoration: underline;'>13</span><span>314
-##       </span><span style='color: #949494;'># ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P71 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P12 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P84 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P48 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P4 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P52 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P3 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P15 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P31 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>aab</span><span>      1              0.       0.       0.       0.       0.       0.       0.
+##       2 </span><span style='color: #00BB00;'>ben</span><span>      2             41.      22.       4.     726.  112492.       2.     413.
+##       3 </span><span style='color: #00BB00;'>beo</span><span>      3             67.      65.      12.   13514.       1.       4.   13314.
+##       # ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>If we look at the second line, we can see that some taxa do not have names. These are the ones that only had <a href ="00--glossary.html#taxonomic_ranks_anchor">rank</a> information in the classification we parsed in the last section (e.g. <code>o__</code> in <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>). Since these do not add any information, lets remove them.</p>
@@ -386,15 +373,15 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##   959 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aab</span><span>, </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aac</span><span>, </span><span style='color: #00BB00;'>aac</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aac</span><span>-&gt;</span><span style='color: #00BB00;'>aae</span><span> ... </span><span style='color: #00BB00;'>anq</span><span>-&gt;</span><span style='color: #00BB00;'>cho</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>, </span><span style='color: #00BB00;'>ays</span><span>-&gt;</span><span style='color: #00BB00;'>chx</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 47,806 x 1,707</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 47,806 x 1,707</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85 M1551P28 M1551P29 M1551P38
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> aab      1               0        0        0        0        0        0        0
-##       </span><span style='color: #BCBCBC;'>2</span><span> ben      2              41       22        4      726   </span><span style='text-decoration: underline;'>112</span><span>492        2      413
-##       </span><span style='color: #BCBCBC;'>3</span><span> beo      3              67       65       12    </span><span style='text-decoration: underline;'>13</span><span>514        1        4    </span><span style='text-decoration: underline;'>13</span><span>314
-##       </span><span style='color: #949494;'># ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P71 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P12 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P84 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P48 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P4 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P52 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P3 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P15 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P31 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>aab</span><span>      1              0.       0.       0.       0.       0.       0.       0.
+##       2 </span><span style='color: #00BB00;'>ben</span><span>      2             41.      22.       4.     726.  112492.       2.     413.
+##       3 </span><span style='color: #00BB00;'>beo</span><span>      3             67.      65.      12.   13514.       1.       4.   13314.
+##       # ... with 4.78e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>There were OTUs associated with the nameless taxa, but no OTUs were filtered out, so what happened to them? By default, they are reassigned to the closest supertaxon that passes the filter. For example, for the <a href ="00--glossary.html#taxonomic_classifications_anchor">classification</a> <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>, the OTU would be reassigned to the class “SJA-28”.</p>
@@ -433,15 +420,15 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##   898 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>bea</span><span>-&gt;</span><span style='color: #00BB00;'>chi</span><span>, </span><span style='color: #00BB00;'>anq</span><span>-&gt;</span><span style='color: #00BB00;'>cho</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 33,641 x 1,707</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 33,641 x 1,707</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85 M1551P28 M1551P29 M1551P38
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              41       22        4      726   </span><span style='text-decoration: underline;'>112</span><span>492        2      413
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3              67       65       12    </span><span style='text-decoration: underline;'>13</span><span>514        1        4    </span><span style='text-decoration: underline;'>13</span><span>314
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4            </span><span style='text-decoration: underline;'>3</span><span>229    </span><span style='text-decoration: underline;'>13</span><span>679     </span><span style='text-decoration: underline;'>1</span><span>832      951      113     </span><span style='text-decoration: underline;'>2</span><span>496      567
-##       </span><span style='color: #949494;'># ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P71 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P12 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P84 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P48 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P4 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P52 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P3 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P15 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P31 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             41.      22.       4.     726.  112492.       2.     413.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3             67.      65.      12.   13514.       1.       4.   13314.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4           3229.   13679.    1832.     951.     113.    2496.     567.
+##       # ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>Note the use of the <code>subtaxa = TRUE</code>; this means that all the subtaxa of taxa that pass the filter should also be preserved. If we left this option off, we would would have only a single taxon with all OTUs assigned to it:</p>
@@ -451,15 +438,15 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##   1 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 33,641 x 1,707</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 33,641 x 1,707</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1024P1833 M1551P81 M1551P57 M1551P85 M1551P28 M1551P29 M1551P38
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> aad      2              41       22        4      726   </span><span style='text-decoration: underline;'>112</span><span>492        2      413
-##       </span><span style='color: #BCBCBC;'>2</span><span> aad      3              67       65       12    </span><span style='text-decoration: underline;'>13</span><span>514        1        4    </span><span style='text-decoration: underline;'>13</span><span>314
-##       </span><span style='color: #BCBCBC;'>3</span><span> aad      4            </span><span style='text-decoration: underline;'>3</span><span>229    </span><span style='text-decoration: underline;'>13</span><span>679     </span><span style='text-decoration: underline;'>1</span><span>832      951      113     </span><span style='text-decoration: underline;'>2</span><span>496      567
-##       </span><span style='color: #949494;'># ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P71 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P12 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P84 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P48 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P4 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1551P52 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P3 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P15 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1551P31 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>aad</span><span>      2             41.      22.       4.     726.  112492.       2.     413.
+##       2 </span><span style='color: #00BB00;'>aad</span><span>      3             67.      65.      12.   13514.       1.       4.   13314.
+##       3 </span><span style='color: #00BB00;'>aad</span><span>      4           3229.   13679.    1832.     951.     113.    2496.     567.
+##       # ... with 3.364e+04 more rows, and 1,698 more variables: M1551P90 &lt;dbl&gt;,
+##       #   M1551P71 &lt;dbl&gt;, M1551P12 &lt;dbl&gt;, M1551P84 &lt;dbl&gt;, M1551P48 &lt;dbl&gt;, M1551P4 &lt;dbl&gt;,
+##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>Next, lets remove the columns from the abundance matrix that were removed from the sample data at the start of the section.</p>
@@ -471,16 +458,16 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##   898 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>bea</span><span>-&gt;</span><span style='color: #00BB00;'>chi</span><span>, </span><span style='color: #00BB00;'>anq</span><span>-&gt;</span><span style='color: #00BB00;'>cho</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 33,641 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 33,641 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 3.364e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 3.364e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -500,16 +487,16 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##   898 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>bea</span><span>-&gt;</span><span style='color: #00BB00;'>chi</span><span>, </span><span style='color: #00BB00;'>anq</span><span>-&gt;</span><span style='color: #00BB00;'>cho</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <p>Note how this removed rows in the “otu_counts” table but did not remove any taxa. To remove taxa that are no longer observed in any OTUs, we need to add the <code>drop_taxa</code> option:</p>
@@ -530,18 +517,18 @@ Show solution
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data[sample_data<span class="op">$</span>Type <span class="op">==</span><span class="st"> &quot;leaf&quot;</span>, ]</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 146 x 16</span><span>
 ## </span><span style='color: #949494;'># Groups:   Plant_ID [146]</span><span>
-##    SampleID Name  Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
-##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-## </span><span style='color: #BCBCBC;'> 1</span><span> M1981P5… 8_00… 8_0053   leaf  ecotypes   2008   2011      3     Mah   field     MAH.… MAH     
-## </span><span style='color: #BCBCBC;'> 2</span><span> M1980P5… 8_00… 8_0074   leaf  ecotypes   2008   2011      3     Mah   field     JAM.… JAM     
-## </span><span style='color: #BCBCBC;'> 3</span><span> M1981P5… 8_00… 8_0087   leaf  ecotypes   2008   2011      3     Mah   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 4</span><span> M1981P5… 8_00… 8_0090   leaf  ecotypes   2008   2011      3     Mah   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 5</span><span> M1979P4… 8_00… 8_0096   leaf  ecotypes   2008   2011      3     Mah   field     PAR.… PAR     
-## </span><span style='color: #BCBCBC;'> 6</span><span> M1982P6… 8_01… 8_0149   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 7</span><span> M1980P4… 8_01… 8_0157   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 8</span><span> M1980P4… 8_01… 8_0158   leaf  ecotypes   2008   2011      3     Jam   field     JAM.… JAM     
-## </span><span style='color: #BCBCBC;'> 9</span><span> M1982P6… 8_01… 8_0167   leaf  ecotypes   2008   2011      3     Jam   field     PAR.… PAR     
-## </span><span style='color: #BCBCBC;'>10</span><span> M1981P6… 8_01… 8_0174   leaf  ecotypes   2008   2011      3     Jam   field     MAH.… MAH     
+##    SampleID  Name   Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
+##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
+## </span><span style='color: #BCBCBC;'> 1</span><span> M1981P563 8_005… 8_0053   leaf  ecotypes   2008   2011      3     Mah   field     MAH.… MAH     
+## </span><span style='color: #BCBCBC;'> 2</span><span> M1980P502 8_007… 8_0074   leaf  ecotypes   2008   2011      3     Mah   field     JAM.… JAM     
+## </span><span style='color: #BCBCBC;'> 3</span><span> M1981P599 8_008… 8_0087   leaf  ecotypes   2008   2011      3     Mah   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 4</span><span> M1981P587 8_009… 8_0090   leaf  ecotypes   2008   2011      3     Mah   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 5</span><span> M1979P447 8_009… 8_0096   leaf  ecotypes   2008   2011      3     Mah   field     PAR.… PAR     
+## </span><span style='color: #BCBCBC;'> 6</span><span> M1982P661 8_014… 8_0149   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 7</span><span> M1980P462 8_015… 8_0157   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 8</span><span> M1980P471 8_015… 8_0158   leaf  ecotypes   2008   2011      3     Jam   field     JAM.… JAM     
+## </span><span style='color: #BCBCBC;'> 9</span><span> M1982P655 8_016… 8_0167   leaf  ecotypes   2008   2011      3     Jam   field     PAR.… PAR     
+## </span><span style='color: #BCBCBC;'>10</span><span> M1981P623 8_017… 8_0174   leaf  ecotypes   2008   2011      3     Jam   field     MAH.… MAH     
 ## </span><span style='color: #949494;'># ... with 136 more rows, and 4 more variables: Block </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, oldPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, newPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>,
 ## #   Analysis </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 </span></code></pre>
@@ -555,18 +542,18 @@ Show solution
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(sample_data, Type <span class="op">==</span><span class="st"> &quot;leaf&quot;</span>)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 146 x 16</span><span>
 ## </span><span style='color: #949494;'># Groups:   Plant_ID [146]</span><span>
-##    SampleID Name  Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
-##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-## </span><span style='color: #BCBCBC;'> 1</span><span> M1981P5… 8_00… 8_0053   leaf  ecotypes   2008   2011      3     Mah   field     MAH.… MAH     
-## </span><span style='color: #BCBCBC;'> 2</span><span> M1980P5… 8_00… 8_0074   leaf  ecotypes   2008   2011      3     Mah   field     JAM.… JAM     
-## </span><span style='color: #BCBCBC;'> 3</span><span> M1981P5… 8_00… 8_0087   leaf  ecotypes   2008   2011      3     Mah   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 4</span><span> M1981P5… 8_00… 8_0090   leaf  ecotypes   2008   2011      3     Mah   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 5</span><span> M1979P4… 8_00… 8_0096   leaf  ecotypes   2008   2011      3     Mah   field     PAR.… PAR     
-## </span><span style='color: #BCBCBC;'> 6</span><span> M1982P6… 8_01… 8_0149   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 7</span><span> M1980P4… 8_01… 8_0157   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 8</span><span> M1980P4… 8_01… 8_0158   leaf  ecotypes   2008   2011      3     Jam   field     JAM.… JAM     
-## </span><span style='color: #BCBCBC;'> 9</span><span> M1982P6… 8_01… 8_0167   leaf  ecotypes   2008   2011      3     Jam   field     PAR.… PAR     
-## </span><span style='color: #BCBCBC;'>10</span><span> M1981P6… 8_01… 8_0174   leaf  ecotypes   2008   2011      3     Jam   field     MAH.… MAH     
+##    SampleID  Name   Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
+##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
+## </span><span style='color: #BCBCBC;'> 1</span><span> M1981P563 8_005… 8_0053   leaf  ecotypes   2008   2011      3     Mah   field     MAH.… MAH     
+## </span><span style='color: #BCBCBC;'> 2</span><span> M1980P502 8_007… 8_0074   leaf  ecotypes   2008   2011      3     Mah   field     JAM.… JAM     
+## </span><span style='color: #BCBCBC;'> 3</span><span> M1981P599 8_008… 8_0087   leaf  ecotypes   2008   2011      3     Mah   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 4</span><span> M1981P587 8_009… 8_0090   leaf  ecotypes   2008   2011      3     Mah   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 5</span><span> M1979P447 8_009… 8_0096   leaf  ecotypes   2008   2011      3     Mah   field     PAR.… PAR     
+## </span><span style='color: #BCBCBC;'> 6</span><span> M1982P661 8_014… 8_0149   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 7</span><span> M1980P462 8_015… 8_0157   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 8</span><span> M1980P471 8_015… 8_0158   leaf  ecotypes   2008   2011      3     Jam   field     JAM.… JAM     
+## </span><span style='color: #BCBCBC;'> 9</span><span> M1982P655 8_016… 8_0167   leaf  ecotypes   2008   2011      3     Jam   field     PAR.… PAR     
+## </span><span style='color: #BCBCBC;'>10</span><span> M1981P623 8_017… 8_0174   leaf  ecotypes   2008   2011      3     Jam   field     MAH.… MAH     
 ## </span><span style='color: #949494;'># ... with 136 more rows, and 4 more variables: Block </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, oldPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, newPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>,
 ## #   Analysis </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 </span></code></pre>
@@ -583,22 +570,22 @@ Show solution
        Genotype <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SIL&quot;</span>, <span class="st">&quot;MIL&quot;</span>))</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 14 x 16</span><span>
 ## </span><span style='color: #949494;'># Groups:   Plant_ID [14]</span><span>
-##    SampleID Name  Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
-##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-## </span><span style='color: #BCBCBC;'> 1</span><span> M1982P6… 8_01… 8_0149   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 2</span><span> M1980P4… 8_01… 8_0157   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 3</span><span> M1982P7… 8_03… 8_0326   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 4</span><span> M1979P4… 8_06… 8_0609   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 5</span><span> M1981P5… 8_06… 8_0612   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 6</span><span> M1980P4… 8_07… 8_0775   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'> 7</span><span> M1982P6… 8_08… 8_0803   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 8</span><span> M1981P5… 8_10… 8_1023   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'> 9</span><span> M1982P6… 8_10… 8_1048   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'>10</span><span> M1981P6… 8_13… 8_1382   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
-## </span><span style='color: #BCBCBC;'>11</span><span> M1981P6… 8_13… 8_1388   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'>12</span><span> M1981P6… 9_01… 9_0171   leaf  ecotypes   2009   2012      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'>13</span><span> M1982P7… 9_07… 9_0799   leaf  ecotypes   2009   2012      3     Jam   field     SILL… SIL     
-## </span><span style='color: #BCBCBC;'>14</span><span> M1554P1… 9_13… 9_1364   leaf  ecotypes   2009   2012      3     Jam   field     MIL.… MIL     
+##    SampleID  Name   Plant_ID Type  Experiment Cohort Harvested Age   Site  Treatment Line  Genotype
+##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
+## </span><span style='color: #BCBCBC;'> 1</span><span> M1982P661 8_014… 8_0149   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 2</span><span> M1980P462 8_015… 8_0157   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 3</span><span> M1982P711 8_032… 8_0326   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 4</span><span> M1979P439 8_060… 8_0609   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 5</span><span> M1981P586 8_061… 8_0612   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 6</span><span> M1980P481 8_077… 8_0775   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'> 7</span><span> M1982P664 8_080… 8_0803   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 8</span><span> M1981P582 8_102… 8_1023   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'> 9</span><span> M1982P663 8_104… 8_1048   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'>10</span><span> M1981P639 8_138… 8_1382   leaf  ecotypes   2008   2011      3     Jam   field     MIL.… MIL     
+## </span><span style='color: #BCBCBC;'>11</span><span> M1981P626 8_138… 8_1388   leaf  ecotypes   2008   2011      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'>12</span><span> M1981P622 9_017… 9_0171   leaf  ecotypes   2009   2012      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'>13</span><span> M1982P718 9_079… 9_0799   leaf  ecotypes   2009   2012      3     Jam   field     SILL… SIL     
+## </span><span style='color: #BCBCBC;'>14</span><span> M1554P181 9_136… 9_1364   leaf  ecotypes   2009   2012      3     Jam   field     MIL.… MIL     
 ## </span><span style='color: #949494;'># ... with 4 more variables: Block </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, oldPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, newPlate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, Analysis </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 </span></code></pre>
 </div>
@@ -715,16 +702,16 @@ Show solution
 ##   122 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>aoj</span><span>-&gt;</span><span style='color: #00BB00;'>bln</span><span>, </span><span style='color: #00BB00;'>aqj</span><span>-&gt;</span><span style='color: #00BB00;'>blr</span><span>, </span><span style='color: #00BB00;'>ano</span><span>-&gt;</span><span style='color: #00BB00;'>bmk</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -740,16 +727,16 @@ Show solution
 ##   72 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aag</span><span>-&gt;</span><span style='color: #00BB00;'>ade</span><span>, </span><span style='color: #00BB00;'>aag</span><span>-&gt;</span><span style='color: #00BB00;'>ado</span><span>, </span><span style='color: #00BB00;'>aag</span><span>-&gt;</span><span style='color: #00BB00;'>ady</span><span> ... </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cbz</span><span>, </span><span style='color: #00BB00;'>anq</span><span>-&gt;</span><span style='color: #00BB00;'>cfe</span><span>, </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cfp</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 1,781 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 1,781 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> beq      6             70       </span><span style='text-decoration: underline;'>4</span><span>055       206      </span><span style='text-decoration: underline;'>2</span><span>415         2      </span><span style='text-decoration: underline;'>2</span><span>901
-##       </span><span style='color: #BCBCBC;'>2</span><span> bev      11            45       </span><span style='text-decoration: underline;'>1</span><span>994        17      </span><span style='text-decoration: underline;'>1</span><span>741         0      </span><span style='text-decoration: underline;'>1</span><span>598
-##       </span><span style='color: #BCBCBC;'>3</span><span> bew      12           711       </span><span style='text-decoration: underline;'>3</span><span>553       501      </span><span style='text-decoration: underline;'>2</span><span>220         1      </span><span style='text-decoration: underline;'>2</span><span>410
-##       </span><span style='color: #949494;'># ... with 1,778 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>beq</span><span>      6            70.      4055.      206.     2415.        2.     2901.
+##       2 </span><span style='color: #00BB00;'>bev</span><span>      11           45.      1994.       17.     1741.        0.     1598.
+##       3 </span><span style='color: #00BB00;'>bew</span><span>      12          711.      3553.      501.     2220.        1.     2410.
+##       # ... with 1,778 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -773,16 +760,16 @@ Show solution
 ##   72 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aag</span><span>-&gt;</span><span style='color: #00BB00;'>ade</span><span>, </span><span style='color: #00BB00;'>aag</span><span>-&gt;</span><span style='color: #00BB00;'>ado</span><span>, </span><span style='color: #00BB00;'>aag</span><span>-&gt;</span><span style='color: #00BB00;'>ady</span><span> ... </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cbz</span><span>, </span><span style='color: #00BB00;'>anq</span><span>-&gt;</span><span style='color: #00BB00;'>cfe</span><span>, </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>cfp</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #BB0000;'>NA</span><span>       2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='color: #BB0000;'>NA</span><span>       3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> </span><span style='color: #BB0000;'>NA</span><span>       4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>NA</span><span>       2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>NA</span><span>       3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>NA</span><span>       4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -798,16 +785,16 @@ Show solution
 ##   50 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>act</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>acu</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>acx</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> aaf      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> aaf      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> aaf      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>aaf</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>aaf</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>aaf</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -823,16 +810,16 @@ Show solution
 ##   632 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aai</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -859,16 +846,16 @@ Show solution
 ##   632 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aai</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 19,903 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 19,903 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 1.99e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 1.99e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -888,15 +875,15 @@ Show solution
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 235 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 235 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 232 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 232 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;,
+##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
+##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Also works: filter_obs(obj, &quot;otu_counts&quot;, obj$data$otu_counts$M1981P563 &gt; 5)</span></code></pre></div>
@@ -913,25 +900,25 @@ Show solution
 ##   101 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>aor</span><span>-&gt;</span><span style='color: #00BB00;'>bkv</span><span>, </span><span style='color: #00BB00;'>aoj</span><span>-&gt;</span><span style='color: #00BB00;'>bln</span><span>, </span><span style='color: #00BB00;'>amj</span><span>-&gt;</span><span style='color: #00BB00;'>btg</span><span>
 ##   1 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 235 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 235 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 232 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 232 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;,
+##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
+##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
 </div>
 <p><br /></p>
-<p><strong>10a)</strong> The function <code>calc_n_samples</code> from the <code>metacoder</code> package returns the proportion of samples each OTU appears in (i.e. has a non-zero count):</p>
+<p><strong>10a)</strong> The function <code>calc_n_samples</code> from the <code>metacoder</code> package returns the number of samples each OTU appears in (i.e. has a non-zero count):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
 <span class="kw">calc_n_samples</span>(obj, <span class="dt">dataset =</span> <span class="st">&quot;otu_counts&quot;</span>)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
-<pre><code>## Calculating number of samples with non-zero counts from 292 columns for 704 observations</code></pre>
+<pre><code>## Calculating number of samples with a value greater than 0 for 292 columns for 21684 observations</code></pre>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 21,684 x 2</span><span>
 ##    taxon_id n_samples
 ##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
@@ -951,7 +938,7 @@ Show solution
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">calc_n_samples</span>(obj, <span class="dt">dataset =</span> <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">groups =</span> sample_data<span class="op">$</span>Type)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
-<pre><code>## Calculating number of samples with non-zero counts from 292 columns in 2 groups for 704 observations</code></pre>
+<pre><code>## Calculating number of samples with a value greater than 0 for 292 columns in 2 groups for 21684 observations</code></pre>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 21,684 x 3</span><span>
 ##    taxon_id  leaf  root
 ##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
@@ -974,34 +961,34 @@ Show solution
                                          <span class="dt">other_cols =</span> <span class="st">&quot;OTU_ID&quot;</span>)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
-<pre><code>## Calculating number of samples with non-zero counts from 292 columns in 2 groups for 704 observations</code></pre>
+<pre><code>## Calculating number of samples with a value greater than 0 for 292 columns in 2 groups for 21684 observations</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   704 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>cgz</span><span>. S24-7, </span><span style='color: #00BB00;'>chs</span><span>. Alcanivoracaceae
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 4</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 4</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2        126   119
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3        146   146
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4        146   146
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2        126   119
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3        146   146
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4        146   146
+##       # ... with 2.168e+04 more rows
 ##   0 functions:
 </span></code></pre>
-<p>Since the “sample_counts” table is derived from the “otu_counts” table and in the same order, we can use values from it to subset “otu_counts”. Using <code>filter_obs</code>, try to subset “otu_counts” to taxa that do not appear in leaf samples, but appear in at least 90% of root samples. Remove any taxa not represented by these OTUs unique to roots.</p>
+<p>Since the “sample_counts” table is derived from the “otu_counts” table and in the same order, we can use values from it to subset “otu_counts”. Using <code>filter_obs</code>, try to subset “otu_counts” to taxa that do not appear in leaf samples, but appear in at least 100 root samples. Remove any taxa not represented by these OTUs unique to roots.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-39">
 Show solution
 </button>
@@ -1012,23 +999,23 @@ Show solution
 ##   73 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aai</span><span> ... </span><span style='color: #00BB00;'>aoo</span><span>-&gt;</span><span style='color: #00BB00;'>blb</span><span>, </span><span style='color: #00BB00;'>aoj</span><span>-&gt;</span><span style='color: #00BB00;'>bln</span><span>, </span><span style='color: #00BB00;'>apj</span><span>-&gt;</span><span style='color: #00BB00;'>blx</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 49 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 49 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ami      757            0          3         0         1         0         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> amm      983            0         15         0         6         0        26
-##       </span><span style='color: #BCBCBC;'>3</span><span> aqn      988            0         13         0         7         0        17
-##       </span><span style='color: #949494;'># ... with 46 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ami</span><span>      757           0.         3.        0.        1.        0.        7.
+##       2 </span><span style='color: #00BB00;'>amm</span><span>      983           0.        15.        0.        6.        0.       26.
+##       3 </span><span style='color: #00BB00;'>aqn</span><span>      988           0.        13.        0.        7.        0.       17.
+##       # ... with 46 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;, M1982P729 &lt;dbl&gt;,
+##       #   M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;, M1978P293 &lt;dbl&gt;,
+##       #   M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;, M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 7,339 x 4</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 7,339 x 4</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> beo      3        146   146
-##       </span><span style='color: #BCBCBC;'>2</span><span> amj      15        49   146
-##       </span><span style='color: #BCBCBC;'>3</span><span> amo      17        59   146
-##       </span><span style='color: #949494;'># ... with 7,336 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>beo</span><span>      3        146   146
+##       2 </span><span style='color: #00BB00;'>amj</span><span>      15        49   146
+##       3 </span><span style='color: #00BB00;'>amo</span><span>      17        59   146
+##       # ... with 7,336 more rows
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -1040,24 +1027,24 @@ Show solution
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> amo      17             0       </span><span style='text-decoration: underline;'>1</span><span>459         1      </span><span style='text-decoration: underline;'>2</span><span>164         0      </span><span style='text-decoration: underline;'>2</span><span>990
-##       </span><span style='color: #BCBCBC;'>2</span><span> bfb      21             0          1         0         0         0         0
-##       </span><span style='color: #BCBCBC;'>3</span><span> bfc      22             0        244         0       259         0        14
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>amo</span><span>      17            0.      1459.        1.     2164.        0.     2990.
+##       2 </span><span style='color: #00BB00;'>bfb</span><span>      21            0.         1.        0.        0.        0.        0.
+##       3 </span><span style='color: #00BB00;'>bfc</span><span>      22            0.       244.        0.      259.        0.       14.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 4</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 4</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2        126   119
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3        146   146
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4        146   146
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2        126   119
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3        146   146
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4        146   146
+##       # ... with 2.168e+04 more rows
 ##   0 functions:
 </span></code></pre>
 <p>To sort in descending order wrap the sorting parameter in <code>desc()</code>:</p>
@@ -1067,24 +1054,24 @@ Show solution
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>2</span><span> bfb      25          </span><span style='text-decoration: underline;'>3</span><span>594          4      </span><span style='text-decoration: underline;'>3</span><span>372        31         2         3
-##       </span><span style='color: #BCBCBC;'>3</span><span> bex      13          </span><span style='text-decoration: underline;'>3</span><span>083         31      </span><span style='text-decoration: underline;'>4</span><span>407       102        26        39
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       2 </span><span style='color: #00BB00;'>bfb</span><span>      25         3594.         4.     3372.       31.        2.        3.
+##       3 </span><span style='color: #00BB00;'>bex</span><span>      13         3083.        31.     4407.      102.       26.       39.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 4</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 4</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2        126   119
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3        146   146
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4        146   146
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2        126   119
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3        146   146
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4        146   146
+##       # ... with 2.168e+04 more rows
 ##   0 functions:
 </span></code></pre>
 <p>Try to sort the OTU table by the difference between the number of leaf samples and OTU was found in and the number of root samples and OTU was found in. This effectively sorts by how “characteristic” an OTU is to root samples.</p>
@@ -1098,24 +1085,24 @@ Show solution
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 4</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 4</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> bfw      436        5   146
-##       </span><span style='color: #BCBCBC;'>2</span><span> bji      881        1   142
-##       </span><span style='color: #BCBCBC;'>3</span><span> bil      927        4   145
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>bfw</span><span>      436        5   146
+##       2 </span><span style='color: #00BB00;'>bji</span><span>      881        1   142
+##       3 </span><span style='color: #00BB00;'>bil</span><span>      927        4   145
+##       # ... with 2.168e+04 more rows
 ##   0 functions:
 </span></code></pre>
 </div>
@@ -1139,29 +1126,33 @@ Show solution
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 5</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 5</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root class                                                
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>                                                </span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2        126   119 Bacteria;Proteobacteria;Alphaproteobacteria;Ricketts…
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3        146   146 Bacteria;Proteobacteria;Alphaproteobacteria;Sphingom…
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4        146   146 Bacteria;Proteobacteria;Alphaproteobacteria;Ricketts…
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                                </span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2        126   119 Bacteria;Proteobacteria;Alphaproteobacteria;Ricketts…
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3        146   146 Bacteria;Proteobacteria;Alphaproteobacteria;Sphingom…
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4        146   146 Bacteria;Proteobacteria;Alphaproteobacteria;Ricketts…
+##       # ... with 2.168e+04 more rows
 ##   0 functions:
 </span></code></pre>
 </div>
 <p><br /></p>
 <p><strong>10e)</strong> Now use the <code>%&gt;%</code> operator to pipe the code for part <strong>d</strong> into the code for part <strong>b</strong> to sort it and see what taxa are most “characteristic” of roots vs leafs.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-45">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-45" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate_obs</span>(<span class="st">&quot;sample_counts&quot;</span>, <span class="dt">class =</span> <span class="kw">classifications</span>(obj)[obj<span class="op">$</span>data<span class="op">$</span>sample_counts<span class="op">$</span>taxon_id]) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange_obs</span>(<span class="st">&quot;sample_counts&quot;</span>, leaf <span class="op">-</span><span class="st"> </span>root)</code></pre></div>
@@ -1170,27 +1161,29 @@ Show solution
 ##   704 edges: </span><span style='color: #00BB00;'>NA</span><span>-&gt;</span><span style='color: #00BB00;'>aad</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aaf</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aag</span><span>, </span><span style='color: #00BB00;'>aad</span><span>-&gt;</span><span style='color: #00BB00;'>aah</span><span> ... </span><span style='color: #00BB00;'>amg</span><span>-&gt;</span><span style='color: #00BB00;'>cgf</span><span>, </span><span style='color: #00BB00;'>arh</span><span>-&gt;</span><span style='color: #00BB00;'>cgz</span><span>, </span><span style='color: #00BB00;'>apt</span><span>-&gt;</span><span style='color: #00BB00;'>chs</span><span>
 ##   2 data sets:
 ##     </span><span style='font-weight: bold;'>otu_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 294</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 294</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID M1981P563 M1977P1709 M1980P502 M1981P606 M1981P599 M1981P611
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='font-style: italic;'>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> ben      2              7          0         2         7         1         7
-##       </span><span style='color: #BCBCBC;'>2</span><span> beo      3          </span><span style='text-decoration: underline;'>10</span><span>251         59     </span><span style='text-decoration: underline;'>15</span><span>857       309       134        90
-##       </span><span style='color: #BCBCBC;'>3</span><span> ben      4           </span><span style='text-decoration: underline;'>1</span><span>447       </span><span style='text-decoration: underline;'>2</span><span>496      </span><span style='text-decoration: underline;'>2</span><span>421      </span><span style='text-decoration: underline;'>3</span><span>331       143      </span><span style='text-decoration: underline;'>1</span><span>847
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows, and 286 more variables: M1981P587 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1982P729 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1979P447 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P701 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1982P661 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1978P293 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P462 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1555P221 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, M1980P471 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-##       #   M1979P422 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, …</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span><span>
+##       1 </span><span style='color: #00BB00;'>ben</span><span>      2             7.         0.        2.        7.        1.        7.
+##       2 </span><span style='color: #00BB00;'>beo</span><span>      3         10251.        59.    15857.      309.      134.       90.
+##       3 </span><span style='color: #00BB00;'>ben</span><span>      4          1447.      2496.     2421.     3331.      143.     1847.
+##       # ... with 2.168e+04 more rows, and 286 more variables: M1981P587 &lt;dbl&gt;,
+##       #   M1982P729 &lt;dbl&gt;, M1979P447 &lt;dbl&gt;, M1982P701 &lt;dbl&gt;, M1982P661 &lt;dbl&gt;,
+##       #   M1978P293 &lt;dbl&gt;, M1980P462 &lt;dbl&gt;, M1555P221 &lt;dbl&gt;, M1980P471 &lt;dbl&gt;,
+##       #   M1979P422 &lt;dbl&gt;, …
 ##     </span><span style='font-weight: bold;'>sample_counts</span><span>:
-## </span><span style='font-style: italic;'>      </span><span style='color: #949494;font-style: italic;'># A tibble: 21,684 x 5</span><span>
+## </span><span style='font-style: italic;'>      # A tibble: 21,684 x 5</span><span>
 ##        </span><span style='color: #00BB00;'> taxon_id </span><span>OTU_ID  leaf  root class                                                
-## </span><span style='font-style: italic;'>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='font-style: italic;'> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='font-style: italic;'>                                                </span><span>
-##       </span><span style='color: #BCBCBC;'>1</span><span> bfw      436        5   146 Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobia…
-##       </span><span style='color: #BCBCBC;'>2</span><span> bji      881        1   142 Bacteria;Firmicutes;Bacilli;Bacillales;Paenibacillac…
-##       </span><span style='color: #BCBCBC;'>3</span><span> bil      927        4   145 Bacteria;Planctomycetes;Planctomycetia;Gemmatales;Ge…
-##       </span><span style='color: #949494;'># ... with 2.168e+04 more rows</span><span>
+## </span><span style='font-style: italic;'>        &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                                </span><span>
+##       1 </span><span style='color: #00BB00;'>bfw</span><span>      436        5   146 Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobia…
+##       2 </span><span style='color: #00BB00;'>bji</span><span>      881        1   142 Bacteria;Firmicutes;Bacilli;Bacillales;Paenibacillac…
+##       3 </span><span style='color: #00BB00;'>bil</span><span>      927        4   145 Bacteria;Planctomycetes;Planctomycetia;Gemmatales;Ge…
+##       # ... with 2.168e+04 more rows
 ##   0 functions:
 </span></code></pre>
-<p><strong>10c)</strong> What are the families of the OTUs most “characteristic” of roots vs leafs?</p>
+</div>
+<p><br /></p>
+<p><strong>10f)</strong> What are the families of the OTUs most “characteristic” of roots vs leafs?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-46">
 Show Answer
 </button>

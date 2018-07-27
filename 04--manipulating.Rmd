@@ -329,7 +329,7 @@ filter_obs(obj, "otu_counts", M1981P563 > 5)
 filter_obs(obj, "otu_counts", M1981P563 > 5, drop_taxa = TRUE)
 ```
 
-**10a)** The function `calc_n_samples` from the `metacoder` package returns the proportion of samples each OTU appears in (i.e. has a non-zero count): 
+**10a)** The function `calc_n_samples` from the `metacoder` package returns the number of samples each OTU appears in (i.e. has a non-zero count): 
 
 ```{r}
 library(metacoder)
@@ -353,7 +353,7 @@ print(obj)
 ```
 
 Since the "sample_counts" table is derived from the "otu_counts" table and in the same order, we can use values from it to subset "otu_counts".
-Using `filter_obs`, try to subset "otu_counts" to taxa that do not appear in leaf samples, but appear in at least 90% of root samples.
+Using `filter_obs`, try to subset "otu_counts" to taxa that do not appear in leaf samples, but appear in at least 100 root samples.
 Remove any taxa not represented by these OTUs unique to roots.
 
 ```{r hide_button = TRUE}
@@ -401,7 +401,7 @@ obj %>%
   arrange_obs("sample_counts", leaf - root)
 ```
 
-**10c)** What are the families of the OTUs most "characteristic" of roots vs leafs?
+**10f)** What are the families of the OTUs most "characteristic" of roots vs leafs?
 
 ```{r hide_button = "Show Answer", results = 'asis', echo = FALSE}
 cat(

@@ -51,7 +51,7 @@ are heavily relied upon in this primer.
 
 More R resources useful for microbiome data analysis can be found here:
 
-https://microsud.github.io/Tools-Microbiome-Anlaysis/ 
+https://microsud.github.io/Tools-Microbiome-Analysis/ 
 
 You can enter the following script in the R console to install these packages:
 

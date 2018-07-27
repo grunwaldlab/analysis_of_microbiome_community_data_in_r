@@ -20,9 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52691601-4"></script>
 <script>
@@ -128,9 +126,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -322,15 +317,23 @@ $(document).ready(function () {
 </ul>
 <p>There are also some diversity indexes that take into account the taxonomic similarity of the species called “taxonomic diversity” and “taxonomic distinctness”, but we will not go into those.</p>
 <p>The <code>diversity</code> function from the <code>vegan</code> package can be used to calculate the alpha diversity of a set of samples. Like other vegan functions, it assumes that samples are in rows, but they are in columns in our data, so we need to use the <code>MARGIN = 2</code> option. We also need to exclude the taxon ID column by subsetting the columns to only samples (i.e. all column besides the first one). Since alpha diversity is a per-sample attribute, we can just add this as a column to the sample data table:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
-sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## This is vegan 2.5-2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
                                  <span class="dt">MARGIN =</span> <span class="dv">2</span>,
                                  <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
 <span class="kw">hist</span>(sample_data<span class="op">$</span>alpha)</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Adding this as a column to the sample data table makes it easy to graph using <code>ggplot2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;ggplot2&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:taxa&#39;:
+## 
+##     map_data</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We can use <a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a> to tell if at least one of the diversity means is different from the rest.</p>
@@ -437,6 +440,11 @@ ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,
 <span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Site&quot;</span>)</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Each dot is a sample and the error bars in some of the indexes are the standard error.</p>
+<p><em>NOTE: the <code>as_phyloseq</code> function is only available in the development version of metacoder. If you want to try it, you can install it by typing:</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;ropensci/taxa&quot;</span>)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;grunwaldlab/metacoder&quot;</span>)</code></pre></div>
+<p><em>or you can use the current version of metacoder, download the file “ps_obj.Rdata” <a href="ps_obj.Rdata" download="ps_obj.Rdata">here</a>, and load the <code>ps_obj</code> object this way:</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;ps_obj.Rdata&quot;</span>)</code></pre></div>
 </div>
 <div id="beta-between-sample-diversity" class="section level2">
 <h2>Beta (between sample) diversity</h2>
@@ -461,6 +469,72 @@ ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,
 <p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to <a href ="00--glossary.html#transpose_anchor">transpose</a> the matrix with the <code>t</code> function.</p>
 </div>
 </div>
+<div id="differential-heat-trees" class="section level2">
+<h2>Differential heat trees</h2>
+<p>Beta diversity summarizes the difference between two samples in a single number, but does not tell you why the samples are different. We developed a plotting technique we call “differential heat trees” to display differences in abundance of each taxon in two samples or groups of samples. These are like the heat trees shown in the plotting section, but colored with a diverging color scale the indicates which sample a each taxon is more abundant in. In this way, it is similar to heat maps used for the same purpose and in gene expression studies.</p>
+<div id="comparing-taxon-abundance-in-two-groups" class="section level3">
+<h3>Comparing taxon abundance in two groups</h3>
+<p>Before we can make a differential heat tree, we need to calculate the difference in abundance for each group of samples, such as root vs leaf samples. There are many ways this can be done, ranging from simple differences in mean read counts, to outputs from specialized programs designed for microbiome data. We will be using a function in <code>metacoder</code> called <code>compare_groups</code> to do the comparisons. First however, we need to calculate the per-taxon abundance from our OTU counts. We can use the <code>calc_taxon_abund</code> function to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_abund &lt;-<span class="st"> </span><span class="kw">calc_taxon_abund</span>(obj, <span class="st">&quot;otu_rarefied&quot;</span>,
+                                       <span class="dt">cols =</span> sample_data<span class="op">$</span>SampleID)</code></pre></div>
+<pre><code>## Summing per-taxon counts from 292 columns for 489 taxa</code></pre>
+<p>For each taxon, at every rank, <code>compare_groups</code> function compares two groups of counts. We have to define which sample belong to which groups using <code>groups</code> option:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table &lt;-<span class="st"> </span><span class="kw">compare_groups</span>(obj, <span class="dt">dataset =</span> <span class="st">&quot;tax_abund&quot;</span>,
+                                      <span class="dt">cols =</span> sample_data<span class="op">$</span>SampleID,
+                                      <span class="dt">groups =</span> sample_data<span class="op">$</span>Type)
+<span class="kw">print</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table)</code></pre></div>
+<pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 489 x 7</span><span>
+##    taxon_id treatment_1 treatment_2 log2_median_ratio median_diff mean_diff wilcox_p_value
+##    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+## </span><span style='color: #BCBCBC;'> 1</span><span> aad      leaf        root                    0.           0.       0.        </span><span style='color: #BB0000;'>NaN</span><span>   </span><span style='color: #949494;'> </span><span>   
+## </span><span style='color: #BCBCBC;'> 2</span><span> aaf      leaf        root                    0.446      312.     352.          2.51</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-17</span><span>
+## </span><span style='color: #BCBCBC;'> 3</span><span> aag      leaf        root                   -</span><span style='color: #BB0000;'>1.22</span><span>      -</span><span style='color: #BB0000;'>266.</span><span>    -</span><span style='color: #BB0000;'>323.</span><span>          9.87</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-43</span><span>
+## </span><span style='color: #BCBCBC;'> 4</span><span> aah      leaf        root                    2.00        46.5    103.          3.86</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-18</span><span>
+## </span><span style='color: #BCBCBC;'> 5</span><span> aai      leaf        root                    0.440       69.5     97.7         1.03</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 2</span><span>
+## </span><span style='color: #BCBCBC;'> 6</span><span> aaj      leaf        root                   -</span><span style='color: #BB0000;'>1.81</span><span>        -</span><span style='color: #BB0000;'>5.00</span><span>    -</span><span style='color: #BB0000;'>0.349</span><span>       2.88</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 8</span><span>
+## </span><span style='color: #BCBCBC;'> 7</span><span> aak      leaf        root                 -</span><span style='color: #BB0000;'>Inf</span><span>          -</span><span style='color: #BB0000;'>50.0</span><span>    -</span><span style='color: #BB0000;'>47.8</span><span>         4.36</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-49</span><span>
+## </span><span style='color: #BCBCBC;'> 8</span><span> aal      leaf        root                 -</span><span style='color: #BB0000;'>Inf</span><span>          -</span><span style='color: #BB0000;'>54.0</span><span>    -</span><span style='color: #BB0000;'>57.8</span><span>         2.71</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-51</span><span>
+## </span><span style='color: #BCBCBC;'> 9</span><span> aam      leaf        root                 -</span><span style='color: #BB0000;'>Inf</span><span>          -</span><span style='color: #BB0000;'>24.0</span><span>    -</span><span style='color: #BB0000;'>23.4</span><span>         2.42</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-49</span><span>
+## </span><span style='color: #BCBCBC;'>10</span><span> aan      leaf        root                   -</span><span style='color: #BB0000;'>4.82</span><span>       -</span><span style='color: #BB0000;'>81.5</span><span>    -</span><span style='color: #BB0000;'>75.2</span><span>         1.04</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-44</span><span>
+## </span><span style='color: #949494;'># ... with 479 more rows</span><span>
+</span></code></pre>
+<p>By default, <a href ="00--glossary.html#wilcoxon_rank_sum_test_anchor">Wilcoxon Rank Sum test</a> is used to test for statistical significance of differences and various summary statistics are reported to measure the size of the difference. Since we have done many independent tests (one for each taxon), we need to <a href ="00--glossary.html#multiple_comparison_corrections_anchor">correct for multiple comparisions</a>. We will do that with a false discovery rate (FDR) correction, but other types can be used as well.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">mutate_obs</span>(obj, <span class="st">&quot;diff_table&quot;</span>,
+                  <span class="dt">wilcox_p_value =</span> <span class="kw">p.adjust</span>(wilcox_p_value, <span class="dt">method =</span> <span class="st">&quot;fdr&quot;</span>))</code></pre></div>
+<p>The most useful statistic for plotting is the log of ratio of median abundances in the two groups, since it is centered on 0 and is symmetric (e.g., a value of -4 is the same magnitude as 4). Lets set any differences that are not significant to 0 so all differences shown on the plot are significant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>log2_median_ratio[obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.05</span>] &lt;-<span class="st"> </span><span class="dv">0</span></code></pre></div>
+<p>Now we have all the info needed to make a differential heat tree. The standard <code>heat_tree</code> function can be used, but a few things need to be done to make an effective differential heat tree:</p>
+<ul>
+<li>A diverging color scale should be used, preferably with a neutral color in the middle, like gray.</li>
+<li>The interval of values displayed must be symmetric around zero so the neutral middle color is centered on zero.</li>
+<li>The node color should be set to the log of ratio of median abundances in the two groups</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="kw">heat_tree</span>(obj, 
+          <span class="dt">node_label =</span> taxon_names,
+          <span class="dt">node_size =</span> n_obs, <span class="co"># number of OTUs</span>
+          <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># difference between groups</span>
+          <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>), <span class="co"># symmetric interval</span>
+          <span class="dt">node_color_range =</span> <span class="kw">c</span>(<span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;gray&quot;</span>, <span class="st">&quot;magenta&quot;</span>), <span class="co"># diverging colors</span>
+          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,
+          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log 2 ratio of median counts&quot;</span>)</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>That’s not too bad looking, but we can tweak it a bit to make it better by changing the layout and adding a title:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="kw">heat_tree</span>(obj, 
+          <span class="dt">node_label =</span> taxon_names,
+          <span class="dt">node_size =</span> n_obs, <span class="co"># number of OTUs</span>
+          <span class="dt">node_color =</span> log2_median_ratio, <span class="co"># difference between groups</span>
+          <span class="dt">node_color_interval =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>), <span class="co"># symmetric interval</span>
+          <span class="dt">node_color_range =</span> <span class="kw">c</span>(<span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;gray&quot;</span>, <span class="st">&quot;magenta&quot;</span>), <span class="co"># diverging colors</span>
+          <span class="dt">node_size_axis_label =</span> <span class="st">&quot;OTU count&quot;</span>,
+          <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Log 2 ratio of median counts&quot;</span>,
+          <span class="dt">layout =</span> <span class="st">&quot;da&quot;</span>, <span class="dt">initial_layout =</span> <span class="st">&quot;re&quot;</span>, <span class="co"># good layout for large trees</span>
+          <span class="dt">title =</span> <span class="st">&quot;leaf vs root samples&quot;</span>)</code></pre></div>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>What color corresponds to each group depends on the order they were given in the <code>compare_groups</code> function. Since “leaf” is “treatment_1” in the “diff_table”, and “log2_median_ratio” is defined as “log2(treatment_1 / treatment_2)”, when a taxon has more counts in leaf samples, the ratio is positive, therefore taxa more abundant in leafs are colored magenta in this case.</p>
+</div>
+</div>
 <div id="ordination" class="section level2">
 <h2>Ordination</h2>
 <p>Ordination is a way to display “high dimensional” data in a viable number of dimensions (2 to 3). Our data is “high dimensional” because we have many samples with many species and species can be considered a “dimension”. If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ. With thousands of species, this is not possible. Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new “artificial” dimensions.</p>
@@ -468,29 +542,29 @@ ps_obj &lt;-<span class="st"> </span><span class="kw">as_phyloseq</span>(obj,
 <pre class="r-output"><code>## Square root transformation
 ## Wisconsin double standardization
 ## Run 0 stress 0.08456775 
-## Run 1 stress 0.09081432 
-## Run 2 stress 0.1102552 
-## Run 3 stress 0.1177094 
-## Run 4 stress 0.1260635 
-## Run 5 stress 0.0994808 
-## Run 6 stress 0.1175064 
-## Run 7 stress 0.1140128 
-## Run 8 stress 0.1008548 
-## Run 9 stress 0.100137 
-## Run 10 stress 0.1103974 
-## Run 11 stress 0.1157858 
-## Run 12 stress 0.1079318 
-## Run 13 stress 0.1139838 
-## Run 14 stress 0.1081609 
-## Run 15 stress 0.117441 
-## Run 16 stress 0.1263571 
-## Run 17 stress 0.1177241 
-## Run 18 stress 0.1147656 
-## Run 19 stress 0.1099166 
-## Run 20 stress 0.1163623 
+## Run 1 stress 0.1048076 
+## Run 2 stress 0.104581 
+## Run 3 stress 0.1027707 
+## Run 4 stress 0.1226294 
+## Run 5 stress 0.1023747 
+## Run 6 stress 0.09947555 
+## Run 7 stress 0.1084506 
+## Run 8 stress 0.1066978 
+## Run 9 stress 0.1079761 
+## Run 10 stress 0.1072354 
+## Run 11 stress 0.09741941 
+## Run 12 stress 0.1179681 
+## Run 13 stress 0.1099076 
+## Run 14 stress 0.09419295 
+## Run 15 stress 0.1111482 
+## Run 16 stress 0.08871517 
+## Run 17 stress 0.1004881 
+## Run 18 stress 0.1259353 
+## Run 19 stress 0.1004277 
+## Run 20 stress 0.1149709 
 ## *** No convergence -- monoMDS stopping criteria:
-##     17: stress ratio &gt; sratmax
-##      3: scale factor of the gradient &lt; sfgrmin
+##     19: stress ratio &gt; sratmax
+##      1: scale factor of the gradient &lt; sfgrmin
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 mds_data &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mds<span class="op">$</span>points)
@@ -500,69 +574,70 @@ mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span clas
 <p>Now that we have the data in a format ggplot2 likes, we can plot it. Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This shows that leaf and root samples are quite distinct, as we would expect. We can also color them by Site:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Site)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It appears that within the leaf and root clusters, we “sub-clusters” corresponding to site. Finally, lets look at genotype:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mds_data, <span class="kw">aes</span>(<span class="dt">x =</span> MDS1, <span class="dt">y =</span> MDS2, <span class="dt">color =</span> Genotype)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>There is no discernible pattern there, suggesting plant genotype does not correspond to community structure.</p>
 <p>We can also do the above quickly in <code>phyloseq</code> using the <code>ordinate</code> and <code>plot_ordination</code> functions. Lets look at the differences between leaf and root samples again, but using a difference index this time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps_ord &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_obj, <span class="dt">method =</span> <span class="st">&quot;NMDS&quot;</span>, <span class="dt">distance =</span> <span class="st">&quot;jsd&quot;</span>)</code></pre></div>
 <pre class="r-output"><code>## Run 0 stress 0.1075255 
-## Run 1 stress 0.107702 
-## ... Procrustes: rmse 0.004332587  max resid 0.06958149 
-## Run 2 stress 0.1090517 
-## Run 3 stress 0.1084686 
-## Run 4 stress 0.1075252 
-## ... New best solution
-## ... Procrustes: rmse 7.46327e-05  max resid 0.000689617 
+## Run 1 stress 0.1075255 
+## ... Procrustes: rmse 2.929791e-05  max resid 0.000387225 
 ## ... Similar to previous best
-## Run 5 stress 0.1084413 
-## Run 6 stress 0.1106626 
-## Run 7 stress 0.1107124 
-## Run 8 stress 0.1084412 
-## Run 9 stress 0.1077016 
-## ... Procrustes: rmse 0.004328356  max resid 0.06957641 
-## Run 10 stress 0.1075833 
-## ... Procrustes: rmse 0.004117664  max resid 0.06969498 
-## Run 11 stress 0.1075256 
-## ... Procrustes: rmse 8.493795e-05  max resid 0.0007098921 
+## Run 2 stress 0.1083516 
+## Run 3 stress 0.2085641 
+## Run 4 stress 0.1083529 
+## Run 5 stress 0.1084412 
+## Run 6 stress 0.1083535 
+## Run 7 stress 0.1104911 
+## Run 8 stress 0.1075259 
+## ... Procrustes: rmse 0.0001046727  max resid 0.001049869 
 ## ... Similar to previous best
-## Run 12 stress 0.1077016 
-## ... Procrustes: rmse 0.004331255  max resid 0.06957523 
-## Run 13 stress 0.110119 
-## Run 14 stress 0.1102997 
-## Run 15 stress 0.1084685 
-## Run 16 stress 0.1094491 
-## Run 17 stress 0.1117525 
-## Run 18 stress 0.1096706 
-## Run 19 stress 0.1096205 
-## Run 20 stress 0.110492 
+## Run 9 stress 0.1105645 
+## Run 10 stress 0.1077021 
+## ... Procrustes: rmse 0.004330782  max resid 0.06958199 
+## Run 11 stress 0.1084689 
+## Run 12 stress 0.1099673 
+## Run 13 stress 0.1077034 
+## ... Procrustes: rmse 0.00432237  max resid 0.06958232 
+## Run 14 stress 0.1108603 
+## Run 15 stress 0.1108605 
+## Run 16 stress 0.1108614 
+## Run 17 stress 0.1104922 
+## Run 18 stress 0.1117483 
+## Run 19 stress 0.1097426 
+## Run 20 stress 0.1075256 
+## ... Procrustes: rmse 6.208603e-05  max resid 0.0005765006 
+## ... Similar to previous best
 ## *** Solution reached
 </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_ordination</span>(ps_obj, ps_ord, <span class="dt">type =</span> <span class="st">&quot;samples&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;Type&quot;</span>)</code></pre></div>
-<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
+<p>In these exercises, we will be using the <code>ps_obj</code> from the analysis above. If you did not run the code above or had problems, run the following code to get the objects used. You can download the “ps_obj.Rdata” file <a href="ps_obj.Rdata" download="ps_obj.Rdata">here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;ps_obj.Rdata&quot;</span>)</code></pre></div>
 <p><strong>1a)</strong> Look at the documentation for the <code>plot_richness</code> function from <code>phyloseq</code>. Try to make a plot using only the Simpson and inverse Simpson indexes, colored by site and split up by sample type (leaf vs root).</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-16">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-26">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-16" class="collapse">
+<div id="hide_buttonunnamed-chunk-26" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_richness</span>(ps_obj, <span class="dt">color =</span> <span class="st">&quot;Site&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Genotype&quot;</span>, <span class="dt">measures =</span> <span class="kw">c</span>(<span class="st">&quot;Simpson&quot;</span>, <span class="st">&quot;InvSimpson&quot;</span>))</code></pre></div>
-<img src="07--diversity_stats_files/figure-html/unnamed-chunk-16-1.png" width="480" style="display: block; margin: auto;" />
+<img src="07--diversity_stats_files/figure-html/unnamed-chunk-26-1.png" width="480" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p><strong>1b)</strong> The Simpson and inverse Simpson indexes display the same information in different ways (if you know one, you can calculate the other). How do they differ?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-17">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-27">
 Show Answer
 </button>
-<div id="hide_buttonunnamed-chunk-17" class="collapse">
+<div id="hide_buttonunnamed-chunk-27" class="collapse">
 The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is greater than zero. Also, the inverse Simpson index tends to spread out higher diversity values more.
 </div>
 <p><br /></p>
