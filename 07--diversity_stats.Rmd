@@ -146,7 +146,6 @@ First we need to convert the `taxmap` object to a `phyloseq` object, since all o
 
 ```{r fig.width=10, fig.height=5}
 library(phyloseq)
-library(metacoder)
 ps_obj <- as_phyloseq(obj,
                       otu_table = "otu_rarefied",
                       otu_id_col = "OTU_ID",
@@ -174,6 +173,48 @@ devtools::install_github("grunwaldlab/metacoder")
 ```{r}
 load("ps_obj.Rdata")
 ```
+
+
+## Plotting taxon abundance with heat trees 
+
+Alpha diversity statistics capture the diversity of whole samples in a single number, but to see the abundance of each taxon in a group of samples (e.g., root samples), we need to use other techniques.
+Stacked barcharts are typically used for this purpose, but we will be using heat trees.
+First, we need to calculate the abundance of each taxon for a set of samples from our OTU abundance information.
+We can use the `calc_taxon_abund` function to do this, grouping by a sample characteristic:
+
+```{r}
+obj$data$type_abund <- calc_taxon_abund(obj, "otu_rarefied",
+                                        cols = sample_data$SampleID,
+                                        groups = sample_data$Type)
+print(obj$data$type_abund)
+```
+
+Now we can use these taxon counts to make heat trees of the primary taxa present in leafs and roots:
+
+```{r fig.width = 10, fig.height = 10}
+set.seed(2)
+obj %>%
+  taxa::filter_taxa(leaf > 50) %>% # taxa:: needed because of phyloseq::filter_taxa
+  heat_tree(node_label = taxon_names,
+            node_size = leaf, 
+            node_color = leaf, 
+            layout = "da", initial_layout = "re", 
+            title = "Taxa in leafs")
+```
+
+```{r fig.width = 10, fig.height = 10}
+set.seed(3)
+obj %>%
+  taxa::filter_taxa(root > 50) %>% # taxa:: needed because of phyloseq::filter_taxa
+  heat_tree(node_label = taxon_names,
+            node_size = root, 
+            node_color = root, 
+            layout = "da", initial_layout = "re", 
+            title = "Taxa in roots")
+```
+
+Note that we needed to qualify `filter_taxa` with `taxa::`.
+This is because `phyloseq` is loaded and it also has a function called `filter_taxa`.
 
 
 ## Beta (between sample) diversity
@@ -205,6 +246,68 @@ beta_dist <- vegdist(t(obj$data$otu_rarefied[, sample_data$SampleID]),
 Since `vegdist` does not have a `MARGIN` option like `diversity`, we need to `r gloss$add("transpose")` the matrix with the `t` function.
 
 
+## Ordination
+
+The typical way beta diversity is plotted is using ordination.
+Ordination is a way to display "high dimensional" data in a viable number of dimensions (2 to 3).
+Our data is "high dimensional" because we have many samples with many species and species can be considered a "dimension".
+If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ.
+With thousands of species, this is not possible.
+Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new "artificial" dimensions.
+
+```{r fig.width=7, fig.height=5}
+mds <- metaMDS(beta_dist)
+```
+
+That transformed our beta diversity matrix into a set of coordinates in two dimensions, which attempt to capture the differences in the data.
+However, it is in a format specific to `vegan`, so we will have to convert the data to a form that we can use for plotting.
+
+```{r}
+mds_data <- as.data.frame(mds$points)
+```
+
+To use the sample data in the plotting, we can combine the coordinate data with the sample data table:
+
+```{r}
+mds_data$SampleID <- rownames(mds_data)
+mds_data <- dplyr::left_join(mds_data, sample_data)
+```
+
+Now that we have the data in a format ggplot2 likes, we can plot it.
+Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).
+
+```{r fig.width=7, fig.height=5}
+library(ggplot2)
+ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Type)) +
+  geom_point()
+```
+
+This shows that leaf and root samples are quite distinct, as we would expect.
+We can also color them by Site:
+
+```{r fig.width=7, fig.height=5}
+ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Site)) +
+  geom_point()
+```
+
+It appears that within the leaf and root clusters, we "sub-clusters" corresponding to site.
+Finally, lets look at genotype:
+
+```{r fig.width=7, fig.height=5}
+ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
+  geom_point()
+```
+
+There is no discernible pattern there, suggesting plant genotype does not correspond to community structure.
+
+We can also do the above quickly in `phyloseq` using the `ordinate` and `plot_ordination` functions.
+Lets look at the differences between leaf and root samples again, but using a difference index this time.
+
+```{r fig.width=7, fig.height=5}
+ps_ord <- ordinate(ps_obj, method = "NMDS", distance = "jsd")
+plot_ordination(ps_obj, ps_ord, type = "samples", color = "Type")
+```
+
 ## Differential heat trees
 
 Beta diversity summarizes the difference between two samples in a single number, but does not tell you why the samples are different.
@@ -214,7 +317,7 @@ In this way, it is similar to heat maps used for the same purpose and in gene ex
 
 ### Comparing taxon abundance in two groups
 
-Before we can make a differential heat tree, we need to calculate the difference in abundance for each group of samples, such as root vs leaf samples.
+Before we can make a differential heat tree, we need to calculate the difference in abundance for each taxon between groups of samples, such as root vs leaf samples.
 There are many ways this can be done, ranging from simple differences in mean read counts, to outputs from specialized programs designed for microbiome data.
 We will be using a function in `metacoder` called `compare_groups` to do the comparisons.
 First however, we need to calculate the per-taxon abundance from our OTU counts.
@@ -225,8 +328,8 @@ obj$data$tax_abund <- calc_taxon_abund(obj, "otu_rarefied",
                                        cols = sample_data$SampleID)
 ```
 
-For each taxon, at every rank, `compare_groups` function compares two groups of counts.
-We have to define which sample belong to which groups using `groups` option:
+For each taxon, at every rank, the `compare_groups` function compares two groups of counts.
+We have to define which sample belongs to which groups using `groups` option:
 
 ```{r}
 obj$data$diff_table <- compare_groups(obj, dataset = "tax_abund",
@@ -258,7 +361,7 @@ The standard `heat_tree` function can be used, but a few things need to be done 
 * The interval of values displayed must be symmetric around zero so the neutral middle color is centered on zero.
 * The node color should be set to the log of ratio of median abundances in the two groups
 
-```{r}
+```{r fig.width = 10, fig.height = 10}
 set.seed(1)
 heat_tree(obj, 
           node_label = taxon_names,
@@ -270,83 +373,89 @@ heat_tree(obj,
           node_color_axis_label = "Log 2 ratio of median counts")
 ```
 
-That's not too bad looking, but we can tweak it a bit to make it better by changing the layout and adding a title:
+That's not too bad looking, but we can tweak it a bit to make it better by changing the layout, adding a title, and filtering out some of the taxa with odd names (depending on what the plot is for, you might not want to remove these).
+Here `mutate_obs` is used to add a temporary variable to the taxmap object that will contain the taxon names with special characters like `[` removed.
 
-```{r}
+```{r fig.width = 10, fig.height = 10}
 set.seed(1)
-heat_tree(obj, 
-          node_label = taxon_names,
-          node_size = n_obs, # number of OTUs
-          node_color = log2_median_ratio, # difference between groups
-          node_color_interval = c(-10, 10), # symmetric interval
-          node_color_range = c("cyan", "gray", "magenta"), # diverging colors
-          node_size_axis_label = "OTU count",
-          node_color_axis_label = "Log 2 ratio of median counts",
-          layout = "da", initial_layout = "re", # good layout for large trees
-          title = "leaf vs root samples")
+obj %>%
+  mutate_obs("cleaned_names", gsub(taxon_names, pattern = "\\[|\\]", replacement = "")) %>%
+  taxa::filter_taxa(grepl(cleaned_names, pattern = "^[a-zA-Z]+$")) %>%
+  heat_tree(node_label = cleaned_names,
+            node_size = n_obs, # number of OTUs
+            node_color = log2_median_ratio, # difference between groups
+            node_color_interval = c(-10, 10), # symmetric interval
+            node_color_range = c("cyan", "gray", "magenta"), # diverging colors
+            node_size_axis_label = "OTU count",
+            node_color_axis_label = "Log 2 ratio of median counts",
+            layout = "da", initial_layout = "re", # good layout for large trees
+            title = "leaf vs root samples")
 ```
 
 What color corresponds to each group depends on the order they were given in the `compare_groups` function.
 Since "leaf" is "treatment_1" in the "diff_table", and "log2_median_ratio" is defined as "log2(treatment_1 / treatment_2)", when a taxon has more counts in leaf samples, the ratio is positive, therefore taxa more abundant in leafs are colored magenta in this case.
 
-## Ordination
+### Comparing taxon abundance with more than 2 groups
 
-Ordination is a way to display "high dimensional" data in a viable number of dimensions (2 to 3).
-Our data is "high dimensional" because we have many samples with many species and species can be considered a "dimension".
-If we had only two species, we could make a scatter plot of their abundance in each sample and get an idea of how the samples differ.
-With thousands of species, this is not possible.
-Instead, ordination is used to try to capture the information in many dimensions by in a smaller number of new "artificial" dimensions.
+For pair-wise comparisons with more than two groups we have developed a graphing technique we call a heat tree matrix, in which trees are made for all pairs of sample groupings and arranged in a matrix with a larger key tree that has the taxon names and a legend.
+The code to do this is similar to the code for making a single differential heat tree like we did above, but uses the `heat_tree_matrix` function.
+First we need to use `compare_groups` to generate data for all pair-wise comparisons for a grouping with more than two treatments.
+The code below compares all the sites used in this study to eachother:
 
-```{r fig.width=7, fig.height=5}
-mds <- metaMDS(t(obj$data$otu_rarefied[, sample_data$SampleID]))
-library(ggplot2)
-mds_data <- as.data.frame(mds$points)
-mds_data$SampleID <- rownames(mds_data)
-mds_data <- dplyr::left_join(mds_data, sample_data)
+```{r}
+obj$data$diff_table <- compare_groups(obj, dataset = "tax_abund",
+                                      cols = sample_data$SampleID,
+                                      groups = sample_data$Site)
+print(obj$data$diff_table)
 ```
 
-Now that we have the data in a format ggplot2 likes, we can plot it.
-Lets plot our two new dimensions and color them by sample type (i.e. leaves vs roots).
+We then need to correct for multiple comparisons and set non-significant differences to zero like we did before:
 
-```{r fig.width=7, fig.height=5}
-ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Type)) +
-  geom_point()
+```{r}
+obj <- mutate_obs(obj, "diff_table",
+                  wilcox_p_value = p.adjust(wilcox_p_value, method = "fdr"))
+
+obj$data$diff_table$log2_median_ratio[obj$data$diff_table$wilcox_p_value > 0.05] <- 0
 ```
 
-This shows that leaf and root samples are quite distinct, as we would expect.
-We can also color them by Site:
+Finally we call the `heat_tree_matrix` command with the same options that would be used for a single tree.
 
-```{r fig.width=7, fig.height=5}
-ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Site)) +
-  geom_point()
+```{r fig.width = 10, fig.height = 10}
+obj %>%
+  taxa::filter_taxa(taxon_ranks == "o", supertaxa = TRUE) %>%
+  mutate_obs("cleaned_names", gsub(taxon_names, pattern = "\\[|\\]", replacement = "")) %>%
+  taxa::filter_taxa(grepl(cleaned_names, pattern = "^[a-zA-Z]+$")) %>%
+  heat_tree_matrix(dataset = "diff_table",
+                   node_label = cleaned_names,
+                   node_size = n_obs, # number of OTUs
+                   node_color = log2_median_ratio, # difference between groups
+                   node_color_trans = "linear",
+                   node_color_interval = c(-3, 3), # symmetric interval
+                   edge_color_interval = c(-3, 3), # symmetric interval
+                   node_color_range = diverging_palette(), # diverging colors
+                   node_size_axis_label = "OTU count",
+                   node_color_axis_label = "Log 2 ratio of median counts",
+                   layout = "da", initial_layout = "re",
+                   key_size = 0.67,
+                   seed = 2)
 ```
 
-It appears that within the leaf and root clusters, we "sub-clusters" corresponding to site.
-Finally, lets look at genotype:
+We have only compared three groups here, due to the nature of this dataset, so this technique is not much better than 3 separate, full sized graphs in this case, but with more groups it can be a uniquely effective way to show lots of comparisons.
+See the end of the [example analysis](02--quick_example.html) for a better example of this technique.
 
-```{r fig.width=7, fig.height=5}
-ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Genotype)) +
-  geom_point()
-```
 
-There is no discernible pattern there, suggesting plant genotype does not correspond to community structure.
-
-We can also do the above quickly in `phyloseq` using the `ordinate` and `plot_ordination` functions.
-Lets look at the differences between leaf and root samples again, but using a difference index this time.
-
-```{r fig.width=7, fig.height=5}
-ps_ord <- ordinate(ps_obj, method = "NMDS", distance = "jsd")
-plot_ordination(ps_obj, ps_ord, type = "samples", color = "Type")
+```{r include=FALSE}
+save(ps_obj, obj, sample_data, file = "diversity_data.Rdata")
 ```
 
 ## Exercises
 
-In these exercises, we will be using the `ps_obj` from the analysis above.
+In these exercises, we will be using the `ps_obj` and `obj` from the analysis above.
 If you did not run the code above or had problems, run the following code to get the objects used.
-You can download the "ps_obj.Rdata" file <a href="ps_obj.Rdata" download="ps_obj.Rdata">here</a>.
+You can download the "diversity_data.Rdata" file <a href="diversity_data.Rdata" download="diversity_data.Rdata">here</a>.
 
 ```{r}
-load("ps_obj.Rdata")
+load("diversity_data.Rdata")
 ```
 
 
@@ -360,6 +469,52 @@ plot_richness(ps_obj, color = "Site", x = "Genotype", measures = c("Simpson", "I
 
 ```{asis hide_button = "Show Answer"}
 The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is greater than zero. Also, the inverse Simpson index tends to spread out higher diversity values more. 
+```
+
+**2a)** Using the techniques presented in the section on plotting the abundance of taxa, make a plot of taxon abundance for the site encoded "Jam".
+
+```{r hide_button = TRUE}
+obj$data$site_abund <- calc_taxon_abund(obj, "otu_rarefied",
+                                        cols = sample_data$SampleID,
+                                        groups = sample_data$Site)
+obj %>%
+  taxa::filter_taxa(Jam > 50) %>% # taxa:: needed because of phyloseq::filter_taxa
+  heat_tree(node_label = taxon_names,
+            node_size = Jam, 
+            node_color = Jam, 
+            layout = "da", initial_layout = "re", 
+            title = "Taxa in leafs")
+```
+
+**2b)** What are some of the most abundant families in the site "Jam"?
+
+```{asis hide_button = "Show Answer"}
+Sphingobacteriaceae, Chitinophagaceae, Sphingomonadaceae, Comamonadaceae, Microbacteriaceae, etc..
+```
+
+**2c)** What is the most abundant phylum in the site "Jam"?
+
+```{asis hide_button = "Show Answer"}
+Proteobacteria
+```
+
+
+**3a)** The ordination analysis colored by genotype showed no community differences corresponding to genotype. Try to use `compare_groups` to see if any taxa are significantly differentially abundant between genotypes to verify this result.
+
+```{r hide_button = TRUE}
+library(dplyr)
+obj %>%
+  compare_groups(dataset = "tax_abund",
+                 cols = sample_data$SampleID,
+                 groups = sample_data$Genotype) %>% 
+  mutate(wilcox_p_value = p.adjust(wilcox_p_value, method = "fdr")) %>%
+  filter(wilcox_p_value < 0.05)
+```
+
+**3b)** How many taxa have significant differences between genotypes?
+
+```{asis hide_button = "Show Answer"}
+None
 ```
 
 ## References
