@@ -334,7 +334,7 @@ headers <- names(seqs)
 print(headers)
 ```
 
-**13)** Look at the documentation for `extract_tax_data` from the `taxa` package.
+**13)** Look at the documentation for `extract_tax_data` from the `taxa` package by typing `?extract_tax_data`.
 
 **14)** Use the `extract_tax_data` function to convert the headers to a `taxmap` object, using the NCBI accession number. The classification can be ignored (i.e. not given a capture group and key value) or stored as `"info"`.
 

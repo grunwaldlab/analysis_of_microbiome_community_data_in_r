@@ -299,10 +299,10 @@ $(document).ready(function () {
 <p>This is a short example analysis to give you a feel for how <code>metacoder</code> and <code>taxa</code> are used in microbiome analysis. If something does not make sense now, don’t worry! We will cover everything shown here in greater detail later.</p>
 <div id="reading-data" class="section level2">
 <h2>Reading data</h2>
-<p>The first step in any analysis is getting your data into R. This can be difficult for taxonomic data since it has a hierarchical component (i.e., the taxonomic tree). <code>Metacoder</code> has functions for <a href ="00--glossary.html#parsing_anchor">parsing</a> specific file formats used in metagenomics research. However, for this demonstration, we will be using a more all-purpose parser from the <code>taxa</code> package meant for tabular data.</p>
+<p>The first step in any analysis is getting your data into R. This can be difficult for taxonomic data since it has a hierarchical component (i.e., the taxonomic tree). <code>Metacoder</code> has functions for <b><a href ="00--glossary.html#parsing_anchor">parsing</a></b> specific file formats used in metagenomics research. However, for this demonstration, we will be using a more all-purpose parser from the <code>taxa</code> package meant for tabular data.</p>
 <p>Included in <code>metacoder</code> is an example dataset that is a subset of the Human Microbiome Project data. This dataset has two parts:</p>
 <ul>
-<li>An abundance matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">Operational Taxonomic Units (OTUs)</a> in rows</li>
+<li>An abundance matrix called <code>hmp_otus</code>, with <strong>samples in columns</strong> and <b><a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">Operational Taxonomic Units (OTUs)</a></b> in rows</li>
 <li>A sample data table called <code>hmp_samples</code>, with <strong>samples as rows</strong> and columns of information describing the samples (e.g., gender)</li>
 </ul>
 <p>This is a typical way for this kind of data to be formatted and is the preferred way for packages like <code>metacoder</code> and <code>taxa</code>. Lets take a look at the dataset we will use in this example:</p>
@@ -356,7 +356,7 @@ $(document).ready(function () {
                       <span class="dt">class_regex =</span> <span class="st">&quot;^(.+)__(.+)$&quot;</span>, <span class="co"># Regex identifying where the data for each taxon is</span>
                       <span class="dt">class_key =</span> <span class="kw">c</span>(<span class="dt">tax_rank =</span> <span class="st">&quot;info&quot;</span>, <span class="co"># A key describing each regex capture group</span>
                                     <span class="dt">tax_name =</span> <span class="st">&quot;taxon_name&quot;</span>))</code></pre></div>
-<p>This returns a <code>taxmap</code> object. The <code>taxmap</code> class is designed to store any number of tables, <a href ="00--glossary.html#list_anchor">lists</a>, or <a href ="00--glossary.html#vector_anchor">vectors</a> associated with taxonomic information and facilitate manipulating the data. Here is what that object looks like:</p>
+<p>This returns a <code>taxmap</code> object. The <code>taxmap</code> class is designed to store any number of tables, <b><a href ="00--glossary.html#list_anchor">lists</a></b>, or <b><a href ="00--glossary.html#vector_anchor">vectors</a></b> associated with taxonomic information and facilitate manipulating the data. Here is what that object looks like:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   174 taxa: <span style='color: #00BB00;'>ab</span><span>. Root, </span><span style='color: #00BB00;'>ac</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>gr</span><span>. Blautia, </span><span style='color: #00BB00;'>gs</span><span>. Clostridium
@@ -383,7 +383,7 @@ $(document).ready(function () {
 ##       # ... with 5,919 more rows
 ##   0 functions:
 </span></code></pre>
-<p>Note how the original abundance matrix is contained in the <code>taxmap</code> <a href ="00--glossary.html#object_anchor">object</a> with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets. Also note that we have a different number of taxa and OTUs. This is different from a traditional ecological dataset. An OTU may contain sequence variants, so a single OTU represents multiple similar sequences. These OTUs are assigned to taxa so a taxon may include multiple OTUs. Taxa may be organized in different <a href ="00--glossary.html#taxonomic_ranks_anchor">ranks</a>. For example, one taxon might be a species while another might be a genus. These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.</p>
+<p>Note how the original abundance matrix is contained in the <code>taxmap</code> <b><a href ="00--glossary.html#object_anchor">object</a></b> with an additional column called “taxon_id”. This table is stored in the list <code>obj$data</code>, which can contain any number of user-defined datasets. Also note that we have a different number of taxa and OTUs. This is different from a traditional ecological dataset. An OTU may contain sequence variants, so a single OTU represents multiple similar sequences. These OTUs are assigned to taxa so a taxon may include multiple OTUs. Taxa may be organized in different <b><a href ="00--glossary.html#taxonomic_ranks_anchor">ranks</a></b>. For example, one taxon might be a species while another might be a genus. These abstractions are necessary because we may have sequences that we can not confidently assign to a traditional taxon.</p>
 </div>
 <div id="abundance-matrix-manipulations" class="section level2">
 <h2>Abundance matrix manipulations</h2>
@@ -431,7 +431,7 @@ $(document).ready(function () {
 </div>
 <div id="accounting-for-un-even-sampling" class="section level3">
 <h3>Accounting for un-even sampling</h3>
-<p>Ideally, we would sequence each sample the same amount (i.e., the same number of reads). However, sequencing technologies are imperfect, so some samples may have more reads than others. This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others. So far we’ve used raw counts, but people typically work with <a href ="00--glossary.html#rarefaction_anchor">rarefied</a> counts or proportions to try to avoid the possibility of sampling depth biasing the results. Here we use the function <code>calc_obs_props</code> to divide each sample’s counts by the total number of counts observed for each sample, resulting in a proportion.</p>
+<p>Ideally, we would sequence each sample the same amount (i.e., the same number of reads). However, sequencing technologies are imperfect, so some samples may have more reads than others. This creates a situation where we may have observed more diversity in some samples because they were sequenced more thoroughly than others. So far we’ve used raw counts, but people typically work with <b><a href ="00--glossary.html#rarefaction_anchor">rarefied</a></b> counts or proportions to try to avoid the possibility of sampling depth biasing the results. Here we use the function <code>calc_obs_props</code> to divide each sample’s counts by the total number of counts observed for each sample, resulting in a proportion.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>tax_data &lt;-<span class="st"> </span><span class="kw">calc_obs_props</span>(obj, <span class="st">&quot;tax_data&quot;</span>)</code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    700035949, 700097855, 700100489, 700111314 ... 700095535, 700102367, 700101358</code></pre>
@@ -581,11 +581,11 @@ $(document).ready(function () {
           <span class="dt">node_color_axis_label =</span> <span class="st">&quot;Samples with reads&quot;</span>,
           <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
-<p>This is known as <a href ="00--glossary.html#non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a> in programmer jargon and will be used in many functions throughout this workshop.</p>
+<p>This is known as <b><a href ="00--glossary.html#non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a></b> in programmer jargon and will be used in many functions throughout this workshop.</p>
 </div>
 <div id="alpha-diversity" class="section level3">
 <h3>Alpha diversity</h3>
-<p>Alpha diversity is a measure of the diversity <strong>within</strong> each sample or group of samples. It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU “rank”. There are multiple methods used to calculate a value to represent alpha diversity. The simplest is just the number of species, but the ones used most often factor in how common each species is as well. Below, we calculate the alpha diversity of OTUs using the <a href ="00--glossary.html#inverse_simpson_index_anchor">Inverse Simpson Index</a> using the package <code>vegan</code>.</p>
+<p>Alpha diversity is a measure of the diversity <strong>within</strong> each sample or group of samples. It can be calculated at any rank of the taxonomy, but it is usually calculated at the species or OTU “rank”. There are multiple methods used to calculate a value to represent alpha diversity. The simplest is just the number of species, but the ones used most often factor in how common each species is as well. Below, we calculate the alpha diversity of OTUs using the <b><a href ="00--glossary.html#inverse_simpson_index_anchor">Inverse Simpson Index</a></b> using the package <code>vegan</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
 <pre><code>## Loading required package: permute</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
@@ -607,7 +607,7 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hmp_samples, <span class="kw">aes</span>(<span class="dt">x =</span> body_site, <span class="dt">y =</span> inv_simp)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>That’s more interesting; skin has much lower diversity than any of the wetter areas, which makes sense. Lets see if that’s a significant difference using <a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a>.</p>
+<p>That’s more interesting; skin has much lower diversity than any of the wetter areas, which makes sense. Lets see if that’s a significant difference using <b><a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a></b>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(inv_simp <span class="op">~</span><span class="st"> </span>body_site, hmp_samples)
 <span class="kw">summary</span>(anova_result)</code></pre></div>
 <pre class="r-output"><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -616,7 +616,7 @@ $(document).ready(function () {
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
-<p>That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess). A <a href ="00--glossary.html#tukey's_honest_significant_difference_(hsd)_anchor">Tukey’s Honest Significant Difference (HSD)</a> test can compare each site to every other and tell us which are significantly different. Although <a href ="00--glossary.html#base_r_anchor">base R</a> has a Tukey’s HSD function called <code>TukeyHSD</code>, we will use one from the package <code>agricolae</code> since it supplies grouping codes that are useful for graphing.</p>
+<p>That tells that at least one of the body site means is different from the other, but not which one (although we can make a good guess). A <b><a href ="00--glossary.html#tukey's_honest_significant_difference_(hsd)_anchor">Tukey’s Honest Significant Difference (HSD)</a></b> test can compare each site to every other and tell us which are significantly different. Although <b><a href ="00--glossary.html#base_r_anchor">base R</a></b> has a Tukey’s HSD function called <code>TukeyHSD</code>, we will use one from the package <code>agricolae</code> since it supplies grouping codes that are useful for graphing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
 tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;body_site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
 <span class="kw">print</span>(tukey_result)</code></pre></div>
@@ -687,7 +687,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
 ## </span><span style='color: #BCBCBC;'>10</span><span> al       female      male                   -</span><span style='color: #BB0000;'>0.542</span><span>     -</span><span style='color: #BB0000;'>0.054</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  -</span><span style='color: #BB0000;'>0.021</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>           0.969
 ## </span><span style='color: #949494;'># ... with 145 more rows</span><span>
 </span></code></pre>
-<p>For each taxon, a <a href ="00--glossary.html#wilcoxon_rank_sum_test_anchor">Wilcoxon Rank Sum test</a> was used to test for differences between the median abundances of samples in each treatment. We can use this information to create what we call a <strong>differential heat tree</strong>, which indicates which taxa are more abundant in each treatment:</p>
+<p>For each taxon, a <b><a href ="00--glossary.html#wilcoxon_rank_sum_test_anchor">Wilcoxon Rank Sum test</a></b> was used to test for differences between the median abundances of samples in each treatment. We can use this information to create what we call a <strong>differential heat tree</strong>, which indicates which taxa are more abundant in each treatment:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
 <span class="kw">heat_tree</span>(obj, 
           <span class="dt">node_label =</span> taxon_names,
@@ -700,7 +700,7 @@ tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anov
           <span class="dt">layout =</span> <span class="st">&quot;davidson-harel&quot;</span>, <span class="co"># The primary layout algorithm</span>
           <span class="dt">initial_layout =</span> <span class="st">&quot;reingold-tilford&quot;</span>) <span class="co"># The layout algorithm that initializes node locations</span></code></pre></div>
 <p><img src="02--quick_example_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men. Note that we have not taken into account statistical significance when showing this, so lets do that. First, we need to <a href ="00--glossary.html#multiple_comparison_corrections_anchor">correct for multiple comparisons</a>:</p>
+<p>In this case, taxa colored tan are more abundant in women and those colored blue are more abundant in men. Note that we have not taken into account statistical significance when showing this, so lets do that. First, we need to <b><a href ="00--glossary.html#multiple_comparison_corrections_anchor">correct for multiple comparisons</a></b>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(obj<span class="op">$</span>data<span class="op">$</span>diff_table<span class="op">$</span>wilcox_p_value,
                                                <span class="dt">method =</span> <span class="st">&quot;fdr&quot;</span>)</code></pre></div>
 <p>If we then look at the distribution of p-values, we can see that none are even close to significant:</p>

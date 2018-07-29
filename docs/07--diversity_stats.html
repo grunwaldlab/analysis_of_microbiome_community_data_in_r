@@ -317,26 +317,18 @@ $(document).ready(function () {
 </ul>
 <p>There are also some diversity indexes that take into account the taxonomic similarity of the species called “taxonomic diversity” and “taxonomic distinctness”, but we will not go into those.</p>
 <p>The <code>diversity</code> function from the <code>vegan</code> package can be used to calculate the alpha diversity of a set of samples. Like other vegan functions, it assumes that samples are in rows, but they are in columns in our data, so we need to use the <code>MARGIN = 2</code> option. We also need to exclude the taxon ID column by subsetting the columns to only samples (i.e. all column besides the first one). Since alpha diversity is a per-sample attribute, we can just add this as a column to the sample data table:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)</code></pre></div>
-<pre><code>## Loading required package: permute</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## This is vegan 2.5-2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
+sample_data<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">diversity</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID],
                                  <span class="dt">MARGIN =</span> <span class="dv">2</span>,
                                  <span class="dt">index =</span> <span class="st">&quot;invsimpson&quot;</span>)
 <span class="kw">hist</span>(sample_data<span class="op">$</span>alpha)</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Adding this as a column to the sample data table makes it easy to graph using <code>ggplot2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;ggplot2&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:taxa&#39;:
-## 
-##     map_data</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(sample_data, <span class="kw">aes</span>(<span class="dt">x =</span> Site, <span class="dt">y =</span> alpha)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p><img src="07--diversity_stats_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>We can use <a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a> to tell if at least one of the diversity means is different from the rest.</p>
+<p>We can use <b><a href ="00--glossary.html#analysis_of_variance_(anova)_anchor">analysis of variance (ANOVA)</a></b> to tell if at least one of the diversity means is different from the rest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_result &lt;-<span class="st"> </span><span class="kw">aov</span>(alpha <span class="op">~</span><span class="st"> </span>Site, sample_data)
 <span class="kw">summary</span>(anova_result)</code></pre></div>
 <pre class="r-output"><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -345,7 +337,7 @@ $(document).ready(function () {
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
-<p>That tells us that there is a difference, but does not tell us which means are different. A <a href ="00--glossary.html#tukey's_honest_significant_difference_(hsd)_anchor">Tukey’s Honest Significant Difference (HSD)</a> test can do pairwise comparisons of the means to find this out. We will use the <code>HSD.test</code> function from the <code>agricolae</code> package since it provides grouping codes that are useful for graphing.</p>
+<p>That tells us that there is a difference, but does not tell us which means are different. A <b><a href ="00--glossary.html#tukey's_honest_significant_difference_(hsd)_anchor">Tukey’s Honest Significant Difference (HSD)</a></b> test can do pairwise comparisons of the means to find this out. We will use the <code>HSD.test</code> function from the <code>agricolae</code> package since it provides grouping codes that are useful for graphing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(agricolae)
 tukey_result &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova_result, <span class="st">&quot;Site&quot;</span>, <span class="dt">group =</span> <span class="ot">TRUE</span>)
 <span class="kw">print</span>(tukey_result)</code></pre></div>
@@ -509,7 +501,7 @@ obj <span class="op">%&gt;%</span>
 <p>The <code>vegan</code> function <code>vegdist</code> is used to calculate the pairwise beta diversity indexes for a set of samples. Since this is a pairwise comparison, the output is a triangular matrix. In R, a <code>matrix</code> is like a <code>data.frame</code>, but all of the same type (e.g. all numeric), and has some different behavior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta_dist &lt;-<span class="st"> </span><span class="kw">vegdist</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_rarefied[, sample_data<span class="op">$</span>SampleID]),
                      <span class="dt">index =</span> <span class="st">&quot;bray&quot;</span>)</code></pre></div>
-<p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to <a href ="00--glossary.html#transpose_anchor">transpose</a> the matrix with the <code>t</code> function.</p>
+<p>Since <code>vegdist</code> does not have a <code>MARGIN</code> option like <code>diversity</code>, we need to <b><a href ="00--glossary.html#transpose_anchor">transpose</a></b> the matrix with the <code>t</code> function.</p>
 </div>
 </div>
 <div id="ordination" class="section level2">
@@ -624,7 +616,7 @@ mds_data &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span clas
 ## </span><span style='color: #BCBCBC;'>10</span><span> aan      leaf        root                   -</span><span style='color: #BB0000;'>4.82</span><span>       -</span><span style='color: #BB0000;'>81.5</span><span>    -</span><span style='color: #BB0000;'>75.2</span><span>         1.04</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-44</span><span>
 ## </span><span style='color: #949494;'># ... with 479 more rows</span><span>
 </span></code></pre>
-<p>By default, <a href ="00--glossary.html#wilcoxon_rank_sum_test_anchor">Wilcoxon Rank Sum test</a> is used to test for statistical significance of differences and various summary statistics are reported to measure the size of the difference. Since we have done many independent tests (one for each taxon), we need to <a href ="00--glossary.html#multiple_comparison_corrections_anchor">correct for multiple comparisions</a>. We will do that with a false discovery rate (FDR) correction, but other types can be used as well.</p>
+<p>By default, <b><a href ="00--glossary.html#wilcoxon_rank_sum_test_anchor">Wilcoxon Rank Sum test</a></b> is used to test for statistical significance of differences and various summary statistics are reported to measure the size of the difference. Since we have done many independent tests (one for each taxon), we need to <b><a href ="00--glossary.html#multiple_comparison_corrections_anchor">correct for multiple comparisions</a></b>. We will do that with a false discovery rate (FDR) correction, but other types can be used as well.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">mutate_obs</span>(obj, <span class="st">&quot;diff_table&quot;</span>,
                   <span class="dt">wilcox_p_value =</span> <span class="kw">p.adjust</span>(wilcox_p_value, <span class="dt">method =</span> <span class="st">&quot;fdr&quot;</span>))</code></pre></div>
 <p>The most useful statistic for plotting is the log of ratio of median abundances in the two groups, since it is centered on 0 and is symmetric (e.g., a value of -4 is the same magnitude as 4). Lets set any differences that are not significant to 0 so all differences shown on the plot are significant.</p>
@@ -665,7 +657,7 @@ obj <span class="op">%&gt;%</span>
 </div>
 <div id="comparing-taxon-abundance-with-more-than-2-groups" class="section level3">
 <h3>Comparing taxon abundance with more than 2 groups</h3>
-<p>For pair-wise comparisons with more than two groups we have developed a graphing technique we call a heat tree matrix, in which trees are made for all pairs of sample groupings and arranged in a matrix with a larger key tree that has the taxon names and a legend. The code to do this is similar to the code for making a single differential heat tree like we did above, but uses the <code>heat_tree_matrix</code> function. First we need to use <code>compare_groups</code> to generate data for all pair-wise comparisons for a grouping with more than two treatments.</p>
+<p>For pair-wise comparisons with more than two groups we have developed a graphing technique we call a heat tree matrix, in which trees are made for all pairs of sample groupings and arranged in a matrix with a larger key tree that has the taxon names and a legend. The code to do this is similar to the code for making a single differential heat tree like we did above, but uses the <code>heat_tree_matrix</code> function. First we need to use <code>compare_groups</code> to generate data for all pair-wise comparisons for a grouping with more than two treatments. The code below compares all the sites used in this study to eachother:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>diff_table &lt;-<span class="st"> </span><span class="kw">compare_groups</span>(obj, <span class="dt">dataset =</span> <span class="st">&quot;tax_abund&quot;</span>,
                                       <span class="dt">cols =</span> sample_data<span class="op">$</span>SampleID,
                                       <span class="dt">groups =</span> sample_data<span class="op">$</span>Site)
@@ -734,21 +726,56 @@ Show Answer
 The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is greater than zero. Also, the inverse Simpson index tends to spread out higher diversity values more.
 </div>
 <p><br /></p>
-<p><strong>2a)</strong> The ordination analysis colored by genotype showed no community differences corresponding to genotype. Try to use <code>compare_groups</code> to see if any taxa are significantly differentially abundant between genotypes to verify this result.</p>
+<p><strong>2)</strong> Rarefaction and converting counts to proportions are two ways of accounting for unequal sample depth. Although proportions are more intuitive and easier to understand, why might rarefaction be better when calculating diveristy indexes?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-37">
-Show solution
+Show Answer
 </button>
 <div id="hide_buttonunnamed-chunk-37" class="collapse">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+Some diversity indexes take into account the number of species. This especially important for those that use presence/absence instead of abundance, such as the Sørensen and Jaccard indexes. When read counts are rarefied, some low counts go to zero, effectively reducing the number of species in the sample, whereas converting to proportions will never make a count go to zero, so will not remove the effect of unequal sampling depth on these indexes.
+</div>
+<p><br /></p>
+<p><strong>3a)</strong> Using the techniques presented in the section on plotting the abundance of taxa, make a plot of taxon abundance for the site encoded “Jam”.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-38">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-38" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>site_abund &lt;-<span class="st"> </span><span class="kw">calc_taxon_abund</span>(obj, <span class="st">&quot;otu_rarefied&quot;</span>,
+                                        <span class="dt">cols =</span> sample_data<span class="op">$</span>SampleID,
+                                        <span class="dt">groups =</span> sample_data<span class="op">$</span>Site)</code></pre></div>
+<pre><code>## Summing per-taxon counts from 292 columns in 3 groups for 489 taxa</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
+<span class="st">  </span>taxa<span class="op">::</span><span class="kw">filter_taxa</span>(Jam <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># taxa:: needed because of phyloseq::filter_taxa</span>
+<span class="st">  </span><span class="kw">heat_tree</span>(<span class="dt">node_label =</span> taxon_names,
+            <span class="dt">node_size =</span> Jam, 
+            <span class="dt">node_color =</span> Jam, 
+            <span class="dt">layout =</span> <span class="st">&quot;da&quot;</span>, <span class="dt">initial_layout =</span> <span class="st">&quot;re&quot;</span>, 
+            <span class="dt">title =</span> <span class="st">&quot;Taxa in leafs&quot;</span>)</code></pre></div>
+<img src="07--diversity_stats_files/figure-html/unnamed-chunk-38-1.png" width="480" style="display: block; margin: auto;" />
+</div>
+<p><br /></p>
+<p><strong>3b)</strong> What are some of the most abundant families in the site “Jam”?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-39">
+Show Answer
+</button>
+<div id="hide_buttonunnamed-chunk-39" class="collapse">
+Sphingobacteriaceae, Chitinophagaceae, Sphingomonadaceae, Comamonadaceae, Microbacteriaceae, etc..
+</div>
+<p><br /></p>
+<p><strong>3c)</strong> What is the most abundant phylum in the site “Jam”?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-40">
+Show Answer
+</button>
+<div id="hide_buttonunnamed-chunk-40" class="collapse">
+Proteobacteria
+</div>
+<p><br /></p>
+<p><strong>4a)</strong> The ordination analysis colored by genotype showed no community differences corresponding to genotype. Try to use <code>compare_groups</code> to see if any taxa are significantly differentially abundant between genotypes to verify this result.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-41">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-41" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">compare_groups</span>(<span class="dt">dataset =</span> <span class="st">&quot;tax_abund&quot;</span>,
                  <span class="dt">cols =</span> sample_data<span class="op">$</span>SampleID,
                  <span class="dt">groups =</span> sample_data<span class="op">$</span>Genotype) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -760,11 +787,11 @@ Show solution
 </span></code></pre>
 </div>
 <p><br /></p>
-<p><strong>2b)</strong> How many taxa have significant differences between genotypes?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-38">
+<p><strong>4b)</strong> How many taxa have significant differences between genotypes?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-42">
 Show Answer
 </button>
-<div id="hide_buttonunnamed-chunk-38" class="collapse">
+<div id="hide_buttonunnamed-chunk-42" class="collapse">
 None
 </div>
 <p><br /></p>

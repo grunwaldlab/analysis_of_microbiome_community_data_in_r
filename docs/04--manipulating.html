@@ -298,7 +298,7 @@ $(document).ready(function () {
 <div id="manipulating-taxonomic-data" class="section level1">
 <h1>Manipulating taxonomic data</h1>
 <p>Tabular data is relatively straight forward to manipulate if you know some R already, but taxonomic data is hierarchical, making it much harder to work with. It gets even more complicated when there are other data associated with the taxonomy.</p>
-<p>For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? If so, how do we identify which taxa are in that phylum? Depending on the format the data is in, this might be hard. If other data (e.g. <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a> counts) are associated with taxa within that phylum, do we also remove those too? After all, even if the phylum and the taxa within it are removed, we still know that all the associated data are bacterial, so do we reassign them to the Bacteria taxon, or just throw those data out? The answer to these kind of questions will depend on our data and what we want to do with it.</p>
+<p>For example, if we want to remove a bacterial phylum from the data, do we also remove all of the taxa within that phylum? If so, how do we identify which taxa are in that phylum? Depending on the format the data is in, this might be hard. If other data (e.g. <b><a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a></b> counts) are associated with taxa within that phylum, do we also remove those too? After all, even if the phylum and the taxa within it are removed, we still know that all the associated data are bacterial, so do we reassign them to the Bacteria taxon, or just throw those data out? The answer to these kind of questions will depend on our data and what we want to do with it.</p>
 <div id="load-example-data" class="section level2">
 <h2>Load example data</h2>
 <p>If you are starting the workshop at this section, or had problems running code in a previous section, use the following to load the data used in this section. You can download the “parsed_data.Rdata” file <a href="parsed_data.Rdata" download="parsed_data.Rdata">here</a>. If you have just done the previous section, you can ignore this and proceed.</p>
@@ -306,7 +306,7 @@ $(document).ready(function () {
 </div>
 <div id="subsetting-tabular-data" class="section level2">
 <h2>Subsetting tabular data</h2>
-<p>The <a href ="00--glossary.html#function_anchor">functions</a> to subset taxonomic information in <code>taxmap</code> objects (the format our example data is in) provided by the <code>taxa</code> package are modeled after functions in the <code>dplyr</code> package for manipulating tabular data (<span class="citation">Wickham and Francois (2015)</span>). These <code>dplyr</code> functions are alternatives to the standard R subsetting (e.g. <code>[</code>, <code>[[</code>, and <code>$</code>) designed to be be more intuitive and consistent. Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these. Fortunately, we have a tabular data set in need of some subsetting: our sample data.</p>
+<p>The <b><a href ="00--glossary.html#function_anchor">functions</a></b> to subset taxonomic information in <code>taxmap</code> objects (the format our example data is in) provided by the <code>taxa</code> package are modeled after functions in the <code>dplyr</code> package for manipulating tabular data (<span class="citation">Wickham and Francois (2015)</span>). These <code>dplyr</code> functions are alternatives to the standard R subsetting (e.g. <code>[</code>, <code>[[</code>, and <code>$</code>) designed to be be more intuitive and consistent. Since an understanding of these functions will help with the analogous (and more complicated) functions for taxonomic data, we will start by practicing these. Fortunately, we have a tabular data set in need of some subsetting: our sample data.</p>
 <p>First, lets take another look at our sample data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(sample_data)</code></pre></div>
 <pre class="r-output"><code>## <span style='color: #949494;'># A tibble: 1,698 x 16</span><span>
@@ -330,14 +330,14 @@ $(document).ready(function () {
 <p>Using the <code>dplyr</code> functions, the same operation would be:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_data, Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span>)</code></pre></div>
-<p>Note how we could use the <code>Experiment</code> column on its own within the <code>filter</code> functions. That is a special property of the <code>filter</code> function and many others in <code>dplyr</code> known as <a href ="00--glossary.html#non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a>. If we tried that outside of the function, we would get an error. For example, the following will not work:</p>
+<p>Note how we could use the <code>Experiment</code> column on its own within the <code>filter</code> functions. That is a special property of the <code>filter</code> function and many others in <code>dplyr</code> known as <b><a href ="00--glossary.html#non-standard_evaluation_(nse)_anchor">Non-standard evaluation (NSE)</a></b>. If we tried that outside of the function, we would get an error. For example, the following will not work:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_ecotype &lt;-<span class="st"> </span>Experiment <span class="op">==</span><span class="st"> &quot;ecotypes&quot;</span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;Experiment&#39; not found</code></pre>
 <p>Most <code>dplyr</code> functions work this way and so do the analogous functions in <code>taxa</code> for manipulating taxonomic data. If we have multiple filtering criteria, we can simply add more arguments to the functions. In the following code, we subset the table to only rows for plants from one of three site and that are 3 years old.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_data,
                       Site <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mah&quot;</span>, <span class="st">&quot;Jam&quot;</span>, <span class="st">&quot;Sil&quot;</span>),
                       Age <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</code></pre></div>
-<p>This is usually equivalent to combining multiple conditions with <code>&amp;</code> in normal subsetting, but is faster for large data sets. It also will not return values for which conditions evaluate to <code>NA</code>, unlike <a href ="00--glossary.html#base_r_anchor">base R</a> subsetting.</p>
+<p>This is usually equivalent to combining multiple conditions with <code>&amp;</code> in normal subsetting, but is faster for large data sets. It also will not return values for which conditions evaluate to <code>NA</code>, unlike <b><a href ="00--glossary.html#base_r_anchor">base R</a></b> subsetting.</p>
 <p>Up until now, everything we have done using <code>filter</code> can be easily done with base R subsetting as well, but <code>dplyr</code> introduces a few more advanced features that can save time/typing. We wont go into these in detail, but its good to know they exist. One is the concept of “grouping”. When rows are “grouped” by the values in one column, the rows corresponding to each unique value in that column are treated as a unit in some functions. <code>n()</code> is one such function that counts the number of items in each group. We can use this to filter out any plants that don’t have both root and leaf samples by counting the number of times each “Plant_ID” shows up:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span>sample_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(Plant_ID) <span class="op">%&gt;%</span>
@@ -364,7 +364,7 @@ sample_data &lt;-<span class="st"> </span><span class="kw">filter</span>(sample_
 ##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
-<p>If we look at the second line, we can see that some taxa do not have names. These are the ones that only had <a href ="00--glossary.html#taxonomic_ranks_anchor">rank</a> information in the classification we parsed in the last section (e.g. <code>o__</code> in <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>). Since these do not add any information, lets remove them.</p>
+<p>If we look at the second line, we can see that some taxa do not have names. These are the ones that only had <b><a href ="00--glossary.html#taxonomic_ranks_anchor">rank</a></b> information in the classification we parsed in the last section (e.g. <code>o__</code> in <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>). Since these do not add any information, lets remove them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(taxa)
 obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon_names <span class="op">!=</span><span class="st"> &quot;&quot;</span>)
 <span class="kw">print</span>(obj)</code></pre></div>
@@ -384,7 +384,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##       #   M1551P52 &lt;dbl&gt;, M1551P3 &lt;dbl&gt;, M1551P15 &lt;dbl&gt;, M1551P31 &lt;dbl&gt;, …
 ##   0 functions:
 </span></code></pre>
-<p>There were OTUs associated with the nameless taxa, but no OTUs were filtered out, so what happened to them? By default, they are reassigned to the closest supertaxon that passes the filter. For example, for the <a href ="00--glossary.html#taxonomic_classifications_anchor">classification</a> <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>, the OTU would be reassigned to the class “SJA-28”.</p>
+<p>There were OTUs associated with the nameless taxa, but no OTUs were filtered out, so what happened to them? By default, they are reassigned to the closest supertaxon that passes the filter. For example, for the <b><a href ="00--glossary.html#taxonomic_classifications_anchor">classification</a></b> <code>&quot;Root;k__Bacteria;p__Chlorobi;c__SJA-28;o__;f__&quot;</code>, the OTU would be reassigned to the class “SJA-28”.</p>
 <p>Like <code>filter</code>, <code>filter_taxa</code> can use variables contained in the input objects as if they were independent variables. In this case, <code>taxon_names</code> is actually a function that is called when referenced in this way.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">taxon_names</span>(obj))</code></pre></div>
 <pre class="r-output"><code>##              aab              aac              aad              aae              aaf 
@@ -392,7 +392,7 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_taxa</span>(obj, taxon
 ##              aag 
 ## "Actinobacteria"
 </code></pre>
-<p>Other values that can be used this way include columns in tables and <a href ="00--glossary.html#list_anchor">lists</a>/<a href ="00--glossary.html#vector_anchor">vectors</a> stored in the <code>obj$data</code> list in <code>taxmap</code> objects. Since <code>taxmap</code> objects can store any number of lists, vectors, or tables mapped to a taxonomy, there can be many variables that can be referenced by name. The <code>all_names</code> function returns the name and location of variables that can be used this way:</p>
+<p>Other values that can be used this way include columns in tables and <b><a href ="00--glossary.html#list_anchor">lists</a></b>/<b><a href ="00--glossary.html#vector_anchor">vectors</a></b> stored in the <code>obj$data</code> list in <code>taxmap</code> objects. Since <code>taxmap</code> objects can store any number of lists, vectors, or tables mapped to a taxonomy, there can be many variables that can be referenced by name. The <code>all_names</code> function returns the name and location of variables that can be used this way:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">all_names</span>(obj), <span class="dv">20</span>)</code></pre></div>
 <pre class="r-output"><code>##                taxon_names                  taxon_ids              taxon_indexes 
 ##              "taxon_names"                "taxon_ids"            "taxon_indexes" 
@@ -593,7 +593,7 @@ Show solution
 </div>
 <div id="subsetting-a-taxonomy-1" class="section level3">
 <h3>Subsetting a taxonomy</h3>
-<p>For the questions below, do not overwrite the <code>obj</code> with result of filtering (i.e. don’t assign the result to <code>obj</code>).</p>
+<p>For the questions below, do not overwrite the <code>obj</code> with result of filtering (i.e. don’t assign the result to <code>obj</code> with <code>&lt;-</code>).</p>
 <p><strong>4)</strong> The function <code>n_obs</code> counts the number of items in the first dataset (the OTU table in our case) assigned to each taxon. Try running <code>n_obs(obj)</code> to see how many OTUs are within each taxon.</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-25">
 Show solution
@@ -774,11 +774,19 @@ Show solution
 </span></code></pre>
 </div>
 <p><br /></p>
-<p><strong>7)</strong> The function <code>taxon_ranks</code> returns the ranks for each taxon and it can be used like <code>taxon_names</code> in calls to <code>filter_taxa</code>. Look at the result of <code>taxon_ranks(obj)</code>. Subset <code>obj</code> to phyla (“p” in our data) <em>and their supertaxa</em>.</p>
+<p><strong>6d)</strong> What happend to the taxon IDs for OTUs that are not in “Actinobacteria” and why?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-30">
-Show solution
+Show Answer
 </button>
 <div id="hide_buttonunnamed-chunk-30" class="collapse">
+The OTUs not in Actinobacteria were assinged a taxon ID of <code>NA</code> because there are no taxa left they could be reassigned to.
+</div>
+<p><br /></p>
+<p><strong>7a)</strong> The function <code>taxon_ranks</code> returns the ranks for each taxon and it can be used like <code>taxon_names</code> in calls to <code>filter_taxa</code>. Look at the result of <code>taxon_ranks(obj)</code>. Subset <code>obj</code> to phyla (“p” in our data) <em>and their supertaxa</em>.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-31">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-31" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_taxa</span>(obj, taxon_ranks <span class="op">==</span><span class="st"> &quot;p&quot;</span>, <span class="dt">supertaxa =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   50 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>acu</span><span>. GAL15, </span><span style='color: #00BB00;'>acx</span><span>. Kazan-3B-28
@@ -799,11 +807,19 @@ Show solution
 </span></code></pre>
 </div>
 <p><br /></p>
-<p><strong>8a)</strong> Try to remove “Actinobacteria” and all of its subtaxa. You will probably need to look at the documentation for <code>filter_taxa</code> to figure out how to do this.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-31">
+<p><strong>7b)</strong> Were any OTUs removed? Why?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-32">
+Show Answer
+</button>
+<div id="hide_buttonunnamed-chunk-32" class="collapse">
+No, because they were reassigned to the phyla.
+</div>
+<p><br /></p>
+<p><strong>8a)</strong> Try to remove “Actinobacteria” and all of its subtaxa. You will probably need to look at the documentation for <code>filter_taxa</code> by typing <code>?filter_taxa</code> to figure out how to do this.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-33">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-31" class="collapse">
+<div id="hide_buttonunnamed-chunk-33" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_taxa</span>(obj, taxon_names <span class="op">==</span><span class="st"> &quot;Actinobacteria&quot;</span>, <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>, <span class="dt">invert =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   632 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>cgz</span><span>. S24-7, </span><span style='color: #00BB00;'>chs</span><span>. Alcanivoracaceae
@@ -825,18 +841,18 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>8b)</strong> Why were no OTUs removed when “Actinobacteria” and all of its subtaxa were removed?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-32">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-34">
 Show Answer
 </button>
-<div id="hide_buttonunnamed-chunk-32" class="collapse">
+<div id="hide_buttonunnamed-chunk-34" class="collapse">
 Because the OTUs that were assigned to “Actinobacteria” were reassigned to “Bacteria”, its supertaxon.
 </div>
 <p><br /></p>
 <p><strong>8c)</strong> Try to modify the previous command to remove the OTUs that are assigned to “Actinobacteria”.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-33">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-35">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-33" class="collapse">
+<div id="hide_buttonunnamed-chunk-35" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_taxa</span>(obj, taxon_names <span class="op">==</span><span class="st"> &quot;Actinobacteria&quot;</span>,
             <span class="dt">subtaxa =</span> <span class="ot">TRUE</span>,
             <span class="dt">invert =</span> <span class="ot">TRUE</span>,
@@ -864,11 +880,11 @@ Show solution
 <div id="subsetting-data-associated-with-a-taxonomy" class="section level3">
 <h3>Subsetting data associated with a taxonomy</h3>
 <p>For the questions below, do not overwrite the <code>obj</code> with result of filtering (i.e. don’t assign the result to <code>obj</code> with <code>&lt;-</code>).</p>
-<p><strong>9a)</strong> Use <code>filter_obs</code> to remove all rows of “otu_counts” that have less than 5 reads in the first sample, “M1981P563” without removing any taxa in the taxonomy.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-34">
+<p><strong>9a)</strong> Look at the documentation for <code>filter_obs</code> by typing <code>?filter_obs</code>. Use <code>filter_obs</code> to remove all rows of “otu_counts” that have less than 5 reads in the first sample, “M1981P563”, without removing any taxa in the taxonomy.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-36">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-34" class="collapse">
+<div id="hide_buttonunnamed-chunk-36" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, M1981P563 <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   704 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>cgz</span><span>. S24-7, </span><span style='color: #00BB00;'>chs</span><span>. Alcanivoracaceae
@@ -890,10 +906,10 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>9b)</strong> Modify the previous command to remove taxa as well as rows in the table.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-35">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-37">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-35" class="collapse">
+<div id="hide_buttonunnamed-chunk-37" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, M1981P563 <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>, <span class="dt">drop_taxa =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   101 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>btg</span><span>. Bogoriellaceae
@@ -958,7 +974,7 @@ Show solution
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj<span class="op">$</span>data<span class="op">$</span>sample_counts &lt;-<span class="st"> </span><span class="kw">calc_n_samples</span>(obj,
                                          <span class="dt">dataset =</span> <span class="st">&quot;otu_counts&quot;</span>,
                                          <span class="dt">groups =</span> sample_data<span class="op">$</span>Type,
-                                         <span class="dt">other_cols =</span> <span class="st">&quot;OTU_ID&quot;</span>)</code></pre></div>
+                                         <span class="dt">other_cols =</span> <span class="st">&quot;OTU_ID&quot;</span>) <span class="co"># Preserves OTU_ID column</span></code></pre></div>
 <pre><code>## No `cols` specified, so using all numeric columns:
 ##    M1981P563, M1977P1709, M1980P502, M1981P606 ... M1955P747, M1978P342, M1955P778</code></pre>
 <pre><code>## Calculating number of samples with a value greater than 0 for 292 columns in 2 groups for 21684 observations</code></pre>
@@ -989,10 +1005,10 @@ Show solution
 ##   0 functions:
 </span></code></pre>
 <p>Since the “sample_counts” table is derived from the “otu_counts” table and in the same order, we can use values from it to subset “otu_counts”. Using <code>filter_obs</code>, try to subset “otu_counts” to taxa that do not appear in leaf samples, but appear in at least 100 root samples. Remove any taxa not represented by these OTUs unique to roots.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-39">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-41">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-39" class="collapse">
+<div id="hide_buttonunnamed-chunk-41" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter_obs</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, leaf <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, root <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>, <span class="dt">drop_taxa =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   73 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>bln</span><span>. Isosphaeraceae, </span><span style='color: #00BB00;'>blx</span><span>. Hyphomonadaceae
@@ -1075,10 +1091,10 @@ Show solution
 ##   0 functions:
 </span></code></pre>
 <p>Try to sort the OTU table by the difference between the number of leaf samples and OTU was found in and the number of root samples and OTU was found in. This effectively sorts by how “characteristic” an OTU is to root samples.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-42">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-44">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-42" class="collapse">
+<div id="hide_buttonunnamed-chunk-44" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange_obs</span>(obj, <span class="st">&quot;sample_counts&quot;</span>, leaf <span class="op">-</span><span class="st"> </span>root)</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   704 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>cgz</span><span>. S24-7, </span><span style='color: #00BB00;'>chs</span><span>. Alcanivoracaceae
@@ -1108,18 +1124,18 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>10c)</strong> What is the ID of the OTU most “characteristic” of roots vs leafs?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-43">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-45">
 Show Answer
 </button>
-<div id="hide_buttonunnamed-chunk-43" class="collapse">
+<div id="hide_buttonunnamed-chunk-45" class="collapse">
 436, 881, or 927
 </div>
 <p><br /></p>
 <p><strong>10d)</strong> <code>mutate_obs</code> is used to add new columns to tables in a <code>taxmap</code> objects. Look at the documentation and see if you can figure out how to add the results of the <code>classifications</code> function as a column in the “sample_counts” table. Note that you will need to use the “taxon_id” column of the “sample_counts” table to subset the results of the <code>classifications</code> function so that they match the taxon IDs in the “sample_counts” table.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-44">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-46">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-44" class="collapse">
+<div id="hide_buttonunnamed-chunk-46" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate_obs</span>(obj, <span class="st">&quot;sample_counts&quot;</span>, <span class="dt">class =</span> <span class="kw">classifications</span>(obj)[obj<span class="op">$</span>data<span class="op">$</span>sample_counts<span class="op">$</span>taxon_id])</code></pre></div>
 <pre class="r-output"><code>## &lt;Taxmap&gt;
 ##   704 taxa: <span style='color: #00BB00;'>aad</span><span>. Bacteria, </span><span style='color: #00BB00;'>aaf</span><span>. Proteobacteria ... </span><span style='color: #00BB00;'>cgz</span><span>. S24-7, </span><span style='color: #00BB00;'>chs</span><span>. Alcanivoracaceae
@@ -1149,10 +1165,10 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>10e)</strong> Now use the <code>%&gt;%</code> operator to pipe the code for part <strong>d</strong> into the code for part <strong>b</strong> to sort it and see what taxa are most “characteristic” of roots vs leafs.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-45">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-47">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-45" class="collapse">
+<div id="hide_buttonunnamed-chunk-47" class="collapse">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate_obs</span>(<span class="st">&quot;sample_counts&quot;</span>, <span class="dt">class =</span> <span class="kw">classifications</span>(obj)[obj<span class="op">$</span>data<span class="op">$</span>sample_counts<span class="op">$</span>taxon_id]) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange_obs</span>(<span class="st">&quot;sample_counts&quot;</span>, leaf <span class="op">-</span><span class="st"> </span>root)</code></pre></div>
@@ -1184,10 +1200,10 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>10f)</strong> What are the families of the OTUs most “characteristic” of roots vs leafs?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-46">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-48">
 Show Answer
 </button>
-<div id="hide_buttonunnamed-chunk-46" class="collapse">
+<div id="hide_buttonunnamed-chunk-48" class="collapse">
 Hyphomicrobiaceae, Paenibacillaceae, and Gemmataceae
 </div>
 <p><br /></p>

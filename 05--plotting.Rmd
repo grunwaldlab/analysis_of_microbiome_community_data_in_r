@@ -449,7 +449,7 @@ obj %>%
             node_label = taxon_names)
 ```
 
-**4a)** In addition to automatically coloring taxa to represent a number (e.g. OTU count), you can specify the color of each taxon using common color names (e.g. "red" or "blue") or hexadecimal color codes (e.g. "#000000" for black). You can either supply a single color to color everything the same or a vector of colors (e.g. c("red", "blue", ...)) with one value for each taxon.
+**4a)** In addition to automatically coloring taxa to represent a number (e.g. OTU count), you can specify the color of each taxon using common color names (e.g. "red" or "blue") or `r gloss$add('hexadecimal color codes')` (e.g. "#000000" for black). You can either supply a single color to color everything the same or a vector of colors (e.g. c("red", "blue", ...)) with one value for each taxon.
 
 Try to plot *Actinobacteria* and subtaxa with node size correlating with number of reads in root samples.
 Color all edges a light blue. Enter `colors()` to see the list of named colors that can be used.

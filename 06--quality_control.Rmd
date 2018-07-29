@@ -189,3 +189,21 @@ Around 40,000 reads.
 ```{r hide_button = TRUE}
 rarefy_obs(obj, "otu_counts", sample_size = 1000)
 ```
+
+**3)** What are two ways of accounting for uneven sample depth?
+
+```{asis hide_button = "Show Answer"}
+Rarefaction and converting counts to proportions.
+```
+
+**4)** What are some reasons that read counts might not correspond to species abundance in the original sample? Try to think of at least 3. There are 7 listed in the answer below and there are probably other reasons not listed.
+
+```{asis hide_button = "Show Answer"}
+* PCR primers amplify some species more than others.
+* DNA sequencers sequence some sequences more than others.
+* The locus being amplified might have different numbers of copies in different organisms.
+* DNA from dead organisms can still be amplified, although this might not be a problem depending on the goal of the research.
+* Different sequences/organisms degrade in the environment at different rates.
+* Some organisms (e.g. spore-forming bacteria) are more resistant to DNA extraction techniques, so might not be as well represented in the DNA extract.
+* Some species have more DNA per individual / weight than others.
+```

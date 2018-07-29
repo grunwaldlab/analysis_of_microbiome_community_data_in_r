@@ -299,12 +299,12 @@ $(document).ready(function () {
 <h1>Data quality control</h1>
 <p>Sequencing technologies all have some amount of error. Some of this error happens during PCR and some happens during sequencing. There are lots of ways to filter out errors including:</p>
 <ul>
-<li>Removing sequences/bases that the sequencer indicates are low quality. This information is typically in the <a href ="00--glossary.html#fastq_anchor">.fastq</a> files returned by the sequencer. There are many programs, such as <a href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a>, that can use the quality scores in these files to filter out low-quality sequences.</li>
-<li>Clustering similar sequences together. Many erroneous sequences are very similar to the true sequences, so they will be incorporated into the same <a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a> as the true sequence. In that sense, clustering into OTUs will hide some sequencing error.</li>
-<li>Removal of <a href ="00--glossary.html#chimeric_sequences_anchor">chimeric sequences</a>. “Chimeras” are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.</li>
-<li>Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called <a href ="00--glossary.html#singleton_anchor">singletons</a>. So when you hear things like “singletons were removed” and means all OTUs with only a single sequence were removed.</li>
-<li><a href ="00--glossary.html#rarefaction_anchor">Rarefying</a> read counts. Usually, we try to make each sample in a sequencing run have the same number of reads sequenced, but that does not always happen. When a sample has many more reads than another sample, its apparent diversity can be artificially inflated since rare taxa are more likely to be found. To avoid this, the reads are subsampled to a fixed number or “rarefied”.</li>
-<li>Converting counts to presence/absence. Due to PCR biases and the nature of <a href ="00--glossary.html#compositional_data_anchor">compositional data</a>, many researchers advocate not using read count information at all. Instead, they recommend converting counts to simply “present” or “absent”.</li>
+<li>Removing sequences/bases that the sequencer indicates are low quality. This information is typically in the <b><a href ="00--glossary.html#fastq_anchor">.fastq</a></b> files returned by the sequencer. There are many programs, such as <a href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a>, that can use the quality scores in these files to filter out low-quality sequences.</li>
+<li>Clustering similar sequences together. Many erroneous sequences are very similar to the true sequences, so they will be incorporated into the same <b><a href ="00--glossary.html#operational_taxonomic_units_(otus)_anchor">OTU</a></b> as the true sequence. In that sense, clustering into OTUs will hide some sequencing error.</li>
+<li>Removal of <b><a href ="00--glossary.html#chimeric_sequences_anchor">chimeric sequences</a></b>. “Chimeras” are more significant errors that occur during PCR when an incomplete amplicon acts as a primer for a different template in a subsequent cycle. Most amplicon metagenomic pipelines (e.g. QIIME, mothur, usearch) have functions to detect and remove chimeras.</li>
+<li>Removing low-abundance sequences. Most of the time, erroneous sequences will occur much less often than the true sequence. Simply removing any unique sequence / OTU that appears less than some minimum number of times is an effective way to remove these errors. OTUs represented by only a single sequence are commonly called <b><a href ="00--glossary.html#singleton_anchor">singletons</a></b>. So when you hear things like “singletons were removed” and means all OTUs with only a single sequence were removed.</li>
+<li><b><a href ="00--glossary.html#rarefaction_anchor">Rarefying</a></b> read counts. Usually, we try to make each sample in a sequencing run have the same number of reads sequenced, but that does not always happen. When a sample has many more reads than another sample, its apparent diversity can be artificially inflated since rare taxa are more likely to be found. To avoid this, the reads are subsampled to a fixed number or “rarefied”.</li>
+<li>Converting counts to presence/absence. Due to PCR biases and the nature of <b><a href ="00--glossary.html#compositional_data_anchor">compositional data</a></b>, many researchers advocate not using read count information at all. Instead, they recommend converting counts to simply “present” or “absent”.</li>
 </ul>
 <p>Since we are only working with abundance matrices in these tutorials, the first three types of quality control have already been done (ideally), but we can still remove low-abundance OTUs and rarefy the counts of the remaining OTUs.</p>
 <div id="load-example-data" class="section level2">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 </div>
 <div id="removing-low-abundance-counts" class="section level2">
 <h2>Removing low-abundance counts</h2>
-<p>The easiest way to get rid of some error in your data is to throw out any count information below some threshold. The threshold is up to you; removing singletons or <a href ="00--glossary.html#doubletons_anchor">doubletons</a> is common, but lets be more conservative and remove any counts less than 10. The <code>zero_low_counts</code> counts can be used to convert any counts less than some number to zero.</p>
+<p>The easiest way to get rid of some error in your data is to throw out any count information below some threshold. The threshold is up to you; removing singletons or <b><a href ="00--glossary.html#doubletons_anchor">doubletons</a></b> is common, but lets be more conservative and remove any counts less than 10. The <code>zero_low_counts</code> counts can be used to convert any counts less than some number to zero.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(metacoder)
 obj<span class="op">$</span>data<span class="op">$</span>otu_counts &lt;-<span class="st"> </span><span class="kw">zero_low_counts</span>(obj, <span class="st">&quot;otu_counts&quot;</span>, <span class="dt">min_count =</span> <span class="dv">10</span>,
                                        <span class="dt">other_cols =</span> <span class="ot">TRUE</span>) <span class="co"># keep OTU_ID column</span></code></pre></div>
@@ -427,13 +427,13 @@ obj &lt;-<span class="st"> </span><span class="kw">filter_obs</span>(obj, <span 
 </div>
 <div id="rarefaction-curves" class="section level2">
 <h2>Rarefaction curves</h2>
-<p>The relationship between the number of reads and the number of OTUs can be described using <a href ="00--glossary.html#rarefaction_anchor">rarefaction curves</a>. Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads. The <code>rarecurve</code> function from the <code>vegan</code> package will do the random subsampling and plot the results for an abundance matrix. For example, the code below plots the rarefaction curve for a single sample:</p>
+<p>The relationship between the number of reads and the number of OTUs can be described using <b><a href ="00--glossary.html#rarefaction_anchor">rarefaction curves</a></b>. Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads. The <code>rarecurve</code> function from the <code>vegan</code> package will do the random subsampling and plot the results for an abundance matrix. For example, the code below plots the rarefaction curve for a single sample:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
 <span class="kw">rarecurve</span>(<span class="kw">t</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, <span class="st">&quot;M1981P563&quot;</span>]), <span class="dt">step =</span> <span class="dv">20</span>,
           <span class="dt">sample =</span> <span class="kw">min</span>(<span class="kw">colSums</span>(obj<span class="op">$</span>data<span class="op">$</span>otu_counts[, sample_data<span class="op">$</span>SampleID])),
           <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre></div>
 <p><img src="06--quality_control_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>For this sample, few new OTUs are observed after about 20,000 reads. Since the number of OTUs found flattens out, it suggests that the sample had sufficient reads to capture most of the diversity. Like other functions in <code>vegan</code>, <code>rarecurve</code> expects samples to in rows instead of columns, so we had to <a href ="00--glossary.html#transpose_anchor">transpose</a> (make rows columns) the matrix with the <code>t</code> function before passing it to <code>rarecurve</code>. If you plot all the samples, which takes a few minutes, it looks like this:</p>
+<p>For this sample, few new OTUs are observed after about 20,000 reads. Since the number of OTUs found flattens out, it suggests that the sample had sufficient reads to capture most of the diversity. Like other functions in <code>vegan</code>, <code>rarecurve</code> expects samples to in rows instead of columns, so we had to <b><a href ="00--glossary.html#transpose_anchor">transpose</a></b> (make rows columns) the matrix with the <code>t</code> function before passing it to <code>rarecurve</code>. If you plot all the samples, which takes a few minutes, it looks like this:</p>
 <p><img src="06--quality_control_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="converting-to-presenceabsence" class="section level2">
@@ -518,6 +518,30 @@ Show solution
 </span></code></pre>
 </div>
 <p><br /></p>
+<p><strong>3)</strong> What are two ways of accounting for uneven sample depth?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-18">
+Show Answer
+</button>
+<div id="hide_buttonunnamed-chunk-18" class="collapse">
+Rarefaction and converting counts to proportions.
+</div>
+<p><br /></p>
+<p><strong>4)</strong> What are some reasons that read counts might not correspond to species abundance in the original sample? Try to think of at least 3. There are 7 listed in the answer below and there are probably other reasons not listed.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-19">
+Show Answer
+</button>
+<div id="hide_buttonunnamed-chunk-19" class="collapse">
+<ul>
+<li>PCR primers amplify some species more than others.</li>
+<li>DNA sequencers sequence some sequences more than others.</li>
+<li>The locus being amplified might have different numbers of copies in different organisms.</li>
+<li>DNA from dead organisms can still be amplified, although this might not be a problem depending on the goal of the research.</li>
+<li>Different sequences/organisms degrade in the environment at different rates.</li>
+<li>Some organisms (e.g. spore-forming bacteria) are more resistant to DNA extraction techniques, so might not be as well represented in the DNA extract.</li>
+<li>Some species have more DNA per individual / weight than others.
+</div>
+<br /></li>
+</ul>
 </div>
 </div>
 

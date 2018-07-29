@@ -39,7 +39,6 @@ knitr::knit_hooks$set(
   }
 )
 
-
 # Display settings
 options(width = 100)
 

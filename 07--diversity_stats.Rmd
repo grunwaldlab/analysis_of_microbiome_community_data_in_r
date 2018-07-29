@@ -471,7 +471,13 @@ plot_richness(ps_obj, color = "Site", x = "Genotype", measures = c("Simpson", "I
 The Simpson index is bound between 0 and 1, wheras the inverse Simpson index is greater than zero. Also, the inverse Simpson index tends to spread out higher diversity values more. 
 ```
 
-**2a)** Using the techniques presented in the section on plotting the abundance of taxa, make a plot of taxon abundance for the site encoded "Jam".
+**2)** Rarefaction and converting counts to proportions are two ways of accounting for unequal sample depth. Although proportions are more intuitive and easier to understand, why might rarefaction be better when calculating diveristy indexes?
+
+```{asis hide_button = "Show Answer"}
+Some diversity indexes take into account the number of species. This especially important for those that use presence/absence instead of abundance, such as the Sørensen and Jaccard indexes. When read counts are rarefied, some low counts go to zero, effectively reducing the number of species in the sample, whereas converting to proportions will never make a count go to zero, so will not remove the effect of unequal sampling depth on these indexes.
+```
+
+**3a)** Using the techniques presented in the section on plotting the abundance of taxa, make a plot of taxon abundance for the site encoded "Jam".
 
 ```{r hide_button = TRUE}
 obj$data$site_abund <- calc_taxon_abund(obj, "otu_rarefied",
@@ -486,20 +492,20 @@ obj %>%
             title = "Taxa in leafs")
 ```
 
-**2b)** What are some of the most abundant families in the site "Jam"?
+**3b)** What are some of the most abundant families in the site "Jam"?
 
 ```{asis hide_button = "Show Answer"}
 Sphingobacteriaceae, Chitinophagaceae, Sphingomonadaceae, Comamonadaceae, Microbacteriaceae, etc..
 ```
 
-**2c)** What is the most abundant phylum in the site "Jam"?
+**3c)** What is the most abundant phylum in the site "Jam"?
 
 ```{asis hide_button = "Show Answer"}
 Proteobacteria
 ```
 
 
-**3a)** The ordination analysis colored by genotype showed no community differences corresponding to genotype. Try to use `compare_groups` to see if any taxa are significantly differentially abundant between genotypes to verify this result.
+**4a)** The ordination analysis colored by genotype showed no community differences corresponding to genotype. Try to use `compare_groups` to see if any taxa are significantly differentially abundant between genotypes to verify this result.
 
 ```{r hide_button = TRUE}
 library(dplyr)
@@ -511,10 +517,11 @@ obj %>%
   filter(wilcox_p_value < 0.05)
 ```
 
-**3b)** How many taxa have significant differences between genotypes?
+**4b)** How many taxa have significant differences between genotypes?
 
 ```{asis hide_button = "Show Answer"}
 None
 ```
+
 
 ## References

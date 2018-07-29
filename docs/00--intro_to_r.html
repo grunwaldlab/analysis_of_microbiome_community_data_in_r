@@ -297,10 +297,10 @@ $(document).ready(function () {
 
 <div id="a-very-short-introduction-to-r" class="section level1">
 <h1>A very short introduction to R</h1>
-<p>R is a large and complex topic. Even those who use it every day only know a small subset of what there is to know. However, you don’t need to know very much to do some very impressive things. This section is a <strong>very</strong> short introduction to the most basic aspects of R to get you started. Look at the list of resources and the end of this section for more complete tutorials.</p>
+<p>R is a large and complex topic. Even those who use it every day only know a small subset of what there is to know. However, you don’t need to know very much to do some very impressive things. This section is a very short introduction to the most basic aspects of R to get you started. Look at the list of resources and the end of this section for more complete tutorials.</p>
 <div id="what-is-r" class="section level2">
 <h2>What is R?</h2>
-<p>Unlike spreadsheet programs, like excel, R is a text-based “interactive” program, meaning that you use it by typing commands. If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data. If you type an invalid command, R will print an error message and, ideally, nothing will happen. Where you type commands is referred to as the <a href ="00--glossary.html#r_console_anchor">R console</a>. If you are using <a href ="00--glossary.html#rstudio_anchor">RStudio</a>, this is the lower left window. Here is what an R console looks like when R is first started:</p>
+<p>Unlike spreadsheet programs, like excel, R is a text-based “interactive” program, meaning that you use it by typing commands. If you type a valid command, R will do something, like printing something to the screen or modifying a piece of data. If you type an invalid command, R will print an error message and, ideally, nothing will happen. Where you type commands is referred to as the <b><a href ="00--glossary.html#r_console_anchor">R console</a></b>. If you are using <b><a href ="00--glossary.html#rstudio_anchor">RStudio</a></b>, this is the lower left window. Here is what an R console looks like when R is first started:</p>
 <pre><code>R version 3.4.4 (2018-03-15) -- &quot;Someone to Lean On&quot;
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -337,7 +337,7 @@ Type &#39;q()&#39; to quit R.
 </div>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
-<p>In programmer-speak, any piece of data is called a <a href ="00--glossary.html#variable_anchor">variable</a>. There are different types, or <a href ="00--glossary.html#class_anchor">classes</a>, of variables such as <code>character</code> (text), <code>numeric</code> (numbers), and <code>data.frame</code>s (tables). You can “save” the result of commands in R using <code>&lt;-</code> like so:</p>
+<p>In programmer-speak, any piece of data is called a <b><a href ="00--glossary.html#variable_anchor">variable</a></b>. There are different types, or <b><a href ="00--glossary.html#class_anchor">classes</a></b>, of variables such as <code>character</code> (text), <code>numeric</code> (numbers), and <code>data.frame</code>s (tables). You can “save” the result of commands in R using <code>&lt;-</code> like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a_sequence &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
 <p>Note how nothing is printed since the result of <code>1:100</code> was saved in the <code>a_sequence</code> variable, but it can still be printed by entering the name of the variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a_sequence</code></pre></div>
@@ -351,7 +351,7 @@ Type &#39;q()&#39; to quit R.
 </div>
 <div id="functions" class="section level2">
 <h2>Functions</h2>
-<p>Any command/tool/action in R is a <a href ="00--glossary.html#function_anchor">function</a> Most functions are used by putting the input to the function (if any) in parentheses following the function name. For example, the <code>length</code> function returns how many things are in a variable:</p>
+<p>Any command/tool/action in R is a <b><a href ="00--glossary.html#function_anchor">function</a></b> Most functions are used by putting the input to the function (if any) in parentheses following the function name. For example, the <code>length</code> function returns how many things are in a variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(a_sequence)</code></pre></div>
 <pre class="r-output"><code>[1] 100
 </code></pre>
@@ -385,11 +385,11 @@ Type &#39;q()&#39; to quit R.
 </div>
 <div id="typical-workflow" class="section level2">
 <h2>Typical workflow</h2>
-<p>In the examples above we have been assuming you are using R “interactively”, which means typing things directly into the console. This is fine for experimenting, but is really not the best way to use R. You should write your commands in a <a href ="00--glossary.html#plain_text_anchor">plain text</a> file with a “.R” file extension and copy and paste them into the R console. That way you have a record of what you have done and can rerun your entire analysis easily. If you are using RStudio, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console all at once.</p>
+<p>In the examples above we have been assuming you are using R “interactively”, which means typing things directly into the console. This is fine for experimenting, but is really not the best way to use R. You should write your commands in a <b><a href ="00--glossary.html#plain_text_anchor">plain text</a></b> file with a “.R” file extension and copy and paste them into the R console. That way you have a record of what you have done and can rerun your entire analysis easily. If you are using RStudio, you can move the cursor to the line you want to run in the text editor and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy, paste, and execute the line in the console all at once.</p>
 </div>
 <div id="r-packages" class="section level2">
 <h2>R packages</h2>
-<p>An R package is a set of user-defined functions organized so that people can easily share and use them. Most of the functions used by most R users are from R packages rather than those supplied by <a href ="00--glossary.html#base_r_anchor">base R</a>. R packages can be installed in a few ways, but the most common is to download them from <a href ="00--glossary.html#the_comprehensive_r_archive_network_(cran)_anchor">The Comprehensive R Archive Network (CRAN)</a> using the <code>install.packages</code> function. For example <code>stringr</code> is an R package that supplies functions to work with text.</p>
+<p>An R package is a set of user-defined functions organized so that people can easily share and use them. Most of the functions used by most R users are from R packages rather than those supplied by <b><a href ="00--glossary.html#base_r_anchor">base R</a></b>. R packages can be installed in a few ways, but the most common is to download them from <b><a href ="00--glossary.html#the_comprehensive_r_archive_network_(cran)_anchor">The Comprehensive R Archive Network (CRAN)</a></b> using the <code>install.packages</code> function. For example <code>stringr</code> is an R package that supplies functions to work with text.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)</code></pre></div>
 <p>Once installed, a package must be “loaded” using the <code>library</code> function before any functions it supplies can be used:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</code></pre></div>
@@ -409,7 +409,7 @@ Type &#39;q()&#39; to quit R.
 <li>output it yields</li>
 <li>examples demonstrating its usage</li>
 </ul>
-<p>This built-in documentation for each function can be a bit terse and hard to interpret and its quality varies greatly between packages. R packages will also usually have <a href ="00--glossary.html#vignette_anchor">vignettes</a>, which combine examples and explanations for how functions in a package are generally used. These can be found online or accessed in the installed package using the <code>browseVignettes</code> function:</p>
+<p>This built-in documentation for each function can be a bit terse and hard to interpret and its quality varies greatly between packages. R packages will also usually have <b><a href ="00--glossary.html#vignette_anchor">vignettes</a></b>, which combine examples and explanations for how functions in a package are generally used. These can be found online or accessed in the installed package using the <code>browseVignettes</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;metacoder&quot;</span>)</code></pre></div>
 <p>Finally, some of the best documentation can be found online. For some of the more popular packages, like <code>dplyr</code> and <code>ggplot2</code>, the best documentation is from unofficial sources, like blogs, books, and question/answer sites like <a href="https://stackoverflow.com/">Stack Overflow</a>.</p>
 </div>

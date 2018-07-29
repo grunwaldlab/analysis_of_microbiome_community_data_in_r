@@ -249,7 +249,7 @@ filter(sample_data,
 
 ### Subsetting a taxonomy
 
-For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj`).
+For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj` with `<-`).
 
 **4)** The function `n_obs` counts the number of items in the first dataset (the OTU table in our case) assigned to each taxon. Try running `n_obs(obj)` to see how many OTUs are within each taxon.
 
@@ -283,13 +283,25 @@ cat(
 filter_taxa(obj, taxon_names == "Actinobacteria", subtaxa = TRUE, drop_obs = FALSE)
 ```
 
-**7)** The function `taxon_ranks` returns the ranks for each taxon and it can be used like `taxon_names` in calls to `filter_taxa`. Look at the result of `taxon_ranks(obj)`. Subset `obj` to phyla ("p" in our data) *and their supertaxa*.
+**6d)** What happend to the taxon IDs for OTUs that are not in "Actinobacteria" and why?
+
+```{asis hide_button = "Show Answer"}
+The OTUs not in Actinobacteria were assinged a taxon ID of `NA` because there are no taxa left they could be reassigned to.
+```
+
+**7a)** The function `taxon_ranks` returns the ranks for each taxon and it can be used like `taxon_names` in calls to `filter_taxa`. Look at the result of `taxon_ranks(obj)`. Subset `obj` to phyla ("p" in our data) *and their supertaxa*.
 
 ```{r hide_button = TRUE}
 filter_taxa(obj, taxon_ranks == "p", supertaxa = TRUE)
 ```
 
-**8a)** Try to remove "Actinobacteria" and all of its subtaxa. You will probably need to look at the documentation for `filter_taxa` to figure out how to do this.
+**7b)** Were any OTUs removed? Why?
+
+```{asis hide_button = "Show Answer"}
+No, because they were reassigned to the phyla. 
+```
+
+**8a)** Try to remove "Actinobacteria" and all of its subtaxa. You will probably need to look at the documentation for `filter_taxa` by typing `?filter_taxa` to figure out how to do this.
 
 ```{r hide_button = TRUE}
 filter_taxa(obj, taxon_names == "Actinobacteria", subtaxa = TRUE, invert = TRUE)
@@ -316,7 +328,7 @@ filter_taxa(obj, taxon_names == "Actinobacteria",
 
 For the questions below, do not overwrite the `obj` with result of filtering (i.e. don't assign the result to `obj` with `<-`).
 
-**9a)** Use `filter_obs` to remove all rows of "otu_counts" that have less than 5 reads in the first sample, "M1981P563" without removing any taxa in the taxonomy.
+**9a)** Look at the documentation for `filter_obs` by typing `?filter_obs`. Use `filter_obs` to remove all rows of "otu_counts" that have less than 5 reads in the first sample, "M1981P563", without removing any taxa in the taxonomy.
 
 ```{r hide_button = TRUE}
 filter_obs(obj, "otu_counts", M1981P563 > 5)
@@ -348,7 +360,7 @@ Run the following code to add this as a table in your `taxmap` object:
 obj$data$sample_counts <- calc_n_samples(obj,
                                          dataset = "otu_counts",
                                          groups = sample_data$Type,
-                                         other_cols = "OTU_ID")
+                                         other_cols = "OTU_ID") # Preserves OTU_ID column
 print(obj)
 ```
 

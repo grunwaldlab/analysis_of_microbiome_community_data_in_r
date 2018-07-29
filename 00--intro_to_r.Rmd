@@ -14,7 +14,7 @@ knitr::opts_chunk$set(prompt = TRUE, comment = NA)
 R is a large and complex topic.
 Even those who use it every day only know a small subset of what there is to know.
 However, you don't need to know very much to do some very impressive things.
-This section is a **very** short introduction to the most basic aspects of R to get you started.
+This section is a very short introduction to the most basic aspects of R to get you started.
 Look at the list of resources and the end of this section for more complete tutorials.
 
 ## What is R?
