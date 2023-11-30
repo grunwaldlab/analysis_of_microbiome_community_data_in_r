@@ -196,14 +196,14 @@ There are `r sum(has_no_reads)` of `r length(has_no_reads)` OTUs that now have n
 Now that we know which they are, we can remove them using `filter_obs`.
 
 ```{r}
-filter_obs(obj, "otu_counts", ! has_no_reads) # note the ! negation operator
+filter_obs(obj, "otu_counts", !has_no_reads) # note the ! negation operator
 ```
 
 Note how this removed rows in the "otu_counts" table but did not remove any taxa.
 To remove taxa that are no longer observed in any OTUs, we need to add the `drop_taxa` option:
 
 ```{r}
-obj <- filter_obs(obj, "otu_counts", ! has_no_reads, drop_taxa = TRUE)
+obj <- filter_obs(obj, "otu_counts", !has_no_reads, drop_taxa = TRUE)
 ```
 
 If there were other tables in `obj$data` the data for those taxa would have been removed as well unless `drop_obs = FALSE` was added.
