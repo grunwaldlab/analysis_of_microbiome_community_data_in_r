@@ -1,4 +1,4 @@
 This is the source code for the "Analysis of Microbiome Community Data in R" ICPP 2018 workshop. 
-The website is available at: 
+The **current version of this document** is available at: 
 
-https://grunwaldlab.github.io/analysis_of_microbiome_community_data_in_r/
+https://grunwaldlab.github.io/metacoder_documentation/workshop--00--introduction.html
